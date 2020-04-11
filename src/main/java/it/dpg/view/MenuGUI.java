@@ -1,9 +1,10 @@
 package it.dpg.view;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -43,15 +44,55 @@ public class MenuGUI extends Application implements MenuView{
         var mainScene = new Scene(rootBox, 300, 350);
         rootBox.getChildren().addAll(startBtn, creditBtn, optionsBtn, exitBtn);
 
+        startBtn.setOnAction( (ActionEvent event) -> {
+            startGame();
+        });
+
+        exitBtn.setOnAction((ActionEvent event) ->{
+            exitGUI();
+        });
+
+        creditBtn.setOnAction( (ActionEvent event ) ->{
+            displayCredit();
+        });
+
+
         stage.setTitle("Dope Game Party-Menu");
         stage.setScene(mainScene);
         stage.show();
 
     }
 
+    //disable all button
+    private void disableAllBtn(){
+        startBtn.setDisable(true);
+        creditBtn.setDisable(true);
+        optionsBtn.setDisable(true);
+        exitBtn.setDisable(true);
+    }
+
+    //enable all button
+    private void enableAllBtn(){
+        startBtn.setDisable(false);
+        creditBtn.setDisable(false);
+        optionsBtn.setDisable(false);
+        exitBtn.setDisable(false);
+    }
+
     @Override
     public void displayCredit() {
+        Stage displayStage = new Stage();
 
+        final TextArea creditText = new TextArea();
+        var displayScene = new Scene(creditText, 300, 350);
+
+        creditText.setText("Dope Game Party by \n"+"Riccardo Squarcialupi");
+        creditText.setEditable(false);
+
+        displayStage.setScene(displayScene);
+        displayStage.setTitle("Dope Game Party-Credits");
+        displayStage.show();
+        
     }
 
     @Override
@@ -61,6 +102,11 @@ public class MenuGUI extends Application implements MenuView{
 
     @Override
     public void exitGUI() {
+        System.exit(1);
+    }
 
+    @Override
+    public void startGame() {
+        //startgame with variable from input
     }
 }
