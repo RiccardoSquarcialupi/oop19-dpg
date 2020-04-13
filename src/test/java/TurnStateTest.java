@@ -1,4 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
+
+import it.dpg.controller.gamecycle.TurnStateImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import it.dpg.controller.gamecycle.TurnState;
@@ -9,7 +11,7 @@ public class TurnStateTest {
 
     @BeforeEach
     void Setup() {
-
+        state = new TurnStateImpl();
     }
 
     @Test
@@ -36,6 +38,7 @@ public class TurnStateTest {
         });
     }
 
+    @Test
     void testDiceThrown() {
         state.newTurn();
         assertEquals(false, state.wasDiceThrown());
@@ -49,6 +52,7 @@ public class TurnStateTest {
         });
     }
 
+    @Test
     void testChoice() {
         state.newTurn();
         assertEquals(false, state.isChoosing());
