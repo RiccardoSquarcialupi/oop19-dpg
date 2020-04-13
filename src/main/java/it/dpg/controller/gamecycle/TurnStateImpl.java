@@ -26,17 +26,24 @@ public class TurnStateImpl implements TurnState {
     }
 
     @Override
-    public boolean wasDiceThrown() {
+    public boolean isDiceThrown() {
         checkGameStarted();
 
         return diceThrown;
     }
 
     @Override
-    public void setIsChoosing(boolean isChoosing) {
+    public void choiceStarted() {
         checkGameStarted();
 
-        this.isChoosing = isChoosing;
+        this.isChoosing = true;
+    }
+
+    @Override
+    public void choiceCompleted() {
+        checkGameStarted();
+
+        this.isChoosing = false;
     }
 
     @Override

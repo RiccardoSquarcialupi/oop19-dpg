@@ -20,26 +20,26 @@ public class TurnStateTest {
     void testNewTurn() {
         state.newTurn();
 
-        assertFalse(state.wasDiceThrown());
+        assertFalse(state.isDiceThrown());
         assertFalse(state.isChoosing());
     }
 
     @Test
     void testExeption() {
         assertThrows(IllegalStateException.class, () -> state.isChoosing());
-        assertThrows(IllegalStateException.class, () -> state.setIsChoosing(true));
+        assertThrows(IllegalStateException.class, () -> state.choiceStarted());
         assertThrows(IllegalStateException.class, () -> state.setDiceThrown());
-        assertThrows(IllegalStateException.class, () -> state.wasDiceThrown());
+        assertThrows(IllegalStateException.class, () -> state.isDiceThrown());
     }
 
     @Test
     void testDiceThrown() {
         state.newTurn();
-        assertFalse(state.wasDiceThrown());
+        assertFalse(state.isDiceThrown());
         state.setDiceThrown();
-        assertTrue(state.wasDiceThrown());
+        assertTrue(state.isDiceThrown());
         state.newTurn();
-        assertFalse(state.wasDiceThrown());
+        assertFalse(state.isDiceThrown());
         state.setDiceThrown();
         assertThrows(IllegalStateException.class, () -> state.setDiceThrown());
     }
@@ -48,9 +48,9 @@ public class TurnStateTest {
     void testChoice() {
         state.newTurn();
         assertFalse(state.isChoosing());
-        state.setIsChoosing(true);
+        state.choiceStarted();
         assertTrue(state.isChoosing());
-        state.setIsChoosing(false);
+        state.choiceCompleted();
         assertFalse(state.isChoosing());
     }
 }

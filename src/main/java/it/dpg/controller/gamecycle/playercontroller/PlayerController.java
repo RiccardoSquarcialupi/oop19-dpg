@@ -10,7 +10,7 @@ public interface PlayerController {
      * handles the throw of a dice for the player (human or cpu)
      * @param dice the type of dice throw
      */
-    void throwDice(int dice);
+    void throwDice(int dice) throws InterruptedException;
 
     /**
      * handles the choice of direction for the player (human or cpu)

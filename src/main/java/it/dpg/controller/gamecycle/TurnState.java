@@ -23,16 +23,21 @@ public interface TurnState {
      * @exception IllegalStateException if newTurn was never called
      * @exception IllegalStateException if used twice in the same turn
      */
-    boolean wasDiceThrown();
+    boolean isDiceThrown();
 
     /**
-     * set the state of the turn for when a player has to make a choice
-     *
-     * @param isChoosing true if the player has to choose, false otherwise
+     * notify a choice has to be done
      *
      * @exception IllegalStateException if newTurn was never called
      */
-    void setIsChoosing(boolean isChoosing);
+    void choiceStarted();
+
+    /**
+     * notify a choice has been completed
+     *
+     * @exception IllegalStateException if newTurn was never called
+     */
+    void choiceCompleted();
 
     /**
      * @return true if the player is currently choosing, false otherwise
