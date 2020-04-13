@@ -14,12 +14,14 @@ public class HumanPlayerController extends AbstractPlayerController{
     @Override
     public void throwDice(int dice) {
         view.enableDiceThrow(dice);
-        try {
-            while(!turnState.isDiceThrown()) {
-                wait();
+        synchronized (this.turnState) {
+            try {
+                while (!turnState.isDiceThrown()) {
+                    turnState.wait();
+                }
+            } catch(InterruptedException e) {
+                System.out.println("thread interrupted during dice throw wait");
             }
-        } catch(InterruptedException e) {
-            System.out.println("thread interrupted during dice throw wait");
         }
         view.disableDiceThrow();
     }
@@ -29,12 +31,13 @@ public class HumanPlayerController extends AbstractPlayerController{
         view.enableDirectionChoice(possibleCells);
         turnState.isChoosing();
         try {
-            while(turnState.isChoosing()) {
+            while (turnState.isChoosing()) {
                 wait();
             }
         } catch(InterruptedException e) {
             System.out.println("thread interrupted during dice throw wait");
         }
+        view.disableDiceThrow();
     }
 
     @Override

@@ -4,13 +4,17 @@ import jdk.jshell.spi.ExecutionControl;
 
 import java.util.Set;
 
+/**
+ * interface for handle behaviours of a specific entity, human or cpu
+ * depending on the implementation.
+ */
 public interface PlayerController {
 
     /**
      * handles the throw of a dice for the player (human or cpu)
      * @param dice the type of dice throw
      */
-    void throwDice(int dice) throws InterruptedException;
+    void throwDice(int dice);
 
     /**
      * handles the choice of direction for the player (human or cpu)

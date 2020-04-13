@@ -9,7 +9,7 @@ import it.dpg.controller.gamecycle.TurnState;
 
 public class TurnStateTest {
 
-    TurnState state;
+    private TurnState state;
 
     @BeforeEach
     void Setup() {
