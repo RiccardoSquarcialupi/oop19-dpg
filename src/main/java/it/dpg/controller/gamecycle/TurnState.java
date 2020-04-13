@@ -1,4 +1,4 @@
-package it.dpg.controller;
+package it.dpg.controller.gamecycle;
 
 /**
  * keeps track of the current state of a turn
