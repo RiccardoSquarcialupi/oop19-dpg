@@ -1,4 +1,6 @@
-package it.dpg.controller.gamecycle;
+package it.dpg.controller.gamecycle.playercontroller;
+
+import jdk.jshell.spi.ExecutionControl;
 
 import java.util.Set;
 
@@ -12,7 +14,7 @@ public interface PlayerController {
 
     /**
      * handles the choice of direction for the player (human or cpu)
-     * @param
+     * @param possibleCells IDs if the possible choices
      */
     void chooseDirection(Set<Integer> possibleCells);
 

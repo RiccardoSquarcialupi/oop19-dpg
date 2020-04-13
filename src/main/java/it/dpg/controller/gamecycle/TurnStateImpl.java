@@ -3,8 +3,8 @@ package it.dpg.controller.gamecycle;
 public class TurnStateImpl implements TurnState {
 
     private boolean gameStarted = false;
-    private boolean diceThrown;
-    private boolean isChoosing;
+    private volatile boolean diceThrown;
+    private volatile boolean isChoosing;
 
     public TurnStateImpl() {}
 
