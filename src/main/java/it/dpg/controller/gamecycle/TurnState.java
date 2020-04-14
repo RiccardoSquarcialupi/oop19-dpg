@@ -1,5 +1,7 @@
 package it.dpg.controller.gamecycle;
 
+import java.util.Optional;
+
 /**
  * keeps track of the current state of a turn
  */
@@ -45,4 +47,16 @@ public interface TurnState {
      * @exception IllegalStateException if newTurn was never called
      */
     boolean isChoosing();
+
+    /**
+     * save the last direction choice of the player/cpu currently playing the turn
+     * @param cellId id of the chosen cell
+     */
+    void setLastDirectionChoice(int cellId);
+
+    /**
+     * get the last direction choice made by a player/cpu
+     * @return Optional.empty if no choice has been made in the turn and the chosen cell otherwise
+     */
+    Optional<Integer> getLastDirectionChoice();
 }

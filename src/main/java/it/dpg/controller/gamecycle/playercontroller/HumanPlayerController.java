@@ -27,7 +27,7 @@ public class HumanPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public void chooseDirection(Set<Integer> possibleCells)  {
+    public int chooseDirection(Set<Integer> possibleCells)  {
         view.enableDirectionChoice(possibleCells);
         turnState.choiceStarted();
         synchronized (this.turnState) {
@@ -40,6 +40,7 @@ public class HumanPlayerController extends AbstractPlayerController{
             }
         }
         view.disableDirectionChoice();
+        return 0;
     }
 
     @Override

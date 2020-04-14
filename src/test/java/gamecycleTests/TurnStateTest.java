@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import it.dpg.controller.gamecycle.TurnState;
 
+import java.util.Optional;
+
 public class TurnStateTest {
 
     private TurnState state;
@@ -30,6 +32,8 @@ public class TurnStateTest {
         assertThrows(IllegalStateException.class, () -> state.choiceStarted());
         assertThrows(IllegalStateException.class, () -> state.setDiceThrown());
         assertThrows(IllegalStateException.class, () -> state.isDiceThrown());
+        assertThrows(IllegalStateException.class, () -> state.setLastDirectionChoice(1));
+        assertThrows(IllegalStateException.class, () -> state.getLastDirectionChoice());
     }
 
     @Test
@@ -52,5 +56,16 @@ public class TurnStateTest {
         assertTrue(state.isChoosing());
         state.choiceCompleted();
         assertFalse(state.isChoosing());
+    }
+
+    @Test
+    void testDirectionChoice() {
+        state.newTurn();
+        assertTrue(state.getLastDirectionChoice().isEmpty());
+        state.setLastDirectionChoice(1);
+        assertTrue(state.getLastDirectionChoice().isPresent());
+        assertEquals(1, state.getLastDirectionChoice().get());
+        state.newTurn();
+        assertTrue(state.getLastDirectionChoice().isEmpty());
     }
 }
