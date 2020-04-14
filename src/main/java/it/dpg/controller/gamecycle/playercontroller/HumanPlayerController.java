@@ -29,20 +29,22 @@ public class HumanPlayerController extends AbstractPlayerController{
     @Override
     public void chooseDirection(Set<Integer> possibleCells)  {
         view.enableDirectionChoice(possibleCells);
-        turnState.isChoosing();
-        try {
-            while (turnState.isChoosing()) {
-                wait();
+        turnState.choiceStarted();
+        synchronized (this.turnState) {
+            try {
+                while (turnState.isChoosing()) {
+                    turnState.wait();
+                }
+            } catch (InterruptedException e) {
+                System.out.println("thread interrupted during dice throw wait");
             }
-        } catch(InterruptedException e) {
-            System.out.println("thread interrupted during dice throw wait");
         }
         view.disableDiceThrow();
     }
 
     @Override
     public int playMinigame() {
-        //TODO implement the method
+        //TODO implement the method when minigames are implemented
         return 0;
     }
 }
