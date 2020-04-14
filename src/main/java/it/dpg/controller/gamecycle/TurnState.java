@@ -1,5 +1,7 @@
 package it.dpg.controller.gamecycle;
 
+import java.util.Optional;
+
 /**
  * keeps track of the current state of a turn
  */
@@ -23,16 +25,21 @@ public interface TurnState {
      * @exception IllegalStateException if newTurn was never called
      * @exception IllegalStateException if used twice in the same turn
      */
-    boolean wasDiceThrown();
+    boolean isDiceThrown();
 
     /**
-     * set the state of the turn for when a player has to make a choice
-     *
-     * @param isChoosing true if the player has to choose, false otherwise
+     * notify a choice has to be done
      *
      * @exception IllegalStateException if newTurn was never called
      */
-    void setIsChoosing(boolean isChoosing);
+    void choiceStarted();
+
+    /**
+     * notify a choice has been completed
+     *
+     * @exception IllegalStateException if newTurn was never called
+     */
+    void choiceCompleted();
 
     /**
      * @return true if the player is currently choosing, false otherwise
@@ -40,4 +47,16 @@ public interface TurnState {
      * @exception IllegalStateException if newTurn was never called
      */
     boolean isChoosing();
+
+    /**
+     * save the last direction choice of the player/cpu currently playing the turn
+     * @param cellId id of the chosen cell
+     */
+    void setLastDirectionChoice(int cellId);
+
+    /**
+     * get the last direction choice made by a player/cpu
+     * @return Optional.empty if no choice has been made in the turn and the chosen cell otherwise
+     */
+    Optional<Integer> getLastDirectionChoice();
 }

@@ -8,7 +8,7 @@ public interface GridView {
     void setRemainingMoves(int moves);
     void enableDiceThrow(int diceFaces);
     void disableDiceThrow();
-    void showText();
+    void showText(String text);
     void removeText();
     void enableDirectionChoice(Set<Integer> cellsId);
     void disableDirectionChoice();

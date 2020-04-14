@@ -1,10 +1,14 @@
 package it.dpg.controller.gamecycle;
 
+import java.util.Optional;
+
 public class TurnStateImpl implements TurnState {
 
     private boolean gameStarted = false;
-    private boolean diceThrown;
-    private boolean isChoosing;
+    private volatile boolean diceThrown;//booleans are volatile to allow parallel threads access
+    private volatile boolean isChoosing;
+    private Integer lastDirectionChosen;
+    private boolean hasChosenDirection;
 
     public TurnStateImpl() {}
 
@@ -13,6 +17,7 @@ public class TurnStateImpl implements TurnState {
         gameStarted = true;
         diceThrown = false;
         isChoosing = false;
+        hasChosenDirection = false;
     }
 
     @Override
@@ -26,17 +31,24 @@ public class TurnStateImpl implements TurnState {
     }
 
     @Override
-    public boolean wasDiceThrown() {
+    public boolean isDiceThrown() {
         checkGameStarted();
 
         return diceThrown;
     }
 
     @Override
-    public void setIsChoosing(boolean isChoosing) {
+    public void choiceStarted() {
         checkGameStarted();
 
-        this.isChoosing = isChoosing;
+        this.isChoosing = true;
+    }
+
+    @Override
+    public void choiceCompleted() {
+        checkGameStarted();
+
+        this.isChoosing = false;
     }
 
     @Override
@@ -44,6 +56,24 @@ public class TurnStateImpl implements TurnState {
         checkGameStarted();
 
         return isChoosing;
+    }
+
+    @Override
+    public synchronized void setLastDirectionChoice(int cellId) {
+        checkGameStarted();
+
+        hasChosenDirection = true;
+        lastDirectionChosen = cellId;
+    }
+
+    @Override
+    public synchronized Optional<Integer> getLastDirectionChoice() {
+        checkGameStarted();
+
+        if(hasChosenDirection) {
+            return Optional.of(lastDirectionChosen);
+        }
+        return Optional.empty();
     }
 
     private void checkGameStarted() {

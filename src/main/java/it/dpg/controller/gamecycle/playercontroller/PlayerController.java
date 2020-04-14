@@ -1,7 +1,13 @@
-package it.dpg.controller.gamecycle;
+package it.dpg.controller.gamecycle.playercontroller;
+
+import jdk.jshell.spi.ExecutionControl;
 
 import java.util.Set;
 
+/**
+ * interface for handle behaviours of a specific entity, human or cpu
+ * depending on the implementation.
+ */
 public interface PlayerController {
 
     /**
@@ -12,9 +18,9 @@ public interface PlayerController {
 
     /**
      * handles the choice of direction for the player (human or cpu)
-     * @param
+     * @param possibleCells IDs if the possible choices
      */
-    void chooseDirection(Set<Integer> possibleCells);
+    int chooseDirection(Set<Integer> possibleCells);
 
     /**
      * handles the phase of the turn in witch a player (human or cpu) has to play a minigame
