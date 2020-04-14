@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CpuPlayerTest {
 
-    public class CpuMock implements Cpu{
+    private class CpuMock implements Cpu{
         @Override
         public int randomizeDirectionChoice() {
             return 5;
