@@ -40,7 +40,4 @@ public class CpuPlayerTest {
         assertEquals(5, state.getLastDirectionChoice().get());
         assertFalse(state.isChoosing());
     }
-
-
-
 }
