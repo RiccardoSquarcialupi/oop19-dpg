@@ -39,7 +39,7 @@ public class HumanPlayerController extends AbstractPlayerController{
                 System.out.println("thread interrupted during dice throw wait");
             }
         }
-        view.disableDiceThrow();
+        view.disableDirectionChoice();
     }
 
     @Override

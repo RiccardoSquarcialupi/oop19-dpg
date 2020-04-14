@@ -20,7 +20,7 @@ public class HumanPlayerTest {
     @Test
     public void testDiceThrow() {
         state.newTurn();
-        long waitingTime = 2000;
+        long waitingTime = 4000;
 
         Thread gameCycleMock = new Thread(() -> {
             long start = System.currentTimeMillis();
@@ -51,7 +51,7 @@ public class HumanPlayerTest {
     @Test
     public void testDirectionChoice() {
         state.newTurn();
-        long waitingTime = 2000;
+        long waitingTime = 4000;
 
         Thread gameCycleMock = new Thread(() -> {
             long start = System.currentTimeMillis();
