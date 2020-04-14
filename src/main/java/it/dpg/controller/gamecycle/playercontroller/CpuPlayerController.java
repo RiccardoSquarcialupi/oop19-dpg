@@ -8,8 +8,11 @@ import java.util.Set;
 
 public class CpuPlayerController extends AbstractPlayerController{
 
+    private final Cpu cpu;
+
     public CpuPlayerController(TurnState turnState, GridView view, Cpu cpu) {
         super(turnState, view);
+        this.cpu = cpu;
     }
 
     @Override
@@ -19,7 +22,9 @@ public class CpuPlayerController extends AbstractPlayerController{
 
     @Override
     public int chooseDirection(Set<Integer> possibleCells) {
-        return 0;
+        int direction = cpu.randomizeDirectionChoice();
+        turnState.setLastDirectionChoice(direction);
+        return direction;
     }
 
     @Override
