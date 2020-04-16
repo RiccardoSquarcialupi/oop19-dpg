@@ -16,12 +16,17 @@ public class MenuControllerImpl implements MenuController {
     @Override
     public void setOptionsPlayer(Map<Integer, String> optionPlayer) {
         mapPlayer.clear();
-        mapPlayer.putAll(optionPlayer);
+        if(!optionPlayer.isEmpty()){
+            mapPlayer.putAll(optionPlayer);
+        }
+
     }
     @Override
     public void setOptionsAI(Map<String, MenuView.Difficulty> optionsAI) {
         mapAI.clear();
-        mapAI.putAll(optionsAI);
+        if(!optionsAI.isEmpty()) {
+            mapAI.putAll(optionsAI);
+        }
     }
 
     @Override
