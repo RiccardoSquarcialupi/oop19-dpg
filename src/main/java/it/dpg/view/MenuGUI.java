@@ -1,13 +1,22 @@
 package it.dpg.view;
+import it.dpg.controller.MenuController;
+import it.dpg.controller.MenuControllerImpl;
 import javafx.application.Application;
+import javafx.beans.value.ObservableIntegerValue;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MenuGUI extends Application implements MenuView{
 
@@ -15,6 +24,12 @@ public class MenuGUI extends Application implements MenuView{
     private final Button creditBtn = new Button("Credits");
     private final Button optionsBtn = new Button("Options");
     private final Button exitBtn = new Button("Exit");
+
+    public Map<Integer,String> optionPlayerMap = new HashMap<>();
+    public Map<String,Difficulty> optionAIMap = new HashMap<>();
+    public final static int NUM_MAX_GIOCATORI = 8;
+
+    MenuController optionController = new MenuControllerImpl();
 
     /**
      * @param stage
@@ -56,6 +71,10 @@ public class MenuGUI extends Application implements MenuView{
             displayCredit();
         });
 
+        optionsBtn.setOnAction((ActionEvent event)->{
+            displayOptions();
+        });
+
 
         stage.setTitle("Dope Game Party-Menu");
         stage.setScene(mainScene);
@@ -81,28 +100,67 @@ public class MenuGUI extends Application implements MenuView{
 
     @Override
     public void displayCredit() {
-        Stage displayStage = new Stage();
+        Stage creditStage = new Stage();
 
         final TextArea creditText = new TextArea();
-        var displayScene = new Scene(creditText, 300, 350);
+        var creditScene = new Scene(creditText, 300, 350);
 
-        creditText.setText("Dope Game Party by \n"+"Riccardo Squarcialupi");
+        creditText.setText("Dope Game Party by \n\n"+"Riccardo Squarcialupi\n" +
+                "Davide Picchiotti\n" +
+                "Miriana Ascenzo\n" +
+                "Davide Freddi");
         creditText.setEditable(false);
 
-        displayStage.setScene(displayScene);
-        displayStage.setTitle("Dope Game Party-Credits");
-        displayStage.show();
+        creditStage.setScene(creditScene);
+        creditStage.setTitle("Dope Game Party-Credits");
+        creditStage.show();
         
     }
 
     @Override
     public void displayOptions() {
+        Stage optionStage = new Stage();
+        ObservableList<Integer> listNumPlayer = FXCollections.observableArrayList(1,2,3,4);
+        ObservableList<Integer> listNumAI = FXCollections.observableArrayList(0,1,2,3,4);
+
+        ComboBox<Integer> numPlayer = new ComboBox<>(listNumPlayer);
+        numPlayer.setPromptText("Numero di Giocatori");
+
+        numPlayer.valueProperty().addListener((observableValue, oldValue, newValue) -> {
+            optionPlayerMap.clear();
+            for(int i = newValue.intValue();i>=1;i--){
+                optionPlayerMap.put(Integer.valueOf(i),"Giocatore"+i);
+            }
+            optionController.setOptionsPlayer(optionPlayerMap);
+
+        });
+
+        ComboBox<Integer> numAI = new ComboBox<>(listNumAI);
+        numAI.setPromptText("Numero di AI");
+
+        numAI.valueProperty().addListener((observableValue, oldValue, newValue) -> {
+            optionAIMap.clear();
+            for(int i= newValue.intValue();i>=1;i--){
+                optionAIMap.put("AI"+i,Difficulty.EASY);
+            }
+            optionController.setOptionsAI(optionAIMap);
+        });
+
+        var optionBox= new VBox();
+        var optionScene = new Scene(optionBox, 300, 250);
+        optionBox.setSpacing(10);
+        optionBox.setAlignment(Pos.BASELINE_CENTER);
+        optionBox.getChildren().addAll(numPlayer,numAI);
+
+        optionStage.setScene(optionScene);
+        optionStage.setTitle("Dope game Party-Options");
+        optionStage.show();
 
     }
 
     @Override
     public void exitGUI() {
-        System.exit(1);
+        System.exit(0);
     }
 
     @Override
