@@ -1,7 +1,8 @@
 /**
- *@author Riccardo Squarcialupi
+ * @author Riccardo Squarcialupi
  */
 package it.dpg.view;
+
 import it.dpg.controller.MenuController;
 import it.dpg.controller.MenuControllerImpl;
 import javafx.application.Application;

@@ -1,21 +1,37 @@
 package it.dpg.view;
 
+/**
+ * Interface for the MenuGUI
+ *
+ * @author Riccardo Squarcialupi
+ */
 public interface MenuView {
-    //difficulty for AI settings
+
+    /**
+     * difficulty for AI settings
+     */
     enum Difficulty {
-        EASY,MEDIUM,HARD;
+        EASY, MEDIUM, HARD
     }
 
-    //display credit in a new scene
+    /**
+     * display credit in a new scene
+     */
     void displayCredit();
 
-    //display options in a new scene
+    /**
+     * display options in a new scene
+     */
     void displayOptions();
 
-    //exit the GUI
+    /**
+     * exit the GUI
+     */
     void exitGUI();
 
-    //initialize the game with input parameters from option
+    /**
+     * initialize the game with input parameters from option
+     */
     void startGame();
-    
+
 }
