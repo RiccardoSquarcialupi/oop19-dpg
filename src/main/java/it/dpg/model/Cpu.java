@@ -1,8 +1,8 @@
 package it.dpg.model;
 
 public interface Cpu {
-    void setCharacterToControl(Character character);
-    Character getCharacter();
+    void setControlledCharacter(Character character);
+    Character getControlledCharacter();
     void setDifficulty(Difficulty difficulty);
     Difficulty getDifficulty();
     Direction getRandomDirection();
