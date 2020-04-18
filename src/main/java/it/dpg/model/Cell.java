@@ -1,12 +1,15 @@
 package it.dpg.model;
 
+import java.util.Optional;
+
 public interface Cell {
 
 
-    Cell getLeft();
-    Cell getRight();
-    Cell getForward();
-    Cell getPrevious();
+    Optional<Cell> getLeft();
+    Optional<Cell> getRight();
+    Optional<Cell> getForward();
+    Optional<Cell> getPrevious();
+    Boolean isAFork();
 
     Integer getId();
     CellType getType();
