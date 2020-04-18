@@ -1,4 +1,4 @@
-package gamecycleTests;
+package it.dpg.gamecycleTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,8 +6,6 @@ import it.dpg.controller.gamecycle.TurnStateImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import it.dpg.controller.gamecycle.TurnState;
-
-import java.util.Optional;
 
 public class TurnStateTest {
 

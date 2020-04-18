@@ -1,9 +1,8 @@
-package gamecycleTests;
+package it.dpg.gamecycleTests;
 
 import it.dpg.controller.gamecycle.TurnState;
 import it.dpg.controller.gamecycle.TurnStateImpl;
 import it.dpg.controller.gamecycle.playercontroller.CpuPlayerController;
-import it.dpg.controller.gamecycle.playercontroller.HumanPlayerController;
 import it.dpg.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.model.Cpu;
 import org.junit.jupiter.api.Test;

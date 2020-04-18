@@ -1,4 +1,4 @@
-package gamecycleTests;
+package it.dpg.gamecycleTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
