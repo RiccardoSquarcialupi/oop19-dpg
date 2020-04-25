@@ -1,14 +1,18 @@
 package it.dpg.model;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+
 public interface Character {
     int getId();
     String getName();
     void setTurn(int turn);
     int getTurn();
     void setPosition(Cell position);
-    Cell getPosition();
+    ImmutablePair<Integer, Integer> getPosition();
+    CellType getCellType();
     boolean stepForward();
-    boolean stepInDirection();
+    boolean stepInDirection(ImmutablePair<Integer, Integer> coordinates);
     void setDice(Dice dice);
     Dice getDice();
     int throwDice();
