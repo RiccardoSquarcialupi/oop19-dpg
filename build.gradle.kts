@@ -28,6 +28,8 @@ dependencies {
         }
     }
 
+    implementation("org.apache.commons:commons-lang3:3.8.1")
+
     //TEST DEPENDENCIES
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
