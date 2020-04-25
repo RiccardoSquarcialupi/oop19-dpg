@@ -15,10 +15,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import java.util.HashMap;
-import java.util.Map;
 
-/** The Menu when the application start
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The Menu when the application start
+ *
  * @author Riccardo Squarcialupi
  */
 public class MenuGUI extends Application implements MenuView {
@@ -37,11 +40,11 @@ public class MenuGUI extends Application implements MenuView {
     private final Button creditBtn = new Button("Credits");
     private final Button optionsBtn = new Button("Options");
     private final Button exitBtn = new Button("Exit");
-    private Map<Integer, String> optionPlayerMap = new HashMap<>();
-    private Map<String, Difficulty> optionAIMap = new HashMap<>();
     private MenuController optionController = new MenuControllerImpl();
 
-    /**Method for start the Application
+    /**
+     * Method for start the Application
+     *
      * @param stage Represent the "case" for the all Graphics Stuff
      */
     @Override
@@ -49,7 +52,9 @@ public class MenuGUI extends Application implements MenuView {
         initializeGUI(stage);
     }
 
-    /** Method for create the menu
+    /**
+     * Method for create the menu
+     *
      * @param stage Represent the "case" for the all Graphics Stuff
      */
     private void initializeGUI(Stage stage) {
@@ -83,7 +88,8 @@ public class MenuGUI extends Application implements MenuView {
 
     }
 
-    /** Method that create another window for Credits
+    /**
+     * Method that create another window for Credits
      */
     @Override
     public void displayCredit() {
@@ -104,57 +110,112 @@ public class MenuGUI extends Application implements MenuView {
 
     }
 
-    /**Method that create another window for Options
+    /**
+     * Method that create another window for Options
      */
     @Override
     public void displayOptions() {
         Stage optionStage = new Stage();
         ObservableList<Integer> listNumPlayer = FXCollections.observableArrayList(1, 2, 3, 4);
         ObservableList<Integer> listNumAI = FXCollections.observableArrayList(0, 1, 2, 3, 4);
+        ObservableList<Difficulty> listDifficultyAI = FXCollections.observableArrayList(Difficulty.EASY, Difficulty.NORMAL, Difficulty.HARD, Difficulty.CRAZY);
+
+        List<ComboBox<Difficulty>> listDifficulty = new ArrayList<>();
+        listDifficulty.add(0, new ComboBox<>(listDifficultyAI));
+        listDifficulty.add(1, new ComboBox<>(listDifficultyAI));
+        listDifficulty.add(2, new ComboBox<>(listDifficultyAI));
+        listDifficulty.add(3, new ComboBox<>(listDifficultyAI));
+
+        listDifficulty.get(0).setDisable(true);
+        listDifficulty.get(0).setPromptText("Difficolta' AI1");
+        listDifficulty.get(0).valueProperty().addListener((observableValue, oldValue, newValue) -> optionController.setAIDifficulty(0, newValue));
+
+        listDifficulty.get(1).setDisable(true);
+        listDifficulty.get(1).setPromptText("Difficolta' AI2");
+        listDifficulty.get(1).valueProperty().addListener((observableValue, oldValue, newValue) -> optionController.setAIDifficulty(1, newValue));
+
+        listDifficulty.get(2).setDisable(true);
+        listDifficulty.get(2).setPromptText("Difficolta' AI3");
+        listDifficulty.get(2).valueProperty().addListener((observableValue, oldValue, newValue) -> optionController.setAIDifficulty(2, newValue));
+
+        listDifficulty.get(3).setDisable(true);
+        listDifficulty.get(3).setPromptText("Difficolta' AI4");
+        listDifficulty.get(3).valueProperty().addListener((observableValue, oldValue, newValue) -> optionController.setAIDifficulty(3, newValue));
 
         ComboBox<Integer> numPlayer = new ComboBox<>(listNumPlayer);
         numPlayer.setPromptText("Numero di Giocatori");
 
-        numPlayer.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-            optionPlayerMap.clear();
-            for (int i = newValue; i >= 1; i--) {
-                optionPlayerMap.put(i, "Giocatore" + i);
-            }
-            optionController.setOptionsPlayer(optionPlayerMap);
-
-        });
+        numPlayer.valueProperty().addListener((observableValue, oldValue, newValue) -> optionController.setOptionsPlayer(newValue));
 
         ComboBox<Integer> numAI = new ComboBox<>(listNumAI);
         numAI.setPromptText("Numero di AI");
 
         numAI.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-            optionAIMap.clear();
-            for (int i = newValue; i >= 1; i--) {
-                optionAIMap.put("AI" + i, Difficulty.EASY);
+
+            optionController.setOptionsAI(newValue);
+            listDifficulty.get(0).valueProperty().set(Difficulty.EASY);
+            listDifficulty.get(1).valueProperty().set(Difficulty.EASY);
+            listDifficulty.get(2).valueProperty().set(Difficulty.EASY);
+            listDifficulty.get(3).valueProperty().set(Difficulty.EASY);
+
+            switch (newValue) {
+                case 0:
+                    listDifficulty.get(0).setDisable(true);
+                    listDifficulty.get(1).setDisable(true);
+                    listDifficulty.get(2).setDisable(true);
+                    listDifficulty.get(3).setDisable(true);
+                    break;
+                case 1:
+                    listDifficulty.get(0).setDisable(false);
+                    listDifficulty.get(1).setDisable(true);
+                    listDifficulty.get(2).setDisable(true);
+                    listDifficulty.get(3).setDisable(true);
+                    break;
+                case 2:
+                    listDifficulty.get(0).setDisable(false);
+                    listDifficulty.get(1).setDisable(false);
+                    listDifficulty.get(2).setDisable(true);
+                    listDifficulty.get(3).setDisable(true);
+                    break;
+                case 3:
+                    listDifficulty.get(0).setDisable(false);
+                    listDifficulty.get(1).setDisable(false);
+                    listDifficulty.get(2).setDisable(false);
+                    listDifficulty.get(3).setDisable(true);
+                    break;
+                case 4:
+                    listDifficulty.get(0).setDisable(false);
+                    listDifficulty.get(1).setDisable(false);
+                    listDifficulty.get(2).setDisable(false);
+                    listDifficulty.get(3).setDisable(false);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + newValue);
             }
-            optionController.setOptionsAI(optionAIMap);
         });
 
         var optionBox = new VBox();
         var optionScene = new Scene(optionBox, 300, 250);
         optionBox.setSpacing(10);
         optionBox.setAlignment(Pos.BASELINE_CENTER);
-        optionBox.getChildren().addAll(numPlayer, numAI);
+        optionBox.getChildren().addAll(numPlayer, numAI, listDifficulty.get(0), listDifficulty.get(1), listDifficulty.get(2), listDifficulty.get(3));
 
         optionStage.setScene(optionScene);
         optionStage.setTitle("Dope game Party-Options");
         optionStage.show();
-
     }
 
-    /**Method for exit the application
+    /**
+     * Method for exit the application
      */
     @Override
     public void exitGUI() {
         System.exit(0);
     }
 
-    /**Method that start the game
+    /**
+     * Method that start the game
+     *
      * @param
      * @param
      * @param

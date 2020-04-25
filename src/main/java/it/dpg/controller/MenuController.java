@@ -13,15 +13,15 @@ public interface MenuController {
 
     /**
      * Save player's option from Map
-     * @param optionPlayer Map used for pass at the method the settings of the Player to save
+     * @param numPlayer number of PLayer that are in game
      */
-    void setOptionsPlayer(Map<Integer, String> optionPlayer);
+    void setOptionsPlayer(Integer numPlayer);
 
     /**
      * Save AI's option from Map
-     * @param optionsAI Map used for pass at the method the settings of the AI to save
+     * @param numAI number of AI that are in game
      */
-    void setOptionsAI(Map<String, Difficulty> optionsAI);
+    void setOptionsAI(Integer numAI);
 
     /**
      * return the Map of Player options
@@ -33,5 +33,11 @@ public interface MenuController {
      */
     Map<String, Difficulty> getOptionsAI();
 
+    /**
+     *
+     * @param whichAI AI to set Difficulty
+     * @param dif which Difficulty to set
+     */
+    void setAIDifficulty(Integer whichAI, Difficulty dif);
 
 }
