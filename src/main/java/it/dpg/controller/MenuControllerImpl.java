@@ -1,5 +1,6 @@
 package it.dpg.controller;
 
+import it.dpg.model.Difficulty;
 import it.dpg.view.MenuView;
 
 import java.util.HashMap;
@@ -15,7 +16,7 @@ public class MenuControllerImpl implements MenuController {
      * mapAI, map used for saving AI settings from GUI
      * mapPlayer, map used for saving Player settings from GUI
      */
-    private Map<String, MenuView.Difficulty> mapAI = new HashMap<>();
+    private Map<String, Difficulty> mapAI = new HashMap<>();
     private Map<Integer, String> mapPlayer = new HashMap<>();
 
     /**
@@ -44,7 +45,7 @@ public class MenuControllerImpl implements MenuController {
      * @param optionsAI Map used for pass at the method the settings of the AI to save
      */
     @Override
-    public void setOptionsAI(Map<String, MenuView.Difficulty> optionsAI) {
+    public void setOptionsAI(Map<String, Difficulty> optionsAI) {
         mapAI.clear();
         if (!optionsAI.isEmpty()) {
             mapAI.putAll(optionsAI);
@@ -63,7 +64,7 @@ public class MenuControllerImpl implements MenuController {
      * @return mapAI, map of the selected options for the AI
      */
     @Override
-    public Map<String, MenuView.Difficulty> getOptionsAI() {
+    public Map<String, Difficulty> getOptionsAI() {
         return mapAI;
     }
 }

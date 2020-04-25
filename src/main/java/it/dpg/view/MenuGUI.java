@@ -1,10 +1,8 @@
-/**
- * @author Riccardo Squarcialupi
- */
 package it.dpg.view;
 
 import it.dpg.controller.MenuController;
 import it.dpg.controller.MenuControllerImpl;
+import it.dpg.model.Difficulty;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +15,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,5 +1,6 @@
 package it.dpg.controller;
 
+import it.dpg.model.Difficulty;
 import it.dpg.view.MenuView;
 
 import java.util.Map;
@@ -20,7 +21,7 @@ public interface MenuController {
      * Save AI's option from Map
      * @param optionsAI Map used for pass at the method the settings of the AI to save
      */
-    void setOptionsAI(Map<String, MenuView.Difficulty> optionsAI);
+    void setOptionsAI(Map<String, Difficulty> optionsAI);
 
     /**
      * return the Map of Player options
@@ -30,7 +31,7 @@ public interface MenuController {
     /**
      * return the Map of AI options
      */
-    Map<String, MenuView.Difficulty> getOptionsAI();
+    Map<String, Difficulty> getOptionsAI();
 
 
 }
