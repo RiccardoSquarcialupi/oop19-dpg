@@ -1,16 +1,15 @@
 package it.dpg.model;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
 import java.util.Optional;
+import java.util.Set;
 
 public interface Cell {
 
-
-    Optional<Cell> getLeft();
-    Optional<Cell> getRight();
-    Optional<Cell> getForward();
-    Optional<Cell> getPrevious();
     Boolean isAFork();
+    Set<Cell> getNext();
 
-    Integer getId();
+    ImmutablePair<Integer, Integer> getCoordinates();
     CellType getType();
 }
