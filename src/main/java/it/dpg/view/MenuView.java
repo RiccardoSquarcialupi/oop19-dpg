@@ -8,13 +8,6 @@ package it.dpg.view;
 public interface MenuView {
 
     /**
-     * difficulty for AI settings
-     */
-    enum Difficulty {
-        EASY, MEDIUM, HARD
-    }
-
-    /**
      * display credit in a new scene
      */
     void displayCredit();

@@ -1,6 +1,6 @@
 package it.dpg.controller;
 
-import it.dpg.view.MenuView;
+import it.dpg.model.Difficulty;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,40 +15,13 @@ public class MenuControllerImpl implements MenuController {
      * mapAI, map used for saving AI settings from GUI
      * mapPlayer, map used for saving Player settings from GUI
      */
-    private Map<String, MenuView.Difficulty> mapAI = new HashMap<>();
+    private Map<String, Difficulty> mapAI = new HashMap<>();
     private Map<Integer, String> mapPlayer = new HashMap<>();
 
     /**
      * Empty Constructor
      */
     public MenuControllerImpl() {
-    }
-
-    /**
-     * Used for save Players' settings from GUI
-     *
-     * @param optionPlayer Map used for pass at the method the settings of the Player to save
-     */
-    @Override
-    public void setOptionsPlayer(Map<Integer, String> optionPlayer) {
-        mapPlayer.clear();
-        if (!optionPlayer.isEmpty()) {
-            mapPlayer.putAll(optionPlayer);
-        }
-
-    }
-
-    /**
-     * Used for save AI's settings from GUI
-     *
-     * @param optionsAI Map used for pass at the method the settings of the AI to save
-     */
-    @Override
-    public void setOptionsAI(Map<String, MenuView.Difficulty> optionsAI) {
-        mapAI.clear();
-        if (!optionsAI.isEmpty()) {
-            mapAI.putAll(optionsAI);
-        }
     }
 
     /**
@@ -60,10 +33,48 @@ public class MenuControllerImpl implements MenuController {
     }
 
     /**
+     * Used for save Players' settings from GUI
+     *
+     * @param numPlayer number of PLayer that are in game
+     */
+    @Override
+    public void setOptionsPlayer(Integer numPlayer) {
+        mapPlayer.clear();
+        for (int i = numPlayer; i >= 1; i--) {
+            mapPlayer.put(i, "Giocatore" + i);
+        }
+
+    }
+
+    /**
      * @return mapAI, map of the selected options for the AI
      */
     @Override
-    public Map<String, MenuView.Difficulty> getOptionsAI() {
+    public Map<String, Difficulty> getOptionsAI() {
         return mapAI;
+    }
+
+    /**
+     * Used for save AI's settings from GUI
+     *
+     * @param numAI number of AI that are in game
+     */
+    @Override
+    public void setOptionsAI(Integer numAI) {
+        mapAI.clear();
+        for (int i = numAI; i >= 1; i--) {
+            mapAI.putIfAbsent("AI" + i, Difficulty.EASY);
+        }
+
+    }
+
+    /**
+     * @param whichAI AI to set Difficulty
+     * @param dif     which Difficulty to set
+     */
+    @Override
+    public void setAIDifficulty(Integer whichAI, Difficulty dif) {
+        mapAI.replace("AI" + (whichAI + 1), dif);
+        System.out.println(mapAI.toString());
     }
 }
