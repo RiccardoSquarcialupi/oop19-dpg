@@ -1,4 +1,4 @@
 package it.dpg.view.minigames;
 
-public class AbstractMinigameView {
+public abstract class AbstractMinigameView implements MinigameView {
 }
