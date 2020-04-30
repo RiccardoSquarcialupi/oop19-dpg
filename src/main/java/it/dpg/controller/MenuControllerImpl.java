@@ -1,6 +1,6 @@
 package it.dpg.controller;
 
-import it.dpg.model.Difficulty;
+import it.dpg.model.character.Difficulty;
 
 import java.util.HashMap;
 import java.util.Map;

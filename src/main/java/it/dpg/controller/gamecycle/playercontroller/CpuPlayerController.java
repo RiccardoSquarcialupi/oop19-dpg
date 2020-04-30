@@ -1,7 +1,7 @@
 package it.dpg.controller.gamecycle.playercontroller;
 
 import it.dpg.controller.gamecycle.TurnState;
-import it.dpg.model.Cpu;
+import it.dpg.model.character.Cpu;
 import it.dpg.view.GridView;
 
 import java.util.Set;

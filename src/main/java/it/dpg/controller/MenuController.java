@@ -1,7 +1,6 @@
 package it.dpg.controller;
 
-import it.dpg.model.Difficulty;
-import it.dpg.view.MenuView;
+import it.dpg.model.character.Difficulty;
 
 import java.util.Map;
 

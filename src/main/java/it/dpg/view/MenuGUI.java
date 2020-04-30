@@ -2,7 +2,7 @@ package it.dpg.view;
 
 import it.dpg.controller.MenuController;
 import it.dpg.controller.MenuControllerImpl;
-import it.dpg.model.Difficulty;
+import it.dpg.model.character.Difficulty;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

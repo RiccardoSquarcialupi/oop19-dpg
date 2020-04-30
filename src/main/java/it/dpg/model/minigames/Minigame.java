@@ -1,6 +1,6 @@
 package it.dpg.model.minigames;
 
-import it.dpg.model.Difficulty;
+import it.dpg.model.character.Difficulty;
 
 public interface Minigame {
     int start();

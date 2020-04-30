@@ -1,5 +1,7 @@
-package it.dpg.model;
+package it.dpg.model.character;
 
+import it.dpg.model.Cell;
+import it.dpg.model.CellType;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 public interface Character {
@@ -7,14 +9,14 @@ public interface Character {
     String getName();
     void setTurn(int turn);
     int getTurn();
-    void setPosition(Cell position);
+    void setPosition(final ImmutablePair<Integer, Integer> coordinates);
     ImmutablePair<Integer, Integer> getPosition();
     CellType getCellType();
     boolean stepForward();
-    boolean stepInDirection(ImmutablePair<Integer, Integer> coordinates);
-    void setDice(Dice dice);
+    boolean stepInDirection(final ImmutablePair<Integer, Integer> coordinates);
+    void setDice(final Dice dice);
     Dice getDice();
     int throwDice();
-    void setMinigameScore(int score);
+    void setMinigameScore(final int score);
     int getMinigameScore();
 }
