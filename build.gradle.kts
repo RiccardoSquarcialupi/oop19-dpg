@@ -29,6 +29,7 @@ dependencies {
     }
 
     implementation("org.apache.commons:commons-lang3:3.8.1")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.11.+")
 
     //TEST DEPENDENCIES
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
