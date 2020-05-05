@@ -2,6 +2,7 @@ package it.dpg.model.character;
 
 import it.dpg.model.Cell;
 import it.dpg.model.CellType;
+import it.dpg.model.Grid;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Random;
@@ -10,6 +11,7 @@ public class CharacterImpl implements Character {
 
     private final int id;
     private final String name;
+    private final Grid grid;
 
     private int turn;
     private int remainingMoves;
@@ -17,11 +19,12 @@ public class CharacterImpl implements Character {
     private Cell position;
     private Dice dice;
 
-    public CharacterImpl(final int id, final String name, final Cell startPosition) {
+    public CharacterImpl(final int id, final String name, final Grid grid) {
         this.id = id;
         this.name = name;
-        this.position = startPosition;
+        this.grid = grid;
 
+        this.position = grid.getFirst();
         this.dice = Dice.D6;
         this.lastMinigameScore = 0;
         this.remainingMoves = 0;
@@ -48,8 +51,11 @@ public class CharacterImpl implements Character {
     }
 
     @Override
-    public void setPosition(ImmutablePair<Integer, Integer> coordinates) {
-
+    public void setPosition(final ImmutablePair<Integer, Integer> coordinates) {
+        this.position = this.grid.getCellByCoordinates(
+                coordinates.getLeft(),
+                coordinates.getRight()
+        );
     }
 
     @Override
