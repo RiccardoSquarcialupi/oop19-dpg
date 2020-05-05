@@ -3,6 +3,7 @@ package it.dpg.controller.gamecycle.playercontroller;
 import it.dpg.controller.gamecycle.TurnState;
 import it.dpg.model.character.Cpu;
 import it.dpg.view.GridView;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Set;
 
@@ -21,8 +22,8 @@ public class CpuPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public int chooseDirection(Set<Integer> possibleCells) {
-        int direction = cpu.randomizeDirectionChoice();
+    public ImmutablePair<Integer, Integer> chooseDirection(Set<Integer> possibleCells) {
+        ImmutablePair<Integer, Integer> direction = cpu.getRandomDirection();
         turnState.setLastDirectionChoice(direction);
         return direction;
     }
