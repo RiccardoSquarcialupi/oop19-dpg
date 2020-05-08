@@ -1,5 +1,7 @@
 package it.dpg.controller.gamecycle;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
 import java.util.Set;
 
 /**
@@ -22,5 +24,10 @@ public interface GameCycle {
     /**
      * method used to notify the path has been chosen by a player
      */
-    void signalPathChosen(int cellId);
+    void signalPathChosen(ImmutablePair<Integer, Integer> coordinates);
+
+    /**
+     * signals the botton associated to the next step of the turn is pressed (ex. Enter)
+     */
+    void signalNextStep();
 }
