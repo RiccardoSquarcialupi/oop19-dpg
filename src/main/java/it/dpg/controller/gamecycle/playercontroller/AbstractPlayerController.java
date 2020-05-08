@@ -16,7 +16,7 @@ public abstract class AbstractPlayerController implements PlayerController {
     @Override
     public void waitNextStep() {
         turnState.setTurnPause(true);
-        //TODO manage modifications to the view
+        view.showText("continue ►");
         synchronized (this.turnState) {
             try {
                 while (turnState.isPaused()) {
@@ -26,5 +26,6 @@ public abstract class AbstractPlayerController implements PlayerController {
                 System.out.println("thread interrupted during turn step wait");
             }
         }
+        view.removeText();
     }
 }
