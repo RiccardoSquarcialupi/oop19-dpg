@@ -27,7 +27,7 @@ public interface GameCycle {
     void signalPathChosen(ImmutablePair<Integer, Integer> coordinates);
 
     /**
-     * signals the botton associated to the next step of the turn is pressed (ex. Enter)
+     * signals the button associated to the next step of the turn is pressed (ex. Enter)
      */
     void signalNextStep();
 }
