@@ -6,9 +6,15 @@ import java.util.Map;
 
 public class GridImpl implements Grid {
 
-    Cell first;
-    Cell last;
-    Map<Cell, ImmutablePair<Integer, Integer>> grid;
+    private final Cell first;
+    private final Cell last;
+    private final Map<Cell, ImmutablePair<Integer, Integer>> grid;
+
+    public GridImpl(final Cell first, final Cell last, final Map<Cell, ImmutablePair<Integer, Integer>> grid) {
+        this.first = first;
+        this.last = last;
+        this.grid = grid;
+    }
 
     @Override
     public Cell getFirst() {
