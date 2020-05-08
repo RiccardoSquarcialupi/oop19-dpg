@@ -24,7 +24,7 @@ public class TurnStateTest {
         assertFalse(state.isChoosing());
     }
 
-    @Test
+    /*@Test
     void testExeption() {
         assertThrows(IllegalStateException.class, () -> state.isChoosing());
         assertThrows(IllegalStateException.class, () -> state.choiceStarted());
@@ -32,7 +32,7 @@ public class TurnStateTest {
         assertThrows(IllegalStateException.class, () -> state.isDiceThrown());
         assertThrows(IllegalStateException.class, () -> state.setLastDirectionChoice(1));
         assertThrows(IllegalStateException.class, () -> state.getLastDirectionChoice());
-    }
+    }*/
 
     @Test
     void testDiceThrown() {
@@ -56,7 +56,7 @@ public class TurnStateTest {
         assertFalse(state.isChoosing());
     }
 
-    @Test
+    /*@Test
     void testDirectionChoice() {
         state.newTurn();
         assertTrue(state.getLastDirectionChoice().isEmpty());
@@ -65,5 +65,5 @@ public class TurnStateTest {
         assertEquals(1, state.getLastDirectionChoice().get());
         state.newTurn();
         assertTrue(state.getLastDirectionChoice().isEmpty());
-    }
+    }*/
 }

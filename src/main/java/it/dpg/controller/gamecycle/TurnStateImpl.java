@@ -1,13 +1,15 @@
 package it.dpg.controller.gamecycle;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
 import java.util.Optional;
 
 public class TurnStateImpl implements TurnState {
 
     private boolean gameStarted = false;
-    private volatile boolean diceThrown;//booleans are volatile to allow parallel threads access
+    private volatile boolean diceThrown;//booleans are volatile to make parallel thread access easier
     private volatile boolean isChoosing;
-    private Integer lastDirectionChosen;
+    private ImmutablePair<Integer, Integer> lastDirectionChosen;
     private boolean hasChosenDirection;
 
     public TurnStateImpl() {}
@@ -59,15 +61,15 @@ public class TurnStateImpl implements TurnState {
     }
 
     @Override
-    public synchronized void setLastDirectionChoice(int cellId) {
+    public synchronized void setLastDirectionChoice(ImmutablePair<Integer, Integer> direction) {
         checkGameStarted();
 
         hasChosenDirection = true;
-        lastDirectionChosen = cellId;
+        lastDirectionChosen = direction;
     }
 
     @Override
-    public synchronized Optional<Integer> getLastDirectionChoice() {
+    public synchronized Optional<ImmutablePair<Integer, Integer>> getLastDirectionChoice() {
         checkGameStarted();
 
         if(hasChosenDirection) {
