@@ -1,5 +1,7 @@
 package it.dpg.controller.gamecycle.playercontroller;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+
 import java.util.Set;
 
 /**
@@ -18,10 +20,10 @@ public interface PlayerController {
      * handles the choice of direction for the player (human or cpu)
      * @param possibleCells IDs if the possible choices
      */
-    void chooseDirection(Set<Integer> possibleCells);
+    void chooseDirection(Set<ImmutablePair<Integer, Integer>> possibleCells);
 
     /**
-     * handles the pause of the turn, used petween the steps of a turn (resumed by a button press)
+     * handles the pause of the turn, used between the steps of a turn (resumed by a button press)
      */
     void waitNextStep();
 

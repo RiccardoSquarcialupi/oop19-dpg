@@ -6,6 +6,7 @@ import it.dpg.controller.gamecycle.TurnState;
 import it.dpg.controller.gamecycle.TurnStateImpl;
 import it.dpg.controller.gamecycle.playercontroller.HumanPlayerController;
 import it.dpg.controller.gamecycle.playercontroller.PlayerController;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
@@ -55,7 +56,10 @@ public class HumanPlayerTest {
 
         Thread gameCycleMock = new Thread(() -> {
             long start = System.currentTimeMillis();
-            pc.chooseDirection(Set.of(3, 7, 9));
+            pc.chooseDirection(Set.of(
+                    new ImmutablePair<>(4, 8),
+                    new ImmutablePair<>(3, 9),
+                    new ImmutablePair<>(4, 9)));
             long stop = System.currentTimeMillis();
             assertTrue((stop - start) >= waitingTime);
         });
@@ -68,6 +72,37 @@ public class HumanPlayerTest {
         }
 
         state.setChoice(false);
+        synchronized (state) {
+            state.notify();
+        }
+
+        try {
+            gameCycleMock.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testTurnPause() {
+        state.newTurn();
+        long waitingTime = 4000;
+
+        Thread gameCycleMock = new Thread(() -> {
+            long start = System.currentTimeMillis();
+            pc.waitNextStep();
+            long stop = System.currentTimeMillis();
+            assertTrue((stop - start) >= waitingTime);
+        });
+
+        gameCycleMock.start();
+        try {
+            Thread.sleep(waitingTime);
+        } catch (InterruptedException e) {
+            fail();
+        }
+
+        state.setTurnPause(false);
         synchronized (state) {
             state.notify();
         }

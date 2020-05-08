@@ -2,6 +2,7 @@ package it.dpg.controller.gamecycle.playercontroller;
 
 import it.dpg.controller.gamecycle.TurnState;
 import it.dpg.view.GridView;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Set;
 
@@ -27,8 +28,9 @@ public class HumanPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public void chooseDirection(Set<Integer> possibleCells)  {
-        view.enableDirectionChoice(possibleCells);
+    public void chooseDirection(Set<ImmutablePair<Integer, Integer>> possibleCells)  {
+        //TODO remove comment when gridview interface is updated
+        //view.enableDirectionChoice(possibleCells);
         turnState.setChoice(true);
         synchronized (this.turnState) {
             try {
