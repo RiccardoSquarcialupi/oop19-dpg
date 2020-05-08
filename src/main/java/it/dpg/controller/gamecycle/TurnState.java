@@ -17,7 +17,7 @@ public interface TurnState {
     /**
      * notify if the dice has been thrown or not
      *
-     * @exception IllegalStateException if newTurn was never called or if used twice in the same turn
+     * @exception IllegalStateException if newTurn was never called
      */
     void setDiceThrown(boolean wasThrown);
 

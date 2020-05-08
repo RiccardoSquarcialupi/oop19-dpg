@@ -3,6 +3,7 @@ package it.dpg.gamecycleTests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import it.dpg.controller.gamecycle.TurnStateImpl;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import it.dpg.controller.gamecycle.TurnState;
@@ -16,22 +17,24 @@ public class TurnStateTest {
         state = new TurnStateImpl();
     }
 
-    /*
+
     @Test
     void testNewTurn() {
         state.newTurn();
 
         assertFalse(state.wasDiceThrown());
         assertFalse(state.isChoosing());
+        assertFalse(state.isPaused());
+        assertTrue(state.getLastDirectionChoice().isEmpty());
     }
 
     @Test
     void testExeption() {
         assertThrows(IllegalStateException.class, () -> state.isChoosing());
-        assertThrows(IllegalStateException.class, () -> state.choiceStarted());
-        assertThrows(IllegalStateException.class, () -> state.setDiceThrown());
-        assertThrows(IllegalStateException.class, () -> state.isDiceThrown());
-        assertThrows(IllegalStateException.class, () -> state.setLastDirectionChoice(1));
+        assertThrows(IllegalStateException.class, () -> state.setChoice(true));
+        assertThrows(IllegalStateException.class, () -> state.setDiceThrown(true));
+        assertThrows(IllegalStateException.class, () -> state.wasDiceThrown());
+        assertThrows(IllegalStateException.class, () -> state.setLastDirectionChoice(new ImmutablePair<>(4, 8)));
         assertThrows(IllegalStateException.class, () -> state.getLastDirectionChoice());
     }
 
@@ -39,32 +42,40 @@ public class TurnStateTest {
     void testDiceThrown() {
         state.newTurn();
         assertFalse(state.wasDiceThrown());
-        state.setDiceThrown();
+        state.setDiceThrown(true);
         assertTrue(state.wasDiceThrown());
         state.newTurn();
         assertFalse(state.wasDiceThrown());
-        state.setDiceThrown();
-        assertThrows(IllegalStateException.class, () -> state.setDiceThrown());
     }
 
     @Test
     void testChoice() {
         state.newTurn();
         assertFalse(state.isChoosing());
-        state.choiceStarted();
+        state.setChoice(true);
         assertTrue(state.isChoosing());
-        state.choiceCompleted();
+        state.setChoice(false);
         assertFalse(state.isChoosing());
     }
 
-    /*@Test
+    @Test
     void testDirectionChoice() {
         state.newTurn();
         assertTrue(state.getLastDirectionChoice().isEmpty());
-        state.setLastDirectionChoice(1);
+        state.setLastDirectionChoice(new ImmutablePair<>(3, 10));
         assertTrue(state.getLastDirectionChoice().isPresent());
-        assertEquals(1, state.getLastDirectionChoice().get());
+        assertEquals(new ImmutablePair<>(3, 10), state.getLastDirectionChoice().get());
         state.newTurn();
         assertTrue(state.getLastDirectionChoice().isEmpty());
-    }*/
+    }
+
+    @Test
+    void testPause() {
+        state.newTurn();
+        assertFalse(state.isPaused());
+        state.setTurnPause(true);
+        assertTrue(state.isPaused());
+        state.newTurn();
+        assertFalse(state.isPaused());
+    }
 }
