@@ -39,7 +39,7 @@ public class CpuPlayerTest {
 
     private final Cpu cpuMock = new CpuMock();
     private final TurnState state = new TurnStateImpl();
-    private final PlayerController pc = new CpuPlayerController(state, new GridViewTestImpl(), cpuMock);
+    private final PlayerController pc = new CpuPlayerController(state, new GridViewMock(), cpuMock);
 
     @Test
     public void testDiceThrow() {

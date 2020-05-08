@@ -26,42 +26,62 @@ public class TurnStateImpl implements TurnState {
 
     @Override
     public void setDiceThrown(boolean wasThrown) {
+        checkGameStarted();
 
+        this.diceThrown = wasThrown;
     }
 
     @Override
     public boolean wasDiceThrown() {
-        return false;
+        checkGameStarted();
+
+        return this.diceThrown;
     }
 
     @Override
     public void setChoice(boolean isChoosing) {
+        checkGameStarted();
 
+        this.isChoosing = isChoosing;
     }
 
     @Override
     public boolean isChoosing() {
-        return false;
+        checkGameStarted();
+
+        return this.isChoosing;
     }
 
     @Override
     public void setLastDirectionChoice(ImmutablePair<Integer, Integer> direction) {
+        checkGameStarted();
 
+        this.hasChosenDirection = true;
+        this.lastDirectionChosen = direction;
     }
 
     @Override
     public Optional<ImmutablePair<Integer, Integer>> getLastDirectionChoice() {
+        checkGameStarted();
+
+        if(hasChosenDirection) {
+            return Optional.of(this.lastDirectionChosen);
+        }
         return Optional.empty();
     }
 
     @Override
     public void setTurnPause(boolean isPaused) {
+        checkGameStarted();
 
+        this.turnPaused = isPaused;
     }
 
     @Override
     public boolean isPaused() {
-        return false;
+        checkGameStarted();
+
+        return this.turnPaused;
     }
 
     private void checkGameStarted() {

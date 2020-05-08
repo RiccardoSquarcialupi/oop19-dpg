@@ -15,7 +15,7 @@ public class HumanPlayerTest {
 
 
     private final TurnState state = new TurnStateImpl();
-    private final PlayerController pc = new HumanPlayerController(state, new GridViewTestImpl());
+    private final PlayerController pc = new HumanPlayerController(state, new GridViewMock());
 
     @Test
     public void testDiceThrow() {
@@ -36,7 +36,7 @@ public class HumanPlayerTest {
             fail();
         }
 
-        state.setDiceThrown();
+        state.setDiceThrown(true);
         synchronized (state) {
             state.notify();
         }
@@ -67,7 +67,7 @@ public class HumanPlayerTest {
             fail();
         }
 
-        state.choiceCompleted();
+        state.setChoice(false);
         synchronized (state) {
             state.notify();
         }
