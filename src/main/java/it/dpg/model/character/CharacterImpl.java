@@ -6,6 +6,7 @@ import it.dpg.model.Grid;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Random;
+import java.util.Set;
 
 public class CharacterImpl implements Character {
 
@@ -61,6 +62,11 @@ public class CharacterImpl implements Character {
     @Override
     public ImmutablePair<Integer, Integer> getPosition() {
         return this.position.getCoordinates();
+    }
+
+    @Override
+    public Set<ImmutablePair<Integer, Integer>> getAdjacentPositions() {
+        return null;
     }
 
     @Override
