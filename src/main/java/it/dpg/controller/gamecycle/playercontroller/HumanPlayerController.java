@@ -36,7 +36,7 @@ public class HumanPlayerController extends AbstractPlayerController{
                     turnState.wait();
                 }
             } catch (InterruptedException e) {
-                System.out.println("thread interrupted during dice throw wait");
+                System.out.println("thread interrupted during direction choice wait");
             }
         }
         view.disableDirectionChoice();

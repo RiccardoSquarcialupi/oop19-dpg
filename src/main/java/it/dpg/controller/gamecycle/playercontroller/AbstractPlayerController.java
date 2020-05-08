@@ -12,4 +12,19 @@ public abstract class AbstractPlayerController implements PlayerController {
         this.turnState = turnState;
         this.view = view;
     }
+
+    @Override
+    public void waitNextStep() {
+        turnState.setTurnPause(true);
+        //TODO manage modifications to the view
+        synchronized (this.turnState) {
+            try {
+                while (turnState.isPaused()) {
+                    turnState.wait();
+                }
+            } catch (InterruptedException e) {
+                System.out.println("thread interrupted during turn step wait");
+            }
+        }
+    }
 }

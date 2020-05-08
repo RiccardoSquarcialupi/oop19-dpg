@@ -21,6 +21,11 @@ public interface PlayerController {
     void chooseDirection(Set<Integer> possibleCells);
 
     /**
+     * handles the pause of the turn, used petween the steps of a turn (resumed by a button press)
+     */
+    void waitNextStep();
+
+    /**
      * handles the phase of the turn in witch a player (human or cpu) has to play a minigame
      * @return the score
      */
