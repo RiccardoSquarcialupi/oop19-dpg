@@ -1,44 +1,38 @@
 [
   {
-    "left": null,
-    "right": null,
-    "forward": 1,
-    "previous": null
+    "id": 0,
+    "x_coordinate" : 0,
+    "y_coordinate" : 0,
+    "next" : [1]
   },
   {
-    "left": null,
-    "right": null,
-    "forward": 2,
-    "previous": 0
+    "id" : 1,
+    "x_coordinate" : 0,
+    "y_coordinate" : 1,
+    "next" : [2,4]
   },
   {
-    "left": 3,
-    "right": 5,
-    "forward": null,
-    "previous": 1
+    "id" : 2,
+    "x_coordinate" : 0,
+    "y_coordinate" : 2,
+    "next" : [3]
   },
   {
-    "left": null,
-    "right": null,
-    "forward": 4,
-    "previous": 2
+    "id" : 3,
+    "x_coordinate" : 0,
+    "y_coordinate" : 3,
+    "next" : [5]
   },
   {
-    "left": null,
-    "right": null,
-    "forward": null,
-    "previous": 3
+    "id" : 4,
+    "x_coordinate" : 1,
+    "y_coordinate" : 2,
+    "next" : [3]
   },
   {
-    "left": null,
-    "right": null,
-    "forward": 6,
-    "previous": 2
-  },
-  {
-    "left": null,
-    "right": null,
-    "forward": null,
-    "previous": 5
+    "id" : 5,
+    "x_coordinate" : 0,
+    "y_coordinate" : 4,
+    "next" : null
   }
 ]
