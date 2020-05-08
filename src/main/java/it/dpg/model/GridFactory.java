@@ -9,5 +9,7 @@ public interface GridFactory {
     void setJson();
     void makeGrid();
     Map<Cell, ImmutablePair<Integer, Integer>> getGrid();
+    void getFirst();
+    void getLast();
 
 }
