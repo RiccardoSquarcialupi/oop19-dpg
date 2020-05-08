@@ -10,11 +10,13 @@ import it.dpg.model.character.Difficulty;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.Test;
 
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CpuPlayerTest {
 
-    private class CpuMock implements Cpu{
+    private static class CpuMock implements Cpu{
 
         @Override
         public Character getControlledCharacter() {
@@ -33,7 +35,7 @@ public class CpuPlayerTest {
 
         @Override
         public ImmutablePair<Integer, Integer> getRandomDirection() {
-            return null;
+            return new ImmutablePair<>(4, 8);
         }
     }
 
@@ -48,12 +50,15 @@ public class CpuPlayerTest {
         assertTrue(state.wasDiceThrown());
     }
 
-    /*@Test
+    @Test
     public void testDirectionChoice() {
         state.newTurn();
-        assertEquals(5, pc.chooseDirection(Set.of(2,5,9)));
+        pc.chooseDirection(Set.of(
+            new ImmutablePair<>(4, 8),
+            new ImmutablePair<>(3, 9),
+            new ImmutablePair<>(4, 9)));
         assertTrue(state.getLastDirectionChoice().isPresent());
-        assertEquals(5, state.getLastDirectionChoice().get());
+        assertEquals(new ImmutablePair<>(4, 8), state.getLastDirectionChoice().get());
         assertFalse(state.isChoosing());
-    }*/
+    }
 }
