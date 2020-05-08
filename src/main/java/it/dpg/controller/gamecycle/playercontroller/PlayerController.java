@@ -20,7 +20,12 @@ public interface PlayerController {
      * handles the choice of direction for the player (human or cpu)
      * @param possibleCells IDs if the possible choices
      */
-    ImmutablePair<Integer, Integer> chooseDirection(Set<Integer> possibleCells);
+    void chooseDirection(Set<ImmutablePair<Integer, Integer>> possibleCells);
+
+    /**
+     * handles the pause of the turn, used between the steps of a turn (resumed by a button press)
+     */
+    void waitNextStep();
 
     /**
      * handles the phase of the turn in witch a player (human or cpu) has to play a minigame
