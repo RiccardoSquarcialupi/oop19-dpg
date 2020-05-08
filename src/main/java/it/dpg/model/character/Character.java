@@ -4,6 +4,8 @@ import it.dpg.model.Cell;
 import it.dpg.model.CellType;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
+import java.util.Set;
+
 public interface Character {
     int getId();
     String getName();
@@ -11,6 +13,7 @@ public interface Character {
     int getTurn();
     void setPosition(final ImmutablePair<Integer, Integer> coordinates);
     ImmutablePair<Integer, Integer> getPosition();
+    Set<ImmutablePair<Integer, Integer>> getAdjacentPositions();
     CellType getCellType();
     boolean stepForward();
     boolean stepInDirection(final ImmutablePair<Integer, Integer> coordinates);
