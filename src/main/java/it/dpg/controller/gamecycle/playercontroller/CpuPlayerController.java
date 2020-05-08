@@ -22,10 +22,9 @@ public class CpuPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public ImmutablePair<Integer, Integer> chooseDirection(Set<Integer> possibleCells) {
+    public void chooseDirection(Set<Integer> possibleCells) {
         ImmutablePair<Integer, Integer> direction = cpu.getRandomDirection();
         turnState.setLastDirectionChoice(direction);
-        return direction;
     }
 
     @Override
