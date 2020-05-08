@@ -2,10 +2,11 @@ package it.dpg.model;
 
 public class CellParser {
 
-    int id;
-    int x_coordinate;
-    int y_coordinate;
-    int[] next;
+    private int id;
+    private int x_coordinate;
+    private int y_coordinate;
+    private int[] next;
+    private String cell_type;
 
     public int getId() {
         return id;
@@ -37,5 +38,13 @@ public class CellParser {
 
     public void setNext(int[] next) {
         this.next = next;
+    }
+
+    public String getCell_type() {
+        return cell_type;
+    }
+
+    public void setCell_type(String cell_type) {
+        this.cell_type = cell_type;
     }
 }
