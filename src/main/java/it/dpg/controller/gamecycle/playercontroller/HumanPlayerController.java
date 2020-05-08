@@ -29,8 +29,7 @@ public class HumanPlayerController extends AbstractPlayerController{
 
     @Override
     public void chooseDirection(Set<ImmutablePair<Integer, Integer>> possibleCells)  {
-        //TODO remove comment when gridview interface is updated
-        //view.enableDirectionChoice(possibleCells);
+        view.enableDirectionChoice(possibleCells);
         turnState.setChoice(true);
         synchronized (this.turnState) {
             try {

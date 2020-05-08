@@ -1,6 +1,7 @@
 package it.dpg.gamecycleTests;
 
 import it.dpg.view.GridView;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Map;
 import java.util.Set;
@@ -37,8 +38,8 @@ public class GridViewMock implements GridView {
     }
 
     @Override
-    public void enableDirectionChoice(Set<Integer> cellsId) {
-        System.out.println("direction choice enabled between cells " + cellsId.toString());
+    public void enableDirectionChoice(Set<ImmutablePair<Integer, Integer>> cells) {
+        System.out.println("direction choice enabled between coordinates " + cells.toString());
     }
 
     @Override
