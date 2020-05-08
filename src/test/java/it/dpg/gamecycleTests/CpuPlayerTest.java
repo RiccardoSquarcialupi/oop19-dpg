@@ -10,8 +10,6 @@ import it.dpg.model.character.Difficulty;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.Test;
 
-import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CpuPlayerTest {
@@ -47,7 +45,7 @@ public class CpuPlayerTest {
     public void testDiceThrow() {
         state.newTurn();
         pc.throwDice(6);
-        assertTrue(state.isDiceThrown());
+        assertTrue(state.wasDiceThrown());
     }
 
     /*@Test

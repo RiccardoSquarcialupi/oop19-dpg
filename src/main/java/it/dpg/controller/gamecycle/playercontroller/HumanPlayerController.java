@@ -16,7 +16,7 @@ public class HumanPlayerController extends AbstractPlayerController{
         view.enableDiceThrow(dice);
         synchronized (this.turnState) {
             try {
-                while (!turnState.isDiceThrown()) {
+                while (!turnState.wasDiceThrown()) {
                     turnState.wait();
                 }
             } catch(InterruptedException e) {
@@ -29,7 +29,7 @@ public class HumanPlayerController extends AbstractPlayerController{
     @Override
     public void chooseDirection(Set<Integer> possibleCells)  {
         view.enableDirectionChoice(possibleCells);
-        turnState.choiceStarted();
+        turnState.setChoice(true);
         synchronized (this.turnState) {
             try {
                 while (turnState.isChoosing()) {

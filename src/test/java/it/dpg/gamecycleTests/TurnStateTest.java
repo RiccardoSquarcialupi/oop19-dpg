@@ -16,15 +16,16 @@ public class TurnStateTest {
         state = new TurnStateImpl();
     }
 
+    /*
     @Test
     void testNewTurn() {
         state.newTurn();
 
-        assertFalse(state.isDiceThrown());
+        assertFalse(state.wasDiceThrown());
         assertFalse(state.isChoosing());
     }
 
-    /*@Test
+    @Test
     void testExeption() {
         assertThrows(IllegalStateException.class, () -> state.isChoosing());
         assertThrows(IllegalStateException.class, () -> state.choiceStarted());
@@ -32,16 +33,16 @@ public class TurnStateTest {
         assertThrows(IllegalStateException.class, () -> state.isDiceThrown());
         assertThrows(IllegalStateException.class, () -> state.setLastDirectionChoice(1));
         assertThrows(IllegalStateException.class, () -> state.getLastDirectionChoice());
-    }*/
+    }
 
     @Test
     void testDiceThrown() {
         state.newTurn();
-        assertFalse(state.isDiceThrown());
+        assertFalse(state.wasDiceThrown());
         state.setDiceThrown();
-        assertTrue(state.isDiceThrown());
+        assertTrue(state.wasDiceThrown());
         state.newTurn();
-        assertFalse(state.isDiceThrown());
+        assertFalse(state.wasDiceThrown());
         state.setDiceThrown();
         assertThrows(IllegalStateException.class, () -> state.setDiceThrown());
     }

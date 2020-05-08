@@ -6,11 +6,12 @@ import java.util.Optional;
 
 public class TurnStateImpl implements TurnState {
 
-    private boolean gameStarted = false;
-    private volatile boolean diceThrown;//booleans are volatile to make parallel thread access easier
+    private boolean gameStarted = false; //true if new turn has been called at least once
+    private volatile boolean diceThrown; //booleans are volatile to make parallel thread access easier
     private volatile boolean isChoosing;
     private ImmutablePair<Integer, Integer> lastDirectionChosen;
-    private boolean hasChosenDirection;
+    private boolean hasChosenDirection = false;
+    private boolean turnPaused = false;
 
     public TurnStateImpl() {}
 
@@ -19,63 +20,48 @@ public class TurnStateImpl implements TurnState {
         gameStarted = true;
         diceThrown = false;
         isChoosing = false;
+        turnPaused = false;
         hasChosenDirection = false;
     }
 
     @Override
-    public void setDiceThrown() {
-        checkGameStarted();
-        if(diceThrown) {
-            throw new IllegalStateException("can't throw the dice twice in a turn");
-        }
+    public void setDiceThrown(boolean wasThrown) {
 
-        diceThrown = true;
     }
 
     @Override
-    public boolean isDiceThrown() {
-        checkGameStarted();
-
-        return diceThrown;
+    public boolean wasDiceThrown() {
+        return false;
     }
 
     @Override
-    public void choiceStarted() {
-        checkGameStarted();
+    public void setChoice(boolean isChoosing) {
 
-        this.isChoosing = true;
-    }
-
-    @Override
-    public void choiceCompleted() {
-        checkGameStarted();
-
-        this.isChoosing = false;
     }
 
     @Override
     public boolean isChoosing() {
-        checkGameStarted();
-
-        return isChoosing;
+        return false;
     }
 
     @Override
-    public synchronized void setLastDirectionChoice(ImmutablePair<Integer, Integer> direction) {
-        checkGameStarted();
+    public void setLastDirectionChoice(ImmutablePair<Integer, Integer> direction) {
 
-        hasChosenDirection = true;
-        lastDirectionChosen = direction;
     }
 
     @Override
-    public synchronized Optional<ImmutablePair<Integer, Integer>> getLastDirectionChoice() {
-        checkGameStarted();
-
-        if(hasChosenDirection) {
-            return Optional.of(lastDirectionChosen);
-        }
+    public Optional<ImmutablePair<Integer, Integer>> getLastDirectionChoice() {
         return Optional.empty();
+    }
+
+    @Override
+    public void setTurnPause(boolean isPaused) {
+
+    }
+
+    @Override
+    public boolean isPaused() {
+        return false;
     }
 
     private void checkGameStarted() {
