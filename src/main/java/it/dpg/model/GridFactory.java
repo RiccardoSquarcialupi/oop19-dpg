@@ -6,10 +6,10 @@ import java.util.Map;
 
 public interface GridFactory {
 
-    void setJson(GridType grid_type);
+    void setJson();
     void makeGrid();
     Map<Cell, ImmutablePair<Integer, Integer>> getGrid();
-    void getFirst();
-    void getLast();
+    Cell getFirst();
+    Cell getLast();
 
 }

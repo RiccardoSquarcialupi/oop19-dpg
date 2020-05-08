@@ -3,36 +3,14 @@
     "id": 0,
     "x_coordinate" : 0,
     "y_coordinate" : 0,
-    "next" : [1]
+    "next" : [1],
+    "cell_type" : "START"
   },
   {
     "id" : 1,
     "x_coordinate" : 0,
     "y_coordinate" : 1,
-    "next" : [2,4]
-  },
-  {
-    "id" : 2,
-    "x_coordinate" : 0,
-    "y_coordinate" : 2,
-    "next" : [3]
-  },
-  {
-    "id" : 3,
-    "x_coordinate" : 0,
-    "y_coordinate" : 3,
-    "next" : [5]
-  },
-  {
-    "id" : 4,
-    "x_coordinate" : 1,
-    "y_coordinate" : 2,
-    "next" : [3]
-  },
-  {
-    "id" : 5,
-    "x_coordinate" : 0,
-    "y_coordinate" : 4,
-    "next" : null
+    "next" : null,
+    "cell_type" : "END"
   }
 ]
