@@ -5,7 +5,7 @@ import it.dpg.view.GridView;
 import java.util.Map;
 import java.util.Set;
 
-public class GridViewTestImpl implements GridView {
+public class GridViewMock implements GridView {
     @Override
     public void setCurrentPlayerName(String name) {
         System.out.println("Current player: " + name);

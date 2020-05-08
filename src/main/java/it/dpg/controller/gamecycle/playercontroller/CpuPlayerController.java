@@ -18,14 +18,13 @@ public class CpuPlayerController extends AbstractPlayerController{
 
     @Override
     public void throwDice(int dice) {
-        turnState.setDiceThrown();
+        turnState.setDiceThrown(true);
     }
 
     @Override
-    public ImmutablePair<Integer, Integer> chooseDirection(Set<Integer> possibleCells) {
+    public void chooseDirection(Set<ImmutablePair<Integer, Integer>> possibleCells) {
         ImmutablePair<Integer, Integer> direction = cpu.getRandomDirection();
         turnState.setLastDirectionChoice(direction);
-        return direction;
     }
 
     @Override

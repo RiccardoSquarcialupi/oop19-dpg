@@ -17,7 +17,7 @@ public class HumanPlayerController extends AbstractPlayerController{
         view.enableDiceThrow(dice);
         synchronized (this.turnState) {
             try {
-                while (!turnState.isDiceThrown()) {
+                while (!turnState.wasDiceThrown()) {
                     turnState.wait();
                 }
             } catch(InterruptedException e) {
@@ -28,23 +28,23 @@ public class HumanPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public ImmutablePair<Integer, Integer> chooseDirection(Set<Integer> possibleCells)  {
-        view.enableDirectionChoice(possibleCells);
-        turnState.choiceStarted();
+    public void chooseDirection(Set<ImmutablePair<Integer, Integer>> possibleCells)  {
+        //TODO remove comment when gridview interface is updated
+        //view.enableDirectionChoice(possibleCells);
+        turnState.setChoice(true);
         synchronized (this.turnState) {
             try {
                 while (turnState.isChoosing()) {
                     turnState.wait();
                 }
             } catch (InterruptedException e) {
-                System.out.println("thread interrupted during dice throw wait");
+                System.out.println("thread interrupted during direction choice wait");
             }
         }
         view.disableDirectionChoice();
         if(turnState.getLastDirectionChoice().isEmpty()) {
             throw new IllegalStateException();
         }
-        return turnState.getLastDirectionChoice().get();
     }
 
     @Override
