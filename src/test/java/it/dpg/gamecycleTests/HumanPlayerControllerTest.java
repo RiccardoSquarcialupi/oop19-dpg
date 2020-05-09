@@ -2,8 +2,8 @@ package it.dpg.gamecycleTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import it.dpg.controller.gamecycle.TurnState;
-import it.dpg.controller.gamecycle.TurnStateImpl;
+import it.dpg.controller.gamecycle.turnmanagement.TurnState;
+import it.dpg.controller.gamecycle.turnmanagement.TurnStateImpl;
 import it.dpg.controller.gamecycle.playercontroller.HumanPlayerController;
 import it.dpg.controller.gamecycle.playercontroller.PlayerController;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Set;
 
 
-public class HumanPlayerTest {
+public class HumanPlayerControllerTest {
 
 
     private final TurnState state = new TurnStateImpl();

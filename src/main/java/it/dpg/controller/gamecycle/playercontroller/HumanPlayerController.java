@@ -1,6 +1,7 @@
 package it.dpg.controller.gamecycle.playercontroller;
 
-import it.dpg.controller.gamecycle.TurnState;
+import it.dpg.controller.gamecycle.turnmanagement.TurnState;
+import it.dpg.model.character.Dice;
 import it.dpg.view.GridView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
@@ -8,13 +9,14 @@ import java.util.Set;
 
 public class HumanPlayerController extends AbstractPlayerController{
 
-    public HumanPlayerController(TurnState turnState, GridView view) {
+    public HumanPlayerController(final TurnState turnState, final GridView view) {
         super(turnState, view);
     }
 
     @Override
-    public void throwDice(int dice) {
-        view.enableDiceThrow(dice);
+    public void throwDice(final Dice dice) {
+        //TODO remove comment when gridview is changed to accept Dice enums
+        //view.enableDiceThrow(dice);
         synchronized (this.turnState) {
             try {
                 while (!turnState.wasDiceThrown()) {
@@ -28,7 +30,7 @@ public class HumanPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public void chooseDirection(Set<ImmutablePair<Integer, Integer>> possibleCells)  {
+    public void chooseDirection(final Set<ImmutablePair<Integer, Integer>> possibleCells)  {
         view.enableDirectionChoice(possibleCells);
         turnState.setChoice(true);
         synchronized (this.turnState) {

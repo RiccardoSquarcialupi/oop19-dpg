@@ -1,7 +1,8 @@
 package it.dpg.controller.gamecycle.playercontroller;
 
-import it.dpg.controller.gamecycle.TurnState;
+import it.dpg.controller.gamecycle.turnmanagement.TurnState;
 import it.dpg.model.character.Cpu;
+import it.dpg.model.character.Dice;
 import it.dpg.view.GridView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
@@ -11,18 +12,18 @@ public class CpuPlayerController extends AbstractPlayerController{
 
     private final Cpu cpu;
 
-    public CpuPlayerController(TurnState turnState, GridView view, Cpu cpu) {
+    public CpuPlayerController(final TurnState turnState, final GridView view, final Cpu cpu) {
         super(turnState, view);
         this.cpu = cpu;
     }
 
     @Override
-    public void throwDice(int dice) {
+    public void throwDice(final Dice dice) {
         turnState.setDiceThrown(true);
     }
 
     @Override
-    public void chooseDirection(Set<ImmutablePair<Integer, Integer>> possibleCells) {
+    public void chooseDirection(final Set<ImmutablePair<Integer, Integer>> possibleCells) {
         ImmutablePair<Integer, Integer> direction = cpu.getRandomDirection();
         turnState.setLastDirectionChoice(direction);
     }
