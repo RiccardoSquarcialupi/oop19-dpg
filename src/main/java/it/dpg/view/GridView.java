@@ -1,5 +1,6 @@
 package it.dpg.view;
 
+import it.dpg.model.character.Dice;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.Set;
 public interface GridView {
     void setCurrentPlayerName(String name);
     void setRemainingMoves(int moves);
-    void enableDiceThrow(int diceFaces);
+    void enableDiceThrow(Dice dice);
     void disableDiceThrow();
     void showText(String text);
     void removeText();
