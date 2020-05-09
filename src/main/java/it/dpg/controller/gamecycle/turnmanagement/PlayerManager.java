@@ -15,7 +15,7 @@ public interface PlayerManager {
     void addPlayer(final Player player);
 
     /**
-     * start the game and the first turn, assigns equal dices to all players
+     * start the game and the first turn, assigns equal dices to all players, randomize turn order
      * @exception IllegalStateException if called twice
      */
     void startGame();
