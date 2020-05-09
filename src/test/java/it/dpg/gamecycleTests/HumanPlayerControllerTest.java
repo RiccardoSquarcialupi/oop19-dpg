@@ -6,6 +6,7 @@ import it.dpg.controller.gamecycle.turnmanagement.TurnState;
 import it.dpg.controller.gamecycle.turnmanagement.TurnStateImpl;
 import it.dpg.controller.gamecycle.playercontroller.HumanPlayerController;
 import it.dpg.controller.gamecycle.playercontroller.PlayerController;
+import it.dpg.model.character.Dice;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,7 @@ public class HumanPlayerControllerTest {
 
         Thread gameCycleMock = new Thread(() -> {
             long start = System.currentTimeMillis();
-            pc.throwDice(6);
+            pc.throwDice(Dice.D6);
             long stop = System.currentTimeMillis();
             assertTrue((stop - start) >= waitingTime);
         });
