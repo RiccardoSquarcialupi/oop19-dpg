@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Set;
 
 
-public class HumanPlayerTest {
+public class HumanPlayerControllerTest {
 
 
     private final TurnState state = new TurnStateImpl();

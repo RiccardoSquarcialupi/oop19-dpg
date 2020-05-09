@@ -26,7 +26,7 @@ public class TurnStateImpl implements TurnState {
     }
 
     @Override
-    public void setDiceThrown(boolean wasThrown) {
+    public void setDiceThrown(final boolean wasThrown) {
         checkGameStarted();
 
         this.diceThrown = wasThrown;
@@ -40,7 +40,7 @@ public class TurnStateImpl implements TurnState {
     }
 
     @Override
-    public void setChoice(boolean isChoosing) {
+    public void setChoice(final boolean isChoosing) {
         checkGameStarted();
 
         this.isChoosing = isChoosing;
@@ -54,7 +54,7 @@ public class TurnStateImpl implements TurnState {
     }
 
     @Override
-    public void setLastDirectionChoice(ImmutablePair<Integer, Integer> direction) {
+    public void setLastDirectionChoice(final ImmutablePair<Integer, Integer> direction) {
         checkGameStarted();
 
         this.hasChosenDirection = true;
@@ -72,7 +72,7 @@ public class TurnStateImpl implements TurnState {
     }
 
     @Override
-    public void setTurnPause(boolean isPaused) {
+    public void setTurnPause(final boolean isPaused) {
         checkGameStarted();
 
         this.turnPaused = isPaused;

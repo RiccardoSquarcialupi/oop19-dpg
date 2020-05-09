@@ -14,13 +14,13 @@ public interface PlayerController {
      * handles the throw of a dice for the player (human or cpu)
      * @param dice the type of dice throw
      */
-    void throwDice(int dice);
+    void throwDice(final int dice);
 
     /**
      * handles the choice of direction for the player (human or cpu)
      * @param possibleCells IDs if the possible choices
      */
-    void chooseDirection(Set<ImmutablePair<Integer, Integer>> possibleCells);
+    void chooseDirection(final Set<ImmutablePair<Integer, Integer>> possibleCells);
 
     /**
      * handles the pause of the turn, used between the steps of a turn (resumed by a button press)

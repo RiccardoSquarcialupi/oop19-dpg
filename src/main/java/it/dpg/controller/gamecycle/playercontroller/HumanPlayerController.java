@@ -13,7 +13,7 @@ public class HumanPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public void throwDice(int dice) {
+    public void throwDice(final int dice) {
         view.enableDiceThrow(dice);
         synchronized (this.turnState) {
             try {
@@ -28,7 +28,7 @@ public class HumanPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public void chooseDirection(Set<ImmutablePair<Integer, Integer>> possibleCells)  {
+    public void chooseDirection(final Set<ImmutablePair<Integer, Integer>> possibleCells)  {
         view.enableDirectionChoice(possibleCells);
         turnState.setChoice(true);
         synchronized (this.turnState) {

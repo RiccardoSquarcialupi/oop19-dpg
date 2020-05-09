@@ -14,7 +14,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CpuPlayerTest {
+public class CpuPlayerControllerTest {
 
     private static class CpuMock implements Cpu{
 

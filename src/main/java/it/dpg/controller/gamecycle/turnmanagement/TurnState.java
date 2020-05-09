@@ -19,7 +19,7 @@ public interface TurnState {
      *
      * @exception IllegalStateException if newTurn was never called
      */
-    void setDiceThrown(boolean wasThrown);
+    void setDiceThrown(final boolean wasThrown);
 
     /**
      * @return true if the dice has been thrown, false otherwise
@@ -33,7 +33,7 @@ public interface TurnState {
      *
      * @exception IllegalStateException if newTurn was never called
      */
-    void setChoice(boolean isChoosing);
+    void setChoice(final boolean isChoosing);
 
     /**
      * @return true if the player is currently choosing, false otherwise
@@ -48,7 +48,7 @@ public interface TurnState {
      *
      * @exception IllegalStateException if newTurn was never called
      */
-    void setLastDirectionChoice(ImmutablePair<Integer, Integer> direction);
+    void setLastDirectionChoice(final ImmutablePair<Integer, Integer> direction);
 
     /**
      * get the last direction choice made by a player/cpu
@@ -61,7 +61,7 @@ public interface TurnState {
      *
      * @exception IllegalStateException if newTurn was never called
      */
-    void setTurnPause(boolean isPaused);
+    void setTurnPause(final boolean isPaused);
 
     /**
      * @return true if the turn is paused, false otherwise
