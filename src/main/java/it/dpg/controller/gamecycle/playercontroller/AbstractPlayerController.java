@@ -1,6 +1,6 @@
 package it.dpg.controller.gamecycle.playercontroller;
 
-import it.dpg.controller.gamecycle.TurnState;
+import it.dpg.controller.gamecycle.turnmanagement.TurnState;
 import it.dpg.view.GridView;
 
 public abstract class AbstractPlayerController implements PlayerController {

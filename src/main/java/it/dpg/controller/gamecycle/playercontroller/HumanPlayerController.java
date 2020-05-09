@@ -1,6 +1,6 @@
 package it.dpg.controller.gamecycle.playercontroller;
 
-import it.dpg.controller.gamecycle.TurnState;
+import it.dpg.controller.gamecycle.turnmanagement.TurnState;
 import it.dpg.view.GridView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 

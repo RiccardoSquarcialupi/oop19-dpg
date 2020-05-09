@@ -1,5 +1,6 @@
-package it.dpg.controller.gamecycle;
+package it.dpg.controller.gamecycle.turnmanagement;
 
+import it.dpg.controller.gamecycle.turnmanagement.TurnState;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Optional;

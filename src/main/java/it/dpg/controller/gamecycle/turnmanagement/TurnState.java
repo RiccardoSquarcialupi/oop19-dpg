@@ -1,4 +1,4 @@
-package it.dpg.controller.gamecycle;
+package it.dpg.controller.gamecycle.turnmanagement;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
