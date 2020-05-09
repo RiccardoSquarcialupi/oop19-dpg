@@ -2,6 +2,7 @@ package it.dpg.controller.gamecycle.playercontroller;
 
 import it.dpg.controller.gamecycle.turnmanagement.TurnState;
 import it.dpg.model.character.Cpu;
+import it.dpg.model.character.Dice;
 import it.dpg.view.GridView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
@@ -17,7 +18,7 @@ public class CpuPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public void throwDice(final int dice) {
+    public void throwDice(final Dice dice) {
         turnState.setDiceThrown(true);
     }
 

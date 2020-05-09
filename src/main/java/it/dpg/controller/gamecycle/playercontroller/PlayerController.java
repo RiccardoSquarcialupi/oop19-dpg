@@ -1,5 +1,6 @@
 package it.dpg.controller.gamecycle.playercontroller;
 
+import it.dpg.model.character.Dice;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Set;
@@ -14,7 +15,7 @@ public interface PlayerController {
      * handles the throw of a dice for the player (human or cpu)
      * @param dice the type of dice throw
      */
-    void throwDice(final int dice);
+    void throwDice(final Dice dice);
 
     /**
      * handles the choice of direction for the player (human or cpu)

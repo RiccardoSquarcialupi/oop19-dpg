@@ -1,6 +1,7 @@
 package it.dpg.controller.gamecycle.playercontroller;
 
 import it.dpg.controller.gamecycle.turnmanagement.TurnState;
+import it.dpg.model.character.Dice;
 import it.dpg.view.GridView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
@@ -13,8 +14,9 @@ public class HumanPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public void throwDice(final int dice) {
-        view.enableDiceThrow(dice);
+    public void throwDice(final Dice dice) {
+        //TODO remove comment when gridview is changed to accept Dice enums
+        //view.enableDiceThrow(dice);
         synchronized (this.turnState) {
             try {
                 while (!turnState.wasDiceThrown()) {
