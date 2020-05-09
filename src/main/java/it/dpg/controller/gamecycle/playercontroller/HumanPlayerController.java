@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class HumanPlayerController extends AbstractPlayerController{
 
-    public HumanPlayerController(TurnState turnState, GridView view) {
+    public HumanPlayerController(final TurnState turnState, final GridView view) {
         super(turnState, view);
     }
 

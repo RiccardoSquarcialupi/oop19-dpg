@@ -11,7 +11,7 @@ public class CpuPlayerController extends AbstractPlayerController{
 
     private final Cpu cpu;
 
-    public CpuPlayerController(TurnState turnState, GridView view, Cpu cpu) {
+    public CpuPlayerController(final TurnState turnState, final GridView view, final Cpu cpu) {
         super(turnState, view);
         this.cpu = cpu;
     }

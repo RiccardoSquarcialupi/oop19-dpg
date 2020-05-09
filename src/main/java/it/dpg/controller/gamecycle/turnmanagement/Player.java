@@ -1,9 +1,10 @@
 package it.dpg.controller.gamecycle.turnmanagement;
 
 import it.dpg.controller.gamecycle.playercontroller.PlayerController;
+import it.dpg.model.character.Character;
 
 /**
- * a player includes a PlayerController, and a character
+ * a player includes a controller, and the relative character
  */
 public interface Player {
 
