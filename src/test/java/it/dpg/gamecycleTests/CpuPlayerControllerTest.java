@@ -6,6 +6,7 @@ import it.dpg.controller.gamecycle.playercontroller.CpuPlayerController;
 import it.dpg.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.model.character.Character;
 import it.dpg.model.character.Cpu;
+import it.dpg.model.character.Dice;
 import it.dpg.model.character.Difficulty;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.Test;
@@ -46,7 +47,7 @@ public class CpuPlayerControllerTest {
     @Test
     public void testDiceThrow() {
         state.newTurn();
-        pc.throwDice(6);
+        pc.throwDice(Dice.D6);
         assertTrue(state.wasDiceThrown());
     }
 
