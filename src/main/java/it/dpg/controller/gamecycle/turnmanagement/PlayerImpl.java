@@ -25,7 +25,6 @@ public class PlayerImpl implements Player {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PlayerImpl player = (PlayerImpl) o;
         return character.getId() == player.character.getId();
