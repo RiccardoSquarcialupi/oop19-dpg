@@ -1,8 +1,5 @@
 package it.dpg.controller.gamecycle.turnmanagement;
 
-import it.dpg.model.character.Dice;
-
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -12,7 +9,7 @@ public interface PlayerManager {
 
     /**
      * @return the next player in order of turn
-     * @exception IllegalStateException if no players have to play in this turn
+     * @exception java.util.NoSuchElementException if no players have to play in this turn
      */
     Player nextPlayer();
 

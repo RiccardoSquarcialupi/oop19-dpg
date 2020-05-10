@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 
@@ -94,7 +95,7 @@ public class PlayerManagerImplTest {
         assertTrue(manager.hasNextPlayer());
         assertEquals(third, manager.nextPlayer());
         assertFalse(manager.hasNextPlayer());
-        assertThrows(IllegalStateException.class, () -> manager.hasNextPlayer());
+        assertThrows(NoSuchElementException.class, () -> manager.nextPlayer());
     }
 
     @Test
