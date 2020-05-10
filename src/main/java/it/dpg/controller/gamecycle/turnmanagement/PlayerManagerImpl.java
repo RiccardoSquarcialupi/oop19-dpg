@@ -6,17 +6,15 @@ public class PlayerManagerImpl implements PlayerManager {
 
     private int remainingTurns;
 
-    public PlayerManagerImpl(final int nTurns) {
-        this.remainingTurns = nTurns;
+    public PlayerManagerImpl() {}
+
+    @Override
+    public void addPlayer(final Player player) {
+
     }
 
     @Override
-    public void addPlayer(Player player) {
-
-    }
-
-    @Override
-    public void startGame() {
+    public void startGame(final int nTurns) {
 
     }
 
@@ -38,11 +36,6 @@ public class PlayerManagerImpl implements PlayerManager {
     @Override
     public boolean hasNextTurn() {
         return false;
-    }
-
-    @Override
-    public void playMinigames() {
-
     }
 
     @Override

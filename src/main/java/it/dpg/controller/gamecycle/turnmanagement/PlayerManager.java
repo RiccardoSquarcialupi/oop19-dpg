@@ -11,14 +11,16 @@ public interface PlayerManager {
      * adds a player
      * @param player to handle
      * @exception IllegalStateException if the method is called after startGame is called
+     * @exception IllegalArgumentException if a player with the same character id is already inserted
      */
     void addPlayer(final Player player);
 
     /**
      * start the game and the first turn, assigns equal dices to all players, randomize turn order
      * @exception IllegalStateException if called twice
+     * @param nTurns number of turns of the game
      */
-    void startGame();
+    void startGame(int nTurns);
 
     /**
      * @return the next player in order of turn
@@ -34,7 +36,7 @@ public interface PlayerManager {
     boolean hasNextPlayer();
 
     /**
-     * go to the next turn calculating the dices for the players of the next turn basing on the scores
+     * go to the next turn making everyone play a minigame, and calculating the dices for the players of the next turn basing on the scores
      * @exception IllegalStateException if called before the game starts
      * @exception IllegalStateException if no more turns have to be done
      */
@@ -47,13 +49,6 @@ public interface PlayerManager {
     boolean hasNextTurn();
 
     /**
-     * select a random minigame and make every player play it, assigning the relative scores
-     * @exception IllegalStateException if called before the game starts
-     */
-    void playMinigames();
-
-    /**
-     * @exception IllegalStateException if called before the game starts
      * @return the set of players saved
      */
     Set<Player> getPlayers();

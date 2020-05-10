@@ -5,18 +5,21 @@ import it.dpg.controller.gamecycle.playercontroller.HumanPlayerController;
 import it.dpg.controller.gamecycle.turnmanagement.*;
 import it.dpg.model.Cell;
 import it.dpg.model.Grid;
+import it.dpg.model.character.*;
 import it.dpg.model.character.Character;
-import it.dpg.model.character.CharacterImpl;
-import it.dpg.model.character.Cpu;
-import it.dpg.model.character.Difficulty;
 import it.dpg.view.GridView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class PlayerManagerImplTest {
 
-    private class CpuMock implements Cpu {
+    private static class CpuMock implements Cpu {
 
         @Override
         public Character getControlledCharacter() {
@@ -64,10 +67,11 @@ public class PlayerManagerImplTest {
     void setup() {
         initialize();
         addPlayers();
+        state.newTurn();
     }
 
     void initialize() {
-        manager = new PlayerManagerImpl(10);
+        manager = new PlayerManagerImpl();
     }
 
     void addPlayers() {
@@ -80,7 +84,63 @@ public class PlayerManagerImplTest {
     }
 
     @Test
-    void basicTest() {
+    void startTest1() { //test that every player gets the same dice at the start
+        manager.startGame(5);
+        Player p = manager.nextPlayer();
+        Dice dice = p.getCharacter().getDice();
+        for(Player player : manager.getPlayers()) {
+            assertEquals(dice, player.getCharacter().getDice());
+        }
+    }
 
+    void basicTestTurn(Player first, Player second, Player third) {
+        assertTrue(manager.hasNextPlayer());
+        assertEquals(first, manager.nextPlayer());
+        assertTrue(manager.hasNextPlayer());
+        assertEquals(second, manager.nextPlayer());
+        assertTrue(manager.hasNextPlayer());
+        assertEquals(third, manager.nextPlayer());
+        assertFalse(manager.hasNextPlayer());
+        assertThrows(IllegalStateException.class, () -> manager.hasNextPlayer());
+    }
+
+    @Test
+    void basicTestGame() {
+        manager.startGame(5);
+        Set<Player> players = manager.getPlayers();
+        Optional<Player> temp = players.stream().filter(p -> p.getCharacter().getTurn() == 0).findAny();
+        assertTrue(temp.isPresent());
+        Player first = temp.get();
+        temp = players.stream().filter(p -> p.getCharacter().getTurn() == 1).findAny();
+        assertTrue(temp.isPresent());
+        Player second = temp.get();
+        temp = players.stream().filter(p -> p.getCharacter().getTurn() == 2).findAny();
+        assertTrue(temp.isPresent());
+        Player third = temp.get();
+
+        for(int i = 0; i < 4; i++) {
+            basicTestTurn(first, second, third);
+            assertTrue(manager.hasNextTurn());
+            manager.nextTurn();
+        }
+        assertFalse(manager.hasNextTurn());
+        assertThrows(IllegalStateException.class, () -> manager.nextTurn());
+    }
+
+    @Test
+    void testExeption1() {
+        assertThrows(IllegalStateException.class, () -> manager.hasNextPlayer());
+        assertThrows(IllegalStateException.class, () -> manager.nextPlayer());
+        assertThrows(IllegalStateException.class, () -> manager.hasNextTurn());
+        assertThrows(IllegalStateException.class, () -> manager.nextTurn());
+        manager.startGame(5);
+        assertThrows(IllegalStateException.class, () -> new PlayerImpl(new CharacterImpl(4, "Albertino", gridMock), new HumanPlayerController(state, view)));
+    }
+
+    @Test
+    void testExeption2() {
+        assertThrows(IllegalArgumentException.class, () -> manager.addPlayer(
+                new PlayerImpl(new CharacterImpl(1, "Albertino", gridMock), new HumanPlayerController(state, view))
+        ));
     }
 }
