@@ -1,4 +1,4 @@
-package it.dpg.controller.gamecycle.turnmanagement;
+package it.dpg.controller.gamecycle.player;
 
 import it.dpg.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.model.character.Character;

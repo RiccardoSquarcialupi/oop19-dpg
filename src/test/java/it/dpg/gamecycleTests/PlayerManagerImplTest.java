@@ -1,5 +1,7 @@
 package it.dpg.gamecycleTests;
 
+import it.dpg.controller.gamecycle.player.Player;
+import it.dpg.controller.gamecycle.player.PlayerImpl;
 import it.dpg.controller.gamecycle.playercontroller.CpuPlayerController;
 import it.dpg.controller.gamecycle.playercontroller.HumanPlayerController;
 import it.dpg.controller.gamecycle.turnmanagement.*;

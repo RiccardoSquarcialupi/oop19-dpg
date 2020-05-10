@@ -1,5 +1,6 @@
 package it.dpg.controller.gamecycle.turnmanagement;
 
+import it.dpg.controller.gamecycle.player.Player;
 import it.dpg.model.character.Dice;
 
 import java.util.*;
