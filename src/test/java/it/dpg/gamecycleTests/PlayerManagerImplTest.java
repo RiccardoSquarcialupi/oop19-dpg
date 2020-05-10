@@ -12,6 +12,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -62,34 +63,27 @@ public class PlayerManagerImplTest {
     private final TurnState state = new TurnStateImpl();
     private final GridView view = new GridViewMock();
     private PlayerManager manager;
+    private final Dice defaultDice = Dice.D6;
+    private final List<Dice> rewardDice = List.of(Dice.D10, Dice.D8, Dice.D6);
 
     @BeforeEach
     void setup() {
-        initialize();
-        addPlayers();
+        create();
         state.newTurn();
     }
 
-    void initialize() {
-        manager = new PlayerManagerImpl();
-    }
-
-    void addPlayers() {
+    void create() {
         Player p1 = new PlayerImpl(new CharacterImpl(1, "Franco", gridMock), new HumanPlayerController(state, view));
         Player p2 = new PlayerImpl(new CharacterImpl(2, "Alberto", gridMock), new HumanPlayerController(state, view));
         Player p3 = new PlayerImpl(new CharacterImpl(3, "CPU1", gridMock), new CpuPlayerController(state, view, new CpuMock()));
-        manager.addPlayer(p1);
-        manager.addPlayer(p2);
-        manager.addPlayer(p3);
+        manager = new PlayerManagerImpl(defaultDice, rewardDice, 5, Set.of(p1, p2, p3));
     }
 
     @Test
     void startTest1() { //test that every player gets the same dice at the start
-        manager.startGame(5);
-        Player p = manager.nextPlayer();
-        Dice dice = p.getCharacter().getDice();
+        //manager.startGame();
         for(Player player : manager.getPlayers()) {
-            assertEquals(dice, player.getCharacter().getDice());
+            assertEquals(defaultDice, player.getCharacter().getDice());
         }
     }
 
@@ -106,7 +100,7 @@ public class PlayerManagerImplTest {
 
     @Test
     void basicTestGame() {
-        manager.startGame(5);
+        //manager.startGame();
         Set<Player> players = manager.getPlayers();
         Optional<Player> temp = players.stream().filter(p -> p.getCharacter().getTurn() == 0).findAny();
         assertTrue(temp.isPresent());
@@ -133,14 +127,7 @@ public class PlayerManagerImplTest {
         assertThrows(IllegalStateException.class, () -> manager.nextPlayer());
         assertThrows(IllegalStateException.class, () -> manager.hasNextTurn());
         assertThrows(IllegalStateException.class, () -> manager.nextTurn());
-        manager.startGame(5);
+        //manager.startGame();
         assertThrows(IllegalStateException.class, () -> new PlayerImpl(new CharacterImpl(4, "Albertino", gridMock), new HumanPlayerController(state, view)));
-    }
-
-    @Test
-    void testExeption2() {
-        assertThrows(IllegalArgumentException.class, () -> manager.addPlayer(
-                new PlayerImpl(new CharacterImpl(1, "Albertino", gridMock), new HumanPlayerController(state, view))
-        ));
     }
 }
