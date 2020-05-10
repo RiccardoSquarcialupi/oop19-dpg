@@ -1,5 +1,6 @@
 package it.dpg.gamecycleTests;
 
+import it.dpg.model.character.Dice;
 import it.dpg.view.GridView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
@@ -18,8 +19,8 @@ public class GridViewMock implements GridView {
     }
 
     @Override
-    public void enableDiceThrow(int diceFaces) {
-        System.out.println("dice throw enabled");
+    public void enableDiceThrow(Dice dice) {
+        System.out.println("dice throw enabled - " + dice.toString());
     }
 
     @Override

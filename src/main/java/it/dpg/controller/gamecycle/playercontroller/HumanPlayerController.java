@@ -15,8 +15,7 @@ public class HumanPlayerController extends AbstractPlayerController{
 
     @Override
     public void throwDice(final Dice dice) {
-        //TODO remove comment when gridview is changed to accept Dice enums
-        //view.enableDiceThrow(dice);
+        view.enableDiceThrow(dice);
         synchronized (this.turnState) {
             try {
                 while (!turnState.wasDiceThrown()) {
