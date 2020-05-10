@@ -81,7 +81,6 @@ public class PlayerManagerImplTest {
 
     @Test
     void startTest1() { //test that every player gets the same dice at the start
-        //manager.startGame();
         for(Player player : manager.getPlayers()) {
             assertEquals(defaultDice, player.getCharacter().getDice());
         }
@@ -100,7 +99,6 @@ public class PlayerManagerImplTest {
 
     @Test
     void basicTestGame() {
-        //manager.startGame();
         Set<Player> players = manager.getPlayers();
         Optional<Player> temp = players.stream().filter(p -> p.getCharacter().getTurn() == 0).findAny();
         assertTrue(temp.isPresent());
@@ -119,15 +117,5 @@ public class PlayerManagerImplTest {
         }
         assertFalse(manager.hasNextTurn());
         assertThrows(IllegalStateException.class, () -> manager.nextTurn());
-    }
-
-    @Test
-    void testExeption1() {
-        assertThrows(IllegalStateException.class, () -> manager.hasNextPlayer());
-        assertThrows(IllegalStateException.class, () -> manager.nextPlayer());
-        assertThrows(IllegalStateException.class, () -> manager.hasNextTurn());
-        assertThrows(IllegalStateException.class, () -> manager.nextTurn());
-        //manager.startGame();
-        assertThrows(IllegalStateException.class, () -> new PlayerImpl(new CharacterImpl(4, "Albertino", gridMock), new HumanPlayerController(state, view)));
     }
 }
