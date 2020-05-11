@@ -6,9 +6,12 @@ import it.dpg.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.controller.gamecycle.turnmanagement.TurnState;
 import it.dpg.model.Grid;
 import it.dpg.model.character.CharacterImpl;
+import it.dpg.model.character.Cpu;
 import it.dpg.model.character.Difficulty;
 import it.dpg.view.GridView;
 import it.dpg.model.character.Character;
+
+import java.util.Set;
 
 public class PlayerFactoryImpl implements PlayerFactory{
 
@@ -17,7 +20,7 @@ public class PlayerFactoryImpl implements PlayerFactory{
     private final Grid grid;
     private int nextId = 1;
 
-    public PlayerFactoryImpl(TurnState turnState, GridView view, Grid grid) {
+    public PlayerFactoryImpl(TurnState turnState, GridView view, Grid grid, Set<Cpu> cpuSet) {
         this.turnstate = turnState;
         this.gridView = view;
         this.grid = grid;
@@ -36,6 +39,6 @@ public class PlayerFactoryImpl implements PlayerFactory{
         //TODO implement once CpuImpl is available
         /*Character character = new CharacterImpl(nextId, name, grid);
         PlayerController controller = new CpuPlayerController(turnstate, gridView, );*/
-        return null;
+        throw new UnsupportedOperationException();
     }
 }
