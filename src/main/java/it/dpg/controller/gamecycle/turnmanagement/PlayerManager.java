@@ -1,5 +1,7 @@
 package it.dpg.controller.gamecycle.turnmanagement;
 
+import it.dpg.controller.gamecycle.player.Player;
+
 import java.util.Set;
 
 /**
