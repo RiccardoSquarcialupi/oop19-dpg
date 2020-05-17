@@ -10,7 +10,7 @@
     "id" : 1,
     "x_coordinate" : 0,
     "y_coordinate" : 1,
-    "next" : null,
+    "next" : [],
     "cell_type" : "END"
   }
 ]
