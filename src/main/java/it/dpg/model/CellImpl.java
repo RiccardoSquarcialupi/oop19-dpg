@@ -2,17 +2,17 @@ package it.dpg.model;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class CellImpl implements Cell {
 
-    private final Set<Cell> nextCell;
+    private Set<Cell> nextCell = new HashSet<>();
     private final boolean isAFork;
     private final ImmutablePair<Integer, Integer> coordinates;
     private final CellType type;
 
-    public CellImpl (final Set<Cell> nextCell, final boolean isAFork, final ImmutablePair<Integer, Integer> coordinates, final CellType type) {
-        this.nextCell = nextCell;
+    public CellImpl (final boolean isAFork, final ImmutablePair<Integer, Integer> coordinates, final CellType type) {
         this.isAFork = isAFork;
         this.coordinates = coordinates;
         this.type = type;
@@ -21,6 +21,11 @@ public class CellImpl implements Cell {
     @Override
     public Boolean isAFork() {
         return this.isAFork;
+    }
+
+    @Override
+    public void setNext(Set<Cell> next) {
+        this.nextCell = next;
     }
 
     @Override

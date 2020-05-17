@@ -9,7 +9,7 @@ public interface Cell {
 
     Boolean isAFork();
     Set<Cell> getNext();
-
+    void setNext(Set<Cell> next);
     ImmutablePair<Integer, Integer> getCoordinates();
     CellType getType();
 }
