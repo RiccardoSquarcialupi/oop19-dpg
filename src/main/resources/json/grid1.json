@@ -1,44 +1,16 @@
 [
   {
-    "left": null,
-    "right": null,
-    "forward": 1,
-    "previous": null
+    "id": 0,
+    "x_coordinate" : 0,
+    "y_coordinate" : 0,
+    "next" : [1],
+    "cell_type" : "START"
   },
   {
-    "left": null,
-    "right": null,
-    "forward": 2,
-    "previous": 0
-  },
-  {
-    "left": 3,
-    "right": 5,
-    "forward": null,
-    "previous": 1
-  },
-  {
-    "left": null,
-    "right": null,
-    "forward": 4,
-    "previous": 2
-  },
-  {
-    "left": null,
-    "right": null,
-    "forward": null,
-    "previous": 3
-  },
-  {
-    "left": null,
-    "right": null,
-    "forward": 6,
-    "previous": 2
-  },
-  {
-    "left": null,
-    "right": null,
-    "forward": null,
-    "previous": 5
+    "id" : 1,
+    "x_coordinate" : 0,
+    "y_coordinate" : 1,
+    "next" : [],
+    "cell_type" : "END"
   }
 ]
