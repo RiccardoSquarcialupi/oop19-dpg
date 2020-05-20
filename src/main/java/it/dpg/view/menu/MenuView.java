@@ -1,4 +1,4 @@
-package it.dpg.view;
+package it.dpg.view.menu;
 
 /**
  * Interface for the MenuGUI

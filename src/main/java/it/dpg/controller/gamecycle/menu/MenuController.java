@@ -1,4 +1,4 @@
-package it.dpg.controller;
+package it.dpg.controller.gamecycle.menu;
 
 import it.dpg.model.character.Difficulty;
 
