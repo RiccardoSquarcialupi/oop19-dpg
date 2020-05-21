@@ -1,4 +1,4 @@
-package it.dpg.model.minigames;
+package it.dpg.controller.minigames;
 
 import it.dpg.model.character.Difficulty;
 

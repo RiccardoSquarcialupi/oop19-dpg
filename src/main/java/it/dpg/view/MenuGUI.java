@@ -68,10 +68,10 @@ public class MenuGUI extends Application implements MenuView {
         exitBtn.setPrefSize(100, 60);
         exitBtn.setFont(Font.font(15));
 
-        var rootBox = new VBox();
+        VBox rootBox = new VBox();
         rootBox.setSpacing(7);
         rootBox.setAlignment(Pos.BASELINE_CENTER);
-        var mainScene = new Scene(rootBox, 300, 350);
+        Scene mainScene = new Scene(rootBox, 300, 350);
         rootBox.getChildren().addAll(startBtn, creditBtn, optionsBtn, exitBtn);
 
         startBtn.setOnAction((ActionEvent event) -> startGame());
@@ -96,7 +96,7 @@ public class MenuGUI extends Application implements MenuView {
         Stage creditStage = new Stage();
 
         final TextArea creditText = new TextArea();
-        var creditScene = new Scene(creditText, 300, 350);
+        Scene creditScene = new Scene(creditText, 300, 350);
 
         creditText.setText("Dope Game Party by \n\n" + "Riccardo Squarcialupi\n" +
                 "Davide Picchiotti\n" +
@@ -194,8 +194,8 @@ public class MenuGUI extends Application implements MenuView {
             }
         });
 
-        var optionBox = new VBox();
-        var optionScene = new Scene(optionBox, 300, 250);
+        VBox optionBox = new VBox();
+        Scene optionScene = new Scene(optionBox, 300, 250);
         optionBox.setSpacing(10);
         optionBox.setAlignment(Pos.BASELINE_CENTER);
         optionBox.getChildren().addAll(numPlayer, numAI, listDifficulty.get(0), listDifficulty.get(1), listDifficulty.get(2), listDifficulty.get(3));
