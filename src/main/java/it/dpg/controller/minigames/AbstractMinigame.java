@@ -5,7 +5,6 @@ import it.dpg.model.character.Difficulty;
 public abstract class AbstractMinigame implements Minigame{
 
     @Override
-    //TODO implement start
     public int start() {
         return 0;
     }
