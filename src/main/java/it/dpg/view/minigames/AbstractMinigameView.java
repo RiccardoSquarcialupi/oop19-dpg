@@ -7,22 +7,19 @@ import javafx.stage.Stage;
 public abstract class AbstractMinigameView implements MinigameView {
 
     private Stage stage = new Stage();
-    private Scene scene;
 
     @Override
     public void setView() {
         stage.setHeight(600d);
         stage.setWidth(600d);
         stage.setResizable(false);
-        stage.setScene(scene);
+
+        stage.setScene(this.createScene());
 
         Platform.runLater(() -> stage.show());
     }
 
-    @Override
-    public void setScene(final Scene scene) {
-        this.scene = scene;
-    }
+    public abstract Scene createScene();
 
     @Override
     public void closeView() {
