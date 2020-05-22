@@ -26,6 +26,9 @@ import java.util.List;
  */
 public class MenuGUI extends Application implements MenuView {
 
+    public static void main(String []args){
+        launch(args);
+    }
     /**
      * startBtn is the Button for Start the Game
      * creditBtn is the Button for display the Credits
@@ -48,7 +51,7 @@ public class MenuGUI extends Application implements MenuView {
      * @param stage Represent the "case" for the all Graphics Stuff
      */
     @Override
-    public void start(Stage stage) {
+    public void start(final Stage stage) throws Exception {
         initializeGUI(stage);
     }
 
@@ -57,7 +60,7 @@ public class MenuGUI extends Application implements MenuView {
      *
      * @param stage Represent the "case" for the all Graphics Stuff
      */
-    private void initializeGUI(Stage stage) {
+    private void initializeGUI(final Stage stage) {
 
         startBtn.setPrefSize(100, 60);
         startBtn.setFont(Font.font(15));
