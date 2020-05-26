@@ -7,6 +7,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CharacterImpl implements Character {
 
@@ -66,7 +67,9 @@ public class CharacterImpl implements Character {
 
     @Override
     public Set<ImmutablePair<Integer, Integer>> getAdjacentPositions() {
-        return null;
+        return this.position.getNext().stream()
+                .map(Cell::getCoordinates)
+                .collect(Collectors.toSet());
     }
 
     @Override
