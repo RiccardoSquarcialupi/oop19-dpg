@@ -31,11 +31,6 @@ public class PlayerManagerImplTest {
         }
 
         @Override
-        public void setDifficulty(Difficulty difficulty) {
-
-        }
-
-        @Override
         public Difficulty getDifficulty() {
             return null;
         }

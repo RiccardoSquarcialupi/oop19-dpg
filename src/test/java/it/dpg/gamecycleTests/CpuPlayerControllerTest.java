@@ -25,11 +25,6 @@ public class CpuPlayerControllerTest {
         }
 
         @Override
-        public void setDifficulty(Difficulty difficulty) {
-
-        }
-
-        @Override
         public Difficulty getDifficulty() {
             return null;
         }
