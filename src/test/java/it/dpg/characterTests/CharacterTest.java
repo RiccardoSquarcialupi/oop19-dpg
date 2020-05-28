@@ -1,11 +1,11 @@
 package it.dpg.characterTests;
 
-import it.dpg.model.Cell;
-import it.dpg.model.CellImpl;
-import it.dpg.model.CellType;
-import it.dpg.model.Grid;
-import it.dpg.model.character.*;
-import it.dpg.model.character.Character;
+import it.dpg.maingame.model.Cell;
+import it.dpg.maingame.model.CellImpl;
+import it.dpg.maingame.model.CellType;
+import it.dpg.maingame.model.Grid;
+import it.dpg.maingame.model.character.*;
+import it.dpg.maingame.model.character.Character;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

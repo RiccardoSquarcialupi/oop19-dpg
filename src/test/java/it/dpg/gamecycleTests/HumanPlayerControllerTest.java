@@ -2,11 +2,11 @@ package it.dpg.gamecycleTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import it.dpg.controller.gamecycle.turnmanagement.TurnState;
-import it.dpg.controller.gamecycle.turnmanagement.TurnStateImpl;
-import it.dpg.controller.gamecycle.playercontroller.HumanPlayerController;
-import it.dpg.controller.gamecycle.playercontroller.PlayerController;
-import it.dpg.model.character.Dice;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnStateImpl;
+import it.dpg.maingame.controller.gamecycle.playercontroller.HumanPlayerController;
+import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
+import it.dpg.maingame.model.character.Dice;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,7 @@
 package it.dpg.gamecycleTests;
 
-import it.dpg.model.character.Dice;
-import it.dpg.view.GridView;
+import it.dpg.maingame.model.character.Dice;
+import it.dpg.maingame.view.GridView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Map;

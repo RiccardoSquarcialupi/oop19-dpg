@@ -1,15 +1,15 @@
 package it.dpg.gamecycleTests;
 
-import it.dpg.controller.gamecycle.player.Player;
-import it.dpg.controller.gamecycle.player.PlayerImpl;
-import it.dpg.controller.gamecycle.playercontroller.CpuPlayerController;
-import it.dpg.controller.gamecycle.playercontroller.HumanPlayerController;
-import it.dpg.controller.gamecycle.turnmanagement.*;
-import it.dpg.model.Cell;
-import it.dpg.model.Grid;
-import it.dpg.model.character.*;
-import it.dpg.model.character.Character;
-import it.dpg.view.GridView;
+import it.dpg.maingame.controller.gamecycle.player.Player;
+import it.dpg.maingame.controller.gamecycle.player.PlayerImpl;
+import it.dpg.maingame.controller.gamecycle.playercontroller.CpuPlayerController;
+import it.dpg.maingame.controller.gamecycle.playercontroller.HumanPlayerController;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.*;
+import it.dpg.maingame.model.Cell;
+import it.dpg.maingame.model.Grid;
+import it.dpg.maingame.model.character.*;
+import it.dpg.maingame.model.character.Character;
+import it.dpg.maingame.view.GridView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
