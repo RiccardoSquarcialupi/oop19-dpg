@@ -3,7 +3,7 @@ package it.dpg.minigames.base.controller;
 import it.dpg.maingame.model.character.Difficulty;
 import it.dpg.minigames.base.view.MinigameView;
 
-public abstract class AbstractMinigame implements Minigame{
+public abstract class AbstractMinigame implements Minigame {
 
     private MinigameView view = this.createView();
     private MinigameCycle cycle = this.createCycle();
