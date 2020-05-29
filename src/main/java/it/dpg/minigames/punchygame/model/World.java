@@ -1,18 +1,17 @@
 package it.dpg.minigames.punchygame.model;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class World {
-    private List<Boolean> leftSacks;
-    private List<Boolean> rightSacks;
+    private Random r = new Random();
+
+    private Stack<Direction> sacks;
     private Score score;
     private Timer timer;
 
-    private static final int MAX_SACKS = 10;
+    private static final int MAX_SACKS = 5;
 
     public World() {
         generateSacks();
@@ -20,16 +19,21 @@ public class World {
         timer = new Timer();
     }
 
+    public Direction getRightSack() {
+        sacks.push(randomDirection());
+        return sacks.pop();
+    }
+
     private void generateSacks() {
-        Random r = new Random();
-
-        leftSacks = Stream.generate(r::nextBoolean)
+        Direction[] directions = Direction.values();
+        sacks = Stream
+                .generate(this::randomDirection)
                 .limit(MAX_SACKS)
-                .collect(
-                        Collectors.toCollection(LinkedList::new)
-                );
+                .collect(Collectors.toCollection(Stack::new));
+    }
 
-        rightSacks = new LinkedList<>();
-        leftSacks.forEach(b -> rightSacks.add(!b));
+    private Direction randomDirection() {
+        Direction[] directions = Direction.values();
+        return directions[r.nextInt(directions.length)];
     }
 }
