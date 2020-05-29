@@ -19,13 +19,12 @@ public class World {
         timer = new Timer();
     }
 
-    public Direction getRightSack() {
+    public Direction getNextSack() {
         sacks.push(randomDirection());
         return sacks.pop();
     }
 
     private void generateSacks() {
-        Direction[] directions = Direction.values();
         sacks = Stream
                 .generate(this::randomDirection)
                 .limit(MAX_SACKS)
