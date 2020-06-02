@@ -6,18 +6,21 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-public class gridFactoryTest {
+public class gridInitializerTest {
 
     @Test
     public void createGrid(){
-        GridFactory gridFact = new GridFactoryImpl(GridType.GRID_ONE);
-        gridFact.makeGrid();
-        Grid grid = new GridImpl(gridFact.getFirst(), gridFact.getLast(), gridFact.getGrid());
+        GridInitializer gridFact = new GridInitializerImpl();
+
+        Assertions.assertThrows( IllegalStateException.class, gridFact::getGrid);
+
+        Grid grid = gridFact.makeGrid(GridType.GRID_ONE);
 
         Set<Cell> cell = grid.getCellByCoordinates(0,0).getNext();
 
         Assertions.assertEquals(CellType.START, grid.getCellByCoordinates(0, 0).getType());
         Assertions.assertTrue(cell.contains(grid.getCellByCoordinates(0, 1)));
     }
+
 
 }

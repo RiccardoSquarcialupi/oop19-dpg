@@ -9,25 +9,20 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class GridFactoryImpl implements GridFactory {
-
-    private final GridType grid_type;
+public class GridInitializerImpl implements GridInitializer {
 
     private Cell first;
     private Cell last;
-    private Map<Cell, ImmutablePair<Integer, Integer>> grid = new HashMap<>();
+    private Map<Cell, ImmutablePair<Integer, Integer>> gridMap = new HashMap<>();
+    private Grid grid;
     private String jsonString;
 
-    public GridFactoryImpl (GridType grid_type) {
-        this.grid_type = grid_type;
-    }
-
     @Override
-    public void setJson() {
+    public void setJson(GridType gridType) {
 
         String path;
 
-        if (grid_type.equals(GridType.GRID_ONE)) {
+        if (gridType.equals(GridType.GRID_ONE)) {
             path = "src/main/resources/json/grid1.json";
         } else {
             path = null;
@@ -43,9 +38,9 @@ public class GridFactoryImpl implements GridFactory {
     }
 
     @Override
-    public void makeGrid() {
+    public Grid makeGrid(GridType gridType) {
 
-        this.setJson();
+        this.setJson(gridType);
 
         List<Cell> tempList = new ArrayList<>();   //temporary List of Cells
         Map<Integer, int[]> tempNext = new HashMap<>();  //temporary list of references to next cells
@@ -76,24 +71,29 @@ public class GridFactoryImpl implements GridFactory {
                         }
                     }
                     i.setNext(next);
-                    grid.put(i, i.getCoordinates());
+                    gridMap.put(i, i.getCoordinates());
                 }
 
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
         }
+        this.grid = new GridImpl(this.getFirst(), this.getLast(), this.gridMap);
+        return this.grid;
 
     }
 
     @Override
-    public Map<Cell, ImmutablePair<Integer, Integer>> getGrid() {
+    public Grid getGrid() {
+        if (this.grid == null) {
+            throw new IllegalStateException();
+        }
         return this.grid;
     }
 
     @Override
     public Cell getFirst() {
-        for (var i : grid.entrySet()) {
+        for (var i : gridMap.entrySet()) {
             if (i.getKey().getType().equals(CellType.START)) {
                 return i.getKey();
             }
@@ -103,7 +103,7 @@ public class GridFactoryImpl implements GridFactory {
 
     @Override
     public Cell getLast() {
-        for (var i : grid.entrySet()) {
+        for (var i : gridMap.entrySet()) {
             if (i.getKey().getType().equals(CellType.END)) {
                 return i.getKey();
             }
