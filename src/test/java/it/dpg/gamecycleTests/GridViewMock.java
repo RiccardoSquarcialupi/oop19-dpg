@@ -2,6 +2,7 @@ package it.dpg.gamecycleTests;
 
 import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.view.GridView;
+import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Map;
@@ -49,7 +50,7 @@ public class GridViewMock implements GridView {
     }
 
     @Override
-    public void startGeneration() {
+    public void startGeneration(Stage stage) {
 
     }
 
