@@ -3,7 +3,6 @@ package it.dpg.maingame.view.menu;
 import it.dpg.maingame.controller.gamecycle.menu.MenuController;
 import it.dpg.maingame.controller.gamecycle.menu.MenuControllerImpl;
 import it.dpg.maingame.model.character.Difficulty;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -47,7 +46,7 @@ public class MenuGUI implements MenuView {
      *
      * @param stage Represent the "case" for the all Graphics Stuff
      */
-    protected void initializeGUI(final Stage stage) {
+    public void initializeGUI(final Stage stage) {
 
         startBtn.setPrefSize(100, 60);
         startBtn.setFont(Font.font(15));

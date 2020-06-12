@@ -1,15 +1,15 @@
-package it.dpg.maingame.view.menu;
+package it.dpg.maingame.launcher;
 
+import it.dpg.maingame.view.menu.MenuGUI;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    /**
-     * Method for start the Application
-     *
-     * @param stage Represent the "case" for the all Graphics Stuff
-     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         MenuGUI m = new MenuGUI();
