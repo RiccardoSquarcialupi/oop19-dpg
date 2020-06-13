@@ -3,6 +3,7 @@ package it.dpg.gamecycleTests;
 import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.view.GridView;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
@@ -56,8 +57,8 @@ public class GridViewMock implements GridView {
     }
 
     @Override
-    public void generateCell(int x, int y, String name, String colour) {
-
+    public StackPane generateCell(String colour) {
+        return null;
     }
 
     @Override

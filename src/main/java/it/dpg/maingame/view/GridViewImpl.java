@@ -13,6 +13,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
@@ -31,6 +32,7 @@ public class GridViewImpl implements GridView {
     public StackPane mainTextLayout = new StackPane();
     public StackPane diceLayout = new StackPane();
     public GridPane gridLayout = new GridPane();
+    public StackPane movesLeft = new StackPane();
 
 
     public GridViewImpl (Grid grid) {
@@ -48,19 +50,16 @@ public class GridViewImpl implements GridView {
         gridLayout.setAlignment(Pos.CENTER);
 
         for (var i : grid.getCellList().entrySet()) {
-            /*
-            qua ci va Generate Cell
-             */
 
-            StackPane cellPane = new StackPane();
-            Circle circle = new Circle(40);
+            StackPane cellPane;
 
             if (i.getKey().getType().equals(CellType.START) || i.getKey().getType().equals(CellType.END)) {
-                circle.setFill(Color.LIGHTBLUE);
+                cellPane = generateCell("LIGHTBLUE");
             } else if (i.getKey().getType().equals(CellType.NORMAL)) {
-                circle.setFill(Color.LIGHTGREEN);
+                cellPane = generateCell("LIGHTGREEN");
+            } else {
+                cellPane = generateCell("WHITE");
             }
-            cellPane.getChildren().addAll(circle);
 
             gridLayout.add(cellPane, i.getValue().getLeft(), i.getValue().getRight());
         }
@@ -68,7 +67,7 @@ public class GridViewImpl implements GridView {
         /*
          * main Text Layout
          */
-        Rectangle rectangle = new Rectangle(500, 100);
+        Rectangle rectangle = new Rectangle(500, 60);
         rectangle.setFill(Color.WHITE);
         mainTextLayout.getChildren().addAll(rectangle, new Text("LET'S GET STARTED!"));
 
@@ -80,12 +79,20 @@ public class GridViewImpl implements GridView {
         diceBox.setFill(Color.WHITE);
         diceLayout.getChildren().addAll(diceBox);
 
+
+        /*
+         * remaining moves layout
+         */
+        Rectangle movesBox = new Rectangle(500, 60);
+        movesBox.setFill(Color.WHITE);
+        movesLeft.getChildren().addAll(movesBox, new Text("hewwo"));
+
+
         /*
          * Main layout
          */
-
         mainLayout.setBackground(new Background(new BackgroundFill(Color.BEIGE, null, null)));
-        mainLayout.getChildren().addAll(mainTextLayout, diceLayout, gridLayout);
+        mainLayout.getChildren().addAll(mainTextLayout, movesLeft, diceLayout, gridLayout);
         scene = new Scene(mainLayout, 1000, 1000, Color.AQUAMARINE);
 
         /* TODO
@@ -94,6 +101,16 @@ public class GridViewImpl implements GridView {
 
         stage.setScene(scene);
 
+    }
+
+    @Override
+    public StackPane generateCell(String colour) {
+        StackPane cellPane = new StackPane();
+        Circle circle = new Circle(40);
+        circle.setFill(Color.valueOf(colour));
+        cellPane.getChildren().addAll(circle);
+
+        return cellPane;
     }
 
     @Override
@@ -110,7 +127,8 @@ public class GridViewImpl implements GridView {
 
     @Override
     public void setRemainingMoves(int moves) {
-
+        movesLeft.getChildren().remove(1);
+        movesLeft.getChildren().add(new Text("Remaining moves: " + moves));
     }
 
     @Override
@@ -141,11 +159,6 @@ public class GridViewImpl implements GridView {
     @Override
     public void disableDirectionChoice() {
 
-    }
-
-    @Override
-    public void generateCell(int x, int y, String name, String colour) {
-        //dovrebbe ritornare qualcosa, un bottone? o una struttura dati con tutte le informazioni?
     }
 
     @Override

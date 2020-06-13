@@ -2,6 +2,7 @@ package it.dpg.maingame.view;
 
 import it.dpg.maingame.model.character.Dice;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
@@ -26,7 +27,7 @@ public interface GridView {
     /**
      * Generates a new Cell in the Grid based on position, name and colour
      */
-    void generateCell(int x, int y, String name, String colour);
+    StackPane generateCell(String colour);
 
     /**
      * Updates the Players positions in the Grid

@@ -28,5 +28,12 @@ public class GridViewTest extends Application {
         stage.show();
 
         view.setCurrentPlayerName("Giovanna");
+        view.setRemainingMoves(3);
+
+        view.setCurrentPlayerName("Marco");
+        view.setRemainingMoves(2);
+
+        view.setCurrentPlayerName("Davide");
+        view.setRemainingMoves(1);
     }
 }
