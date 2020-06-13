@@ -4,24 +4,17 @@ import it.dpg.maingame.model.CellType;
 import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.character.Dice;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
-import java.awt.*;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 
 public class GridViewImpl implements GridView {
 
@@ -32,7 +25,7 @@ public class GridViewImpl implements GridView {
     public StackPane mainTextLayout = new StackPane();
     public StackPane diceLayout = new StackPane();
     public GridPane gridLayout = new GridPane();
-    public StackPane movesLeft = new StackPane();
+    public StackPane movesLayout = new StackPane();
 
 
     public GridViewImpl (Grid grid) {
@@ -85,14 +78,14 @@ public class GridViewImpl implements GridView {
          */
         Rectangle movesBox = new Rectangle(500, 60);
         movesBox.setFill(Color.WHITE);
-        movesLeft.getChildren().addAll(movesBox, new Text("hewwo"));
+        movesLayout.getChildren().addAll(movesBox, new Text("hewwo"));
 
 
         /*
          * Main layout
          */
         mainLayout.setBackground(new Background(new BackgroundFill(Color.BEIGE, null, null)));
-        mainLayout.getChildren().addAll(mainTextLayout, movesLeft, diceLayout, gridLayout);
+        mainLayout.getChildren().addAll(mainTextLayout, movesLayout, diceLayout, gridLayout);
         scene = new Scene(mainLayout, 1000, 1000, Color.AQUAMARINE);
 
         /* TODO
@@ -121,14 +114,14 @@ public class GridViewImpl implements GridView {
     @Override
     public void setCurrentPlayerName(String name) {
 
-        mainTextLayout.getChildren().remove(1);
-        mainTextLayout.getChildren().add(new Text("Currently Playing: " + name));
+        removeText();
+        showText("Currently Playing: " + name);
     }
 
     @Override
     public void setRemainingMoves(int moves) {
-        movesLeft.getChildren().remove(1);
-        movesLeft.getChildren().add(new Text("Remaining moves: " + moves));
+        movesLayout.getChildren().remove(1);
+        movesLayout.getChildren().add(new Text("remaining moves: " + moves));
     }
 
     @Override
@@ -143,11 +136,12 @@ public class GridViewImpl implements GridView {
 
     @Override
     public void showText(String text) {
-
+        mainTextLayout.getChildren().add(new Text(text));
     }
 
     @Override
     public void removeText() {
+        mainTextLayout.getChildren().remove(1);
 
     }
 
