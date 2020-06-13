@@ -2,6 +2,7 @@ package it.dpg.gamecycleTests;
 
 import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.view.GridView;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
@@ -62,5 +63,10 @@ public class GridViewMock implements GridView {
     @Override
     public void updatePlayers(Map<Integer, Integer> players) {
         System.out.println("players are at the following positions " + players);
+    }
+
+    @Override
+    public Scene getScene() {
+        return null;
     }
 }

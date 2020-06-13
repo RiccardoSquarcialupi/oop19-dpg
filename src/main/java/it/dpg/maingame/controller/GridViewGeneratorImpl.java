@@ -15,8 +15,13 @@ public class GridViewGeneratorImpl implements GridViewGenerator {
     }
 
     @Override
-    public void generate(Stage stage) {
+    public GridView generate(Stage stage) {
         this.view = new GridViewImpl(grid);
         view.startGeneration(stage);
+        return this.view;
+    }
+
+    public GridView getView () {
+        return this.view;
     }
 }
