@@ -6,6 +6,7 @@ import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.GridInitializer;
 import it.dpg.maingame.model.GridInitializerImpl;
 import it.dpg.maingame.model.GridType;
+import it.dpg.maingame.view.GridView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -20,9 +21,12 @@ public class GridViewTest extends Application {
 
         GridInitializer gridInit = new GridInitializerImpl();
         Grid grid = gridInit.makeGrid(GridType.GRID_ONE);
+        GridView view;
 
         GridViewGenerator generator = new GridViewGeneratorImpl(grid);
-        generator.generate(stage);
+        view = generator.generate(stage);
         stage.show();
+
+        view.setCurrentPlayerName("Giovanna");
     }
 }

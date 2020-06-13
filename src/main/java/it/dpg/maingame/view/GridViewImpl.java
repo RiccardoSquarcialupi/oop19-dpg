@@ -4,6 +4,7 @@ import it.dpg.maingame.model.CellType;
 import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.character.Dice;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
@@ -31,14 +32,13 @@ public class GridViewImpl implements GridView {
     public StackPane diceLayout = new StackPane();
     public GridPane gridLayout = new GridPane();
 
+
     public GridViewImpl (Grid grid) {
         this.grid = grid;
     }
 
     @Override
     public void startGeneration(Stage stage) {
-
-
 
         /*
          *  Grid layout
@@ -70,9 +70,7 @@ public class GridViewImpl implements GridView {
          */
         Rectangle rectangle = new Rectangle(500, 100);
         rectangle.setFill(Color.WHITE);
-        Text mainText = new Text("Welcome!");
-        mainText.autosize();
-        mainTextLayout.getChildren().addAll(rectangle, mainText);
+        mainTextLayout.getChildren().addAll(rectangle, new Text("LET'S GET STARTED!"));
 
         /*
          * Dice Layout
@@ -106,6 +104,8 @@ public class GridViewImpl implements GridView {
     @Override
     public void setCurrentPlayerName(String name) {
 
+        mainTextLayout.getChildren().remove(1);
+        mainTextLayout.getChildren().add(new Text("Currently Playing: " + name));
     }
 
     @Override
