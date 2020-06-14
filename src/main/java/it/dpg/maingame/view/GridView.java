@@ -10,13 +10,35 @@ import java.util.Map;
 import java.util.Set;
 
 public interface GridView {
+
+    /**
+     * Sets the name of who's currently playing in the main text
+     */
     void setCurrentPlayerName(String name);
+
+    /**
+     * Sets the remaining moves in a specific text bubble
+     */
     void setRemainingMoves(int moves);
-    void enableDiceThrow(Dice dice);
-    void disableDiceThrow();
+
+    /**
+     * Changes the main Text in the game
+     */
     void showText(String text);
+
+    /**
+     * removes main Text in the game
+     */
     void removeText();
+
+    /**
+     * enables direction choice by enabling two buttons corresponding to the possible choices
+     */
     void enableDirectionChoice(Set<ImmutablePair<Integer, Integer>> cells);
+
+    /**
+     * disables the direction choice buttons and removes them
+     */
     void disableDirectionChoice();
 
     /**
@@ -38,4 +60,7 @@ public interface GridView {
      * returns the Grid Scene
      */
     Scene getScene();
+
+    void enableDiceThrow(Dice dice);
+    void disableDiceThrow();
 }
