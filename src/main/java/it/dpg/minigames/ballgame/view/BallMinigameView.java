@@ -6,6 +6,26 @@ import it.dpg.minigames.base.view.MinigameView;
 public interface BallMinigameView extends MinigameView {
 
     /**
+     * display ready message
+     */
+    void setReady();
+
+    /**
+     * remove ready message
+     */
+    void removeReady();
+
+    /**
+     * set go message
+     */
+    void setGo();
+
+    /**
+     * remove go message
+     */
+    void removeGo();
+
+    /**
      * shows the selected level
      * @param level the selected level
      */

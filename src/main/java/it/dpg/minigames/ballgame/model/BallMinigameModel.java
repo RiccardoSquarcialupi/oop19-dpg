@@ -36,7 +36,7 @@ public interface BallMinigameModel {
 
     /**
      * elaborate the next frame, considering a fixed amount of time passed between the two frames
-     * @return the coordinated x and y of the ball in a range from 0 to 500
+     * @return the coordinated x and y of the ball, in relation to the 100x100 level
      */
     ImmutablePair<Double, Double> calculateNextFrame();
 
