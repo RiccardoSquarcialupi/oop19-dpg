@@ -2,6 +2,8 @@ package it.dpg.maingame.view;
 
 import it.dpg.maingame.model.CellType;
 import it.dpg.maingame.model.Grid;
+import it.dpg.maingame.model.ViewNodesFactory;
+import it.dpg.maingame.model.ViewNodesFactoryImpl;
 import it.dpg.maingame.model.character.Dice;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -31,8 +33,12 @@ public class GridViewImpl implements GridView {
     private Label mainText = new Label();
     private Label movesText = new Label();
 
-    private Map<ImmutablePair<Integer, Integer>, StackPane> cellPanes = new LinkedHashMap<>();
+    private Map<Circle, ImmutablePair<Integer, Integer>> circlesList = new LinkedHashMap<>();
     private Map<Integer, Rectangle> playerList = new LinkedHashMap<>();
+
+    private ViewNodesFactory nodes = new ViewNodesFactoryImpl();
+
+    private int modifier = 90;
 
 
     public GridViewImpl (Grid grid) {
@@ -44,34 +50,35 @@ public class GridViewImpl implements GridView {
 
         StackPane mainTextLayout = new StackPane();
         StackPane diceLayout = new StackPane();
-        GridPane gridLayout = new GridPane();
         StackPane movesLayout = new StackPane();
 
         /*
          Grid Group
          */
-        gridLayout.setHgap(10);
-        gridLayout.setVgap(10);
-        gridLayout.setAlignment(Pos.CENTER);
 
+        //gridGroup.getChildren().add(nodes.generateLines(circlesList));
 
         for (var i : grid.getCellList().entrySet()) {
 
-            StackPane cellPane;
+            Circle circle;
 
             if (i.getKey().getType().equals(CellType.START) || i.getKey().getType().equals(CellType.END)) {
-                cellPane = generateCell("LIGHTBLUE");
+                circle = nodes.generateCell(Color.LIGHTBLUE);
             } else if (i.getKey().getType().equals(CellType.NORMAL)) {
-                cellPane = generateCell("LIGHTGREEN");
+                circle = nodes.generateCell(Color.LIGHTGREEN);
             } else {
-                cellPane = generateCell("WHITE");
+                circle = nodes.generateCell(Color.WHITE);
             }
 
-            cellPanes.put(new ImmutablePair<>(i.getValue().getLeft(), i.getValue().getRight()), cellPane);
-            gridLayout.add(cellPane, i.getValue().getLeft(), i.getValue().getRight());
-        }
+            int left = i.getValue().getLeft()*modifier;
+            int right = i.getValue().getRight()*modifier;
+            circle.setLayoutX(left);
+            circle.setLayoutY(right);
 
-        gridGroup.getChildren().addAll(generateLines(), gridLayout);
+            circlesList.put(circle, new ImmutablePair<>(left, right));
+
+            gridGroup.getChildren().add(circle);
+        }
 
         /*
          * upper Group
@@ -104,38 +111,6 @@ public class GridViewImpl implements GridView {
 
     }
 
-    private Group generateLines(){
-        Group linesGroup = new Group();
-        Line line1 = new Line();
-        line1.setStartX(129.0f);
-        line1.setStartY(10.0f);
-        line1.setEndX(129.0f);
-        line1.setEndY(700.0f);
-        line1.setStrokeWidth(5);
-        line1.setStroke(Color.FORESTGREEN);
-        Line line2 = new Line();
-        line2.setStartX(219.0f);
-        line2.setStartY(400.0f);
-        line2.setEndX(219.0f);
-        line2.setEndY(600.0f);
-        line2.setStrokeWidth(5);
-        line2.setStroke(Color.FORESTGREEN);
-        linesGroup.getChildren().addAll(line1, line2);
-
-        return linesGroup;
-    }
-
-    @Override
-    public StackPane generateCell(String colour) {
-        StackPane cellPane = new StackPane();
-        Circle circle = new Circle(40);
-        circle.setFill(Color.valueOf(colour));
-
-        cellPane.getChildren().addAll(circle);
-
-        return cellPane;
-    }
-
     @Override
     public Scene getScene() {
         return this.scene;
@@ -166,7 +141,7 @@ public class GridViewImpl implements GridView {
 
     @Override
     public void enableDirectionChoice(Set<ImmutablePair<Integer, Integer>> cells) {
-
+        /*
         removeText();
         showText("Choose a direction!");
 
@@ -180,20 +155,20 @@ public class GridViewImpl implements GridView {
                     cellPanes.get(i).getChildren().add(button);
                 }
             }
-        }
+        }*/
 
     }
 
     @Override
     public void disableDirectionChoice() {
-
+/*
         removeText();
 
         for (var i : cellPanes.entrySet()) {
             if (i.getValue().getChildren().size()>2) {  //checks if there's a button
                 i.getValue().getChildren().remove(2);
             }
-        }
+        }*/
     }
 
     @Override
@@ -201,10 +176,10 @@ public class GridViewImpl implements GridView {
 
         if (playerList.isEmpty()) {
             for (var i : players.entrySet()) {
-                Rectangle playerSquare = generatePlayer(i.getKey());
+                Rectangle playerSquare =  nodes.generatePlayer(i.getKey());
                 playerList.put(i.getKey(), playerSquare);
                 gridGroup.getChildren().add(playerSquare);
-                playerSquare.setLayoutX(90);
+                playerSquare.setLayoutX(0);
                 playerSquare.setLayoutY(0);
             }
         }
@@ -231,21 +206,6 @@ public class GridViewImpl implements GridView {
 
     }
 
-    //creates a square representing the player
-
-    private Rectangle generatePlayer(Integer player){
-        Rectangle square = new Rectangle(30, 30);
-
-        Random rand = new Random();
-
-        float r = rand.nextFloat();
-        float g = rand.nextFloat();
-        float b = rand.nextFloat();
-
-        Color color = new Color(r, g, b, 1);
-        square.setFill(color);
-        return square;
-    }
 
     /*
     //places square players in the grid

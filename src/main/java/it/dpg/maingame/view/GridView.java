@@ -3,6 +3,7 @@ package it.dpg.maingame.view;
 import it.dpg.maingame.model.character.Dice;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
@@ -45,11 +46,6 @@ public interface GridView {
      * generates the View for the Grid
      */
     void startGeneration(Stage stage);
-
-    /**
-     * Generates a new Cell in the Grid based on position, name and colour
-     */
-    StackPane generateCell(String colour);
 
     /**
      * Updates the Players positions in the Grid
