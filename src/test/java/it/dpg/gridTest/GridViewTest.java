@@ -31,6 +31,7 @@ public class GridViewTest extends Application {
 
         GridViewGenerator generator = new GridViewGeneratorImpl(grid);
         view = generator.generate(stage);
+        stage.setScene(view.getScene());
         stage.show();
 
         view.setCurrentPlayerName("Giovanna");
@@ -42,24 +43,18 @@ public class GridViewTest extends Application {
         view.setCurrentPlayerName("Davide");
         view.setRemainingMoves(1);
 
-        Set<ImmutablePair<Integer, Integer>> cellSet = new HashSet<>();
+        /*Set<ImmutablePair<Integer, Integer>> cellSet = new HashSet<>();
         cellSet.add(new ImmutablePair<>(1,5));
         cellSet.add(new ImmutablePair<>(2,4));
         view.enableDirectionChoice(cellSet);
-        view.disableDirectionChoice();
+        view.disableDirectionChoice();*/
 
         view.showText("hello");
-        view.showText("this is a test");
+        view.removeText();
 
-        /*
-        problema con il passaggio della lista di coordinate tramite mappa: si bugga nel caso in cui due pedine hanno la stessa X, sovrapponendole
-         */
-
-        Map<Integer, Integer> players = new HashMap<>();
-        players.put(1,0);
+        Map<Integer, ImmutablePair<Integer, Integer>> players = new HashMap<>();
+        players.put(1, new ImmutablePair<>(0,0));
+        players.put(2, new ImmutablePair<>(0,0));
         view.updatePlayers(players);
-        Map<Integer, Integer> players2 = new HashMap<>();
-        players2.put(1,2);
-        view.updatePlayers(players2);
     }
 }

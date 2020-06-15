@@ -62,7 +62,7 @@ public class GridViewMock implements GridView {
     }
 
     @Override
-    public void updatePlayers(Map<Integer, Integer> players) {
+    public void updatePlayers(Map<Integer, ImmutablePair<Integer,Integer>> players) {
         System.out.println("players are at the following positions " + players);
     }
 

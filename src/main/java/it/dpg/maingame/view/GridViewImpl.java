@@ -4,16 +4,18 @@ import it.dpg.maingame.model.CellType;
 import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.character.Dice;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.w3c.dom.css.Rect;
 
 import java.util.*;
 
@@ -22,15 +24,15 @@ public class GridViewImpl implements GridView {
     private final Grid grid;
     public Scene scene;
 
-    private VBox mainLayout = new VBox(10);
-    private StackPane mainTextLayout = new StackPane();
-    private StackPane diceLayout = new StackPane();
-    private GridPane gridLayout = new GridPane();
-    private StackPane movesLayout = new StackPane();
+    private BorderPane root = new BorderPane();
+    private VBox upperGroup = new VBox(5);
+    private Group gridGroup = new Group();
+
+    private Label mainText = new Label();
+    private Label movesText = new Label();
 
     private Map<ImmutablePair<Integer, Integer>, StackPane> cellPanes = new LinkedHashMap<>();
-    private Map<Rectangle, ImmutablePair<Integer, Integer>> playerList = new LinkedHashMap<>();
-    private Map<StackPane, HBox> playerPocketList = new LinkedHashMap<>();
+    private Map<Integer, Rectangle> playerList = new LinkedHashMap<>();
 
 
     public GridViewImpl (Grid grid) {
@@ -40,12 +42,18 @@ public class GridViewImpl implements GridView {
     @Override
     public void startGeneration(Stage stage) {
 
+        StackPane mainTextLayout = new StackPane();
+        StackPane diceLayout = new StackPane();
+        GridPane gridLayout = new GridPane();
+        StackPane movesLayout = new StackPane();
+
         /*
-         *  Grid layout
+         Grid Group
          */
         gridLayout.setHgap(10);
         gridLayout.setVgap(10);
         gridLayout.setAlignment(Pos.CENTER);
+
 
         for (var i : grid.getCellList().entrySet()) {
 
@@ -63,44 +71,58 @@ public class GridViewImpl implements GridView {
             gridLayout.add(cellPane, i.getValue().getLeft(), i.getValue().getRight());
         }
 
+        gridGroup.getChildren().addAll(generateLines(), gridLayout);
+
         /*
-         * main Text Layout
+         * upper Group
          */
         Rectangle rectangle = new Rectangle(500, 60);
         rectangle.setFill(Color.WHITE);
-        mainTextLayout.getChildren().addAll(rectangle, new Text("LET'S GET STARTED!"));
-
-        /*
-         * Dice Layout
-         */
+        mainTextLayout.getChildren().addAll(rectangle, mainText);
 
         Rectangle diceBox = new Rectangle(100, 100);
         diceBox.setFill(Color.WHITE);
         diceLayout.getChildren().addAll(diceBox);
 
-
-        /*
-         * remaining moves layout
-         */
         Rectangle movesBox = new Rectangle(500, 60);
         movesBox.setFill(Color.WHITE);
-        movesLayout.getChildren().addAll(movesBox, new Text("hewwo"));
+        movesLayout.getChildren().addAll(movesBox, movesText);
+
+        upperGroup.getChildren().addAll(mainTextLayout, diceLayout, movesLayout);
 
 
         /*
-         * Main layout
+        root layout
          */
 
-        mainLayout.setBackground(new Background(new BackgroundFill(Color.BEIGE, null, null)));
-        mainLayout.getChildren().addAll(mainTextLayout, movesLayout, diceLayout, gridLayout);
-        scene = new Scene(mainLayout, 1000, 1000, Color.AQUAMARINE);
+        root.setBackground(new Background(new BackgroundFill(Color.BEIGE, null, null)));
 
-        /* TODO
-         * Chiedi dove va settata la scene
-         */
+        root.setTop(upperGroup);
+        root.setCenter(gridGroup);
 
-        stage.setScene(scene);
+        scene = new Scene(root, 1000, 1000, Color.AQUAMARINE);
 
+    }
+
+    private Group generateLines(){
+        Group linesGroup = new Group();
+        Line line1 = new Line();
+        line1.setStartX(129.0f);
+        line1.setStartY(10.0f);
+        line1.setEndX(129.0f);
+        line1.setEndY(700.0f);
+        line1.setStrokeWidth(5);
+        line1.setStroke(Color.FORESTGREEN);
+        Line line2 = new Line();
+        line2.setStartX(219.0f);
+        line2.setStartY(400.0f);
+        line2.setEndX(219.0f);
+        line2.setEndY(600.0f);
+        line2.setStrokeWidth(5);
+        line2.setStroke(Color.FORESTGREEN);
+        linesGroup.getChildren().addAll(line1, line2);
+
+        return linesGroup;
     }
 
     @Override
@@ -109,10 +131,7 @@ public class GridViewImpl implements GridView {
         Circle circle = new Circle(40);
         circle.setFill(Color.valueOf(colour));
 
-        HBox playerPocket = new HBox();
-
-        cellPane.getChildren().addAll(circle, playerPocket);
-        playerPocketList.put(cellPane, playerPocket);
+        cellPane.getChildren().addAll(circle);
 
         return cellPane;
     }
@@ -131,21 +150,17 @@ public class GridViewImpl implements GridView {
 
     @Override
     public void setRemainingMoves(int moves) {
-        movesLayout.getChildren().remove(1);
-        movesLayout.getChildren().add(new Text("remaining moves: " + moves));
+        movesText.setText("remaining moves: " + moves);
     }
 
     @Override
     public void showText(String text) {
-        if (mainTextLayout.getChildren().size()>1) {
-            removeText();
-        }
-        mainTextLayout.getChildren().add(new Text(text));
+        mainText.setText(text);
     }
 
     @Override
     public void removeText() {
-        mainTextLayout.getChildren().remove(1);
+        mainText.setText("");
 
     }
 
@@ -182,9 +197,24 @@ public class GridViewImpl implements GridView {
     }
 
     @Override
-    public void updatePlayers(Map<Integer, Integer> players) {
+    public void updatePlayers(Map<Integer, ImmutablePair<Integer, Integer>> players) {
 
-        int counter = 0;
+        if (playerList.isEmpty()) {
+            for (var i : players.entrySet()) {
+                Rectangle playerSquare = generatePlayer(i.getKey());
+                playerList.put(i.getKey(), playerSquare);
+                gridGroup.getChildren().add(playerSquare);
+                playerSquare.setLayoutX(90);
+                playerSquare.setLayoutY(0);
+            }
+        }
+
+        /*
+        for (var j : players.entrySet()) {
+
+        }
+
+        /*int counter = 0;
 
         if (!playerList.isEmpty()) {
             playerList.clear();
@@ -197,26 +227,29 @@ public class GridViewImpl implements GridView {
 
         this.placePlayers();
 
+         */
+
     }
 
-    /*
-    creates a square representing the player
-     */
+    //creates a square representing the player
+
     private Rectangle generatePlayer(Integer player){
         Rectangle square = new Rectangle(30, 30);
-        if (player == 0) {
-            square.setFill(Color.RED);
-        } else if (player == 1) {
-            square.setFill(Color.BLUE);
-        } else {
-            square.setFill(Color.YELLOW);
-        }
+
+        Random rand = new Random();
+
+        float r = rand.nextFloat();
+        float g = rand.nextFloat();
+        float b = rand.nextFloat();
+
+        Color color = new Color(r, g, b, 1);
+        square.setFill(color);
         return square;
     }
 
     /*
-    places square players in the grid
-     */
+    //places square players in the grid
+
     private void placePlayers(){
 
         //rimuove le precedenti pedine se ci sono
@@ -236,6 +269,7 @@ public class GridViewImpl implements GridView {
         }
 
     }
+    */
 
     @Override
     public void enableDiceThrow(Dice dice) {

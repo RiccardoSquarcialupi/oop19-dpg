@@ -54,7 +54,7 @@ public interface GridView {
     /**
      * Updates the Players positions in the Grid
      */
-    void updatePlayers(Map<Integer, Integer> players);
+    void updatePlayers(Map<Integer, ImmutablePair<Integer,Integer>> players);
 
     /**
      * returns the Grid Scene
