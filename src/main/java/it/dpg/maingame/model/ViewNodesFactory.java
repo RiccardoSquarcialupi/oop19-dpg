@@ -9,6 +9,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import javax.management.ImmutableDescriptor;
 
 import java.util.Map;
+import java.util.Set;
 
 public interface ViewNodesFactory {
 
@@ -25,5 +26,5 @@ public interface ViewNodesFactory {
     /**
      * generates a group of lines based on the cells
      */
-    Group generateLines(Map<Circle, ImmutablePair<Integer, Integer>> cellsList);
+    Group generateLines(Map<Circle, Set<ImmutablePair<Integer, Integer>>> cellsList, int modifier);
 }

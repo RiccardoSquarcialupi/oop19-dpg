@@ -33,11 +33,15 @@ public class GridViewImpl implements GridView {
     private Label mainText = new Label();
     private Label movesText = new Label();
 
-    private Map<Circle, ImmutablePair<Integer, Integer>> circlesList = new LinkedHashMap<>();
+    //this map keeps track of the various cells (by graphic representation) and the coordinates of the cells connected to the Key Cell
+    private Map<Circle, Set<ImmutablePair<Integer, Integer>>> circlesList = new LinkedHashMap<>();
+
+    //this map keeps track of the player'id and corresponding graphic representation
     private Map<Integer, Rectangle> playerList = new LinkedHashMap<>();
 
     private ViewNodesFactory nodes = new ViewNodesFactoryImpl();
 
+    //this integer is a constant that modifies the position of a graphic element based on their coordinates
     private int modifier = 90;
 
 
@@ -56,7 +60,7 @@ public class GridViewImpl implements GridView {
          Grid Group
          */
 
-        //gridGroup.getChildren().add(nodes.generateLines(circlesList));
+        Group circleGroup = new Group();
 
         for (var i : grid.getCellList().entrySet()) {
 
@@ -75,10 +79,16 @@ public class GridViewImpl implements GridView {
             circle.setLayoutX(left);
             circle.setLayoutY(right);
 
-            circlesList.put(circle, new ImmutablePair<>(left, right));
+            Set<ImmutablePair<Integer, Integer>> next = new HashSet<>();
 
-            gridGroup.getChildren().add(circle);
+            for (var j : i.getKey().getNext()) {
+                next.add(j.getCoordinates());
+            }
+            circlesList.put(circle, next);
+
+            circleGroup.getChildren().add(circle);
         }
+        gridGroup.getChildren().addAll(nodes.generateLines(circlesList, modifier), circleGroup);
 
         /*
          * upper Group
@@ -96,7 +106,6 @@ public class GridViewImpl implements GridView {
         movesLayout.getChildren().addAll(movesBox, movesText);
 
         upperGroup.getChildren().addAll(mainTextLayout, diceLayout, movesLayout);
-
 
         /*
         root layout
@@ -142,7 +151,6 @@ public class GridViewImpl implements GridView {
     @Override
     public void enableDirectionChoice(Set<ImmutablePair<Integer, Integer>> cells) {
         /*
-        removeText();
         showText("Choose a direction!");
 
         for (var i : cells) {
@@ -179,30 +187,8 @@ public class GridViewImpl implements GridView {
                 Rectangle playerSquare =  nodes.generatePlayer(i.getKey());
                 playerList.put(i.getKey(), playerSquare);
                 gridGroup.getChildren().add(playerSquare);
-                playerSquare.setLayoutX(0);
-                playerSquare.setLayoutY(0);
             }
         }
-
-        /*
-        for (var j : players.entrySet()) {
-
-        }
-
-        /*int counter = 0;
-
-        if (!playerList.isEmpty()) {
-            playerList.clear();
-        }
-
-        for (var i : players.entrySet()) {
-            playerList.put(generatePlayer(counter), new ImmutablePair<>(i.getKey(), i.getValue()));
-            counter++;
-        }
-
-        this.placePlayers();
-
-         */
 
     }
 

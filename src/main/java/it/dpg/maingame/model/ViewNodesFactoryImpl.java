@@ -3,11 +3,13 @@ package it.dpg.maingame.model;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 public class ViewNodesFactoryImpl implements ViewNodesFactory {
 
@@ -35,13 +37,23 @@ public class ViewNodesFactoryImpl implements ViewNodesFactory {
     }
 
     @Override
-    public Group generateLines(Map<Circle, ImmutablePair<Integer, Integer>> cellsList) {
-        /*
+    public Group generateLines(Map<Circle, Set<ImmutablePair<Integer, Integer>>> cellsList, int modifier) {
 
         Group linesGroup = new Group();
+        for (var i : cellsList.entrySet()) {
+            for (var j : i.getValue()) {
+                Line line = new Line();
+                line.setStroke(Color.FORESTGREEN);
+                line.setStrokeWidth(10);
+                line.setStartX(i.getKey().getLayoutX());
+                line.setStartY(i.getKey().getLayoutY());
+                line.setEndX(j.getLeft()*modifier);
+                line.setEndY(j.getRight()*modifier);
+                linesGroup.getChildren().add(line);
+            }
+        }
 
         return linesGroup;
-        */
-        return null;
+
     }
 }
