@@ -6,6 +6,7 @@ import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.GridInitializer;
 import it.dpg.maingame.model.GridInitializerImpl;
 import it.dpg.maingame.model.GridType;
+import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.view.GridView;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -53,8 +54,11 @@ public class GridViewTest extends Application {
         view.removeText();
 
         Map<Integer, ImmutablePair<Integer, Integer>> players = new HashMap<>();
-        players.put(1, new ImmutablePair<>(0,0));
-        players.put(2, new ImmutablePair<>(0,0));
+        players.put(1, new ImmutablePair<>(1,0));
+        players.put(2, new ImmutablePair<>(1,0));
+        players.put(3, new ImmutablePair<>(1,0));
         view.updatePlayers(players);
+
+        view.enableDiceThrow(Dice.D8);
     }
 }

@@ -26,5 +26,5 @@ public interface ViewNodesFactory {
     /**
      * generates a group of lines based on the cells
      */
-    Group generateLines(Map<Circle, Set<ImmutablePair<Integer, Integer>>> cellsList, int modifier);
+    Group generateLines(Map<Circle, Set<ImmutablePair<Integer, Integer>>> cellsList, int modifierX, int modifierY);
 }

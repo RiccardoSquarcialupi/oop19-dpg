@@ -37,7 +37,7 @@ public class ViewNodesFactoryImpl implements ViewNodesFactory {
     }
 
     @Override
-    public Group generateLines(Map<Circle, Set<ImmutablePair<Integer, Integer>>> cellsList, int modifier) {
+    public Group generateLines(Map<Circle, Set<ImmutablePair<Integer, Integer>>> cellsList, int modifierX, int modifierY) {
 
         Group linesGroup = new Group();
         for (var i : cellsList.entrySet()) {
@@ -47,8 +47,8 @@ public class ViewNodesFactoryImpl implements ViewNodesFactory {
                 line.setStrokeWidth(10);
                 line.setStartX(i.getKey().getLayoutX());
                 line.setStartY(i.getKey().getLayoutY());
-                line.setEndX(j.getLeft()*modifier);
-                line.setEndY(j.getRight()*modifier);
+                line.setEndX(j.getLeft()*modifierX);
+                line.setEndY(j.getRight()*modifierY);
                 linesGroup.getChildren().add(line);
             }
         }
