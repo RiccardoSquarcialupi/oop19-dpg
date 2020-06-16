@@ -1,8 +1,10 @@
 package it.dpg.ballMinigameTests.model;
 
+import com.sun.source.tree.AssertTree;
 import it.dpg.minigames.ballgame.model.Boundary;
 import it.dpg.minigames.ballgame.model.CollisionType;
 import it.dpg.minigames.ballgame.model.HorizontalBoundary;
+import it.dpg.minigames.ballgame.model.VerticalBoundary;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,6 +18,12 @@ public class BoundaryTests {
         assertThrows(IllegalArgumentException.class, () -> new HorizontalBoundary(-1, 45, 3, CollisionType.GOAL));
         assertThrows(IllegalArgumentException.class, () -> new HorizontalBoundary(4, -78, 56, CollisionType.GOAL));
         assertThrows(IllegalArgumentException.class, () -> new HorizontalBoundary(5, 10, -10, CollisionType.GOAL));
+        assertThrows(IllegalArgumentException.class, () -> new VerticalBoundary(90, 110, 2, CollisionType.BOUNCE));
+        assertThrows(IllegalArgumentException.class, () -> new VerticalBoundary(200, 1, 56, CollisionType.GOAL));
+        assertThrows(IllegalArgumentException.class, () -> new VerticalBoundary(200, 1, 56, CollisionType.GOAL));
+        assertThrows(IllegalArgumentException.class, () -> new VerticalBoundary(-1, 45, 3, CollisionType.GOAL));
+        assertThrows(IllegalArgumentException.class, () -> new VerticalBoundary(4, -78, 56, CollisionType.GOAL));
+        assertThrows(IllegalArgumentException.class, () -> new VerticalBoundary(5, 10, -10, CollisionType.GOAL));
     }
 
     @Test
@@ -29,5 +37,12 @@ public class BoundaryTests {
         assertFalse(b1.isColliding(51, 70, 5));
         assertTrue(b1.isColliding(62, 48, 5));
         assertFalse(b1.isColliding(70, 80, 15));
+        Boundary b2 = new VerticalBoundary(50, 40, 60, CollisionType.BOUNCE);
+        assertTrue(b2.isColliding(53, 47, 5));
+        assertTrue(b2.isColliding(48, 62, 8));
+        assertTrue(b2.isColliding(49, 55, 7));
+        assertFalse(b2.isColliding(20, 50, 10));
+        assertFalse(b2.isColliding(80, 50, 10));
+        assertFalse(b2.isColliding(80, 30, 15));
     }
 }
