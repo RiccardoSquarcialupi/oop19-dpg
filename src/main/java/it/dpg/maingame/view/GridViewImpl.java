@@ -15,7 +15,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
@@ -150,33 +152,28 @@ public class GridViewImpl implements GridView {
 
     @Override
     public void enableDirectionChoice(Set<ImmutablePair<Integer, Integer>> cells) {
-        /*
+
         showText("Choose a direction!");
 
         for (var i : cells) {
-            for (var j : cellPanes.entrySet()) {
-                if (i.equals(j.getKey())) {
-                    Button button = new Button();
-                    Circle circleB = new Circle(30);
-                    button.setShape(circleB);
-                    button.setMinSize(30, 30);
-                    cellPanes.get(i).getChildren().add(button);
-                }
-            }
-        }*/
+            Button button = new Button();
+            button.setShape(new Circle(4));
+            button.setMinSize(40, 40);
+            button.setLayoutX(i.getLeft()*modifier-20);
+            button.setLayoutY(i.getRight()*modifier-20);
+            String arrow = "|\nV";
+            button.setText(arrow);
+            button.setTextAlignment(TextAlignment.CENTER);
+            gridGroup.getChildren().add(button);
+        }
 
     }
 
     @Override
     public void disableDirectionChoice() {
-/*
-        removeText();
 
-        for (var i : cellPanes.entrySet()) {
-            if (i.getValue().getChildren().size()>2) {  //checks if there's a button
-                i.getValue().getChildren().remove(2);
-            }
-        }*/
+        removeText();
+        gridGroup.getChildren().removeIf(i -> i instanceof Button);
     }
 
     @Override
@@ -191,31 +188,6 @@ public class GridViewImpl implements GridView {
         }
 
     }
-
-
-    /*
-    //places square players in the grid
-
-    private void placePlayers(){
-
-        //rimuove le precedenti pedine se ci sono
-        for (var k : playerPocketList.entrySet()) {
-            if (k.getValue().getChildren().size()>0) {
-                k.getValue().getChildren().remove(0);
-            }
-        }
-
-        //aggiunge nuove pedine in base alle nuove posizioni
-        for (var i : playerList.entrySet()) {
-            for (var j : cellPanes.entrySet()) {
-                if (j.getKey().equals(i.getValue())) {  //cerca la cella di coordinate del player
-                    playerPocketList.get(j.getValue()).getChildren().add(i.getKey());   //mette il quadrato al posto giusto
-                }
-            }
-        }
-
-    }
-    */
 
     @Override
     public void enableDiceThrow(Dice dice) {

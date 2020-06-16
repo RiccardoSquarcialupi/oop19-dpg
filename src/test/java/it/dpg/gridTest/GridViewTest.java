@@ -43,11 +43,11 @@ public class GridViewTest extends Application {
         view.setCurrentPlayerName("Davide");
         view.setRemainingMoves(1);
 
-        /*Set<ImmutablePair<Integer, Integer>> cellSet = new HashSet<>();
+        Set<ImmutablePair<Integer, Integer>> cellSet = new HashSet<>();
         cellSet.add(new ImmutablePair<>(1,5));
         cellSet.add(new ImmutablePair<>(2,4));
         view.enableDirectionChoice(cellSet);
-        view.disableDirectionChoice();*/
+        view.disableDirectionChoice();
 
         view.showText("hello");
         view.removeText();
