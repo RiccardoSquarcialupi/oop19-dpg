@@ -14,10 +14,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -54,6 +51,11 @@ public class PlayerManagerImplTest {
 
         @Override
         public Cell getCellByCoordinates(Integer X, Integer Y) {
+            return null;
+        }
+
+        @Override
+        public Map<Cell, ImmutablePair<Integer, Integer>> getCellList() {
             return null;
         }
     };

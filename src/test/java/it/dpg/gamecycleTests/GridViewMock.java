@@ -2,6 +2,10 @@ package it.dpg.gamecycleTests;
 
 import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.view.GridView;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Map;
@@ -49,17 +53,17 @@ public class GridViewMock implements GridView {
     }
 
     @Override
-    public void startGeneration() {
+    public void startGeneration(Stage stage) {
 
     }
 
     @Override
-    public void generateCell(int x, int y, String name, String colour) {
-
-    }
-
-    @Override
-    public void updatePlayers(Map<Integer, Integer> players) {
+    public void updatePlayers(Map<Integer, ImmutablePair<Integer,Integer>> players) {
         System.out.println("players are at the following positions " + players);
+    }
+
+    @Override
+    public Scene getScene() {
+        return null;
     }
 }
