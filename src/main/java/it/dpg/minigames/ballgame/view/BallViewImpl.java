@@ -13,9 +13,9 @@ public class BallViewImpl extends AbstractMinigameView implements BallMinigameVi
     private Circle ball;
     private Text score;
     private final NodesFactory factory = new NodesFactoryImpl(this::mapCoordinate);
-    private final Text readyText = factory.createReady();
-    private final Text goText = factory.createGo();
-    private final Text victoryText = factory.createVictoryMessage();
+    private Text readyText;
+    private Text goText;
+    private Text victoryText;
 
     public BallViewImpl(final double viewSize) {
         this.viewSize = viewSize;
@@ -43,6 +43,10 @@ public class BallViewImpl extends AbstractMinigameView implements BallMinigameVi
         panel.getChildren().clear();
         ball = factory.createBall(level);
         score = factory.createScore();
+        readyText = factory.createReady();
+        goText = factory.createGo();
+        victoryText = factory.createVictoryMessage();
+
         panel.getChildren().add(ball);
         panel.getChildren().add(score);
         factory.createNodes(level)

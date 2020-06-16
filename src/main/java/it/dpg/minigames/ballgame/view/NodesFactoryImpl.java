@@ -45,16 +45,22 @@ public class NodesFactoryImpl implements NodesFactory {
 
     @Override
     public Text createReady() {
-        return new Text(map(50), map(50), "ready?");
+        Text temp = new Text(map(35), map(52), "ready?");
+        temp.setFont(new Font(map(10)));
+        return temp;
     }
 
     @Override
     public Text createGo() {
-        return new Text(map(50), map(50), "GO!");
+        Text temp = new Text(map(42), map(54), "GO!");
+        temp.setFont(new Font(map(10)));
+        return temp;
     }
 
     @Override
     public Text createVictoryMessage() {
-        return new Text(map(50), map(50), "GOAL!");
+        Text temp = new Text(map(34), map(54), "GOAL!");
+        temp.setFont(new Font(map(10)));
+        return temp;
     }
 }
