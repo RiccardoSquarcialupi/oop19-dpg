@@ -10,19 +10,15 @@ public abstract class AbstractMinigameView implements MinigameView {
 
     @Override
     public void setView() {
-        stage.setHeight(600d);
-        stage.setWidth(600d);
-        stage.setResizable(false);
-
         stage.setScene(this.createScene());
 
         Platform.runLater(() -> stage.show());
     }
 
-    public abstract Scene createScene();
-
     @Override
     public void closeView() {
         Platform.runLater(() -> stage.close());
     }
+
+    public abstract Scene createScene();
 }

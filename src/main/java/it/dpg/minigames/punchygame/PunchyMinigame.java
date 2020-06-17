@@ -1,10 +1,10 @@
-package it.dpg.minigames.punchygame.controller;
+package it.dpg.minigames.punchygame;
 
 import it.dpg.minigames.base.controller.AbstractMinigame;
 import it.dpg.minigames.base.controller.MinigameCycle;
 import it.dpg.minigames.base.view.MinigameView;
 
-public class MainController extends AbstractMinigame {
+public class PunchyMinigame extends AbstractMinigame {
 
     @Override
     public int getMaxScore() {

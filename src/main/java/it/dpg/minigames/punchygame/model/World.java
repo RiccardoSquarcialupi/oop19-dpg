@@ -24,6 +24,10 @@ public class World {
         return sacks.pop();
     }
 
+    public Score getScore() {
+        return score;
+    }
+
     private void generateSacks() {
         sacks = Stream
                 .generate(this::randomDirection)
