@@ -13,6 +13,11 @@ import java.util.Set;
 public interface GridView {
 
     /**
+     * this methods sets the view
+     */
+    void setView(Stage stage);
+
+    /**
      * Sets the name of who's currently playing in the main text
      */
     void setCurrentPlayerName(String name);
@@ -51,11 +56,6 @@ public interface GridView {
      * Updates the Players positions in the Grid
      */
     void updatePlayers(Map<Integer, ImmutablePair<Integer,Integer>> players);
-
-    /**
-     * returns the Grid Scene
-     */
-    Scene getScene();
 
     void enableDiceThrow(Dice dice);
     void disableDiceThrow();
