@@ -8,18 +8,26 @@ import it.dpg.minigames.base.controller.AbstractMinigame;
 import it.dpg.minigames.base.controller.Minigame;
 import it.dpg.minigames.base.controller.MinigameCycle;
 import it.dpg.minigames.base.view.MinigameView;
+import javafx.application.Platform;
 
 import java.awt.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 public class BallMinigame extends AbstractMinigame implements Minigame {
     private final int maxScore = 999;
-    private final BallMinigameView view;
-    private final BallGamecycle cycle;
+    private BallMinigameView view;
+    private BallGamecycle cycle;
 
     public BallMinigame() {
+        createComponents();
+    }
+
+    private void createComponents() {
         BallMinigameObserver observer = new BallObserverImpl();
-        view = new BallViewImpl(Toolkit.getDefaultToolkit().getScreenSize().height * 0.7, observer);
-        cycle = new BallGamecycleImpl(view, maxScore);
+        this.view = new BallViewImpl(Toolkit.getDefaultToolkit().getScreenSize().height * 0.7, observer);
+        BallGamecycle cycle = new BallGamecycleImpl(view, maxScore);
         observer.addGamecycle(cycle);
     }
 
