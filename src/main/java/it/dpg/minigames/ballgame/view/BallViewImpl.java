@@ -1,6 +1,7 @@
 package it.dpg.minigames.ballgame.view;
 
 import it.dpg.minigames.ballgame.controller.BallMinigameLevel;
+import it.dpg.minigames.ballgame.controller.BallMinigameObserver;
 import it.dpg.minigames.base.view.AbstractMinigameView;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -9,6 +10,7 @@ import javafx.scene.text.Text;
 
 public class BallViewImpl extends AbstractMinigameView implements BallMinigameView {
     private final double viewSize;
+    private final BallMinigameObserver observer;
     private final Group panel = new Group();
     private Circle ball;
     private Text score;
@@ -17,8 +19,10 @@ public class BallViewImpl extends AbstractMinigameView implements BallMinigameVi
     private Text goText;
     private Text victoryText;
 
-    public BallViewImpl(final double viewSize) {
+    public BallViewImpl(final double viewSize, BallMinigameObserver observer) {
+        super();
         this.viewSize = viewSize;
+        this.observer = observer;
     }
 
     /**
@@ -35,7 +39,40 @@ public class BallViewImpl extends AbstractMinigameView implements BallMinigameVi
 
     @Override
     public Scene createScene() {
-        return new Scene(panel, viewSize, viewSize);
+        Scene scene = new Scene(panel, viewSize, viewSize);
+        scene.setOnKeyPressed(ke -> {
+            switch (ke.getCode()) {
+                case UP:
+                    observer.handleUpButton(true);
+                    break;
+                case DOWN:
+                    observer.handleDownButton(true);
+                    break;
+                case LEFT:
+                    observer.handleLeftButton(true);
+                    break;
+                case RIGHT:
+                    observer.handleRightButton(true);
+                    break;
+            }
+        });
+        scene.setOnKeyReleased(ke -> {
+            switch (ke.getCode()) {
+                case UP:
+                    observer.handleUpButton(false);
+                    break;
+                case DOWN:
+                    observer.handleDownButton(false);
+                    break;
+                case LEFT:
+                    observer.handleLeftButton(false);
+                    break;
+                case RIGHT:
+                    observer.handleRightButton(false);
+                    break;
+            }
+        });
+        return scene;
     }
 
     @Override

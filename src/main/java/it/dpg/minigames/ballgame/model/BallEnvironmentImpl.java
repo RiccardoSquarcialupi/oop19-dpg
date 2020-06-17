@@ -19,10 +19,11 @@ public class BallEnvironmentImpl implements BallEnvironment {
     private final double ballAcceleration = 4;
     private final double ballDeceleration = 1.5;
     private final double maxSpeed = 12;
+    private final int maxScore;
     private double xSpeed = 0;
     private double ySpeed = 0;
 
-    public BallEnvironmentImpl(double startX, double startY, double radius, Set<Boundary> boundaries, int expectedFPS) {
+    public BallEnvironmentImpl(double startX, double startY, double radius, Set<Boundary> boundaries, int expectedFPS, int maxScore) {
         this.radius = radius;
         this.startX = startX;
         this.startY = startY;
@@ -30,6 +31,7 @@ public class BallEnvironmentImpl implements BallEnvironment {
         this.centerY = startY;
         this.boundaries = boundaries;
         this.deltaT = 1d / expectedFPS;
+        this.maxScore = maxScore;
     }
 
     @Override
@@ -44,7 +46,7 @@ public class BallEnvironmentImpl implements BallEnvironment {
 
     @Override
     public int getScore() {
-        return 999 - ((int)(timePassed * 20));
+        return maxScore - ((int)(timePassed * 20));
     }
 
     @Override

@@ -9,9 +9,11 @@ import java.util.logging.Level;
 public class BallEnvironmentFactoryImpl implements BallEnvironmentFactory {
 
     private final int expectedFPS;
+    private final int maxScore;
 
-    BallEnvironmentFactoryImpl(int expectedFPS) {
+    BallEnvironmentFactoryImpl(int expectedFPS, int maxScore) {
         this.expectedFPS = expectedFPS;
+        this.maxScore = maxScore;
     }
 
     @Override
@@ -21,6 +23,6 @@ public class BallEnvironmentFactoryImpl implements BallEnvironmentFactory {
         temp.add(new HorizontalBoundary(0, 100, 0, CollisionType.BOUNCE));
         temp.add(new VerticalBoundary(0, 0, 100, CollisionType.BOUNCE));
         temp.add(new VerticalBoundary(100, 0, 100, CollisionType.BOUNCE));
-        return new BallEnvironmentImpl(50, 50, 5, temp, expectedFPS);
+        return new BallEnvironmentImpl(50, 50, 5, temp, expectedFPS, maxScore);
     }
 }

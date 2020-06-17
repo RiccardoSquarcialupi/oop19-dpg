@@ -7,13 +7,13 @@ public class BallMinigameModelImpl implements BallMinigameModel{
     private final BallEnvironmentFactory factory;
     private BallEnvironment env;
     private boolean levelIsReady = false;
-    private boolean isGoingLeft = false;
-    private boolean isGoingRight = false;
-    private boolean isGoingUp = false;
-    private boolean isGoingDown = false;
+    private volatile boolean isGoingLeft = false;
+    private volatile boolean isGoingRight = false;
+    private volatile boolean isGoingUp = false;
+    private volatile boolean isGoingDown = false;
 
-    BallMinigameModelImpl(int expectedFPS) {
-        this.factory = new BallEnvironmentFactoryImpl(expectedFPS);
+    public BallMinigameModelImpl(int expectedFPS, int maxScore) {
+        this.factory = new BallEnvironmentFactoryImpl(expectedFPS, maxScore);
     }
 
     private void checkLevelSetup() {
