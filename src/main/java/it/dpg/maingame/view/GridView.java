@@ -57,6 +57,13 @@ public interface GridView {
      */
     void updatePlayers(Map<Integer, ImmutablePair<Integer,Integer>> players);
 
+    /**
+     * enables the dice button
+     */
     void enableDiceThrow(Dice dice);
+
+    /**
+     * disables the dice button
+     */
     void disableDiceThrow();
 }
