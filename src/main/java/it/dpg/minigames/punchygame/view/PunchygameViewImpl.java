@@ -2,6 +2,7 @@ package it.dpg.minigames.punchygame.view;
 
 import it.dpg.minigames.base.view.AbstractMinigameView;
 import it.dpg.minigames.punchygame.model.Direction;
+import it.dpg.minigames.punchygame.model.Timer;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -33,6 +34,7 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
     private static final double CHAR_HEIGHT = HEIGHT/2;
 
     private Text scoreText;
+    private Text timerText;
 
     @Override
     public Scene createScene() {
@@ -43,7 +45,7 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
         scoreText.setFont(new Font(20));
         g.getChildren().add(scoreText);
 
-        Text timerText = new Text(WIDTH - 2*UNIT, 20,"TIMER: ");
+        timerText = new Text(WIDTH - 2*UNIT, 20,"TIMER: ");
         timerText.setFont(new Font(20));
         g.getChildren().add(timerText);
 
@@ -87,6 +89,8 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
 
     @Override
     public void updateTimer(int timer) {
-
+        Platform.runLater(
+                () -> timerText.setText("TIMER: ".concat(String.valueOf(timer)))
+        );
     }
 }

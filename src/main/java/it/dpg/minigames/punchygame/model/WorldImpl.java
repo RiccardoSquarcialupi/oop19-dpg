@@ -32,12 +32,12 @@ public class WorldImpl implements World {
 
     @Override
     public Score getScore() {
-        return null;
+        return score;
     }
 
     @Override
     public Timer getTimer() {
-        return null;
+        return timer;
     }
 
     private void generateSacks() {
