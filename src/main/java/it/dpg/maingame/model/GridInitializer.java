@@ -7,10 +7,6 @@ import java.util.Map;
 public interface GridInitializer {
 
     /**
-     * sets Json file based on the grid type
-     */
-    void setJson(GridType gridType);
-    /**
      * creates a grid based on the grid type
      */
     Grid makeGrid(GridType gridType);

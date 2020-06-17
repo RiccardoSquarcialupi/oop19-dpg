@@ -1,4 +1,4 @@
-package it.dpg.maingame.model;
+package it.dpg.maingame.view;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;

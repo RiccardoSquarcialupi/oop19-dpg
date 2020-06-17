@@ -1,5 +1,9 @@
 package it.dpg.maingame.model;
 
+/**
+ * this class is used by the GridInitializer class to set and get elements contained in the json file
+ */
+
 public class CellParser {
 
     private int id;
