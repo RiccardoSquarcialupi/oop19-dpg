@@ -3,7 +3,6 @@ package it.dpg.maingame.view.menu;
 import it.dpg.maingame.controller.gamecycle.menu.MenuController;
 import it.dpg.maingame.controller.gamecycle.menu.MenuControllerImpl;
 import it.dpg.maingame.model.character.Difficulty;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,12 +23,9 @@ import java.util.List;
  *
  * @author Riccardo Squarcialupi
  */
-public class MenuGUI extends Application implements MenuView {
+public class MenuGUI implements MenuView {
 
-    public static void main(String []args){
-        launch(args);
-    }
-    /**
+     /**
      * startBtn is the Button for Start the Game
      * creditBtn is the Button for display the Credits
      * optionsBtm is the Button for display the options
@@ -46,21 +42,11 @@ public class MenuGUI extends Application implements MenuView {
     private MenuController optionController = new MenuControllerImpl();
 
     /**
-     * Method for start the Application
-     *
-     * @param stage Represent the "case" for the all Graphics Stuff
-     */
-    @Override
-    public void start(final Stage stage) throws Exception {
-        initializeGUI(stage);
-    }
-
-    /**
      * Method for create the menu
      *
      * @param stage Represent the "case" for the all Graphics Stuff
      */
-    private void initializeGUI(final Stage stage) {
+    public void initializeGUI(final Stage stage) {
 
         startBtn.setPrefSize(100, 60);
         startBtn.setFont(Font.font(15));

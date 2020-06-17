@@ -35,4 +35,8 @@ public class GridImpl implements Grid {
         }
         return null;
     }
+
+    public Map<Cell, ImmutablePair<Integer, Integer>> getCellList () {
+        return this.grid;
+    }
 }
