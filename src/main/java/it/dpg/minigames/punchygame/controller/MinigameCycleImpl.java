@@ -6,7 +6,7 @@ import it.dpg.minigames.base.view.MinigameView;
 public class MinigameCycleImpl implements MinigameCycle {
 
     @Override
-    public int startCycle(MinigameView view) {
+    public int startCycle() {
         return 0;
     }
 }

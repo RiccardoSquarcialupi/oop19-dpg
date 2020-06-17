@@ -11,7 +11,7 @@ public class World {
     private Score score;
     private Timer timer;
 
-    private static final int MAX_SACKS = 5;
+    private static final int MAX_SACKS = 6;
 
     public World() {
         generateSacks();
@@ -24,8 +24,16 @@ public class World {
         return sacks.pop();
     }
 
+    public List<Direction> getSacks() {
+        return new ArrayList<>(sacks);
+    }
+
     public Score getScore() {
         return score;
+    }
+
+    public Timer getTimer() {
+        return timer;
     }
 
     private void generateSacks() {
