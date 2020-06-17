@@ -3,8 +3,6 @@ package it.dpg.minigames.ballgame.controller;
 import it.dpg.minigames.ballgame.model.BallMinigameModel;
 import it.dpg.minigames.ballgame.model.BallMinigameModelImpl;
 import it.dpg.minigames.ballgame.view.BallMinigameView;
-import it.dpg.minigames.base.view.MinigameView;
-import javafx.application.Platform;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.concurrent.TimeUnit;
@@ -47,7 +45,7 @@ public class BallGamecycleImpl implements BallGamecycle {
     }
 
     @Override
-    public int startCycle(MinigameView view) {
+    public int startCycle() {
         boolean exitCycle = false;
         BallMinigameLevel level = BallMinigameLevel.LEVEL1;
         setup(level);

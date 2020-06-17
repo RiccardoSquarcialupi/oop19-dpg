@@ -14,8 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class Main extends Application {
     private final BallMinigameObserver o = new BallMinigameObserver() {
         @Override
-        public void addGamecycle(BallGamecycle cycle) {
-        }
+        public void addGamecycle(BallGamecycle cycle) {}
 
         @Override
         public void handleUpButton(boolean isPressed) {
