@@ -3,6 +3,7 @@ package it.dpg.minigames.ballgame.view;
 import it.dpg.minigames.ballgame.controller.BallMinigameLevel;
 import it.dpg.minigames.ballgame.controller.BallMinigameObserver;
 import it.dpg.minigames.base.view.AbstractMinigameView;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.shape.Circle;
@@ -77,52 +78,56 @@ public class BallViewImpl extends AbstractMinigameView implements BallMinigameVi
 
     @Override
     public void setupLevel(BallMinigameLevel level) {
-        panel.getChildren().clear();
-        ball = factory.createBall(level);
-        score = factory.createScore();
-        readyText = factory.createReady();
-        goText = factory.createGo();
-        victoryText = factory.createVictoryMessage();
+        Platform.runLater(() -> {
+            panel.getChildren().clear();
+            ball = factory.createBall(level);
+            score = factory.createScore();
+            readyText = factory.createReady();
+            goText = factory.createGo();
+            victoryText = factory.createVictoryMessage();
 
-        panel.getChildren().add(ball);
-        panel.getChildren().add(score);
-        factory.createNodes(level)
-                .forEach(node -> panel.getChildren().add(node));
+            panel.getChildren().add(ball);
+            panel.getChildren().add(score);
+            factory.createNodes(level)
+                    .forEach(node -> panel.getChildren().add(node));
+        });
     }
 
     @Override
     public void positionBall(double xPos, double yPos) {
-        ball.setCenterX(mapCoordinate(xPos));
-        ball.setCenterY(mapCoordinate(yPos));
+        Platform.runLater(() -> {
+            ball.setCenterX(mapCoordinate(xPos));
+            ball.setCenterY(mapCoordinate(yPos));
+        });
     }
 
     @Override
     public void setScore(int score) {
-        this.score.setText("Score: " + score);
+        Platform.runLater(() -> this.score.setText("Score: " + score));
     }
 
     @Override
     public void setVictory() {
-        panel.getChildren().add(this.victoryText);
+        Platform.runLater(() -> panel.getChildren().add(this.victoryText));
     }
 
     @Override
     public void setReady() {
-        panel.getChildren().add(this.readyText);
+        Platform.runLater(() -> panel.getChildren().add(this.readyText));
     }
 
     @Override
     public void removeReady() {
-        panel.getChildren().remove(this.readyText);
+        Platform.runLater(() -> panel.getChildren().remove(this.readyText));
     }
 
     @Override
     public void setGo() {
-        panel.getChildren().add(this.goText);
+        Platform.runLater(() -> panel.getChildren().add(this.goText));
     }
 
     @Override
     public void removeGo() {
-        panel.getChildren().remove(this.goText);
+        Platform.runLater(() -> panel.getChildren().remove(this.goText));
     }
 }

@@ -38,10 +38,6 @@ public class BallGamecycleImpl implements BallGamecycle {
         model.setGoingRight(isPressed);
     }
 
-    private void runLater(Runnable runnable) {
-        Platform.runLater(runnable);
-    }
-
     private void sleepMillis(long millis) {
         try {
             TimeUnit.MILLISECONDS.sleep(millis);
@@ -58,12 +54,10 @@ public class BallGamecycleImpl implements BallGamecycle {
         startSequence();
         while(!exitCycle) {
             ImmutablePair<Double, Double> coords = model.calculateNextFrame();
-            runLater(() -> {
-                this.view.positionBall(coords.left, 100 - coords.right);
-                this.view.setScore(model.getScore());
-            });
+            this.view.positionBall(coords.left, 100 - coords.right);
+            this.view.setScore(model.getScore());
             if(model.isOver()) {
-                runLater(this.view::setVictory);
+                this.view.setVictory();
                 sleepMillis(1500);
                 exitCycle = true;
             }
@@ -73,19 +67,17 @@ public class BallGamecycleImpl implements BallGamecycle {
     }
 
     private void setup(BallMinigameLevel level) {
-        runLater(() -> this.view.setupLevel(level));
+        this.view.setupLevel(level);
         this.model.setupLevel(level);
-        runLater(() -> this.view.setScore(model.getScore()));
+        this.view.setScore(model.getScore());
     }
 
     private void startSequence() {
-        runLater(view::setReady);
+        view.setReady();
         sleepMillis(2000);
-        runLater(() -> {
-            view.removeReady();
-            view.setGo();
-        });
+        view.removeReady();
+        view.setGo();
         sleepMillis(1000);
-        runLater(view::removeGo);
+        view.removeGo();
     }
 }
