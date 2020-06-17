@@ -13,11 +13,11 @@ import java.awt.*;
 
 public class BallMinigame extends AbstractMinigame implements Minigame {
     private final int maxScore = 999;
-    private final BallMinigameObserver observer = new BallObserverImpl();
     private final BallMinigameView view;
     private final BallGamecycle cycle;
 
     public BallMinigame() {
+        BallMinigameObserver observer = new BallObserverImpl();
         view = new BallViewImpl(Toolkit.getDefaultToolkit().getScreenSize().height * 0.7, observer);
         cycle = new BallGamecycleImpl(view, maxScore);
         observer.addGamecycle(cycle);
