@@ -20,15 +20,15 @@ public class BallMinigame extends AbstractMinigame implements Minigame {
     private BallMinigameView view;
     private BallGamecycle cycle;
 
-    public BallMinigame() {
-        createComponents();
-    }
+    public BallMinigame() {}
 
     private void createComponents() {
-        BallMinigameObserver observer = new BallObserverImpl();
-        this.view = new BallViewImpl(Toolkit.getDefaultToolkit().getScreenSize().height * 0.7, observer);
-        this.cycle = new BallGamecycleImpl(view, maxScore);
-        observer.addGamecycle(cycle);
+        if(view == null || cycle == null) {
+            BallMinigameObserver observer = new BallObserverImpl();
+            this.view = new BallViewImpl(Toolkit.getDefaultToolkit().getScreenSize().height * 0.7, observer);
+            this.cycle = new BallGamecycleImpl(view, maxScore);
+            observer.addGamecycle(cycle);
+        }
     }
 
     @Override
@@ -38,11 +38,13 @@ public class BallMinigame extends AbstractMinigame implements Minigame {
 
     @Override
     public MinigameView createView() {
+        createComponents();
         return view;
     }
 
     @Override
     public MinigameCycle createCycle() {
+        createComponents();
         return cycle;
     }
 }
