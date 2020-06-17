@@ -17,7 +17,7 @@ public class BallMinigame extends AbstractMinigame implements Minigame {
     private final BallMinigameView view;
     private final BallGamecycle cycle;
 
-    BallMinigame() {
+    public BallMinigame() {
         view = new BallViewImpl(Toolkit.getDefaultToolkit().getScreenSize().height * 0.7, observer);
         cycle = new BallGamecycleImpl(view, maxScore);
         observer.addGamecycle(cycle);

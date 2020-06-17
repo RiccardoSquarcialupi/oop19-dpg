@@ -1,6 +1,8 @@
 package it.dpg.ballMinigameTests.view;
 
+import it.dpg.minigames.ballgame.controller.BallGamecycle;
 import it.dpg.minigames.ballgame.controller.BallMinigameLevel;
+import it.dpg.minigames.ballgame.controller.BallMinigameObserver;
 import it.dpg.minigames.ballgame.view.BallMinigameView;
 import it.dpg.minigames.ballgame.view.BallViewImpl;
 import javafx.application.Application;
@@ -10,8 +12,34 @@ import javafx.stage.Stage;
 import java.util.concurrent.TimeUnit;
 
 public class Main extends Application {
+    private final BallMinigameObserver o = new BallMinigameObserver() {
+        @Override
+        public void addGamecycle(BallGamecycle cycle) {
+        }
+
+        @Override
+        public void handleUpButton(boolean isPressed) {
+            System.out.println("Up button: " + isPressed);
+        }
+
+        @Override
+        public void handleDownButton(boolean isPressed) {
+            System.out.println("Down button: " + isPressed);
+        }
+
+        @Override
+        public void handleLeftButton(boolean isPressed) {
+            System.out.println("Left button: " + isPressed);
+        }
+
+        @Override
+        public void handleRightButton(boolean isPressed) {
+            System.out.println("Right button: " + isPressed);
+        }
+    };
+
     private final Thread worker = new Thread(() -> {
-        BallMinigameView view = new BallViewImpl(850);
+        BallMinigameView view = new BallViewImpl(850, o);
 
         Platform.runLater(() -> {
             view.setView();
