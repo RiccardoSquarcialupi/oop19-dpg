@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class MinigameViewImpl extends AbstractMinigameView {
+public class PunchygameViewImpl extends AbstractMinigameView implements PunchygameView {
 
     private Scene scene;
 
@@ -65,4 +65,6 @@ public class MinigameViewImpl extends AbstractMinigameView {
         scene = new Scene(g, WIDTH, HEIGHT, BG_COLOR);
         return scene;
     }
+
+    public int porcodio(){return 0;}
 }
