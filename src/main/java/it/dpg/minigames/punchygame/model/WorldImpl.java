@@ -8,10 +8,14 @@ public class WorldImpl implements World {
     private Random r = new Random();
 
     private Stack<Direction> sacks;
+    private Score score;
+    private Timer timer;
 
     private static final int MAX_SACKS = 6;
 
     public WorldImpl() {
+        score = new ScoreImpl();
+        timer = new TimerImpl();
         generateSacks();
     }
 
@@ -24,6 +28,16 @@ public class WorldImpl implements World {
     @Override
     public List<Direction> getSacks() {
         return new ArrayList<>(sacks);
+    }
+
+    @Override
+    public Score getScore() {
+        return null;
+    }
+
+    @Override
+    public Timer getTimer() {
+        return null;
     }
 
     private void generateSacks() {

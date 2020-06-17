@@ -10,6 +10,9 @@ public abstract class AbstractMinigame implements Minigame {
 
     @Override
     public int start() {
+        view = this.createView();
+        cycle = this.createCycle();
+
         view.setView();
         return cycle.startCycle();
     }

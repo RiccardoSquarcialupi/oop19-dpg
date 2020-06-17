@@ -21,6 +21,7 @@ public abstract class AbstractMinigameView implements MinigameView {
     private void setViewUsingAppThread() {
         stage = new Stage();
         stage.setScene(createScene());
+        stage.setResizable(false);
         stage.show();
     }
 

@@ -1,12 +1,15 @@
 package it.dpg.minigames.punchygame.view;
 
 import it.dpg.minigames.base.view.AbstractMinigameView;
+import it.dpg.minigames.punchygame.model.Direction;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.List;
@@ -17,8 +20,8 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
 
     private Scene scene;
 
-    private static final double WIDTH = 800;
-    private static final double HEIGHT = 600;
+    private static final double WIDTH = 1200;
+    private static final double HEIGHT = 800;
     private static final Color BG_COLOR = Color.WHITE;
     private static final int SACKS_SLOT = 4;
 
@@ -29,19 +32,23 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
     private static final double CHAR_WIDTH = WIDTH/8;
     private static final double CHAR_HEIGHT = HEIGHT/2;
 
+    private Text scoreText;
+
     @Override
     public Scene createScene() {
 
         Group g = new Group();
 
-        Text scoreText = new Text("Score: 0");
+        scoreText = new Text(0, 20, "SCORE: ");
+        scoreText.setFont(new Font(20));
         g.getChildren().add(scoreText);
 
-        Text timerText = new Text("Timer: 60");
+        Text timerText = new Text(WIDTH - 2*UNIT, 20,"TIMER: ");
+        timerText.setFont(new Font(20));
         g.getChildren().add(timerText);
 
         List<Rectangle> sacks = Stream
-                .generate(() -> new Rectangle(SACK_WIDTH, SACK_HEIGHT, BG_COLOR))
+                .generate(() -> new Rectangle(SACK_WIDTH, SACK_HEIGHT, Color.BLUE))
                 .limit(SACKS_SLOT)
                 .collect(Collectors.toList());
         double startX = UNIT;
@@ -49,14 +56,14 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
             sacks.get(i-1).setX(startX);
             sacks.get(i-1).setY(SACK_HEIGHT - UNIT);
             if(i == SACKS_SLOT/2) {
-                startX += CHAR_WIDTH + 2*(UNIT);
+                startX += (SACK_WIDTH + CHAR_WIDTH + 2*(UNIT));
+            } else {
+                startX += SACK_WIDTH + UNIT;
             }
-
-            startX += SACK_WIDTH + UNIT;
         }
         g.getChildren().addAll(sacks);
 
-        Image charImage = new Image("resources/images/punchygame/punch.png", CHAR_WIDTH, CHAR_HEIGHT, false, false);
+        Image charImage = new Image("images/punchygame/punch.png", CHAR_WIDTH, CHAR_HEIGHT, false, false);
         ImageView charView = new ImageView(charImage);
         charView.setX(WIDTH/2 - UNIT);
         charView.setY(CHAR_HEIGHT - UNIT);
@@ -66,5 +73,20 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
         return scene;
     }
 
-    public int porcodio(){return 0;}
+    @Override
+    public void updateSacks(List<Direction> sacks) {
+
+    }
+
+    @Override
+    public void updateScore(int score) {
+        Platform.runLater(
+                () -> scoreText.setText("SCORE: ".concat(String.valueOf(score)))
+        );
+    }
+
+    @Override
+    public void updateTimer(int timer) {
+
+    }
 }
