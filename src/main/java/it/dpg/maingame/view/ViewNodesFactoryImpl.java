@@ -25,7 +25,7 @@ public class ViewNodesFactoryImpl implements ViewNodesFactory {
     public Rectangle generatePlayer(Integer player) {
         Rectangle square = new Rectangle(30, 30);
 
-        Random rand = new Random();
+        Random rand = new Random();     //for each player that exists, a new random color is generated and given to the rectangle
 
         float r = rand.nextFloat();
         float g = rand.nextFloat();

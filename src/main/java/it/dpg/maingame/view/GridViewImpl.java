@@ -41,7 +41,7 @@ public class GridViewImpl implements GridView {
 
     private ViewNodesFactory nodes = new ViewNodesFactoryImpl();
 
-    //this integer is a constant that modifies the position of a graphic element based on their coordinates
+    //these integers are constants that modify the position of a graphic element based on their coordinates
     private int Xmodifier = 130;
     private int Ymodifier = 90;
 
@@ -63,10 +63,11 @@ public class GridViewImpl implements GridView {
 
         Group circleGroup = new Group();
 
-        for (var i : grid.getCellList().entrySet()) {
+        for (var i : grid.getCellList().entrySet()) {       //for every Cell present in Grid, a Circle is created
 
             Circle circle;
 
+            //the color is dictated by the Cell Type
             if (i.getKey().getType().equals(CellType.START) || i.getKey().getType().equals(CellType.END)) {
                 circle = nodes.generateCell(Color.LIGHTBLUE);
             } else if (i.getKey().getType().equals(CellType.NORMAL)) {
@@ -75,18 +76,22 @@ public class GridViewImpl implements GridView {
                 circle = nodes.generateCell(Color.WHITE);
             }
 
+            //the Circle gets its position modified based on the corresponding Cell coordinates
             int left = i.getValue().getLeft()*Xmodifier;
             int right = i.getValue().getRight()*Ymodifier;
             circle.setLayoutX(left);
             circle.setLayoutY(right);
 
+            //a new set of coordinates is created to keep track of the linked Cells
             Set<ImmutablePair<Integer, Integer>> next = new HashSet<>();
 
+            //a new Map is created to keep track of each Cell Circle and the linked Cells coordinates
             for (var j : i.getKey().getNext()) {
                 next.add(j.getCoordinates());
             }
             circlesList.put(circle, next);
 
+            //the Circles are added
             circleGroup.getChildren().add(circle);
         }
         gridGroup.getChildren().addAll(nodes.generateLines(circlesList, Xmodifier, Ymodifier), circleGroup);
@@ -154,6 +159,7 @@ public class GridViewImpl implements GridView {
     @Override
     public void enableDirectionChoice(Set<ImmutablePair<Integer, Integer>> cells) {
 
+        //the method searches for the wanted fork inside the map, and creates and places buttons to the corresponding fork cells inside the Grid
         for (var i : cells) {
             Button button = new Button();
             button.setShape(new Circle(4));
@@ -170,14 +176,16 @@ public class GridViewImpl implements GridView {
 
     @Override
     public void disableDirectionChoice() {
+        //the method removes every instance of buttons.
         gridGroup.getChildren().removeIf(i -> i instanceof Button);
     }
 
     @Override
     public void updatePlayers(Map<Integer, ImmutablePair<Integer, Integer>> players) {
 
-        int playerMod = 0;
+        int playerMod = 0;  //player modifier is a modifier that changes every time more than one player sit on the same Cell
         if (playerList.isEmpty()) {
+            //if there's still no players, they are generated
             for (var i : players.entrySet()) {
                 Rectangle playerSquare =  nodes.generatePlayer(i.getKey());
                 playerList.put(i.getKey(), playerSquare);
@@ -185,10 +193,12 @@ public class GridViewImpl implements GridView {
             }
         }
 
+        //the players are placed in the grid by coordinates, which are the ones passed through @param; they are modified to fit nicely and avoid overlapping
         for (var j : players.entrySet()) {
             playerList.get(j.getKey()).setLayoutX(j.getValue().getLeft()*Xmodifier+playerMod);
             playerList.get(j.getKey()).setLayoutY(j.getValue().getRight()*Ymodifier);
             for (var k : players.entrySet()) {
+                //this cycle counts how many player sit on the same cell, to apply a modifier accordingly
                 if (j.getValue().equals(k.getValue())) {
                     playerMod = j.getKey() * 35;
                     break;
