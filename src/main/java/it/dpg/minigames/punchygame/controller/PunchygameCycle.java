@@ -2,6 +2,7 @@ package it.dpg.minigames.punchygame.controller;
 
 import it.dpg.minigames.base.controller.MinigameCycle;
 import it.dpg.minigames.punchygame.controller.input.Input;
+import it.dpg.minigames.punchygame.controller.input.InputObserver;
 import it.dpg.minigames.punchygame.model.WorldImpl;
 import it.dpg.minigames.punchygame.view.PunchygameView;
 

@@ -1,11 +1,10 @@
 package it.dpg.minigames.punchygame.view;
 
 import it.dpg.minigames.base.view.AbstractMinigameView;
-import it.dpg.minigames.punchygame.controller.InputObserver;
+import it.dpg.minigames.punchygame.controller.input.InputObserver;
 import it.dpg.minigames.punchygame.controller.input.PunchLeft;
 import it.dpg.minigames.punchygame.controller.input.PunchRight;
 import it.dpg.minigames.punchygame.model.Direction;
-import it.dpg.minigames.punchygame.model.Timer;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
