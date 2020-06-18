@@ -9,7 +9,7 @@ import it.dpg.minigames.punchygame.view.PunchygameViewImpl;
 
 public class PunchyMinigame extends AbstractMinigame {
 
-    PunchygameView view = new PunchygameViewImpl();
+    private PunchygameView view = new PunchygameViewImpl();
 
     @Override
     public int getMaxScore() {

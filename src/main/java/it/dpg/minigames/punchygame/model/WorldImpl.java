@@ -7,9 +7,10 @@ import java.util.stream.Stream;
 public class WorldImpl implements World {
     private Random r = new Random();
 
-    private Stack<Direction> sacks;
+    private Deque<Direction> sacks;
     private Score score;
     private Timer timer;
+    private boolean gameOver;
 
     private static final int MAX_SACKS = 6;
 
@@ -40,11 +41,21 @@ public class WorldImpl implements World {
         return timer;
     }
 
+    @Override
+    public void triggerGameOver() {
+        gameOver = true;
+    }
+
+    @Override
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
     private void generateSacks() {
         sacks = Stream
                 .generate(this::randomDirection)
                 .limit(MAX_SACKS)
-                .collect(Collectors.toCollection(Stack::new));
+                .collect(Collectors.toCollection(ArrayDeque::new));
     }
 
     private Direction randomDirection() {

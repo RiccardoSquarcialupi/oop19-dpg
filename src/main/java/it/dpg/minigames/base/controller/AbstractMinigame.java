@@ -5,8 +5,8 @@ import it.dpg.minigames.base.view.MinigameView;
 
 public abstract class AbstractMinigame implements Minigame {
 
-    private MinigameView view = this.createView();
-    private MinigameCycle cycle = this.createCycle();
+    private MinigameView view;
+    private MinigameCycle cycle;
 
     @Override
     public int start() {

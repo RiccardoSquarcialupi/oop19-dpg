@@ -26,7 +26,7 @@ public class ScoreImpl implements Score {
     }
 
     @Override
-    public int getScore() {
+    public int getPoints() {
         return score;
     }
 }
