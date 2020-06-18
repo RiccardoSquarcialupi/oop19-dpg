@@ -7,7 +7,8 @@ public class PunchRight implements Input {
 
     @Override
     public void execute(WorldImpl world) {
-        if(world.getNextSack() == Direction.RIGHT) {
+        Direction d = world.getNextSack();
+        if(d == Direction.RIGHT) {
             world.getScore().incrementScore();
             world.getTimer().timerIncrease();
             System.out.println("right");

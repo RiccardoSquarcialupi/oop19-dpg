@@ -12,7 +12,7 @@ public class WorldImpl implements World {
     private Timer timer;
     private boolean gameOver;
 
-    private static final int MAX_SACKS = 6;
+    private static final int MAX_SACKS = 2;
 
     public WorldImpl() {
         score = new ScoreImpl();
@@ -22,7 +22,7 @@ public class WorldImpl implements World {
 
     @Override
     public Direction getNextSack() {
-        sacks.push(randomDirection());
+        sacks.addLast(randomDirection());
         return sacks.pop();
     }
 

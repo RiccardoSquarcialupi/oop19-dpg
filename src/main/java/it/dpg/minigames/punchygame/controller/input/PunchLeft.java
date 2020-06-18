@@ -7,7 +7,8 @@ public class PunchLeft implements Input {
 
     @Override
     public void execute(WorldImpl world) {
-        if(world.getNextSack() == Direction.LEFT) {
+        Direction d = world.getNextSack();
+        if(d == Direction.LEFT) {
             world.getScore().incrementScore();
             world.getTimer().timerIncrease();
             System.out.println("left");

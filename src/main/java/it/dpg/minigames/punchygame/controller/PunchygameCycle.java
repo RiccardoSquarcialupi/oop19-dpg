@@ -41,6 +41,7 @@ public class PunchygameCycle implements MinigameCycle, InputObserver {
             lastTime = currentTime;
         }
 
+        view.closeView();
         return world.getScore().getPoints();
     }
 
@@ -62,6 +63,8 @@ public class PunchygameCycle implements MinigameCycle, InputObserver {
         Input i = inputBuffer.poll();
         if(i != null) {
             i.execute(world);
+            view.updateSacks(world.getSacks());
+            view.updateScore(world.getScore().getPoints());
         }
     }
 
@@ -69,5 +72,6 @@ public class PunchygameCycle implements MinigameCycle, InputObserver {
         view.setInputObserver(this);
         view.updateScore(world.getScore().getPoints());
         view.updateTimer(world.getTimer().getTimeLeft());
+        view.updateSacks(world.getSacks());
     }
 }

@@ -16,7 +16,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -40,13 +42,13 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
     private Text scoreText;
     private Text timerText;
     private InputObserver observer;
+    private List<Pair<Rectangle, Rectangle>> sacksPair;
 
     @Override
     public Scene createScene() {
         scene = new Scene(createGroup(), WIDTH, HEIGHT, BG_COLOR);
 
         scene.setOnKeyPressed(k -> {
-            
             if(k.getCode() == KeyCode.LEFT) {
                 observer.notifyInput(new PunchLeft());
             } else if(k.getCode() == KeyCode.RIGHT) {
@@ -59,7 +61,14 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
 
     @Override
     public void updateSacks(List<Direction> sacks) {
-
+        System.out.println(sacks);
+        for(int i = 0; i < sacks.size(); i++) {
+            if(sacks.get(i) == Direction.LEFT) {
+                paintSacks(i, Color.BLACK, BG_COLOR);
+            } else {
+                paintSacks(i, BG_COLOR, Color.BLACK);
+            }
+        }
     }
 
     @Override
@@ -93,7 +102,7 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
         g.getChildren().add(timerText);
 
         List<Rectangle> sacks = Stream
-                .generate(() -> new Rectangle(SACK_WIDTH, SACK_HEIGHT, Color.BLUE))
+                .generate(() -> new Rectangle(SACK_WIDTH, SACK_HEIGHT, BG_COLOR))
                 .limit(SACKS_SLOT)
                 .collect(Collectors.toList());
         double startX = UNIT;
@@ -108,6 +117,15 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
         }
         g.getChildren().addAll(sacks);
 
+        int firstLeft = SACKS_SLOT/2 - 1;
+        int firstRight = SACKS_SLOT/2;
+        sacksPair = new ArrayList<>();
+        while(firstLeft >= 0 && firstRight < sacks.size()) {
+            sacksPair.add(Pair.of(sacks.get(firstLeft), sacks.get(firstRight)));
+            firstLeft--;
+            firstRight++;
+        }
+
         Image charImage = new Image("images/punchygame/punch.png", CHAR_WIDTH, CHAR_HEIGHT, false, false);
         ImageView charView = new ImageView(charImage);
         charView.setX(WIDTH/2 - UNIT);
@@ -115,5 +133,12 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
         g.getChildren().add(charView);
 
         return g;
+    }
+
+    private void paintSacks(final int index, final Color leftColor, final Color rightColor) {
+        Platform.runLater(() -> {
+            this.sacksPair.get(index).getRight().setFill(rightColor);
+            this.sacksPair.get(index).getLeft().setFill(leftColor);
+        });
     }
 }
