@@ -16,9 +16,9 @@ public class BallEnvironmentImpl implements BallEnvironment {
     private final double deltaT;
     private boolean wasGoalReached = false;
     private double timePassed = 0;
-    private final double ballAcceleration = 4;
-    private final double ballDeceleration = 1.5;
-    private final double maxSpeed = 12;
+    private final double ballAcceleration = 15;
+    private final double ballDeceleration = 7;
+    private final double maxSpeed = 20;
     private final int maxScore;
     private double xSpeed = 0;
     private double ySpeed = 0;
@@ -46,7 +46,8 @@ public class BallEnvironmentImpl implements BallEnvironment {
 
     @Override
     public int getScore() {
-        return maxScore - ((int)(timePassed * 20));
+        int score = maxScore - ((int)(timePassed * 20));
+        return Math.max(score, 0);
     }
 
     @Override
@@ -82,8 +83,14 @@ public class BallEnvironmentImpl implements BallEnvironment {
             }
         } else if(isGoingUp) {
             yAcc = ballAcceleration;
+            if(ySpeed < 0) {
+                yAcc += ballDeceleration;
+            }
         } else {
             yAcc = -ballAcceleration;
+            if(ySpeed > 0) {
+                yAcc -= ballDeceleration;
+            }
         }
         if((isGoingLeft && isGoingRight) || (!isGoingLeft && !isGoingRight)) {
             if (xSpeed > 0) {
@@ -95,8 +102,14 @@ public class BallEnvironmentImpl implements BallEnvironment {
             }
         } else if(isGoingRight) {
             xAcc = ballAcceleration;
+            if (xSpeed < 0) {
+                xAcc += ballDeceleration;
+            }
         } else {
             xAcc = -ballAcceleration;
+            if (xSpeed > 0) {
+                xAcc -= ballDeceleration;
+            }
         }
         double xSpeedPrev = this.xSpeed;
         double ySpeedPrev = this.ySpeed;
