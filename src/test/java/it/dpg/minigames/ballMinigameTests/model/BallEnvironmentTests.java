@@ -1,4 +1,4 @@
-package it.dpg.ballMinigameTests.model;
+package it.dpg.minigames.ballMinigameTests.model;
 
 import it.dpg.minigames.ballgame.model.*;
 import org.junit.jupiter.api.Test;

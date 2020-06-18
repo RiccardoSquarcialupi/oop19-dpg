@@ -1,4 +1,4 @@
-package it.dpg.ballMinigameTests.controller;
+package it.dpg.minigames.punchyMinigameTest;
 
 public class Launcher {
     public static void main(String[] args) {

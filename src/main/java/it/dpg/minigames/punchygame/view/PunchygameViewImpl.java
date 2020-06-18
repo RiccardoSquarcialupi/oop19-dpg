@@ -60,7 +60,6 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
 
     @Override
     public void updateSacks(List<Direction> sacks) {
-        System.out.println(sacks);
         for(int i = 0; i < sacks.size(); i++) {
             if(sacks.get(i) == Direction.LEFT) {
                 paintSacks(i, Color.BLACK, BG_COLOR);

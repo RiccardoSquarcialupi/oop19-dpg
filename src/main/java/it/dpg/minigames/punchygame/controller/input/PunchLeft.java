@@ -11,10 +11,8 @@ public class PunchLeft implements Input {
         if(d == Direction.LEFT) {
             world.getScore().incrementScore();
             world.getTimer().timerIncrease();
-            System.out.println("left");
         } else {
             world.triggerGameOver();
-            System.out.println("over");
         }
     }
 }

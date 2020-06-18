@@ -1,4 +1,4 @@
-package it.dpg.ballMinigameTests.view;
+package it.dpg.minigames.ballMinigameTests.view;
 
 import it.dpg.minigames.ballgame.controller.BallGamecycle;
 import it.dpg.minigames.ballgame.controller.BallMinigameLevel;

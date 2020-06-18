@@ -11,10 +11,8 @@ public class PunchRight implements Input {
         if(d == Direction.RIGHT) {
             world.getScore().incrementScore();
             world.getTimer().timerIncrease();
-            System.out.println("right");
         } else {
             world.triggerGameOver();
-            System.out.println("over");
         }
     }
 }

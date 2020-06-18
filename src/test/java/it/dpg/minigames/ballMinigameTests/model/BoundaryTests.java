@@ -1,6 +1,5 @@
-package it.dpg.ballMinigameTests.model;
+package it.dpg.minigames.ballMinigameTests.model;
 
-import com.sun.source.tree.AssertTree;
 import it.dpg.minigames.ballgame.model.Boundary;
 import it.dpg.minigames.ballgame.model.CollisionType;
 import it.dpg.minigames.ballgame.model.HorizontalBoundary;
