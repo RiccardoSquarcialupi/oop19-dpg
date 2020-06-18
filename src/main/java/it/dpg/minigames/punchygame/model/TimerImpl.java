@@ -1,24 +1,29 @@
 package it.dpg.minigames.punchygame.model;
 
 public class TimerImpl implements Timer {
-    private int timeLeft;
+
+    private float timeLeft;
+    private static final float MAX_TIME = 10L;
 
     public TimerImpl() {
-        timeLeft = 20;
+        timeLeft = MAX_TIME;
     }
 
-    public void timerDecrease() {
-        timeLeft--;
+    @Override
+    public void timerDecrease(final float elapsed) {
+        timeLeft -= elapsed;
     }
 
+    @Override
     public void timerIncrease() {
-        timeLeft += 3;
-        if(timeLeft > 20) {
-            timeLeft = 20;
+        timeLeft += 0.10;
+        if(timeLeft > MAX_TIME) {
+            timeLeft = MAX_TIME;
         }
     }
 
-    public int getTimeLeft() {
+    @Override
+    public float getTimeLeft() {
         return timeLeft;
     }
 }

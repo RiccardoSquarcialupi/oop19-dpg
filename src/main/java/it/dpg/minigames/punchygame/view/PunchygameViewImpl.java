@@ -17,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,15 +27,15 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
 
     private static final double WIDTH = 1200;
     private static final double HEIGHT = 800;
-    private static final int SACKS_SLOT = 4;
+    private static final int SACKS_SLOT = 6;
     private static final Color BG_COLOR = Color.WHITE;
-    private static final Color SACK_COLOR = Color.BLACK;
+    private static final Color SACK_COLOR = Color.CRIMSON;
 
-    private static final double SACK_WIDTH = WIDTH/8;
-    private static final double SACK_HEIGHT = HEIGHT/2;
-    private static final double CHAR_WIDTH = WIDTH/8;
+    private static final double UNIT = WIDTH/48;
+    private static final double SACK_WIDTH = WIDTH/12 + UNIT;
+    private static final double SACK_HEIGHT = HEIGHT/2 - 4*UNIT;
+    private static final double CHAR_WIDTH = WIDTH/12 + 2*UNIT;
     private static final double CHAR_HEIGHT = HEIGHT/2;
-    private static final double UNIT = WIDTH/16;
 
     private static final String SCORE_STRING = "SCORE: ";
     private static final String TIMER_STRING = "TIMER: ";
@@ -80,9 +81,9 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
     }
 
     @Override
-    public void updateTimer(final int timer) {
+    public void updateTimer(final float timer) {
         Platform.runLater(
-                () -> timerText.setText(TIMER_STRING.concat(String.valueOf(timer)))
+                () -> timerText.setText(TIMER_STRING.concat(new DecimalFormat("#.0").format(timer)))
         );
     }
 
@@ -107,11 +108,11 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
     private Group createGroup() {
         Group g = new Group();
 
-        scoreText = new Text(0, 20, SCORE_STRING);
+        scoreText = new Text(UNIT, 20, SCORE_STRING);
         scoreText.setFont(new Font(20));
         g.getChildren().add(scoreText);
 
-        timerText = new Text(WIDTH - 2*UNIT, 20, TIMER_STRING);
+        timerText = new Text(WIDTH - 5*UNIT, 20, TIMER_STRING);
         timerText.setFont(new Font(20));
         g.getChildren().add(timerText);
 
@@ -122,8 +123,8 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
 
         Image charImage = new Image(PUNCH_IMAGE, CHAR_WIDTH, CHAR_HEIGHT, false, false);
         charView = new ImageView(charImage);
-        charView.setX(WIDTH/2 - UNIT);
-        charView.setY(CHAR_HEIGHT - UNIT);
+        charView.setX(WIDTH/2 - 3*UNIT);
+        charView.setY(CHAR_HEIGHT);
         g.getChildren().add(charView);
 
         return g;
@@ -145,16 +146,23 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
     private List<Rectangle> setupSacks() {
         List<Rectangle> sacks = Stream
                 .generate(() -> new Rectangle(SACK_WIDTH, SACK_HEIGHT, BG_COLOR))
+                .peek(r -> {
+                    r.setArcHeight(20);
+                    r.setArcWidth(20);
+                    r.setY(HEIGHT/2);
+                })
                 .limit(SACKS_SLOT)
                 .collect(Collectors.toList());
-        double startX = UNIT;
+
+        double startX = 2*UNIT;
         for(int i = 1; i <= SACKS_SLOT; i++) {
             sacks.get(i-1).setX(startX);
-            sacks.get(i-1).setY(SACK_HEIGHT - UNIT);
+            sacks.get(i-1).setY(HEIGHT/2);
+
             if(i == SACKS_SLOT/2) {
-                startX += (SACK_WIDTH + CHAR_WIDTH + 2*(UNIT));
+                startX += CHAR_WIDTH + SACK_WIDTH;
             } else {
-                startX += SACK_WIDTH + UNIT;
+                startX += SACK_WIDTH + 2*UNIT;
             }
         }
 

@@ -13,7 +13,7 @@ public class WorldImpl implements World {
     private Boxer boxer;
     private boolean gameOver;
 
-    private static final int MAX_SACKS = 2;
+    private static final int MAX_SACKS = 3;
 
     public WorldImpl() {
         score = new ScoreImpl();

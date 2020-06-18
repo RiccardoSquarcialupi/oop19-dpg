@@ -12,7 +12,7 @@ import java.util.concurrent.BlockingQueue;
 
 public class PunchygameCycle implements MinigameCycle, InputObserver {
 
-    private static final int PERIOD = 20;
+    private static final int TIMER_TICK_MILLIS = 100;
 
     private PunchygameView view;
     private WorldImpl world;
@@ -52,8 +52,8 @@ public class PunchygameCycle implements MinigameCycle, InputObserver {
     }
 
     private long updateTimer(final long elapsed) {
-        if(elapsed >= 1000) {
-            world.getTimer().timerDecrease();
+        if(elapsed >= TIMER_TICK_MILLIS) {
+            world.getTimer().timerDecrease((float) elapsed / 1000);
             view.updateTimer(world.getTimer().getTimeLeft());
             return 0;
         }
