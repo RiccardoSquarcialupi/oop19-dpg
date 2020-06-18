@@ -1,6 +1,9 @@
 package it.dpg.minigames.punchygame.view;
 
 import it.dpg.minigames.base.view.AbstractMinigameView;
+import it.dpg.minigames.punchygame.controller.InputObserver;
+import it.dpg.minigames.punchygame.controller.input.PunchLeft;
+import it.dpg.minigames.punchygame.controller.input.PunchRight;
 import it.dpg.minigames.punchygame.model.Direction;
 import it.dpg.minigames.punchygame.model.Timer;
 import javafx.application.Platform;
@@ -8,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -35,10 +39,49 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
 
     private Text scoreText;
     private Text timerText;
+    private InputObserver observer;
 
     @Override
     public Scene createScene() {
+        scene = new Scene(createGroup(), WIDTH, HEIGHT, BG_COLOR);
 
+        scene.setOnKeyPressed(k -> {
+            
+            if(k.getCode() == KeyCode.LEFT) {
+                observer.notifyInput(new PunchLeft());
+            } else if(k.getCode() == KeyCode.RIGHT) {
+                observer.notifyInput(new PunchRight());
+            }
+        });
+
+        return scene;
+    }
+
+    @Override
+    public void updateSacks(List<Direction> sacks) {
+
+    }
+
+    @Override
+    public void updateScore(int score) {
+        Platform.runLater(
+                () -> scoreText.setText("SCORE: ".concat(String.valueOf(score)))
+        );
+    }
+
+    @Override
+    public void updateTimer(int timer) {
+        Platform.runLater(
+                () -> timerText.setText("TIMER: ".concat(String.valueOf(timer)))
+        );
+    }
+
+    @Override
+    public void setInputObserver(InputObserver observer) {
+        this.observer = observer;
+    }
+
+    private Group createGroup() {
         Group g = new Group();
 
         scoreText = new Text(0, 20, "SCORE: ");
@@ -71,26 +114,6 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
         charView.setY(CHAR_HEIGHT - UNIT);
         g.getChildren().add(charView);
 
-        scene = new Scene(g, WIDTH, HEIGHT, BG_COLOR);
-        return scene;
-    }
-
-    @Override
-    public void updateSacks(List<Direction> sacks) {
-
-    }
-
-    @Override
-    public void updateScore(int score) {
-        Platform.runLater(
-                () -> scoreText.setText("SCORE: ".concat(String.valueOf(score)))
-        );
-    }
-
-    @Override
-    public void updateTimer(int timer) {
-        Platform.runLater(
-                () -> timerText.setText("TIMER: ".concat(String.valueOf(timer)))
-        );
+        return g;
     }
 }
