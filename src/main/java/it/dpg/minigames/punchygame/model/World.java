@@ -7,6 +7,7 @@ public interface World {
     List<Direction> getSacks();
     Score getScore();
     Timer getTimer();
+    Boxer getBoxer();
     void triggerGameOver();
     boolean isGameOver();
 }

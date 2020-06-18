@@ -66,6 +66,7 @@ public class PunchygameCycle implements MinigameCycle, InputObserver {
             i.execute(world);
             view.updateSacks(world.getSacks());
             view.updateScore(world.getScore().getPoints());
+            view.updateBoxer(world.getBoxer().getDirection());
         }
     }
 

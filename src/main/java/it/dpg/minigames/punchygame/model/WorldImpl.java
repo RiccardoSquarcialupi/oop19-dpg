@@ -10,6 +10,7 @@ public class WorldImpl implements World {
     private Deque<Direction> sacks;
     private Score score;
     private Timer timer;
+    private Boxer boxer;
     private boolean gameOver;
 
     private static final int MAX_SACKS = 2;
@@ -17,6 +18,7 @@ public class WorldImpl implements World {
     public WorldImpl() {
         score = new ScoreImpl();
         timer = new TimerImpl();
+        boxer = new BoxerImpl();
         generateSacks();
     }
 
@@ -39,6 +41,11 @@ public class WorldImpl implements World {
     @Override
     public Timer getTimer() {
         return timer;
+    }
+
+    @Override
+    public Boxer getBoxer() {
+        return boxer;
     }
 
     @Override

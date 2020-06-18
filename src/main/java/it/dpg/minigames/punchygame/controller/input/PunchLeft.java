@@ -1,18 +1,11 @@
 package it.dpg.minigames.punchygame.controller.input;
 
 import it.dpg.minigames.punchygame.model.Direction;
-import it.dpg.minigames.punchygame.model.WorldImpl;
 
-public class PunchLeft implements Input {
+public class PunchLeft extends AbstractPunch {
 
     @Override
-    public void execute(WorldImpl world) {
-        Direction d = world.getNextSack();
-        if(d == Direction.LEFT) {
-            world.getScore().incrementScore();
-            world.getTimer().timerIncrease();
-        } else {
-            world.triggerGameOver();
-        }
+    protected Direction getPunchDirection() {
+        return Direction.LEFT;
     }
 }

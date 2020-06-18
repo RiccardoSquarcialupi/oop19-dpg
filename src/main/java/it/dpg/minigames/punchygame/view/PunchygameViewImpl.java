@@ -42,6 +42,7 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
 
     private Text scoreText;
     private Text timerText;
+    private ImageView charView;
     private InputObserver observer;
     private List<Pair<Rectangle, Rectangle>> sacksPair;
 
@@ -61,7 +62,7 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
     }
 
     @Override
-    public void updateSacks(List<Direction> sacks) {
+    public void updateSacks(final List<Direction> sacks) {
         for(int i = 0; i < sacks.size(); i++) {
             if(sacks.get(i) == Direction.LEFT) {
                 paintSacks(i, SACK_COLOR, BG_COLOR);
@@ -72,21 +73,34 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
     }
 
     @Override
-    public void updateScore(int score) {
+    public void updateScore(final int score) {
         Platform.runLater(
                 () -> scoreText.setText(SCORE_STRING.concat(String.valueOf(score)))
         );
     }
 
     @Override
-    public void updateTimer(int timer) {
+    public void updateTimer(final int timer) {
         Platform.runLater(
                 () -> timerText.setText(TIMER_STRING.concat(String.valueOf(timer)))
         );
     }
 
     @Override
-    public void setInputObserver(InputObserver observer) {
+    public void updateBoxer(final Direction boxerDirection) {
+        if(boxerDirection == Direction.LEFT) {
+            Platform.runLater(
+                    () -> charView.setScaleX(-1)
+            );
+        } else {
+            Platform.runLater(
+                    () -> charView.setScaleX(1)
+            );
+        }
+    }
+
+    @Override
+    public void setInputObserver(final InputObserver observer) {
         this.observer = observer;
     }
 
@@ -107,7 +121,7 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
         sacksPair = setupSacksPair(sacks);
 
         Image charImage = new Image(PUNCH_IMAGE, CHAR_WIDTH, CHAR_HEIGHT, false, false);
-        ImageView charView = new ImageView(charImage);
+        charView = new ImageView(charImage);
         charView.setX(WIDTH/2 - UNIT);
         charView.setY(CHAR_HEIGHT - UNIT);
         g.getChildren().add(charView);
@@ -115,12 +129,12 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
         return g;
     }
 
-    private List<Pair<Rectangle, Rectangle>> setupSacksPair(List<Rectangle> sacks) {
+    private List<Pair<Rectangle, Rectangle>> setupSacksPair(final List<Rectangle> sacks) {
         int firstLeft = SACKS_SLOT/2 - 1;
         int firstRight = SACKS_SLOT/2;
         List<Pair<Rectangle, Rectangle>> pair = new ArrayList<>();
         while(firstLeft >= 0 && firstRight < sacks.size()) {
-            sacksPair.add(Pair.of(sacks.get(firstLeft), sacks.get(firstRight)));
+            pair.add(Pair.of(sacks.get(firstLeft), sacks.get(firstRight)));
             firstLeft--;
             firstRight++;
         }
