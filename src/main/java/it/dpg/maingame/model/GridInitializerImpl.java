@@ -86,6 +86,7 @@ public class GridInitializerImpl implements GridInitializer {
 
     @Override
     public Grid getGrid() {
+        //this exception is thrown if the grid hasn't been created yet
         if (this.grid == null) {
             throw new IllegalStateException();
         }

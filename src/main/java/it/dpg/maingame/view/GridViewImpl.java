@@ -1,5 +1,6 @@
 package it.dpg.maingame.view;
 
+import it.dpg.maingame.model.Cell;
 import it.dpg.maingame.model.CellType;
 import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.character.Dice;
@@ -19,7 +20,7 @@ import java.util.*;
 
 public class GridViewImpl implements GridView {
 
-    private final Grid grid;
+    private final Map<Cell, ImmutablePair<Integer, Integer>> grid;
     public Scene scene;
 
     public String currentPlayer;
@@ -46,7 +47,7 @@ public class GridViewImpl implements GridView {
     private int Ymodifier = 90;
 
 
-    public GridViewImpl (Grid grid) {
+    public GridViewImpl (Map<Cell, ImmutablePair<Integer, Integer>> grid) {
         this.grid = grid;
     }
 
@@ -63,7 +64,7 @@ public class GridViewImpl implements GridView {
 
         Group circleGroup = new Group();
 
-        for (var i : grid.getCellList().entrySet()) {       //for every Cell present in Grid, a Circle is created
+        for (var i : grid.entrySet()) {       //for every Cell present in Grid, a Circle is created
 
             Circle circle;
 
@@ -130,8 +131,9 @@ public class GridViewImpl implements GridView {
     }
 
     @Override
-    public Scene getScene() {
-        return this.scene;
+    public void setView(Stage stage) {
+        this.startGeneration(stage);
+        stage.setScene(this.scene);
     }
 
     @Override

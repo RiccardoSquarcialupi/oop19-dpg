@@ -5,15 +5,15 @@ import javafx.scene.Node;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
-import java.util.Set;
+import java.util.List;
 
 public interface NodesFactory {
     /**
      * create the nodes that don't need modifications during the game
      * @param level the chosen level
-     * @return the set of nodes
+     * @return the list of nodes (list is used instead of set for preserving the nodes order, witch determine the render order)
      */
-    Set<Node> createNodes(BallMinigameLevel level);
+    List<Node> createNodes(BallMinigameLevel level);
 
     /**
      * creates the ball

@@ -30,9 +30,8 @@ public class GridViewTest extends Application {
         Grid grid = gridInit.makeGrid(GridType.GRID_ONE);
         GridView view;
 
-        GridViewGenerator generator = new GridViewGeneratorImpl(grid);
+        GridViewGenerator generator = new GridViewGeneratorImpl(grid.getCellList());
         view = generator.generate(stage);
-        stage.setScene(view.getScene());
         stage.show();
 
         view.setCurrentPlayerName("Giovanna");

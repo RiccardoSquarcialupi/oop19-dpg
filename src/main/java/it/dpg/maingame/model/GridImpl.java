@@ -33,7 +33,8 @@ public class GridImpl implements Grid {
                 return i.getKey();
             }
         }
-        return null;
+        //the method throws an exception if there is no cell corresponding to @param
+        throw new IllegalStateException();
     }
 
     public Map<Cell, ImmutablePair<Integer, Integer>> getCellList () {

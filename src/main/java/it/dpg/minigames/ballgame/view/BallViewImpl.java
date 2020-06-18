@@ -86,10 +86,10 @@ public class BallViewImpl extends AbstractMinigameView implements BallMinigameVi
             goText = factory.createGo();
             victoryText = factory.createVictoryMessage();
 
-            panel.getChildren().add(ball);
-            panel.getChildren().add(score);
             factory.createNodes(level)
                     .forEach(node -> panel.getChildren().add(node));
+            panel.getChildren().add(ball);
+            panel.getChildren().add(score);
         });
     }
 

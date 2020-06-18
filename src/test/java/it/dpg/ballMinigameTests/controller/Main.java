@@ -22,6 +22,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        worker.setDaemon(true);
         worker.start();
     }
 
