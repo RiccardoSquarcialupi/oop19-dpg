@@ -61,7 +61,8 @@ public class BallGamecycleImpl implements BallGamecycle {
             }
             sleepMillis(30);
         }
-        return 0;
+        this.view.closeView();
+        return model.getScore();
     }
 
     private void setup(BallMinigameLevel level) {

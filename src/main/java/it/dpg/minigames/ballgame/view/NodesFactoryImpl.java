@@ -80,7 +80,12 @@ public class NodesFactoryImpl implements NodesFactory {
             addCouple(coords, 95, 75);
             addCouple(coords, 45, 75);
             addCouple(coords, 45, 100);
-            addCouple(coords, 100, 100);
+            //
+            addCouple(coords, 72.5, 100);
+            addCouple(coords, 72.5, 92.5);
+            addCouple(coords, 100, 92.5);
+            //addCouple(coords, 100, 100);
+            //
             addCouple(coords, 100, 0);
             temp.add(generatePolygon(coords));
 
