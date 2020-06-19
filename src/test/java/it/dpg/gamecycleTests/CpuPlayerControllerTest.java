@@ -57,4 +57,10 @@ public class CpuPlayerControllerTest {
         assertEquals(new ImmutablePair<>(4, 8), state.getLastDirectionChoice().get());
         assertFalse(state.isChoosing());
     }
+
+    @Test
+    public void testMinigame() {
+        state.newTurn();
+
+    }
 }

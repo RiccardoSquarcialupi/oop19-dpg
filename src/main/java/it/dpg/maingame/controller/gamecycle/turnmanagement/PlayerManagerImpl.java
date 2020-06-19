@@ -2,6 +2,7 @@ package it.dpg.maingame.controller.gamecycle.turnmanagement;
 
 import it.dpg.maingame.controller.gamecycle.player.Player;
 import it.dpg.maingame.model.character.Dice;
+import it.dpg.minigames.MinigameType;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -54,8 +55,9 @@ public class PlayerManagerImpl implements PlayerManager {
         if(remainingTurns <= 0) {
             throw new IllegalStateException();
         }
+        MinigameType endTurnMinigame = getRandomMinigame();
         for(Player player : players) {
-            int score = player.getPlayerController().playMinigame();
+            int score = player.getPlayerController().playMinigame(endTurnMinigame);
             player.getCharacter().setMinigameScore(score);
         }
         List<Player> ranking = players.stream()
@@ -69,13 +71,19 @@ public class PlayerManagerImpl implements PlayerManager {
         this.iterator = players.iterator();
     }
 
+    private MinigameType getRandomMinigame() {
+        var types = MinigameType.values();
+        int i = new Random().nextInt(types.length);
+        return types[i];
+    }
+
     @Override
     public boolean hasNextTurn() {
         return remainingTurns > 0;
     }
 
     @Override
-    public Set<Player> getPlayers() {
-        return new HashSet<>(players);
+    public List<Player> getPlayers() {
+        return List.copyOf(players);
     }
 }

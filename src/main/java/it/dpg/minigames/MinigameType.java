@@ -10,7 +10,7 @@ public enum MinigameType {
 
     private final Supplier<Minigame> implementationSupplier;
 
-    Minigame getMinigame() {
+    public Minigame getMinigame() {
         return implementationSupplier.get();
     }
 

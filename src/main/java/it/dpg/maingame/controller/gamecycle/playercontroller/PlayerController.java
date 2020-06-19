@@ -1,6 +1,7 @@
 package it.dpg.maingame.controller.gamecycle.playercontroller;
 
 import it.dpg.maingame.model.character.Dice;
+import it.dpg.minigames.MinigameType;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Set;
@@ -31,6 +32,7 @@ public interface PlayerController {
     /**
      * handles the phase of the turn in witch a player (human or cpu) has to play a minigame
      * @return the score
+     * @param type the minigame that has to be played
      */
-    int playMinigame();
+    int playMinigame(MinigameType type);
 }

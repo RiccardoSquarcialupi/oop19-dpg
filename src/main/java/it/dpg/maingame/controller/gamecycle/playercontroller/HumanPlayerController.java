@@ -3,6 +3,8 @@ package it.dpg.maingame.controller.gamecycle.playercontroller;
 import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
 import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.view.GridView;
+import it.dpg.minigames.MinigameType;
+import it.dpg.minigames.base.controller.Minigame;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.Set;
@@ -48,8 +50,8 @@ public class HumanPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public int playMinigame() {
-        //TODO implement the method when minigames are implemented
-        return 0;
+    public int playMinigame(MinigameType type) {
+        Minigame minigame = type.getMinigame();
+        return minigame.start();
     }
 }

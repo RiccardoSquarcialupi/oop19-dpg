@@ -2,6 +2,7 @@ package it.dpg.maingame.controller.gamecycle.turnmanagement;
 
 import it.dpg.maingame.controller.gamecycle.player.Player;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,7 +33,7 @@ public interface PlayerManager {
     boolean hasNextTurn();
 
     /**
-     * @return the set of players saved
+     * @return the list of players saved ordered by turn
      */
-    Set<Player> getPlayers();
+    List<Player> getPlayers();
 }
