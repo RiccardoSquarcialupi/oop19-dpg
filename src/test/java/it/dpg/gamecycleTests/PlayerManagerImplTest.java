@@ -1,9 +1,8 @@
 package it.dpg.gamecycleTests;
 
-import it.dpg.maingame.controller.gamecycle.player.Player;
-import it.dpg.maingame.controller.gamecycle.player.PlayerImpl;
 import it.dpg.maingame.controller.gamecycle.playercontroller.CpuPlayerController;
 import it.dpg.maingame.controller.gamecycle.playercontroller.HumanPlayerController;
+import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.controller.gamecycle.turnmanagement.*;
 import it.dpg.maingame.model.Cell;
 import it.dpg.maingame.model.Grid;
@@ -73,20 +72,20 @@ public class PlayerManagerImplTest {
     }
 
     void create() {
-        Player p1 = new PlayerImpl(new CharacterImpl(1, "Franco", gridMock), new HumanPlayerController(state, view));
-        Player p2 = new PlayerImpl(new CharacterImpl(2, "Alberto", gridMock), new HumanPlayerController(state, view));
-        Player p3 = new PlayerImpl(new CharacterImpl(3, "CPU1", gridMock), new CpuPlayerController(state, view, new CpuMock()));
+        PlayerController p1 = new CpuPlayerController(state, view, new CharacterImpl(1, "Franco", gridMock), Difficulty.HARD);
+        PlayerController p2 = new CpuPlayerController(state, view, new CharacterImpl(2, "Alberto", gridMock), Difficulty.NORMAL);
+        PlayerController p3 = new CpuPlayerController(state, view, new CharacterImpl(3, "CPU1", gridMock), Difficulty.EASY);
         manager = new PlayerManagerImpl(defaultDice, rewardDice, 5, Set.of(p1, p2, p3));
     }
 
     @Test
     void startTest1() { //test that every player gets the same dice at the start
-        for(Player player : manager.getPlayers()) {
+        for(PlayerController player : manager.getPlayers()) {
             assertEquals(defaultDice, player.getCharacter().getDice());
         }
     }
 
-    void basicTestTurn(Player first, Player second, Player third) {
+    void basicTestTurn(PlayerController first, PlayerController second, PlayerController third) {
         assertTrue(manager.hasNextPlayer());
         assertEquals(first, manager.nextPlayer());
         assertTrue(manager.hasNextPlayer());
@@ -99,16 +98,16 @@ public class PlayerManagerImplTest {
 
     @Test
     void basicTestGame() {
-        List<Player> players = manager.getPlayers();
-        Optional<Player> temp = players.stream().filter(p -> p.getCharacter().getTurn() == 0).findAny();
+        List<PlayerController> players = manager.getPlayers();
+        Optional<PlayerController> temp = players.stream().filter(p -> p.getCharacter().getTurn() == 0).findAny();
         assertTrue(temp.isPresent());
-        Player first = temp.get();
+        PlayerController first = temp.get();
         temp = players.stream().filter(p -> p.getCharacter().getTurn() == 1).findAny();
         assertTrue(temp.isPresent());
-        Player second = temp.get();
+        PlayerController second = temp.get();
         temp = players.stream().filter(p -> p.getCharacter().getTurn() == 2).findAny();
         assertTrue(temp.isPresent());
-        Player third = temp.get();
+        PlayerController third = temp.get();
 
         for(int i = 0; i < 4; i++) {
             basicTestTurn(first, second, third);

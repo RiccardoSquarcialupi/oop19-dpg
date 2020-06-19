@@ -1,6 +1,6 @@
 package it.dpg.maingame.controller.gamecycle.turnmanagement;
 
-import it.dpg.maingame.controller.gamecycle.player.Player;
+import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.model.character.Dice;
 import it.dpg.minigames.MinigameType;
 
@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 public class PlayerManagerImpl implements PlayerManager {
 
     private int remainingTurns;
-    private final List<Player> players;
+    private final List<PlayerController> players;
     private final List<Dice> rewardDices;
-    private Iterator<Player> iterator;
+    private Iterator<PlayerController> iterator;
 
     /**
      * @param defaultDice the dice everyone gets in the first turn
@@ -20,7 +20,7 @@ public class PlayerManagerImpl implements PlayerManager {
      *                    if nPlayers < rewardDices.size() use only the nPlayers highest dices,
      *                    if nPlayers > rewardDices.size() use the last dice for all the remaining players
      */
-    public PlayerManagerImpl(final Dice defaultDice, final List<Dice> rewardDices, final int nTurns, final Set<Player> playerSet) {
+    public PlayerManagerImpl(final Dice defaultDice, final List<Dice> rewardDices, final int nTurns, final Set<PlayerController> playerSet) {
         this.rewardDices = new ArrayList<>(rewardDices);//in case the list is immutable
         this.remainingTurns = nTurns - 1;
         this.players = new ArrayList<>(playerSet);
@@ -41,7 +41,7 @@ public class PlayerManagerImpl implements PlayerManager {
     }
 
     @Override
-    public Player nextPlayer() {
+    public PlayerController nextPlayer() {
         return iterator.next();
     }
 
@@ -56,11 +56,11 @@ public class PlayerManagerImpl implements PlayerManager {
             throw new IllegalStateException();
         }
         MinigameType endTurnMinigame = getRandomMinigame();
-        for(Player player : players) {
-            int score = player.getPlayerController().playMinigame(endTurnMinigame);
+        for(PlayerController player : players) {
+            int score = player.playMinigame(endTurnMinigame);
             player.getCharacter().setMinigameScore(score);
         }
-        List<Player> ranking = players.stream()
+        List<PlayerController> ranking = players.stream()
                 .sorted(Comparator.comparingInt(p -> p.getCharacter().getMinigameScore()))
                 .collect(Collectors.toList());
 
@@ -83,7 +83,7 @@ public class PlayerManagerImpl implements PlayerManager {
     }
 
     @Override
-    public List<Player> getPlayers() {
+    public List<PlayerController> getPlayers() {
         return List.copyOf(players);
     }
 }

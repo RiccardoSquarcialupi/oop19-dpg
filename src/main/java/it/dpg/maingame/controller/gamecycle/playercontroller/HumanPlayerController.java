@@ -5,14 +5,12 @@ import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.view.GridView;
 import it.dpg.minigames.MinigameType;
 import it.dpg.minigames.base.controller.Minigame;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
-import java.util.Set;
+import it.dpg.maingame.model.character.Character;
 
 public class HumanPlayerController extends AbstractPlayerController{
 
-    public HumanPlayerController(final TurnState turnState, final GridView view) {
-        super(turnState, view);
+    public HumanPlayerController(final TurnState turnState, final GridView view, final Character character) {
+        super(turnState, view, character);
     }
 
     @Override
@@ -31,8 +29,8 @@ public class HumanPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public void chooseDirection(final Set<ImmutablePair<Integer, Integer>> possibleCells)  {
-        view.enableDirectionChoice(possibleCells);
+    public void chooseDirection()  {
+        view.enableDirectionChoice(getCharacter().getAdjacentPositions());
         turnState.setChoice(true);
         synchronized (this.turnState) {
             try {

@@ -1,6 +1,6 @@
 package it.dpg.maingame.controller.gamecycle.turnmanagement;
 
-import it.dpg.maingame.controller.gamecycle.player.Player;
+import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.model.character.Dice;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public interface PlayerManagerBuilder {
     /**
      * @param player added to the manager (with distinct id)
      */
-    PlayerManagerBuilder addPlayer(final Player player);
+    PlayerManagerBuilder addPlayer(final PlayerController player);
 
     /**
      * build method of the builder

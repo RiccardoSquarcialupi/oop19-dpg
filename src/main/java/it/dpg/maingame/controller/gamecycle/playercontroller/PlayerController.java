@@ -2,15 +2,18 @@ package it.dpg.maingame.controller.gamecycle.playercontroller;
 
 import it.dpg.maingame.model.character.Dice;
 import it.dpg.minigames.MinigameType;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
-import java.util.Set;
+import it.dpg.maingame.model.character.Character;
 
 /**
  * interface for handle behaviours of a specific entity, human or cpu
  * depending on the implementation.
  */
 public interface PlayerController {
+
+    /**
+     * @return the character controller by the controller
+     */
+    Character getCharacter();
 
     /**
      * handles the throw of a dice for the player (human or cpu)
@@ -20,9 +23,8 @@ public interface PlayerController {
 
     /**
      * handles the choice of direction for the player (human or cpu)
-     * @param possibleCells IDs if the possible choices
      */
-    void chooseDirection(final Set<ImmutablePair<Integer, Integer>> possibleCells);
+    void chooseDirection();
 
     /**
      * handles the pause of the turn, used between the steps of a turn (resumed by a button press)

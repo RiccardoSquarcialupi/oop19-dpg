@@ -1,6 +1,6 @@
 package it.dpg.maingame.controller.gamecycle.turnmanagement;
 
-import it.dpg.maingame.controller.gamecycle.player.Player;
+import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.model.character.Dice;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class PlayerManagerBuilderImpl implements PlayerManagerBuilder {
     private final int nTurns;
     private final Dice defaultDice;
     private List<Dice> rewardDices = new ArrayList<>();
-    private final Set<Player> players = new HashSet<>();
+    private final Set<PlayerController> players = new HashSet<>();
 
     public PlayerManagerBuilderImpl(final int nTurns, final Dice defaultDice) {
         this.nTurns = nTurns;
@@ -27,7 +27,7 @@ public class PlayerManagerBuilderImpl implements PlayerManagerBuilder {
     }
 
     @Override
-    public PlayerManagerBuilder addPlayer(final Player player) {
+    public PlayerManagerBuilder addPlayer(final PlayerController player) {
         this.players.add(player);
         return this;
     }
