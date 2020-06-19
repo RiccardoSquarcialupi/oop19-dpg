@@ -11,13 +11,18 @@ import java.util.Set;
 public class TurnManagerBuilderImpl implements TurnManagerBuilder {
 
     private final int nTurns;
-    private final Dice defaultDice;
+    private Dice defaultDice;
     private List<Dice> rewardDices = new ArrayList<>();
     private final Set<PlayerController> players = new HashSet<>();
 
-    public TurnManagerBuilderImpl(final int nTurns, final Dice defaultDice) {
+    public TurnManagerBuilderImpl(final int nTurns) {
         this.nTurns = nTurns;
+    }
+
+    @Override
+    public TurnManagerBuilder setDefaultDice(final Dice defaultDice) {
         this.defaultDice = defaultDice;
+        return this;
     }
 
     @Override
@@ -34,6 +39,9 @@ public class TurnManagerBuilderImpl implements TurnManagerBuilder {
 
     @Override
     public TurnManager build() {
+        if(defaultDice == null || rewardDices == null || players.isEmpty()) {
+            throw new IllegalStateException();
+        }
         return new TurnManagerImpl(defaultDice, rewardDices, nTurns, players);
     }
 }
