@@ -99,7 +99,7 @@ public class PlayerManagerImplTest {
 
     @Test
     void basicTestGame() {
-        Set<Player> players = manager.getPlayers();
+        List<Player> players = manager.getPlayers();
         Optional<Player> temp = players.stream().filter(p -> p.getCharacter().getTurn() == 0).findAny();
         assertTrue(temp.isPresent());
         Player first = temp.get();
