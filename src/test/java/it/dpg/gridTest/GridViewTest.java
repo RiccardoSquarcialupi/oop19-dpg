@@ -26,12 +26,7 @@ public class GridViewTest extends Application {
     @Override
     public void start(Stage stage) {
 
-        GridInitializer gridInit = new GridInitializerImpl();
-        Grid grid = gridInit.makeGrid(GridType.GRID_ONE);
-        GridView view;
-
-        GridViewGenerator generator = new GridViewGeneratorImpl(grid.getCellList());
-        view = generator.generate(stage);
+        GridView view = new GridViewGeneratorImpl(GridType.GRID_ONE).generate(stage).getRight();
         stage.show();
 
         view.setCurrentPlayerName("Giovanna");

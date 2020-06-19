@@ -10,6 +10,7 @@ import java.util.Map;
 
 public class GridViewGeneratorImpl implements GridViewGenerator {
 
+    public Map<Cell, ImmutablePair<Integer, Integer>> gridMap;
     public GridView view;
     private final GridType gridType;
 
@@ -19,10 +20,15 @@ public class GridViewGeneratorImpl implements GridViewGenerator {
 
     @Override
     public ImmutablePair<Grid, GridView> generate(Stage stage) {
+        GridInitializer gridFact = new GridInitializerImpl();
+        Grid grid = gridFact.makeGrid(gridType);
+        this.gridMap = grid.getCellList();
+        this.view = new GridViewImpl(gridMap);
+        view.setView(stage);
+        return new ImmutablePair<>(grid, view);
+    }
 
-        Grid grid = new GridInitializerImpl().makeGrid(gridType);
-        this.view = new GridViewImpl(grid.getCellList());
-        this.view.setView(stage);
-        return new ImmutablePair<>(grid, this.view);
+    public GridView getView () {
+        return this.view;
     }
 }
