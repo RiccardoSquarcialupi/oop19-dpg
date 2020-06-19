@@ -1,7 +1,7 @@
 package it.dpg.maingame.view.menu;
 
-import it.dpg.maingame.controller.gamecycle.menu.MenuController;
-import it.dpg.maingame.controller.gamecycle.menu.MenuControllerImpl;
+import it.dpg.maingame.controller.menu.MenuController;
+import it.dpg.maingame.controller.menu.MenuControllerImpl;
 import it.dpg.maingame.model.character.Difficulty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
