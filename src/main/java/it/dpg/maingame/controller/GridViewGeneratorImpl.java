@@ -1,7 +1,6 @@
 package it.dpg.maingame.controller;
 
-import it.dpg.maingame.model.Cell;
-import it.dpg.maingame.model.Grid;
+import it.dpg.maingame.model.*;
 import it.dpg.maingame.view.GridView;
 import it.dpg.maingame.view.GridViewImpl;
 import javafx.stage.Stage;
@@ -11,18 +10,22 @@ import java.util.Map;
 
 public class GridViewGeneratorImpl implements GridViewGenerator {
 
-    private final Map<Cell, ImmutablePair<Integer, Integer>> grid;
+    public Map<Cell, ImmutablePair<Integer, Integer>> gridMap;
     public GridView view;
+    private final GridType gridType;
 
-    public GridViewGeneratorImpl (Map<Cell, ImmutablePair<Integer, Integer>> grid) {
-        this.grid = grid;
+    public GridViewGeneratorImpl (GridType type) {
+        this.gridType = type;
     }
 
     @Override
-    public GridView generate(Stage stage) {
-        this.view = new GridViewImpl(grid);
+    public ImmutablePair<Grid, GridView> generate(Stage stage) {
+        GridInitializer gridFact = new GridInitializerImpl();
+        Grid grid = gridFact.makeGrid(gridType);
+        this.gridMap = grid.getCellList();
+        this.view = new GridViewImpl(gridMap);
         view.setView(stage);
-        return this.view;
+        return new ImmutablePair<>(grid, view);
     }
 
     public GridView getView () {

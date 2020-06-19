@@ -1,18 +1,16 @@
 package it.dpg.maingame.controller;
 
+import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.view.GridView;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 public interface GridViewGenerator {
 
     /**
-     * generates a new Grid View and starts it
-     * @return created Grid View
+     * generates a new Grid and corresponding GridView
+     * @return created Grid and corresponding GridView
      */
-    GridView generate(Stage stage);
+    ImmutablePair<Grid, GridView> generate(Stage stage);
 
-    /**
-     * returns the created grid View
-     */
-    GridView getView();
 }
