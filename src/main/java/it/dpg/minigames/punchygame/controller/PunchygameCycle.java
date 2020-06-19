@@ -12,7 +12,7 @@ import java.util.concurrent.BlockingQueue;
 
 public class PunchygameCycle implements MinigameCycle, InputObserver {
 
-    private static final int TIMER_TICK_MILLIS = 100;
+    private static final int TIMER_TICK_MILLIS = 20;
 
     private PunchygameView view;
     private WorldImpl world;
@@ -36,7 +36,6 @@ public class PunchygameCycle implements MinigameCycle, InputObserver {
 
             total += currentTime - lastTime;
             total = updateTimer(total);
-
             processInput();
 
             lastTime = currentTime;
@@ -54,7 +53,7 @@ public class PunchygameCycle implements MinigameCycle, InputObserver {
     private long updateTimer(final long elapsed) {
         if(elapsed >= TIMER_TICK_MILLIS) {
             world.updateTimer((float) elapsed / 1000);
-            view.updateTimer(world.getTimer());
+            updateView();
             return 0;
         }
         return elapsed;
@@ -62,7 +61,6 @@ public class PunchygameCycle implements MinigameCycle, InputObserver {
 
     private void setup() {
         view.setInputObserver(this);
-        view.updateTimer(world.getTimer());
         updateView();
     }
 
@@ -70,13 +68,13 @@ public class PunchygameCycle implements MinigameCycle, InputObserver {
         Input i = inputBuffer.poll();
         if(i != null) {
             i.execute(world);
-            updateView();
         }
     }
 
     private void updateView() {
+        view.updateTimer(world.getTimer());
         view.updateSacks(world.getSacks());
-        view.updateScore(world.getScore(), world.getScoreMultiplier());
         view.updateBoxer(world.getBoxerDirection());
+        view.updateScore(world.getScore(), world.getScoreMultiplier());
     }
 }
