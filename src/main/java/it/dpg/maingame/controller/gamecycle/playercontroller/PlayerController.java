@@ -33,8 +33,7 @@ public interface PlayerController {
 
     /**
      * handles the phase of the turn in witch a player (human or cpu) has to play a minigame
-     * @return the score
      * @param type the minigame that has to be played
      */
-    int playMinigame(MinigameType type);
+    void playMinigame(MinigameType type);
 }

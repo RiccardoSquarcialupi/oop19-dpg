@@ -6,6 +6,7 @@ import it.dpg.maingame.view.GridView;
 import it.dpg.maingame.model.character.Character;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractPlayerController implements PlayerController {
 
@@ -40,6 +41,17 @@ public abstract class AbstractPlayerController implements PlayerController {
         view.removeText();
     }
 
+    protected void handleMinigameResult(int score) {
+        character.setMinigameScore(score);
+        view.showText(getCharacter().getName() + " achieved a score of " + score);
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        view.removeText();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,6 +62,6 @@ public abstract class AbstractPlayerController implements PlayerController {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCharacter().getId());
+        return Integer.hashCode(character.getId());
     }
 }

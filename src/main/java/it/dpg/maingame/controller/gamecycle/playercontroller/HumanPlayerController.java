@@ -7,6 +7,8 @@ import it.dpg.minigames.MinigameType;
 import it.dpg.minigames.base.controller.Minigame;
 import it.dpg.maingame.model.character.Character;
 
+import java.util.concurrent.TimeUnit;
+
 public class HumanPlayerController extends AbstractPlayerController{
 
     public HumanPlayerController(final TurnState turnState, final GridView view, final Character character) {
@@ -48,8 +50,15 @@ public class HumanPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public int playMinigame(MinigameType type) {
+    public void playMinigame(MinigameType type) {
         Minigame minigame = type.getMinigame();
-        return minigame.start();
+        view.showText("it's " + character.getName() + "'s turn to play the minigame");
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        view.removeText();
+        handleMinigameResult(minigame.start());
     }
 }

@@ -29,8 +29,8 @@ public class CpuPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public int playMinigame(MinigameType type) {
+    public void playMinigame(MinigameType type) {
         Minigame minigame = type.getMinigame();
-        return minigame.randomizeScore(cpu.getDifficulty());
+        handleMinigameResult(minigame.randomizeScore(cpu.getDifficulty()));
     }
 }

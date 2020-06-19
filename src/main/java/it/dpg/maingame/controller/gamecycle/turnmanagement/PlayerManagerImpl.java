@@ -57,8 +57,7 @@ public class PlayerManagerImpl implements PlayerManager {
         }
         MinigameType endTurnMinigame = getRandomMinigame();
         for(PlayerController player : players) {
-            int score = player.playMinigame(endTurnMinigame);
-            player.getCharacter().setMinigameScore(score);
+            player.playMinigame(endTurnMinigame);
         }
         List<PlayerController> ranking = players.stream()
                 .sorted(Comparator.comparingInt(p -> p.getCharacter().getMinigameScore()))
