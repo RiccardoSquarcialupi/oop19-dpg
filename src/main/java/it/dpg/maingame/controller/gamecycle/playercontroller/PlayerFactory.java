@@ -1,4 +1,4 @@
-package it.dpg.maingame.controller.gamecycle.player;
+package it.dpg.maingame.controller.gamecycle.playercontroller;
 
 import it.dpg.maingame.model.character.Difficulty;
 
@@ -10,14 +10,14 @@ public interface PlayerFactory {
 
     /**
      * @param name name of the character
-     * @return the human player with the correct implementation
+     * @return a controller handled by a human player
      */
-    Player createHumanPlayer(String name);
+    PlayerController createHumanPlayer(String name);
 
     /**
      * @param name name of the character
      * @param difficulty of the cpu
-     * @return the cpu player with the correct implementation
+     * @return a controller handled by a cpu
      */
-    Player createCpu(String name, Difficulty difficulty);
+    PlayerController createCpu(String name, Difficulty difficulty);
 }
