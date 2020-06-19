@@ -4,13 +4,15 @@ import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
 import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnStateImpl;
 import it.dpg.maingame.controller.gamecycle.playercontroller.CpuPlayerController;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
+import it.dpg.maingame.model.Cell;
+import it.dpg.maingame.model.CellType;
+import it.dpg.maingame.model.Grid;
+import it.dpg.maingame.model.character.*;
 import it.dpg.maingame.model.character.Character;
-import it.dpg.maingame.model.character.Cpu;
-import it.dpg.maingame.model.character.Dice;
-import it.dpg.maingame.model.character.Difficulty;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,9 +37,111 @@ public class CpuPlayerControllerTest {
         }
     }
 
+    public final Grid gridMock = new Grid() {
+        @Override
+        public Cell getFirst() {
+            return null;
+        }
+
+        @Override
+        public Cell getLast() {
+            return null;
+        }
+
+        @Override
+        public Cell getCellByCoordinates(Integer X, Integer Y) {
+            return null;
+        }
+
+        @Override
+        public Map<Cell, ImmutablePair<Integer, Integer>> getCellList() {
+            return null;
+        }
+    };
+
+    public Character cMock = new Character() {
+        @Override
+        public int getId() {
+            return 1;
+        }
+
+        @Override
+        public String getName() {
+            return "franco";
+        }
+
+        @Override
+        public void setTurn(int turn) {
+
+        }
+
+        @Override
+        public int getTurn() {
+            return 0;
+        }
+
+        @Override
+        public void setPosition(ImmutablePair<Integer, Integer> coordinates) {
+
+        }
+
+        @Override
+        public ImmutablePair<Integer, Integer> getPosition() {
+            return null;
+        }
+
+        @Override
+        public Set<ImmutablePair<Integer, Integer>> getAdjacentPositions() {
+            return Set.of(
+                    new ImmutablePair<>(4, 8),
+                    new ImmutablePair<>(3, 9),
+                    new ImmutablePair<>(4, 9));
+        }
+
+        @Override
+        public CellType getCellType() {
+            return null;
+        }
+
+        @Override
+        public boolean stepForward() {
+            return false;
+        }
+
+        @Override
+        public boolean stepInDirection(ImmutablePair<Integer, Integer> coordinates) {
+            return false;
+        }
+
+        @Override
+        public void setDice(Dice dice) {
+
+        }
+
+        @Override
+        public Dice getDice() {
+            return null;
+        }
+
+        @Override
+        public int throwDice() {
+            return 0;
+        }
+
+        @Override
+        public void setMinigameScore(int score) {
+
+        }
+
+        @Override
+        public int getMinigameScore() {
+            return 0;
+        }
+    };
+
     private final Cpu cpuMock = new CpuMock();
     private final TurnState state = new TurnStateImpl();
-    private final PlayerController pc = new CpuPlayerController(state, new GridViewMock(), cpuMock);
+    private final PlayerController pc = new CpuPlayerController(state, new GridViewMock() , cMock, Difficulty.NORMAL);
 
     @Test
     public void testDiceThrow() {
@@ -49,12 +153,13 @@ public class CpuPlayerControllerTest {
     @Test
     public void testDirectionChoice() {
         state.newTurn();
-        pc.chooseDirection(Set.of(
-            new ImmutablePair<>(4, 8),
-            new ImmutablePair<>(3, 9),
-            new ImmutablePair<>(4, 9)));
+        var choices = Set.of(
+                new ImmutablePair<>(4, 8),
+                new ImmutablePair<>(3, 9),
+                new ImmutablePair<>(4, 9));
+        pc.chooseDirection();
         assertTrue(state.getLastDirectionChoice().isPresent());
-        assertEquals(new ImmutablePair<>(4, 8), state.getLastDirectionChoice().get());
+        assertTrue(choices.contains(state.getLastDirectionChoice().get()));
         assertFalse(state.isChoosing());
     }
 }

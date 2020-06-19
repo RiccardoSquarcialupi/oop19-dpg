@@ -1,17 +1,18 @@
 package it.dpg.maingame.controller.gamecycle.turnmanagement;
 
-import it.dpg.maingame.controller.gamecycle.player.Player;
+import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.model.character.Dice;
+import it.dpg.minigames.MinigameType;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class PlayerManagerImpl implements PlayerManager {
+public class TurnManagerImpl implements TurnManager {
 
     private int remainingTurns;
-    private final List<Player> players;
+    private final List<PlayerController> players;
     private final List<Dice> rewardDices;
-    private Iterator<Player> iterator;
+    private Iterator<PlayerController> iterator;
 
     /**
      * @param defaultDice the dice everyone gets in the first turn
@@ -19,7 +20,7 @@ public class PlayerManagerImpl implements PlayerManager {
      *                    if nPlayers < rewardDices.size() use only the nPlayers highest dices,
      *                    if nPlayers > rewardDices.size() use the last dice for all the remaining players
      */
-    public PlayerManagerImpl(final Dice defaultDice, final List<Dice> rewardDices, final int nTurns, final Set<Player> playerSet) {
+    public TurnManagerImpl(final Dice defaultDice, final List<Dice> rewardDices, final int nTurns, final Set<PlayerController> playerSet) {
         this.rewardDices = new ArrayList<>(rewardDices);//in case the list is immutable
         this.remainingTurns = nTurns - 1;
         this.players = new ArrayList<>(playerSet);
@@ -40,7 +41,7 @@ public class PlayerManagerImpl implements PlayerManager {
     }
 
     @Override
-    public Player nextPlayer() {
+    public PlayerController nextPlayer() {
         return iterator.next();
     }
 
@@ -54,11 +55,11 @@ public class PlayerManagerImpl implements PlayerManager {
         if(remainingTurns <= 0) {
             throw new IllegalStateException();
         }
-        for(Player player : players) {
-            int score = player.getPlayerController().playMinigame();
-            player.getCharacter().setMinigameScore(score);
+        MinigameType endTurnMinigame = getRandomMinigame();
+        for(PlayerController player : players) {
+            player.playMinigame(endTurnMinigame);
         }
-        List<Player> ranking = players.stream()
+        List<PlayerController> ranking = players.stream()
                 .sorted(Comparator.comparingInt(p -> p.getCharacter().getMinigameScore()))
                 .collect(Collectors.toList());
 
@@ -69,13 +70,19 @@ public class PlayerManagerImpl implements PlayerManager {
         this.iterator = players.iterator();
     }
 
+    private MinigameType getRandomMinigame() {
+        var types = MinigameType.values();
+        int i = new Random().nextInt(types.length);
+        return types[i];
+    }
+
     @Override
     public boolean hasNextTurn() {
         return remainingTurns > 0;
     }
 
     @Override
-    public Set<Player> getPlayers() {
-        return new HashSet<>(players);
+    public List<PlayerController> getPlayers() {
+        return List.copyOf(players);
     }
 }

@@ -1,16 +1,21 @@
 package it.dpg.maingame.controller.gamecycle;
 
+import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.model.character.Difficulty;
+
+import java.util.List;
 
 public interface GameCycleBuilder {
 
-    GameCycleBuilder setDefaultDice();
+    GameCycleBuilder setNTurns(final int nTurns);
 
-    GameCycleBuilder setRewardDices();
+    GameCycleBuilder setDefaultDice(final Dice defaultDice);
 
-    GameCycleBuilder addHumanPlayer(String name);
+    GameCycleBuilder addRewardDice(final Dice rewardDice);
 
-    GameCycleBuilder addCpu(String name, Difficulty difficulty);
+    GameCycleBuilder addHumanPlayer(final String name);
+
+    GameCycleBuilder addCpu(final String name, final Difficulty difficulty);
 
     GameCycle build();
 }
