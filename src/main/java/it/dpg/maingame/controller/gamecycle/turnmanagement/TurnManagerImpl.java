@@ -7,7 +7,7 @@ import it.dpg.minigames.MinigameType;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class PlayerManagerImpl implements PlayerManager {
+public class TurnManagerImpl implements TurnManager {
 
     private int remainingTurns;
     private final List<PlayerController> players;
@@ -20,7 +20,7 @@ public class PlayerManagerImpl implements PlayerManager {
      *                    if nPlayers < rewardDices.size() use only the nPlayers highest dices,
      *                    if nPlayers > rewardDices.size() use the last dice for all the remaining players
      */
-    public PlayerManagerImpl(final Dice defaultDice, final List<Dice> rewardDices, final int nTurns, final Set<PlayerController> playerSet) {
+    public TurnManagerImpl(final Dice defaultDice, final List<Dice> rewardDices, final int nTurns, final Set<PlayerController> playerSet) {
         this.rewardDices = new ArrayList<>(rewardDices);//in case the list is immutable
         this.remainingTurns = nTurns - 1;
         this.players = new ArrayList<>(playerSet);

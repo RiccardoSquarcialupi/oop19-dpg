@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * PlayerManager handles the operations on the players relative to the turn order and dices, already starts in the first turn when created
  */
-public interface PlayerManager {
+public interface TurnManager {
 
     /**
      * @return the next player in order of turn

@@ -1,7 +1,6 @@
 package it.dpg.gamecycleTests;
 
 import it.dpg.maingame.controller.gamecycle.playercontroller.CpuPlayerController;
-import it.dpg.maingame.controller.gamecycle.playercontroller.HumanPlayerController;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.controller.gamecycle.turnmanagement.*;
 import it.dpg.maingame.model.Cell;
@@ -61,7 +60,7 @@ public class PlayerManagerImplTest {
 
     private final TurnState state = new TurnStateImpl();
     private final GridView view = new GridViewMock();
-    private PlayerManager manager;
+    private TurnManager manager;
     private final Dice defaultDice = Dice.D6;
     private final List<Dice> rewardDice = List.of(Dice.D10, Dice.D8, Dice.D6);
 
@@ -75,7 +74,7 @@ public class PlayerManagerImplTest {
         PlayerController p1 = new CpuPlayerController(state, view, new CharacterImpl(1, "Franco", gridMock), Difficulty.HARD);
         PlayerController p2 = new CpuPlayerController(state, view, new CharacterImpl(2, "Alberto", gridMock), Difficulty.NORMAL);
         PlayerController p3 = new CpuPlayerController(state, view, new CharacterImpl(3, "CPU1", gridMock), Difficulty.EASY);
-        manager = new PlayerManagerImpl(defaultDice, rewardDice, 5, Set.of(p1, p2, p3));
+        manager = new TurnManagerImpl(defaultDice, rewardDice, 5, Set.of(p1, p2, p3));
     }
 
     @Test

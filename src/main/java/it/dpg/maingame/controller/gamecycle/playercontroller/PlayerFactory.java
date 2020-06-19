@@ -10,14 +10,14 @@ public interface PlayerFactory {
 
     /**
      * @param name name of the character
-     * @return the human player with the correct implementation
+     * @return a controller handled by a human player
      */
     PlayerController createHumanPlayer(String name);
 
     /**
      * @param name name of the character
      * @param difficulty of the cpu
-     * @return the cpu player with the correct implementation
+     * @return a controller handled by a cpu
      */
     PlayerController createCpu(String name, Difficulty difficulty);
 }
