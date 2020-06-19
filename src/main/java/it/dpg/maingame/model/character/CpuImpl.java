@@ -30,6 +30,8 @@ public class CpuImpl implements Cpu {
         Set<ImmutablePair<Integer, Integer>> s = getControlledCharacter().getAdjacentPositions();
         int n = new Random().nextInt(s.size());
         
-        return s.stream().skip(n).findFirst().orElseThrow();
+        return s.stream().skip(n).findFirst().orElseThrow(
+                () -> new IllegalStateException("Can't create random direction")
+        );
     }
 }
