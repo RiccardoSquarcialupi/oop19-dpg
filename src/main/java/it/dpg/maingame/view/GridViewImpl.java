@@ -1,9 +1,11 @@
 package it.dpg.maingame.view;
 
+import it.dpg.maingame.launcher.Main;
 import it.dpg.maingame.model.Cell;
 import it.dpg.maingame.model.CellType;
 import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.character.Dice;
+import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,6 +22,7 @@ import java.util.*;
 
 public class GridViewImpl implements GridView {
 
+    private static Stage pStage;
     private final Map<Cell, ImmutablePair<Integer, Integer>> grid;
     public Scene scene;
 
@@ -52,7 +55,7 @@ public class GridViewImpl implements GridView {
     }
 
     @Override
-    public void startGeneration(Stage stage) {
+    public void startGeneration() {
 
         StackPane mainTextLayout = new StackPane();
         StackPane diceLayout = new StackPane();
@@ -131,9 +134,10 @@ public class GridViewImpl implements GridView {
     }
 
     @Override
-    public void setView(Stage stage) {
-        this.startGeneration(stage);
-        stage.setScene(this.scene);
+    public void setView() {
+        this.startGeneration();
+        pStage = Main.getPrimaryStage();
+        pStage.setScene(this.scene);
     }
 
     @Override

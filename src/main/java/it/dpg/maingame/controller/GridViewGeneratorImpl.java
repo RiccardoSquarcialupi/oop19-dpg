@@ -19,12 +19,12 @@ public class GridViewGeneratorImpl implements GridViewGenerator {
     }
 
     @Override
-    public ImmutablePair<Grid, GridView> generate(Stage stage) {
+    public ImmutablePair<Grid, GridView> generate() {
         GridInitializer gridFact = new GridInitializerImpl();
         Grid grid = gridFact.makeGrid(gridType);
         this.gridMap = grid.getCellList();
         this.view = new GridViewImpl(gridMap);
-        view.setView(stage);
+        view.setView();
         return new ImmutablePair<>(grid, view);
     }
 

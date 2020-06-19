@@ -11,6 +11,6 @@ public interface GridViewGenerator {
      * generates a new Grid and corresponding GridView
      * @return created Grid and corresponding GridView
      */
-    ImmutablePair<Grid, GridView> generate(Stage stage);
+    ImmutablePair<Grid, GridView> generate();
 
 }

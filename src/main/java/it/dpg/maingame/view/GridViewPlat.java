@@ -21,8 +21,8 @@ public class GridViewPlat implements GridView {
 
 
     @Override
-    public void setView(Stage stage) {
-        Platform.runLater(() -> view.setView(stage));
+    public void setView() {
+        Platform.runLater(() -> view.setView());
     }
 
     @Override
@@ -59,8 +59,8 @@ public class GridViewPlat implements GridView {
     }
 
     @Override
-    public void startGeneration(Stage stage) {
-        Platform.runLater(() -> view.startGeneration(stage));
+    public void startGeneration() {
+        Platform.runLater(() -> view.startGeneration());
     }
 
     @Override

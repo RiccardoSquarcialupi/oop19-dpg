@@ -15,7 +15,7 @@ public interface GridView {
     /**
      * this methods sets the view
      */
-    void setView(Stage stage);
+    void setView();
 
     /**
      * Sets the name of who's currently playing in the main text
@@ -50,7 +50,7 @@ public interface GridView {
     /**
      * generates the View for the Grid
      */
-    void startGeneration(Stage stage);
+    void startGeneration();
 
     /**
      * Updates the Players positions in the Grid

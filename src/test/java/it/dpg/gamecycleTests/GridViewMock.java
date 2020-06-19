@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class GridViewMock implements GridView {
     @Override
-    public void setView(Stage stage) {
+    public void setView() {
 
     }
 
@@ -57,8 +57,9 @@ public class GridViewMock implements GridView {
         System.out.println("direction choice disabled");
     }
 
+
     @Override
-    public void startGeneration(Stage stage) {
+    public void startGeneration() {
 
     }
 
