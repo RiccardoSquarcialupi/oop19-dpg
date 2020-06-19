@@ -38,6 +38,7 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
     private static final double CHAR_HEIGHT = HEIGHT/2;
 
     private static final String SCORE_STRING = "SCORE: ";
+    private static final String COMBO_STRING = "\nCOMBO: x";
     private static final String TIMER_STRING = "TIMER: ";
     private static final String PUNCH_IMAGE = "images/punchygame/punch.png";
 
@@ -64,7 +65,7 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
 
     @Override
     public void updateSacks(final List<Direction> sacks) {
-        for(int i = 0; i < sacks.size(); i++) {
+        for(int i = 0; i < sacksPair.size(); i++) {
             if(sacks.get(i) == Direction.LEFT) {
                 paintSacks(i, SACK_COLOR, BG_COLOR);
             } else {
@@ -74,9 +75,15 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
     }
 
     @Override
-    public void updateScore(final int score) {
+    public void updateScore(final int score, final int combo) {
         Platform.runLater(
-                () -> scoreText.setText(SCORE_STRING.concat(String.valueOf(score)))
+                () -> scoreText.setText(
+                        new StringBuilder(SCORE_STRING)
+                                .append(score)
+                                .append(COMBO_STRING)
+                                .append(combo)
+                                .toString()
+                )
         );
     }
 

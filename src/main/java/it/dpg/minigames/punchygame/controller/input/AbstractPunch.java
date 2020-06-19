@@ -7,13 +7,7 @@ public abstract class AbstractPunch implements Input {
 
     @Override
     public void execute(WorldImpl world) {
-        if(world.getNextSack() == getPunchDirection()) {
-            world.getBoxer().setDirection(getPunchDirection());
-            world.getScore().incrementScore();
-            world.getTimer().timerIncrease();
-        } else {
-            world.triggerGameOver();
-        }
+        world.checkSackHit(getPunchDirection());
     }
 
     protected abstract Direction getPunchDirection();

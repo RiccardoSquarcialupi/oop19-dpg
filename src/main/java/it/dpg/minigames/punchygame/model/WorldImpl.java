@@ -1,5 +1,7 @@
 package it.dpg.minigames.punchygame.model;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -13,20 +15,31 @@ public class WorldImpl implements World {
     private Boxer boxer;
     private boolean gameOver;
 
-    private static final int MAX_SACKS = 3;
+    private static final int MAX_SACKS = 10;
 
     public WorldImpl() {
         score = new ScoreImpl();
         timer = new TimerImpl();
         boxer = new BoxerImpl();
+        gameOver = false;
         generateSacks();
     }
 
     @Override
-    public Direction getNextSack() {
-        sacks.addLast(randomDirection());
-        return sacks.pop();
+    public void checkSackHit(final Direction direction) {
+        boxer.setDirection(direction);
+
+        if(sacks.getFirst() == direction) {
+            score.incrementScore();
+            timer.timerIncrease();
+
+            sacks.removeFirst();
+            sacks.addLast(randomDirection());
+        } else {
+            score.resetCombo();
+        }
     }
+
 
     @Override
     public List<Direction> getSacks() {
@@ -34,23 +47,31 @@ public class WorldImpl implements World {
     }
 
     @Override
-    public Score getScore() {
-        return score;
+    public int getScore() {
+        return score.getPoints();
     }
 
     @Override
-    public Timer getTimer() {
-        return timer;
+    public int getScoreMultiplier() {
+        return score.getMultiplier();
     }
 
     @Override
-    public Boxer getBoxer() {
-        return boxer;
+    public float getTimer() {
+        return timer.getTimeLeft();
     }
 
     @Override
-    public void triggerGameOver() {
-        gameOver = true;
+    public void updateTimer(final float elapsed) {
+        timer.timerDecrease(elapsed);
+        if(timer.getTimeLeft() <= 0) {
+            gameOver = true;
+        }
+    }
+
+    @Override
+    public Direction getBoxerDirection() {
+        return boxer.getDirection();
     }
 
     @Override

@@ -5,16 +5,10 @@ import it.dpg.minigames.base.view.MinigameView;
 
 public abstract class AbstractMinigame implements Minigame {
 
-    private MinigameView view;
-    private MinigameCycle cycle;
-
     @Override
     public int start() {
-        view = this.createView();
-        cycle = this.createCycle();
-
-        view.setView();
-        return cycle.startCycle();
+        createView().setView();
+        return createCycle().startCycle();
     }
 
     @Override

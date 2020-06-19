@@ -3,11 +3,12 @@ package it.dpg.minigames.punchygame.model;
 import java.util.List;
 
 public interface World {
-    Direction getNextSack();
+    void checkSackHit(final Direction direction);
     List<Direction> getSacks();
-    Score getScore();
-    Timer getTimer();
-    Boxer getBoxer();
-    void triggerGameOver();
+    int getScore();
+    int getScoreMultiplier();
+    float getTimer();
+    void updateTimer(final float elapsed);
+    Direction getBoxerDirection();
     boolean isGameOver();
 }

@@ -10,7 +10,7 @@ public abstract class AbstractMinigameView implements MinigameView {
 
     @Override
     public void setView() {
-        Platform.runLater(this::setViewUsingAppThread);
+        setViewUsingAppThread();
     }
 
     @Override
@@ -19,10 +19,13 @@ public abstract class AbstractMinigameView implements MinigameView {
     }
 
     private void setViewUsingAppThread() {
-        stage = new Stage();
-        stage.setScene(createScene());
-        stage.setResizable(false);
-        stage.show();
+        Scene scene = createScene();
+        Platform.runLater(() -> {
+            stage = new Stage();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        });
     }
 
     public abstract Scene createScene();

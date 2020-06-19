@@ -31,7 +31,7 @@ public class PunchygameCycle implements MinigameCycle, InputObserver {
         long currentTime;
         long total = 0;
 
-        while(world.getTimer().getTimeLeft() > 0 && !world.isGameOver()) {
+        while(!world.isGameOver()) {
             currentTime = System.currentTimeMillis();
 
             total += currentTime - lastTime;
@@ -43,7 +43,7 @@ public class PunchygameCycle implements MinigameCycle, InputObserver {
         }
 
         view.closeView();
-        return world.getScore().getPoints();
+        return world.getScore();
     }
 
     @Override
@@ -53,27 +53,30 @@ public class PunchygameCycle implements MinigameCycle, InputObserver {
 
     private long updateTimer(final long elapsed) {
         if(elapsed >= TIMER_TICK_MILLIS) {
-            world.getTimer().timerDecrease((float) elapsed / 1000);
-            view.updateTimer(world.getTimer().getTimeLeft());
+            world.updateTimer((float) elapsed / 1000);
+            view.updateTimer(world.getTimer());
             return 0;
         }
         return elapsed;
+    }
+
+    private void setup() {
+        view.setInputObserver(this);
+        view.updateTimer(world.getTimer());
+        updateView();
     }
 
     private void processInput() {
         Input i = inputBuffer.poll();
         if(i != null) {
             i.execute(world);
-            view.updateSacks(world.getSacks());
-            view.updateScore(world.getScore().getPoints());
-            view.updateBoxer(world.getBoxer().getDirection());
+            updateView();
         }
     }
 
-    private void setup() {
-        view.setInputObserver(this);
-        view.updateScore(world.getScore().getPoints());
-        view.updateTimer(world.getTimer().getTimeLeft());
+    private void updateView() {
         view.updateSacks(world.getSacks());
+        view.updateScore(world.getScore(), world.getScoreMultiplier());
+        view.updateBoxer(world.getBoxerDirection());
     }
 }

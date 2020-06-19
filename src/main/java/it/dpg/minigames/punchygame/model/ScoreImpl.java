@@ -15,18 +15,22 @@ public class ScoreImpl implements Score {
     public void incrementScore() {
         score += multiplier;
         combo++;
-
-        if(combo == 10) {
-            multiplier = 2;
-        } else if(combo == 20) {
-            multiplier = 3;
-        } else if(combo == 40) {
-            multiplier = 4;
-        }
+        multiplier = (combo + 10) / 10;
     }
 
     @Override
     public int getPoints() {
         return score;
+    }
+
+    @Override
+    public int getMultiplier() {
+        return multiplier;
+    }
+
+    @Override
+    public void resetCombo() {
+        multiplier = 1;
+        combo = 0;
     }
 }
