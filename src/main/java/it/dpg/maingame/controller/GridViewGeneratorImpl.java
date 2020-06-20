@@ -27,8 +27,4 @@ public class GridViewGeneratorImpl implements GridViewGenerator {
         view.setView();
         return new ImmutablePair<>(grid, view);
     }
-
-    public GridView getView () {
-        return this.view;
-    }
 }
