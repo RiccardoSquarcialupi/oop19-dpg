@@ -10,6 +10,8 @@ import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.GridType;
 import it.dpg.maingame.model.character.Dice;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -110,6 +112,10 @@ public class GridViewImpl implements GridView {
         diceButton.setDisable(true);
         diceButton.setShape(new Rectangle(1, 1));
         diceButton.setMinSize(60, 60);
+
+        /* action handler */
+        diceButton.setOnAction(actionEvent -> obs.throwDiceHandler());
+
         diceLayout.getChildren().addAll(diceBox, diceButton);
 
         Rectangle movesBox = new Rectangle(500, 60);
@@ -172,6 +178,9 @@ public class GridViewImpl implements GridView {
             String arrow = "|\nV";
             button.setText(arrow);
             button.setTextAlignment(TextAlignment.CENTER);
+
+            button.setOnAction(actionEvent -> obs.choosePathHandler(i));
+
             gridGroup.getChildren().add(button);
         }
 
