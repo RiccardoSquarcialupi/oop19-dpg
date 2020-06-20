@@ -1,6 +1,5 @@
 package it.dpg.maingame.controller.gamecycle.playercontroller;
 
-import it.dpg.maingame.model.character.Dice;
 import it.dpg.minigames.MinigameType;
 import it.dpg.maingame.model.character.Character;
 
@@ -17,8 +16,9 @@ public interface PlayerController {
 
     /**
      * handles the throw of a dice for the player (human or cpu)
+     * @return the dice rolled
      */
-    void throwDice();
+    int throwDice();
 
     /**
      * handles the choice of direction for the player (human or cpu)

@@ -56,7 +56,17 @@ public class GameCycleImpl implements GameCycle {
         view.showText("it's " + player.getCharacter().getName() + "'s turn");
         sleepMillis(1000);
         view.removeText();
+        int roll = player.throwDice();
+        view.showText(player.getCharacter().getName() + " rolled a " + roll);//add number rolled
+        sleepMillis(700);
+        view.removeText();
+    }
 
+    /**
+     * @return true if the character reached the and of the level, false otherwise
+     */
+    private boolean moveCharacter(PlayerController player) {
+        return false;
     }
 
     private void sleepMillis(final int milliseconds) {
