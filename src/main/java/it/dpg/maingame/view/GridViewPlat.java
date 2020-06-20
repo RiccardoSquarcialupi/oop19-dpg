@@ -1,5 +1,6 @@
 package it.dpg.maingame.view;
 
+import it.dpg.maingame.controller.GridObserver;
 import it.dpg.maingame.model.Cell;
 import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.character.Dice;
@@ -11,14 +12,13 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import java.util.Map;
 import java.util.Set;
 
-public class GridViewPlat implements GridView {
+public  class GridViewPlat implements GridView {
 
-    private GridView view;
+    private GridViewImpl view;
 
-    public GridViewPlat (Map<Cell, ImmutablePair<Integer, Integer>> grid) {
-        view = new GridViewImpl(grid);
+    public GridViewPlat (GridViewImpl view) {
+        this.view = view;
     }
-
 
     @Override
     public void setView() {
@@ -58,7 +58,6 @@ public class GridViewPlat implements GridView {
         Platform.runLater(() -> view.disableDirectionChoice());
     }
 
-    @Override
     public void startGeneration() {
         Platform.runLater(() -> view.startGeneration());
     }
@@ -76,5 +75,14 @@ public class GridViewPlat implements GridView {
     @Override
     public void disableDiceThrow() {
         Platform.runLater(() -> view.disableDiceThrow());
+    }
+
+    @Override
+    public void closeView() {
+        Platform.runLater(() -> view.closeView());
+    }
+
+    public void makeCellList(ImmutablePair<Integer, Integer> coordinates, String type, Set<ImmutablePair<Integer, Integer>> nextCells) {
+        Platform.runLater(()->view.makeCellList(coordinates, type, nextCells));
     }
 }
