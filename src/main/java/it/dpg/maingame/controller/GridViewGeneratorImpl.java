@@ -1,5 +1,6 @@
 package it.dpg.maingame.controller;
 
+import it.dpg.maingame.controller.gamecycle.GameCycle;
 import it.dpg.maingame.model.*;
 import it.dpg.maingame.view.GridView;
 import it.dpg.maingame.view.GridViewImpl;
@@ -14,7 +15,7 @@ public class GridViewGeneratorImpl implements GridViewGenerator {
     public GridView view;
     private final GridType gridType;
 
-    public GridViewGeneratorImpl (GridType type) {
+    public GridViewGeneratorImpl (GridType type, GameCycle gameCycle) {
         this.gridType = type;
     }
 
