@@ -4,6 +4,7 @@ import it.dpg.maingame.launcher.Main;
 import it.dpg.maingame.model.Cell;
 import it.dpg.maingame.model.CellType;
 import it.dpg.maingame.model.Grid;
+import it.dpg.maingame.model.GridType;
 import it.dpg.maingame.model.character.Dice;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -54,7 +55,31 @@ public class GridViewImpl implements GridView {
         this.grid = grid;
     }
 
-    @Override
+    /**
+     * this method creates the CirclesList filled with Circles and next Cell coordinates related to a Cell
+     */
+    public void makeCellList(ImmutablePair<Integer, Integer> coordinates, String type, Set<ImmutablePair<Integer, Integer>> nextCells){
+
+        Circle circle;
+
+        //the color is dictated by the Cell Type
+        if (type.equals("START") || type.equals("END")) {
+            circle = nodes.generateCell(Color.LIGHTBLUE);
+        } else if (type.equals("NORMAL")) {
+            circle = nodes.generateCell(Color.LIGHTGREEN);
+        } else {
+            circle = nodes.generateCell(Color.WHITE);
+        }
+
+        int left = coordinates.getLeft()*Xmodifier;
+        int right = coordinates.getRight()*Ymodifier;
+        circle.setLayoutX(left);
+        circle.setLayoutY(right);
+
+        circlesList.put(circle, nextCells);
+
+    }
+
     public void startGeneration() {
 
         StackPane mainTextLayout = new StackPane();
@@ -223,5 +248,10 @@ public class GridViewImpl implements GridView {
     @Override
     public void disableDiceThrow() {
         diceButton.setDisable(true);
+    }
+
+    @Override
+    public void closeView() {
+        pStage.close();
     }
 }
