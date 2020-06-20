@@ -28,7 +28,7 @@ public class GridImpl implements Grid {
 
     @Override
     public Cell getCellByCoordinates(Integer X, Integer Y) {
-        for(var i : grid.entrySet()) {
+        for (var i : grid.entrySet()) {
             if (i.getValue().getLeft().equals(X) && i.getValue().getRight().equals(Y)) {
                 return i.getKey();
             }
@@ -37,7 +37,7 @@ public class GridImpl implements Grid {
         throw new IllegalStateException();
     }
 
-    public Map<Cell, ImmutablePair<Integer, Integer>> getCellList () {
+    public Map<Cell, ImmutablePair<Integer, Integer>> getCellList() {
         return this.grid;
     }
 }

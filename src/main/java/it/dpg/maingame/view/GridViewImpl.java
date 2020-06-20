@@ -62,7 +62,7 @@ public class GridViewImpl implements GridView {
     /**
      * this method creates the CirclesList filled with Circles and next Cell coordinates related to a Cell
      */
-    public void makeCellList(ImmutablePair<Integer, Integer> coordinates, String type, Set<ImmutablePair<Integer, Integer>> nextCells){
+    public void makeCellList(ImmutablePair<Integer, Integer> coordinates, String type, Set<ImmutablePair<Integer, Integer>> nextCells) {
 
         Circle circle;
 
@@ -75,8 +75,8 @@ public class GridViewImpl implements GridView {
             circle = nodes.generateCell(Color.WHITE);
         }
 
-        int left = coordinates.getLeft()*Xmodifier;
-        int right = coordinates.getRight()*Ymodifier;
+        int left = coordinates.getLeft() * Xmodifier;
+        int right = coordinates.getRight() * Ymodifier;
         circle.setLayoutX(left);
         circle.setLayoutY(right);
 
@@ -173,8 +173,8 @@ public class GridViewImpl implements GridView {
             Button button = new Button();
             button.setShape(new Circle(4));
             button.setMinSize(40, 40);
-            button.setLayoutX(i.getLeft()*Xmodifier-20);
-            button.setLayoutY(i.getRight()*Ymodifier-20);
+            button.setLayoutX(i.getLeft() * Xmodifier - 20);
+            button.setLayoutY(i.getRight() * Ymodifier - 20);
             String arrow = "|\nV";
             button.setText(arrow);
             button.setTextAlignment(TextAlignment.CENTER);
@@ -199,7 +199,7 @@ public class GridViewImpl implements GridView {
         if (playerList.isEmpty()) {
             //if there's still no players, they are generated
             for (var i : players.entrySet()) {
-                Rectangle playerSquare =  nodes.generatePlayer(i.getKey());
+                Rectangle playerSquare = nodes.generatePlayer(i.getKey());
                 playerList.put(i.getKey(), playerSquare);
                 gridGroup.getChildren().add(playerSquare);
             }
@@ -207,8 +207,8 @@ public class GridViewImpl implements GridView {
 
         //the players are placed in the grid by coordinates, which are the ones passed through @param; they are modified to fit nicely and avoid overlapping
         for (var j : players.entrySet()) {
-            playerList.get(j.getKey()).setLayoutX(j.getValue().getLeft()*Xmodifier+playerMod);
-            playerList.get(j.getKey()).setLayoutY(j.getValue().getRight()*Ymodifier);
+            playerList.get(j.getKey()).setLayoutX(j.getValue().getLeft() * Xmodifier + playerMod);
+            playerList.get(j.getKey()).setLayoutY(j.getValue().getRight() * Ymodifier);
             for (var k : players.entrySet()) {
                 //this cycle counts how many player sit on the same cell, to apply a modifier accordingly
                 if (j.getValue().equals(k.getValue())) {
@@ -223,7 +223,7 @@ public class GridViewImpl implements GridView {
     @Override
     public void enableDiceThrow(Dice dice) {
         diceButton.setDisable(false);
-        diceButton.setText("D"+dice.getFaces());
+        diceButton.setText("D" + dice.getFaces());
     }
 
     @Override

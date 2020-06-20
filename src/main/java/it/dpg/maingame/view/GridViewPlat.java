@@ -12,11 +12,11 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import java.util.Map;
 import java.util.Set;
 
-public  class GridViewPlat implements GridView {
+public class GridViewPlat implements GridView {
 
     private GridViewImpl view;
 
-    public GridViewPlat (GridViewImpl view) {
+    public GridViewPlat(GridViewImpl view) {
         this.view = view;
     }
 
@@ -83,6 +83,6 @@ public  class GridViewPlat implements GridView {
     }
 
     public void makeCellList(ImmutablePair<Integer, Integer> coordinates, String type, Set<ImmutablePair<Integer, Integer>> nextCells) {
-        Platform.runLater(()->view.makeCellList(coordinates, type, nextCells));
+        Platform.runLater(() -> view.makeCellList(coordinates, type, nextCells));
     }
 }

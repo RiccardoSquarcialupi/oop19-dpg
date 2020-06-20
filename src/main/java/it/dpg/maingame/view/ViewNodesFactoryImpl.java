@@ -47,8 +47,8 @@ public class ViewNodesFactoryImpl implements ViewNodesFactory {
                 line.setStrokeWidth(10);
                 line.setStartX(i.getKey().getLayoutX());
                 line.setStartY(i.getKey().getLayoutY());
-                line.setEndX(j.getLeft()*modifierX);
-                line.setEndY(j.getRight()*modifierY);
+                line.setEndX(j.getLeft() * modifierX);
+                line.setEndY(j.getRight() * modifierY);
                 linesGroup.getChildren().add(line);
             }
         }

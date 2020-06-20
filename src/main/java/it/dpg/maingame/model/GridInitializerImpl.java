@@ -67,8 +67,8 @@ public class GridInitializerImpl implements GridInitializer {
                     int cellId = tempList.indexOf(i);           //gets index of Cell inside tempList
 
                     if (tempNext.get(cellId).length > 0) {
-                        for ( var j : tempNext.get(cellId)) {   //every linked Cell is put in the "next" field of cell
-                        next.add(tempList.get(j));              //finds the next Cell in the temporary list created and saves it
+                        for (var j : tempNext.get(cellId)) {   //every linked Cell is put in the "next" field of cell
+                            next.add(tempList.get(j));              //finds the next Cell in the temporary list created and saves it
                         }
                     }
                     i.setNext(next);

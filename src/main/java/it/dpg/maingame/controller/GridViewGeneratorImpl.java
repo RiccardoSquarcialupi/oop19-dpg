@@ -18,7 +18,7 @@ public class GridViewGeneratorImpl implements GridViewGenerator {
     private final GridType gridType;
     private final GameCycle gameCycle;
 
-    public GridViewGeneratorImpl (GridType type, GameCycle gameCycle) {
+    public GridViewGeneratorImpl(GridType type, GameCycle gameCycle) {
         this.gridType = type;
         this.gameCycle = gameCycle;
     }

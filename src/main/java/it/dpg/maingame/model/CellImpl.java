@@ -12,7 +12,7 @@ public class CellImpl implements Cell {
     private final ImmutablePair<Integer, Integer> coordinates;
     private final CellType type;
 
-    public CellImpl (final boolean isAFork, final ImmutablePair<Integer, Integer> coordinates, final CellType type) {
+    public CellImpl(final boolean isAFork, final ImmutablePair<Integer, Integer> coordinates, final CellType type) {
         this.isAFork = isAFork;
         this.coordinates = coordinates;
         this.type = type;

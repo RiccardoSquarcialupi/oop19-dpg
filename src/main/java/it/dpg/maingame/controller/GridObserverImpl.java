@@ -7,7 +7,7 @@ public class GridObserverImpl implements GridObserver {
 
     private final GameCycle gameCycle;
 
-    public GridObserverImpl(GameCycle gameCycle){
+    public GridObserverImpl(GameCycle gameCycle) {
         this.gameCycle = gameCycle;
     }
 
