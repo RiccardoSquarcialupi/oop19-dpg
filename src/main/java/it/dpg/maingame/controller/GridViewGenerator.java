@@ -2,8 +2,7 @@ package it.dpg.maingame.controller;
 
 import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.view.GridView;
-import javafx.stage.Stage;
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 public interface GridViewGenerator {
 
@@ -12,6 +11,6 @@ public interface GridViewGenerator {
      *
      * @return created Grid and corresponding GridView
      */
-    ImmutablePair<Grid, GridView> generate();
+    Pair<Grid, GridView> generate();
 
 }

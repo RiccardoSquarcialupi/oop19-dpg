@@ -1,9 +1,5 @@
 package it.dpg.maingame.model;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
-import java.util.Map;
-
 public interface GridInitializer {
 
     /**

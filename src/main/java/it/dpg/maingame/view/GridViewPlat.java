@@ -7,7 +7,7 @@ import it.dpg.maingame.model.character.Dice;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;
 import java.util.Set;
@@ -49,7 +49,7 @@ public class GridViewPlat implements GridView {
     }
 
     @Override
-    public void enableDirectionChoice(Set<ImmutablePair<Integer, Integer>> cells) {
+    public void enableDirectionChoice(Set<Pair<Integer, Integer>> cells) {
         Platform.runLater(() -> view.enableDirectionChoice(cells));
     }
 
@@ -63,7 +63,7 @@ public class GridViewPlat implements GridView {
     }
 
     @Override
-    public void updatePlayers(Map<Integer, ImmutablePair<Integer, Integer>> players) {
+    public void updatePlayers(Map<Integer, Pair<Integer, Integer>> players) {
         Platform.runLater(() -> view.updatePlayers(players));
     }
 
@@ -82,7 +82,7 @@ public class GridViewPlat implements GridView {
         Platform.runLater(() -> view.closeView());
     }
 
-    public void makeCellList(ImmutablePair<Integer, Integer> coordinates, String type, Set<ImmutablePair<Integer, Integer>> nextCells) {
+    public void makeCellList(Pair<Integer, Integer> coordinates, String type, Set<Pair<Integer, Integer>> nextCells) {
         Platform.runLater(() -> view.makeCellList(coordinates, type, nextCells));
     }
 }

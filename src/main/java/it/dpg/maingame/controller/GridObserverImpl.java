@@ -1,7 +1,7 @@
 package it.dpg.maingame.controller;
 
 import it.dpg.maingame.controller.gamecycle.GameCycle;
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 public class GridObserverImpl implements GridObserver {
 
@@ -12,7 +12,7 @@ public class GridObserverImpl implements GridObserver {
     }
 
     @Override
-    public void choosePathHandler(ImmutablePair<Integer, Integer> path) {
+    public void choosePathHandler(Pair<Integer, Integer> path) {
         gameCycle.signalPathChosen(path);
     }
 

@@ -1,6 +1,6 @@
 package it.dpg.maingame.model;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;
 
@@ -24,5 +24,5 @@ public interface Grid {
     /**
      * returns list of Cells
      */
-    Map<Cell, ImmutablePair<Integer, Integer>> getCellList();
+    Map<Cell, Pair<Integer, Integer>> getCellList();
 }

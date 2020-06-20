@@ -1,6 +1,6 @@
 package it.dpg.maingame.model;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Set;
 
@@ -24,7 +24,7 @@ public interface Cell {
     /**
      * returns the Cell coordinates
      */
-    ImmutablePair<Integer, Integer> getCoordinates();
+    Pair<Integer, Integer> getCoordinates();
 
     /**
      * returns the Cell Type

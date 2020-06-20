@@ -4,14 +4,7 @@ import it.dpg.maingame.controller.GridObserver;
 import it.dpg.maingame.controller.GridObserverImpl;
 import it.dpg.maingame.controller.gamecycle.GameCycle;
 import it.dpg.maingame.launcher.Main;
-import it.dpg.maingame.model.Cell;
-import it.dpg.maingame.model.CellType;
-import it.dpg.maingame.model.Grid;
-import it.dpg.maingame.model.GridType;
 import it.dpg.maingame.model.character.Dice;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,7 +15,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
 
@@ -44,7 +37,7 @@ public class GridViewImpl implements GridView {
     Button diceButton = new Button("Dice");
 
     //this map keeps track of the various cells (by graphic representation) and the coordinates of the cells connected to the Key Cell
-    private Map<Circle, Set<ImmutablePair<Integer, Integer>>> circlesList = new LinkedHashMap<>();
+    private Map<Circle, Set<Pair<Integer, Integer>>> circlesList = new LinkedHashMap<>();
 
     //this map keeps track of the player'id and corresponding graphic representation
     private Map<Integer, Rectangle> playerList = new LinkedHashMap<>();
@@ -62,7 +55,7 @@ public class GridViewImpl implements GridView {
     /**
      * this method creates the CirclesList filled with Circles and next Cell coordinates related to a Cell
      */
-    public void makeCellList(ImmutablePair<Integer, Integer> coordinates, String type, Set<ImmutablePair<Integer, Integer>> nextCells) {
+    public void makeCellList(Pair<Integer, Integer> coordinates, String type, Set<Pair<Integer, Integer>> nextCells) {
 
         Circle circle;
 
@@ -166,7 +159,7 @@ public class GridViewImpl implements GridView {
     }
 
     @Override
-    public void enableDirectionChoice(Set<ImmutablePair<Integer, Integer>> cells) {
+    public void enableDirectionChoice(Set<Pair<Integer, Integer>> cells) {
 
         //the method searches for the wanted fork inside the map, and creates and places buttons to the corresponding fork cells inside the Grid
         for (var i : cells) {
@@ -193,7 +186,7 @@ public class GridViewImpl implements GridView {
     }
 
     @Override
-    public void updatePlayers(Map<Integer, ImmutablePair<Integer, Integer>> players) {
+    public void updatePlayers(Map<Integer, Pair<Integer, Integer>> players) {
 
         int playerMod = 0;  //player modifier is a modifier that changes every time more than one player sit on the same Cell
         if (playerList.isEmpty()) {

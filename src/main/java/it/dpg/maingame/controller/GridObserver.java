@@ -1,13 +1,13 @@
 package it.dpg.maingame.controller;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 public interface GridObserver {
 
     /**
      * choosen Path handler
      */
-    void choosePathHandler(ImmutablePair<Integer, Integer> path);
+    void choosePathHandler(Pair<Integer, Integer> path);
 
     /**
      * dice throw handler

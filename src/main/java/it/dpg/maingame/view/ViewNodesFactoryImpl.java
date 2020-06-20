@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;
 import java.util.Random;
@@ -37,7 +37,7 @@ public class ViewNodesFactoryImpl implements ViewNodesFactory {
     }
 
     @Override
-    public Group generateLines(Map<Circle, Set<ImmutablePair<Integer, Integer>>> cellsList, int modifierX, int modifierY) {
+    public Group generateLines(Map<Circle, Set<Pair<Integer, Integer>>> cellsList, int modifierX, int modifierY) {
 
         Group linesGroup = new Group();
         for (var i : cellsList.entrySet()) {

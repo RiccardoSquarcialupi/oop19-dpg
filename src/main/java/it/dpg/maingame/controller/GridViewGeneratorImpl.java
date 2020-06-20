@@ -6,6 +6,7 @@ import it.dpg.maingame.view.GridView;
 import it.dpg.maingame.view.GridViewImpl;
 import it.dpg.maingame.view.GridViewPlat;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Set;
 
 public class GridViewGeneratorImpl implements GridViewGenerator {
 
-    public Map<Cell, ImmutablePair<Integer, Integer>> gridMap;
+    public Map<Cell, Pair<Integer, Integer>> gridMap;
     public GridViewPlat view;
     private final GridType gridType;
     private final GameCycle gameCycle;
@@ -24,7 +25,7 @@ public class GridViewGeneratorImpl implements GridViewGenerator {
     }
 
     @Override
-    public ImmutablePair<Grid, GridView> generate() {
+    public Pair<Grid, GridView> generate() {
 
         /* The grid is initialized */
         GridInitializer gridFact = new GridInitializerImpl();
@@ -39,7 +40,7 @@ public class GridViewGeneratorImpl implements GridViewGenerator {
 
         for (var i : gridMap.entrySet()) {
             /* I save the coordinates of the next cells in a new set */
-            Set<ImmutablePair<Integer, Integer>> nextCell = new HashSet<>();
+            Set<Pair<Integer, Integer>> nextCell = new HashSet<>();
             for (var j : i.getKey().getNext()) {
                 nextCell.add(j.getCoordinates());
             }
