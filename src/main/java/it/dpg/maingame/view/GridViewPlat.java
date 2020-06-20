@@ -13,7 +13,7 @@ import java.util.Set;
 
 public  class GridViewPlat implements GridView {
 
-    private GridView view;
+    private GridViewImpl view;
 
 
     @Override
@@ -54,7 +54,6 @@ public  class GridViewPlat implements GridView {
         Platform.runLater(() -> view.disableDirectionChoice());
     }
 
-    @Override
     public void startGeneration() {
         Platform.runLater(() -> view.startGeneration());
     }
@@ -79,7 +78,6 @@ public  class GridViewPlat implements GridView {
         Platform.runLater(() -> view.closeView());
     }
 
-    @Override
     public void makeCellList(ImmutablePair<Integer, Integer> coordinates, String type, Set<ImmutablePair<Integer, Integer>> nextCells) {
         Platform.runLater(()->view.makeCellList(coordinates, type, nextCells));
     }

@@ -74,7 +74,6 @@ public class GridViewImpl implements GridView {
 
     }
 
-    @Override
     public void startGeneration() {
 
         StackPane mainTextLayout = new StackPane();
