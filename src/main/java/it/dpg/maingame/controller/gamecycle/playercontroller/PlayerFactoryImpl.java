@@ -13,7 +13,7 @@ public class PlayerFactoryImpl implements PlayerFactory {
    private final Grid grid;
    private int currentId = 0;
 
-    PlayerFactoryImpl(TurnState state, GridView view, Grid grid) {
+    public PlayerFactoryImpl(TurnState state, GridView view, Grid grid) {
         this.grid = grid;
         this.view = view;
         this.state = state;

@@ -1,7 +1,6 @@
 package it.dpg.maingame.controller.gamecycle.playercontroller;
 
 import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
-import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.view.GridView;
 import it.dpg.minigames.MinigameType;
 import it.dpg.minigames.base.controller.Minigame;
@@ -16,8 +15,8 @@ public class HumanPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public void throwDice(final Dice dice) {
-        view.enableDiceThrow(dice);
+    public int throwDice() {
+        view.enableDiceThrow(character.getDice());
         synchronized (this.turnState) {
             try {
                 while (!turnState.wasDiceThrown()) {
@@ -28,6 +27,7 @@ public class HumanPlayerController extends AbstractPlayerController{
             }
         }
         view.disableDiceThrow();
+        return character.throwDice();
     }
 
     @Override
@@ -44,9 +44,6 @@ public class HumanPlayerController extends AbstractPlayerController{
             }
         }
         view.disableDirectionChoice();
-        if(turnState.getLastDirectionChoice().isEmpty()) {
-            throw new IllegalStateException();
-        }
     }
 
     @Override

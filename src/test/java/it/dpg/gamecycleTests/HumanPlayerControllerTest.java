@@ -104,7 +104,7 @@ public class HumanPlayerControllerTest {
 
         @Override
         public Dice getDice() {
-            return null;
+            return Dice.D6;
         }
 
         @Override
@@ -133,7 +133,7 @@ public class HumanPlayerControllerTest {
 
         Thread gameCycleMock = new Thread(() -> {
             long start = System.currentTimeMillis();
-            pc.throwDice(Dice.D6);
+            pc.throwDice();
             long stop = System.currentTimeMillis();
             assertTrue((stop - start) >= waitingTime);
         });
@@ -177,37 +177,6 @@ public class HumanPlayerControllerTest {
         }
 
         state.setChoice(false);
-        synchronized (state) {
-            state.notify();
-        }
-
-        try {
-            gameCycleMock.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testTurnPause() {
-        state.newTurn();
-        long waitingTime = 4000;
-
-        Thread gameCycleMock = new Thread(() -> {
-            long start = System.currentTimeMillis();
-            pc.waitNextStep();
-            long stop = System.currentTimeMillis();
-            assertTrue((stop - start) >= waitingTime);
-        });
-
-        gameCycleMock.start();
-        try {
-            Thread.sleep(waitingTime);
-        } catch (InterruptedException e) {
-            fail();
-        }
-
-        state.setTurnPause(false);
         synchronized (state) {
             state.notify();
         }

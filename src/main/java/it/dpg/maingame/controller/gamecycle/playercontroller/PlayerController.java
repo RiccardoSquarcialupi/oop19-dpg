@@ -1,6 +1,5 @@
 package it.dpg.maingame.controller.gamecycle.playercontroller;
 
-import it.dpg.maingame.model.character.Dice;
 import it.dpg.minigames.MinigameType;
 import it.dpg.maingame.model.character.Character;
 
@@ -17,19 +16,14 @@ public interface PlayerController {
 
     /**
      * handles the throw of a dice for the player (human or cpu)
-     * @param dice the type of dice throw
+     * @return the dice rolled
      */
-    void throwDice(final Dice dice);
+    int throwDice();
 
     /**
      * handles the choice of direction for the player (human or cpu)
      */
     void chooseDirection();
-
-    /**
-     * handles the pause of the turn, used between the steps of a turn (resumed by a button press)
-     */
-    void waitNextStep();
 
     /**
      * handles the phase of the turn in witch a player (human or cpu) has to play a minigame

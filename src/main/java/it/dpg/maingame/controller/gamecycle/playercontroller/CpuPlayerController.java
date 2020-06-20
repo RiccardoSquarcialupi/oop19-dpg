@@ -18,8 +18,9 @@ public class CpuPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public void throwDice(final Dice dice) {
+    public int throwDice() {
         turnState.setDiceThrown(true);
+        return character.throwDice();
     }
 
     @Override
