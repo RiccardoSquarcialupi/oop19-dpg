@@ -50,11 +50,11 @@ public class BallGamecycleImpl implements BallGamecycle {
         BallMinigameLevel level = BallMinigameLevel.LEVEL1;
         setup(level);
         startSequence();
-        while(!exitCycle) {
+        while (!exitCycle) {
             ImmutablePair<Double, Double> coords = model.calculateNextFrame();
             this.view.positionBall(coords.left, 100 - coords.right);
             this.view.setScore(model.getScore());
-            if(model.isOver()) {
+            if (model.isOver()) {
                 this.view.setVictory();
                 sleepMillis(1500);
                 exitCycle = true;

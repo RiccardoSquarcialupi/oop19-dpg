@@ -1,6 +1,6 @@
 package it.dpg.minigames.ballgame.controller;
 
-public class BallObserverImpl implements BallMinigameObserver{
+public class BallObserverImpl implements BallMinigameObserver {
     private BallGamecycle cycle;
     private boolean isGamecycleSet = false;
 
@@ -11,7 +11,7 @@ public class BallObserverImpl implements BallMinigameObserver{
     }
 
     private void checkGamecycle() {
-        if(!isGamecycleSet) {
+        if (!isGamecycleSet) {
             throw new IllegalStateException();
         }
     }

@@ -8,7 +8,7 @@ import it.dpg.minigames.MinigameType;
 import it.dpg.minigames.base.controller.Minigame;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
-public class CpuPlayerController extends AbstractPlayerController{
+public class CpuPlayerController extends AbstractPlayerController {
 
     private final Cpu cpu;
 

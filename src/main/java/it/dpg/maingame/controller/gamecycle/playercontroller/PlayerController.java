@@ -16,6 +16,7 @@ public interface PlayerController {
 
     /**
      * handles the throw of a dice for the player (human or cpu)
+     *
      * @return the dice rolled
      */
     int throwDice();
@@ -27,6 +28,7 @@ public interface PlayerController {
 
     /**
      * handles the phase of the turn in witch a player (human or cpu) has to play a minigame
+     *
      * @param type the minigame that has to be played
      */
     void playMinigame(MinigameType type);

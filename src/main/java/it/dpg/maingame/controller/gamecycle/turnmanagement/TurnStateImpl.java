@@ -13,7 +13,8 @@ public class TurnStateImpl implements TurnState {
     private boolean hasChosenDirection = false;
     private boolean turnPaused = false;
 
-    public TurnStateImpl() {}
+    public TurnStateImpl() {
+    }
 
     @Override
     public void newTurn() {
@@ -64,7 +65,7 @@ public class TurnStateImpl implements TurnState {
     public Optional<ImmutablePair<Integer, Integer>> getLastDirectionChoice() {
         checkGameStarted();
 
-        if(hasChosenDirection) {
+        if (hasChosenDirection) {
             return Optional.of(this.lastDirectionChosen);
         }
         return Optional.empty();
@@ -85,7 +86,7 @@ public class TurnStateImpl implements TurnState {
     }
 
     private void checkGameStarted() {
-        if(!gameStarted) {
+        if (!gameStarted) {
             throw new IllegalStateException("new turn was never called");
         }
     }

@@ -28,11 +28,12 @@ public class BallViewImpl extends AbstractMinigameView implements BallMinigameVi
 
     /**
      * maps the coordinate in a range [0, 100] to a coordinate in a range [0, viewSize]
+     *
      * @param coordinate coordinate in range [0, 100]
      * @return mapped coordinate to match screen size
      */
     private double mapCoordinate(final double coordinate) {
-        if(coordinate < 0 || coordinate > 100) {
+        if (coordinate < 0 || coordinate > 100) {
             throw new IllegalArgumentException();
         }
         return (coordinate / 100) * this.viewSize;

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class GameCycleBuilderImpl implements GameCycleBuilder{
+public class GameCycleBuilderImpl implements GameCycleBuilder {
 
     private int nTurns = 0;
     private Dice defaultDice;
@@ -18,7 +18,7 @@ public class GameCycleBuilderImpl implements GameCycleBuilder{
 
     @Override
     public GameCycleBuilder setNTurns(int nTurns) {
-        if(nTurns < 1) {
+        if (nTurns < 1) {
             throw new IllegalArgumentException();
         }
         this.nTurns = nTurns;

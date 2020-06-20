@@ -19,7 +19,7 @@ public abstract class AbstractBoundary implements Boundary {
     }
 
     protected void checkCoordinate(double coordinate) {
-        if(coordinate < 0 || coordinate > 100) {
+        if (coordinate < 0 || coordinate > 100) {
             throw new IllegalArgumentException();
         }
     }

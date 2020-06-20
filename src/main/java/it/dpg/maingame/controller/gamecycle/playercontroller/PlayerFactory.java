@@ -15,7 +15,7 @@ public interface PlayerFactory {
     PlayerController createHumanPlayer(String name);
 
     /**
-     * @param name name of the character
+     * @param name       name of the character
      * @param difficulty of the cpu
      * @return a controller handled by a cpu
      */
