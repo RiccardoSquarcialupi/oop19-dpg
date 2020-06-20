@@ -16,8 +16,8 @@ public class HumanPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public void throwDice(final Dice dice) {
-        view.enableDiceThrow(dice);
+    public void throwDice() {
+        view.enableDiceThrow(character.getDice());
         synchronized (this.turnState) {
             try {
                 while (!turnState.wasDiceThrown()) {

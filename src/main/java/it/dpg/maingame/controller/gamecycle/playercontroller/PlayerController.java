@@ -17,9 +17,8 @@ public interface PlayerController {
 
     /**
      * handles the throw of a dice for the player (human or cpu)
-     * @param dice the type of dice throw
      */
-    void throwDice(final Dice dice);
+    void throwDice();
 
     /**
      * handles the choice of direction for the player (human or cpu)

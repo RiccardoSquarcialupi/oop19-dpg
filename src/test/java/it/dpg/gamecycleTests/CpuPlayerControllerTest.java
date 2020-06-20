@@ -146,7 +146,7 @@ public class CpuPlayerControllerTest {
     @Test
     public void testDiceThrow() {
         state.newTurn();
-        pc.throwDice(Dice.D6);
+        pc.throwDice();
         assertTrue(state.wasDiceThrown());
     }
 

@@ -104,7 +104,7 @@ public class HumanPlayerControllerTest {
 
         @Override
         public Dice getDice() {
-            return null;
+            return Dice.D6;
         }
 
         @Override
@@ -133,7 +133,7 @@ public class HumanPlayerControllerTest {
 
         Thread gameCycleMock = new Thread(() -> {
             long start = System.currentTimeMillis();
-            pc.throwDice(Dice.D6);
+            pc.throwDice();
             long stop = System.currentTimeMillis();
             assertTrue((stop - start) >= waitingTime);
         });
