@@ -1,6 +1,5 @@
 package it.dpg.maingame.controller.gamecycle;
 
-import it.dpg.maingame.controller.GridViewGenerator;
 import it.dpg.maingame.controller.GridViewGeneratorImpl;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerFactory;
@@ -11,7 +10,6 @@ import it.dpg.maingame.model.GridType;
 import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.model.character.Difficulty;
 import it.dpg.maingame.view.GridView;
-import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.List;
@@ -50,10 +48,32 @@ public class GameCycleImpl implements GameCycle {
     private Runnable createRunnable() {
         return () -> {
             int turnCounter = 1;
-            while(turnManager.hasNextTurn()) {
-                view.showText("Turn " + turnCounter + " has started");
-                sleepMillis(1000);
-                view.removeText();
+            boolean turnRemaining = true;
+            while(turnRemaining) {
+                waitNextStep("turn " + turnCounter + " has started");
+                turnCounter++;
+                while(turnManager.hasNextPlayer()) {
+                    PlayerController currentPlayer = turnManager.nextPlayer();
+                    turnStart(currentPlayer);
+                    boolean hasArrived = movePlayer(currentPlayer);
+                    if(hasArrived) {
+                        view.showText(currentPlayer.getCharacter().getName() + " wins!");
+                        //view.close()
+                        return;
+                    }
+                    //events control
+                    turnRemaining = turnManager.hasNextTurn();
+                    if(turnManager.hasNextTurn()) {
+                        waitNextStep("minigames are starting");
+                        turnManager.nextTurn();
+                    }
+                    turnManager.getPlayers().forEach(player -> {
+                        view.showText(player.getCharacter().getName() + " won a " + player.getCharacter().getDice());
+                        sleepMillis(1000);
+                        view.removeText();
+                    });
+                }
+                waitNextStep("no mo turns remaining, game over");
             }
         };
     }
@@ -86,7 +106,7 @@ public class GameCycleImpl implements GameCycle {
     /**
      * @return true if the character reached the and of the level, false otherwise
      */
-    private boolean moveCharacter(PlayerController player) {
+    private boolean movePlayer(PlayerController player) {
         boolean movesRemaining = true;
         while(movesRemaining) {
             movesRemaining = singleStep(player);
