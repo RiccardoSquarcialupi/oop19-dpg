@@ -1,6 +1,6 @@
 package it.dpg.maingame.controller.gamecycle.turnmanagement;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Optional;
 
@@ -9,7 +9,7 @@ public class TurnStateImpl implements TurnState {
     private boolean gameStarted = false; //true if new turn has been called at least once
     private volatile boolean diceThrown; //booleans are volatile to make parallel thread access easier
     private volatile boolean isChoosing;
-    private ImmutablePair<Integer, Integer> lastDirectionChosen;
+    private Pair<Integer, Integer> lastDirectionChosen;
     private boolean hasChosenDirection = false;
     private boolean turnPaused = false;
 
@@ -54,7 +54,7 @@ public class TurnStateImpl implements TurnState {
     }
 
     @Override
-    public void setLastDirectionChoice(final ImmutablePair<Integer, Integer> direction) {
+    public void setLastDirectionChoice(final Pair<Integer, Integer> direction) {
         checkGameStarted();
 
         this.hasChosenDirection = true;
@@ -62,7 +62,7 @@ public class TurnStateImpl implements TurnState {
     }
 
     @Override
-    public Optional<ImmutablePair<Integer, Integer>> getLastDirectionChoice() {
+    public Optional<Pair<Integer, Integer>> getLastDirectionChoice() {
         checkGameStarted();
 
         if (hasChosenDirection) {

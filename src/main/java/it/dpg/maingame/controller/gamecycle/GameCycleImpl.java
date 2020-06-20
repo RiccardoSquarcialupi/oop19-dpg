@@ -11,6 +11,7 @@ import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.model.character.Difficulty;
 import it.dpg.maingame.view.GridView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
 import java.util.Set;
@@ -24,14 +25,14 @@ public class GameCycleImpl implements GameCycle {
     private final TurnManager turnManager;
     private final Thread backgroundThread;
 
-    GameCycleImpl(final int nTurns, final Dice defaultDice, final List<Dice> rewardDices, final Set<String> humanPlayers, final Set<ImmutablePair<String, Difficulty>> cpuPlayers) {
+    GameCycleImpl(final int nTurns, final Dice defaultDice, final List<Dice> rewardDices, final Set<String> humanPlayers, final Set<Pair<String, Difficulty>> cpuPlayers) {
         this.backgroundThread = new Thread(createRunnable());
         this.backgroundThread.setDaemon(true);
         this.turnState = new TurnStateImpl();
         GridType level = GridType.GRID_ONE;//randomize when multiple levels are present
         var pair = new GridViewGeneratorImpl(level, this).generate();
-        this.view = pair.right;
-        PlayerFactory playerFactory = new PlayerFactoryImpl(turnState, view, pair.left);
+        this.view = pair.getRight();
+        PlayerFactory playerFactory = new PlayerFactoryImpl(turnState, view, pair.getLeft());
         TurnManagerBuilder turnManagerBuilder = new TurnManagerBuilderImpl(nTurns);
         turnManagerBuilder
                 .setDefaultDice(defaultDice)
@@ -40,7 +41,7 @@ public class GameCycleImpl implements GameCycle {
             turnManagerBuilder.addPlayer(playerFactory.createHumanPlayer(humanName));
         }
         for (var nameDiff : cpuPlayers) {
-            turnManagerBuilder.addPlayer(playerFactory.createCpu(nameDiff.left, nameDiff.right));
+            turnManagerBuilder.addPlayer(playerFactory.createCpu(nameDiff.getLeft(), nameDiff.getRight()));
         }
         this.turnManager = turnManagerBuilder.build();
     }
@@ -152,7 +153,7 @@ public class GameCycleImpl implements GameCycle {
     }
 
     @Override
-    public void signalPathChosen(ImmutablePair<Integer, Integer> coordinates) {
+    public void signalPathChosen(Pair<Integer, Integer> coordinates) {
         synchronized (turnState) {
             turnState.setChoice(false);
             turnState.setLastDirectionChoice(coordinates);

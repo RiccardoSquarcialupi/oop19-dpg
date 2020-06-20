@@ -6,7 +6,7 @@ import it.dpg.maingame.model.character.Character;
 import it.dpg.maingame.view.GridView;
 import it.dpg.minigames.MinigameType;
 import it.dpg.minigames.base.controller.Minigame;
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 public class CpuPlayerController extends AbstractPlayerController {
 
@@ -25,7 +25,7 @@ public class CpuPlayerController extends AbstractPlayerController {
 
     @Override
     public void chooseDirection() {
-        ImmutablePair<Integer, Integer> direction = cpu.getRandomDirection();
+        Pair<Integer, Integer> direction = cpu.getRandomDirection();
         turnState.setLastDirectionChoice(direction);
     }
 

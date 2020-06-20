@@ -3,6 +3,7 @@ package it.dpg.maingame.controller.gamecycle;
 import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.model.character.Difficulty;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class GameCycleBuilderImpl implements GameCycleBuilder {
     private Dice defaultDice;
     private List<Dice> rewardDices = new ArrayList<>();
     private Set<String> humanPlayers;
-    private Set<ImmutablePair<String, Difficulty>> cpuPlayers;
+    private Set<Pair<String, Difficulty>> cpuPlayers;
 
     @Override
     public GameCycleBuilder setNTurns(int nTurns) {
