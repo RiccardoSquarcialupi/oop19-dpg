@@ -6,8 +6,8 @@ import it.dpg.minigames.punchygame.model.WorldImpl;
 public abstract class AbstractPunch implements Input {
 
     @Override
-    public void execute(WorldImpl world) {
-        world.checkSackHit(getPunchDirection());
+    public boolean execute(WorldImpl world) {
+        return world.checkSackHit(getPunchDirection());
     }
 
     protected abstract Direction getPunchDirection();

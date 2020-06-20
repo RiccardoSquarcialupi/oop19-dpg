@@ -1,7 +1,5 @@
 package it.dpg.minigames.punchygame.model;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,7 +24,7 @@ public class WorldImpl implements World {
     }
 
     @Override
-    public void checkSackHit(final Direction direction) {
+    public boolean checkSackHit(final Direction direction) {
         boxer.setDirection(direction);
 
         if(sacks.getFirst() == direction) {
@@ -35,8 +33,12 @@ public class WorldImpl implements World {
 
             sacks.removeFirst();
             sacks.addLast(randomDirection());
+
+            return true;
         } else {
             score.resetCombo();
+
+            return false;
         }
     }
 

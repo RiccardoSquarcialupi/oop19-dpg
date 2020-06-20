@@ -66,8 +66,10 @@ public class PunchygameCycle implements MinigameCycle, InputObserver {
 
     private void processInput() {
         Input i = inputBuffer.poll();
-        if(i != null) {
-            i.execute(world);
+        if(i != null && i.execute(world)) {
+            view.playPunchSound();
+        } else if(i != null) {
+            view.playMissSound();
         }
     }
 

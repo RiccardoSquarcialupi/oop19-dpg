@@ -11,5 +11,7 @@ public interface PunchygameView extends MinigameView {
     void updateScore(final int score, final int combo);
     void updateTimer(final float timer);
     void updateBoxer(final Direction boxerDirection);
+    void playPunchSound();
+    void playMissSound();
     void setInputObserver(final InputObserver observer);
 }

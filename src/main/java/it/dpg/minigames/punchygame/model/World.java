@@ -3,7 +3,7 @@ package it.dpg.minigames.punchygame.model;
 import java.util.List;
 
 public interface World {
-    void checkSackHit(final Direction direction);
+    boolean checkSackHit(final Direction direction);
     List<Direction> getSacks();
     int getScore();
     int getScoreMultiplier();

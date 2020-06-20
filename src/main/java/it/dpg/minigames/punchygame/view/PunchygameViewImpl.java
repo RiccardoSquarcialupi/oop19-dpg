@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -41,12 +42,25 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
     private static final String COMBO_STRING = "\nCOMBO: x";
     private static final String TIMER_STRING = "TIMER: ";
     private static final String PUNCH_IMAGE = "images/punchygame/punch.png";
+    private static final String PUNCH_AUDIO = "/sounds/punchygame/punch_sound.mp3";
+    private static final String MISS_SOUND = "/sounds/punchygame/miss_sound.mp3";
 
     private Text scoreText;
     private Text timerText;
     private ImageView charView;
-    private InputObserver observer;
+    private AudioClip punchAudio;
+    private AudioClip missSound;
     private List<Pair<Rectangle, Rectangle>> sacksPair;
+    private InputObserver observer;
+
+    public PunchygameViewImpl() {
+        scoreText = new Text();
+        timerText = new Text();
+        charView = new ImageView();
+        punchAudio = new AudioClip(getClass().getResource(PUNCH_AUDIO).toString());
+        missSound = new AudioClip(getClass().getResource(MISS_SOUND).toString());
+        sacksPair = new ArrayList<>();
+    }
 
     @Override
     public Scene createScene() {
@@ -105,6 +119,16 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
                     () -> charView.setScaleX(1)
             );
         }
+    }
+
+    @Override
+    public void playPunchSound() {
+        punchAudio.play(0.2);
+    }
+
+    @Override
+    public void playMissSound() {
+        missSound.play(0.2);
     }
 
     @Override

@@ -11,7 +11,8 @@ val javaFXModules = listOf (
         "base",
         "controls",
         "fxml",
-        "graphics"
+        "graphics",
+	"media"
 )
 
 val supportedPlatforms = listOf(
