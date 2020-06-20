@@ -4,6 +4,7 @@ import it.dpg.maingame.controller.gamecycle.GameCycle;
 import it.dpg.maingame.model.*;
 import it.dpg.maingame.view.GridView;
 import it.dpg.maingame.view.GridViewImpl;
+import it.dpg.maingame.view.GridViewPlat;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
@@ -24,7 +25,7 @@ public class GridViewGeneratorImpl implements GridViewGenerator {
         GridInitializer gridFact = new GridInitializerImpl();
         Grid grid = gridFact.makeGrid(gridType);
         this.gridMap = grid.getCellList();
-        this.view = new GridViewImpl(gridMap);
+        this.view = new GridViewPlat(gridMap);
         view.setView();
         return new ImmutablePair<>(grid, view);
     }
