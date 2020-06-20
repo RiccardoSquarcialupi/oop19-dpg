@@ -24,7 +24,6 @@ import java.util.*;
 public class GridViewImpl implements GridView {
 
     private static Stage pStage;
-    private final Map<Cell, ImmutablePair<Integer, Integer>> grid;
     public Scene scene;
 
     public String currentPlayer;
@@ -49,11 +48,6 @@ public class GridViewImpl implements GridView {
     //these integers are constants that modify the position of a graphic element based on their coordinates
     private int Xmodifier = 130;
     private int Ymodifier = 90;
-
-
-    public GridViewImpl (Map<Cell, ImmutablePair<Integer, Integer>> grid) {
-        this.grid = grid;
-    }
 
     /**
      * this method creates the CirclesList filled with Circles and next Cell coordinates related to a Cell

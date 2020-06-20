@@ -15,10 +15,6 @@ public  class GridViewPlat implements GridView {
 
     private GridView view;
 
-    public GridViewPlat (Map<Cell, ImmutablePair<Integer, Integer>> grid) {
-        view = new GridViewImpl(grid);
-    }
-
 
     @Override
     public void setView() {

@@ -2,6 +2,7 @@ package it.dpg.gridTest;
 
 import it.dpg.maingame.controller.GridViewGenerator;
 import it.dpg.maingame.controller.GridViewGeneratorImpl;
+import it.dpg.maingame.controller.gamecycle.GameCycleImpl;
 import it.dpg.maingame.launcher.Main;
 import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.GridInitializer;
@@ -35,6 +36,7 @@ public class GridViewTest extends Application {
 
         /*
         GridView view = new GridViewGeneratorImpl(GridType.GRID_ONE).generate().getRight();
+        stage.setScene(view.getScene());
         stage.show();
 
         view.setCurrentPlayerName("Giovanna");
@@ -62,7 +64,9 @@ public class GridViewTest extends Application {
         view.updatePlayers(players);
 
         view.enableDiceThrow(Dice.D8);
-        */
+
+
+         */
     }
 
 }
