@@ -22,7 +22,7 @@ public class GameCycleImpl implements GameCycle {
     private final GridView view;
     private final TurnManager turnManager;
 
-    GameCycleImpl(int nTurns, Dice defaultDice, List<Dice> rewardDices, Set<String> humanPlayers, Set<ImmutablePair<String, Difficulty>> cpuPlayers) {
+    GameCycleImpl(final int nTurns, final Dice defaultDice, final List<Dice> rewardDices, final Set<String> humanPlayers, final Set<ImmutablePair<String, Difficulty>> cpuPlayers) {
         this.turnState = new TurnStateImpl();
         GridType level = GridType.GRID_ONE;//randomize when multiple levels are present
         var pair = new GridViewGeneratorImpl(level, this).generate();
