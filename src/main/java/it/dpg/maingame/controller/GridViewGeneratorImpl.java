@@ -33,9 +33,9 @@ public class GridViewGeneratorImpl implements GridViewGenerator {
         /* I get the Cells List by Cell and Coordinates to create a List inside View */
         this.gridMap = grid.getCellList();
 
-        /* The View is initialized */
-        GridViewImpl platView = new GridViewImpl(gameCycle);
-        this.view = new GridViewPlat(platView);
+        /* The View is initialized and passed to View Platform*/
+        GridViewImpl viewImpl = new GridViewImpl(gameCycle);
+        this.view = new GridViewPlat(viewImpl);
 
         for (var i : gridMap.entrySet()) {
             /* I save the coordinates of the next cells in a new set */
