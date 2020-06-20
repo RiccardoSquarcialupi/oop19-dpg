@@ -48,6 +48,11 @@ public interface GridView {
     void disableDirectionChoice();
 
     /**
+     * generates the View for the Grid
+     */
+    void startGeneration();
+
+    /**
      * Updates the Players positions in the Grid
      */
     void updatePlayers(Map<Integer, ImmutablePair<Integer,Integer>> players);
@@ -61,9 +66,10 @@ public interface GridView {
      * disables the dice button
      */
     void disableDiceThrow();
-
     /**
      * this method closes the Grid View
      */
     void closeView();
+
+    void makeCellList(ImmutablePair<Integer, Integer> coordinates, String type, Set<ImmutablePair<Integer, Integer>> nextCells);
 }

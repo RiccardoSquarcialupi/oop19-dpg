@@ -59,6 +59,11 @@ public  class GridViewPlat implements GridView {
     }
 
     @Override
+    public void startGeneration() {
+        Platform.runLater(() -> view.startGeneration());
+    }
+
+    @Override
     public void updatePlayers(Map<Integer, ImmutablePair<Integer, Integer>> players) {
         Platform.runLater(() -> view.updatePlayers(players));
     }
@@ -76,5 +81,10 @@ public  class GridViewPlat implements GridView {
     @Override
     public void closeView() {
         Platform.runLater(() -> view.closeView());
+    }
+
+    @Override
+    public void makeCellList(ImmutablePair<Integer, Integer> coordinates, String type, Set<ImmutablePair<Integer, Integer>> nextCells) {
+        Platform.runLater(()->view.makeCellList(coordinates, type, nextCells));
     }
 }

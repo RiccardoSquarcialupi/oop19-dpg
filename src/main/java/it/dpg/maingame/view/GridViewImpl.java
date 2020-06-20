@@ -80,6 +80,7 @@ public class GridViewImpl implements GridView {
 
     }
 
+    @Override
     public void startGeneration() {
 
         StackPane mainTextLayout = new StackPane();
@@ -89,39 +90,10 @@ public class GridViewImpl implements GridView {
         /*
          Grid Group
          */
-
         Group circleGroup = new Group();
 
-        for (var i : grid.entrySet()) {       //for every Cell present in Grid, a Circle is created
-
-            Circle circle;
-
-            //the color is dictated by the Cell Type
-            if (i.getKey().getType().equals(CellType.START) || i.getKey().getType().equals(CellType.END)) {
-                circle = nodes.generateCell(Color.LIGHTBLUE);
-            } else if (i.getKey().getType().equals(CellType.NORMAL)) {
-                circle = nodes.generateCell(Color.LIGHTGREEN);
-            } else {
-                circle = nodes.generateCell(Color.WHITE);
-            }
-
-            //the Circle gets its position modified based on the corresponding Cell coordinates
-            int left = i.getValue().getLeft()*Xmodifier;
-            int right = i.getValue().getRight()*Ymodifier;
-            circle.setLayoutX(left);
-            circle.setLayoutY(right);
-
-            //a new set of coordinates is created to keep track of the linked Cells
-            Set<ImmutablePair<Integer, Integer>> next = new HashSet<>();
-
-            //a new Map is created to keep track of each Cell Circle and the linked Cells coordinates
-            for (var j : i.getKey().getNext()) {
-                next.add(j.getCoordinates());
-            }
-            circlesList.put(circle, next);
-
-            //the Circles are added
-            circleGroup.getChildren().add(circle);
+        for (var i : circlesList.entrySet()) {       //every circle is added to the Group
+            circleGroup.getChildren().add(i.getKey());
         }
         gridGroup.getChildren().addAll(nodes.generateLines(circlesList, Xmodifier, Ymodifier), circleGroup);
 
@@ -160,7 +132,6 @@ public class GridViewImpl implements GridView {
 
     @Override
     public void setView() {
-        this.startGeneration();
         pStage = Main.getPrimaryStage();
         pStage.setScene(this.scene);
     }
