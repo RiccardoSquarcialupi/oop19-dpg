@@ -26,11 +26,6 @@ public interface PlayerController {
     void chooseDirection();
 
     /**
-     * handles the pause of the turn, used between the steps of a turn (resumed by a button press)
-     */
-    void waitNextStep();
-
-    /**
      * handles the phase of the turn in witch a player (human or cpu) has to play a minigame
      * @param type the minigame that has to be played
      */

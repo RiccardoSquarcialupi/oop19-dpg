@@ -25,22 +25,6 @@ public abstract class AbstractPlayerController implements PlayerController {
         return character;
     }
 
-    @Override
-    public void waitNextStep() {
-        turnState.setTurnPause(true);
-        view.showText("continue ►");
-        synchronized (this.turnState) {
-            try {
-                while (turnState.isPaused()) {
-                    turnState.wait();
-                }
-            } catch (InterruptedException e) {
-                System.out.println("thread interrupted during turn step wait");
-            }
-        }
-        view.removeText();
-    }
-
     protected void handleMinigameResult(int score) {
         character.setMinigameScore(score);
         view.showText(getCharacter().getName() + " achieved a score of " + score);

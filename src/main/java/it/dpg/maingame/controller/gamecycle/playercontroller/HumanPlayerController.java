@@ -44,9 +44,6 @@ public class HumanPlayerController extends AbstractPlayerController{
             }
         }
         view.disableDirectionChoice();
-        if(turnState.getLastDirectionChoice().isEmpty()) {
-            throw new IllegalStateException();
-        }
     }
 
     @Override

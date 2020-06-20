@@ -6,6 +6,7 @@ import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerFactory;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerFactoryImpl;
 import it.dpg.maingame.controller.gamecycle.turnmanagement.*;
+import it.dpg.maingame.model.CellType;
 import it.dpg.maingame.model.GridType;
 import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.model.character.Difficulty;
@@ -48,7 +49,12 @@ public class GameCycleImpl implements GameCycle {
 
     private Runnable createRunnable() {
         return () -> {
-
+            int turnCounter = 1;
+            while(turnManager.hasNextTurn()) {
+                view.showText("Turn " + turnCounter + " has started");
+                sleepMillis(1000);
+                view.removeText();
+            }
         };
     }
 
@@ -62,11 +68,46 @@ public class GameCycleImpl implements GameCycle {
         view.removeText();
     }
 
+    public void waitNextStep(String message) {
+        turnState.setTurnPause(true);
+        view.showText(message + "   continue ►");
+        synchronized (this.turnState) {
+            try {
+                while (turnState.isPaused()) {
+                    turnState.wait();
+                }
+            } catch (InterruptedException e) {
+                System.out.println("thread interrupted during turn step wait");
+            }
+        }
+        view.removeText();
+    }
+
     /**
      * @return true if the character reached the and of the level, false otherwise
      */
     private boolean moveCharacter(PlayerController player) {
+        boolean movesRemaining = true;
+        while(movesRemaining) {
+            movesRemaining = singleStep(player);
+            if(player.getCharacter().getCellType().equals(CellType.END)) {
+                return true;
+            }
+        }
         return false;
+    }
+
+    private boolean singleStep(PlayerController player) {
+        if (player.getCharacter().getAdjacentPositions().size() == 1) {
+            return player.getCharacter().stepForward();
+        }
+        player.chooseDirection();
+        synchronized (turnState) {
+            if (turnState.getLastDirectionChoice().isEmpty()) {
+                throw new IllegalStateException("Turn state wasn't set properly");
+            }
+            return player.getCharacter().stepInDirection(turnState.getLastDirectionChoice().get());
+        }
     }
 
     private void sleepMillis(final int milliseconds) {
