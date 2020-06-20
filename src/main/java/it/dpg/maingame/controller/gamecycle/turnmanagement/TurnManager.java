@@ -11,7 +11,7 @@ public interface TurnManager {
 
     /**
      * @return the next player in order of turn
-     * @exception java.util.NoSuchElementException if no players have to play in this turn
+     * @throws java.util.NoSuchElementException if no players have to play in this turn
      */
     PlayerController nextPlayer();
 
@@ -22,7 +22,8 @@ public interface TurnManager {
 
     /**
      * go to the next turn making everyone play a minigame, and calculating the dices for the players of the next turn basing on the scores
-     * @exception IllegalStateException if no more turns have to be done
+     *
+     * @throws IllegalStateException if no more turns have to be done
      */
     void nextTurn();
 

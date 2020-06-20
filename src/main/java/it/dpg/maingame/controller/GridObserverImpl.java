@@ -20,6 +20,4 @@ public class GridObserverImpl implements GridObserver {
     public void throwDiceHandler() {
         gameCycle.signalDiceThrown();
     }
-
-
 }

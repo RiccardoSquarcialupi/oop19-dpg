@@ -26,13 +26,13 @@ public class TurnManagerImpl implements TurnManager {
         this.players = new ArrayList<>(playerSet);
         Collections.shuffle(players);
         //set the turns in the characters
-        for(int i = 0; i < players.size(); i++) {
+        for (int i = 0; i < players.size(); i++) {
             players.get(i).getCharacter().setTurn(i);
             players.get(i).getCharacter().setDice(defaultDice);
         }
-        if(rewardDices.size() < playerSet.size()) {//if the condition is true, extend the list of dice with the lowest one
+        if (rewardDices.size() < playerSet.size()) {//if the condition is true, extend the list of dice with the lowest one
             Dice lowestDice = rewardDices.isEmpty() ? defaultDice : rewardDices.get(rewardDices.size() - 1);
-            while(rewardDices.size() < playerSet.size()) {
+            while (rewardDices.size() < playerSet.size()) {
                 rewardDices.add(lowestDice);
             }
         }
@@ -52,18 +52,18 @@ public class TurnManagerImpl implements TurnManager {
 
     @Override
     public void nextTurn() {
-        if(remainingTurns <= 0) {
+        if (remainingTurns <= 0) {
             throw new IllegalStateException();
         }
         MinigameType endTurnMinigame = getRandomMinigame();
-        for(PlayerController player : players) {
+        for (PlayerController player : players) {
             player.playMinigame(endTurnMinigame);
         }
         List<PlayerController> ranking = players.stream()
                 .sorted(Comparator.comparingInt(p -> p.getCharacter().getMinigameScore()))
                 .collect(Collectors.toList());
 
-        for(int i = 0; i < players.size(); i++) {
+        for (int i = 0; i < players.size(); i++) {
             ranking.get(i).getCharacter().setDice(rewardDices.get(i));
         }
         remainingTurns--;

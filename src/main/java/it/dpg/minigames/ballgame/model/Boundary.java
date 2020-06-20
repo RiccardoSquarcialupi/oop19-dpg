@@ -20,7 +20,6 @@ public interface Boundary {
     double getEndX();
 
     /**
-     *
      * @return y position of the end point
      */
     double getEndY();
@@ -38,7 +37,7 @@ public interface Boundary {
     /**
      * @param ballCenterX x coordinate of the center of the ball
      * @param ballCenterY y coordinate of the center of the ball
-     * @param ballRadius radius value of the ball
+     * @param ballRadius  radius value of the ball
      * @return true if a collision is detected with a ball of the specified characteristics
      */
     boolean isColliding(double ballCenterX, double ballCenterY, double ballRadius);

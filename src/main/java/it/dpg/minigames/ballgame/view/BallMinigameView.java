@@ -27,12 +27,14 @@ public interface BallMinigameView extends MinigameView {
 
     /**
      * shows the selected level
+     *
      * @param level the selected level
      */
     void setupLevel(BallMinigameLevel level);
 
     /**
      * position the ball at the given coordinates
+     *
      * @param xPos ball's horizontal position
      * @param yPos ball's vertical position
      */
@@ -40,6 +42,7 @@ public interface BallMinigameView extends MinigameView {
 
     /**
      * sets the current score
+     *
      * @param score player's current score
      */
     void setScore(int score);

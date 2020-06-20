@@ -8,10 +8,10 @@ import it.dpg.maingame.view.GridView;
 
 public class PlayerFactoryImpl implements PlayerFactory {
 
-   private final TurnState state;
-   private final GridView view;
-   private final Grid grid;
-   private int currentId = 0;
+    private final TurnState state;
+    private final GridView view;
+    private final Grid grid;
+    private int currentId = 0;
 
     public PlayerFactoryImpl(TurnState state, GridView view, Grid grid) {
         this.grid = grid;

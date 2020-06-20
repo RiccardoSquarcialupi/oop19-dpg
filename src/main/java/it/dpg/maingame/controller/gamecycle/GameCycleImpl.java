@@ -36,10 +36,10 @@ public class GameCycleImpl implements GameCycle {
         turnManagerBuilder
                 .setDefaultDice(defaultDice)
                 .setRewardDices(rewardDices);
-        for(String humanName : humanPlayers) {
+        for (String humanName : humanPlayers) {
             turnManagerBuilder.addPlayer(playerFactory.createHumanPlayer(humanName));
         }
-        for(var nameDiff : cpuPlayers) {
+        for (var nameDiff : cpuPlayers) {
             turnManagerBuilder.addPlayer(playerFactory.createCpu(nameDiff.left, nameDiff.right));
         }
         this.turnManager = turnManagerBuilder.build();
@@ -49,21 +49,21 @@ public class GameCycleImpl implements GameCycle {
         return () -> {
             int turnCounter = 1;
             boolean turnRemaining = true;
-            while(turnRemaining) {
+            while (turnRemaining) {
                 waitNextStep("turn " + turnCounter + " has started");
                 turnCounter++;
-                while(turnManager.hasNextPlayer()) {
+                while (turnManager.hasNextPlayer()) {
                     PlayerController currentPlayer = turnManager.nextPlayer();
                     turnStart(currentPlayer);
                     boolean hasArrived = movePlayer(currentPlayer);
-                    if(hasArrived) {
+                    if (hasArrived) {
                         view.showText(currentPlayer.getCharacter().getName() + " wins!");
                         //view.close()
                         return;
                     }
                     //events control
                     turnRemaining = turnManager.hasNextTurn();
-                    if(turnManager.hasNextTurn()) {
+                    if (turnManager.hasNextTurn()) {
                         waitNextStep("minigames are starting");
                         turnManager.nextTurn();
                     }
@@ -108,9 +108,9 @@ public class GameCycleImpl implements GameCycle {
      */
     private boolean movePlayer(PlayerController player) {
         boolean movesRemaining = true;
-        while(movesRemaining) {
+        while (movesRemaining) {
             movesRemaining = singleStep(player);
-            if(player.getCharacter().getCellType().equals(CellType.END)) {
+            if (player.getCharacter().getCellType().equals(CellType.END)) {
                 return true;
             }
         }
@@ -132,7 +132,7 @@ public class GameCycleImpl implements GameCycle {
 
     private void sleepMillis(final int milliseconds) {
         try {
-            TimeUnit .MILLISECONDS.sleep(milliseconds);
+            TimeUnit.MILLISECONDS.sleep(milliseconds);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

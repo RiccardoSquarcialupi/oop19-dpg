@@ -8,7 +8,7 @@ import it.dpg.maingame.model.character.Character;
 
 import java.util.concurrent.TimeUnit;
 
-public class HumanPlayerController extends AbstractPlayerController{
+public class HumanPlayerController extends AbstractPlayerController {
 
     public HumanPlayerController(final TurnState turnState, final GridView view, final Character character) {
         super(turnState, view, character);
@@ -22,7 +22,7 @@ public class HumanPlayerController extends AbstractPlayerController{
                 while (!turnState.wasDiceThrown()) {
                     turnState.wait();
                 }
-            } catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 System.out.println("thread interrupted during dice throw wait");
             }
         }
@@ -31,7 +31,7 @@ public class HumanPlayerController extends AbstractPlayerController{
     }
 
     @Override
-    public void chooseDirection()  {
+    public void chooseDirection() {
         view.enableDirectionChoice(getCharacter().getAdjacentPositions());
         turnState.setChoice(true);
         synchronized (this.turnState) {

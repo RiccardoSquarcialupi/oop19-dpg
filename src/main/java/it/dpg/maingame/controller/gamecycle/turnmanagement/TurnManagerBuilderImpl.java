@@ -39,7 +39,7 @@ public class TurnManagerBuilderImpl implements TurnManagerBuilder {
 
     @Override
     public TurnManager build() {
-        if(defaultDice == null || rewardDices == null || players.isEmpty()) {
+        if (defaultDice == null || rewardDices == null || players.isEmpty()) {
             throw new IllegalStateException();
         }
         return new TurnManagerImpl(defaultDice, rewardDices, nTurns, players);

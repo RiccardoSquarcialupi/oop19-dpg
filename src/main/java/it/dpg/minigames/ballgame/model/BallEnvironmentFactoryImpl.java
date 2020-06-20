@@ -20,7 +20,7 @@ public class BallEnvironmentFactoryImpl implements BallEnvironmentFactory {
     @Override
     public BallEnvironment createEnvironment(BallMinigameLevel level) {
         Set<Boundary> temp = new HashSet<>();
-        if(level.equals(BallMinigameLevel.LEVEL1)) {
+        if (level.equals(BallMinigameLevel.LEVEL1)) {
             temp.add(new HorizontalBoundary(10, 25, 5, CollisionType.BOUNCE));
             temp.add(new HorizontalBoundary(10, 50, 40, CollisionType.BOUNCE));
             temp.add(new HorizontalBoundary(30, 62.5, 20, CollisionType.BOUNCE));

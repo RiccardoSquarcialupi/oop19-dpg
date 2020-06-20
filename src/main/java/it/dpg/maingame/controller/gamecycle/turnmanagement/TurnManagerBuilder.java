@@ -14,6 +14,7 @@ public interface TurnManagerBuilder {
 
     /**
      * set the list of reward dices, if not called creates a PlayerManager with no reward dices (only default)
+     *
      * @param rewardDices list of dices ordered by prize (first dice goes to the winner, second one goes to the second...)
      */
     TurnManagerBuilder setRewardDices(final List<Dice> rewardDices);
@@ -25,8 +26,9 @@ public interface TurnManagerBuilder {
 
     /**
      * build method of the builder
+     *
      * @return the built manager
-     * @exception IllegalStateException if called twice
+     * @throws IllegalStateException if called twice
      */
     TurnManager build();
 }

@@ -46,7 +46,7 @@ public class BallEnvironmentImpl implements BallEnvironment {
 
     @Override
     public int getScore() {
-        int score = maxScore - ((int)(timePassed * 20));
+        int score = maxScore - ((int) (timePassed * 20));
         return Math.max(score, 0);
     }
 
@@ -56,7 +56,7 @@ public class BallEnvironmentImpl implements BallEnvironment {
         calculateSpeed(isGoingUp, isGoingDown, isGoingLeft, isGoingRight);
         calculatePosition();
         Optional<Boundary> collision = detectCollision();
-        if(collision.isEmpty()) {
+        if (collision.isEmpty()) {
             return;
         }
         Boundary boundary = collision.get();
@@ -73,7 +73,7 @@ public class BallEnvironmentImpl implements BallEnvironment {
     private void calculateSpeed(boolean isGoingUp, boolean isGoingDown, boolean isGoingLeft, boolean isGoingRight) {
         double xAcc;
         double yAcc;
-        if((isGoingUp && isGoingDown) || (!isGoingUp && !isGoingDown)) {
+        if ((isGoingUp && isGoingDown) || (!isGoingUp && !isGoingDown)) {
             if (ySpeed > 0) {
                 yAcc = -ballDeceleration;
             } else if (ySpeed < 0) {
@@ -81,18 +81,18 @@ public class BallEnvironmentImpl implements BallEnvironment {
             } else {
                 yAcc = 0;
             }
-        } else if(isGoingUp) {
+        } else if (isGoingUp) {
             yAcc = ballAcceleration;
-            if(ySpeed < 0) {
+            if (ySpeed < 0) {
                 yAcc += ballDeceleration;
             }
         } else {
             yAcc = -ballAcceleration;
-            if(ySpeed > 0) {
+            if (ySpeed > 0) {
                 yAcc -= ballDeceleration;
             }
         }
-        if((isGoingLeft && isGoingRight) || (!isGoingLeft && !isGoingRight)) {
+        if ((isGoingLeft && isGoingRight) || (!isGoingLeft && !isGoingRight)) {
             if (xSpeed > 0) {
                 xAcc = -ballDeceleration;
             } else if (xSpeed < 0) {
@@ -100,7 +100,7 @@ public class BallEnvironmentImpl implements BallEnvironment {
             } else {
                 xAcc = 0;
             }
-        } else if(isGoingRight) {
+        } else if (isGoingRight) {
             xAcc = ballAcceleration;
             if (xSpeed < 0) {
                 xAcc += ballDeceleration;
@@ -115,10 +115,10 @@ public class BallEnvironmentImpl implements BallEnvironment {
         double ySpeedPrev = this.ySpeed;
         xSpeed = xSpeed + (xAcc * deltaT);
         ySpeed = ySpeed + (yAcc * deltaT);
-        if((xSpeed > 0 && xSpeedPrev < 0) || (xSpeed < 0 && xSpeedPrev > 0)) {
+        if ((xSpeed > 0 && xSpeedPrev < 0) || (xSpeed < 0 && xSpeedPrev > 0)) {
             xSpeed = 0;
         }
-        if((ySpeed > 0 && ySpeedPrev < 0) || (ySpeed < 0 && ySpeedPrev > 0)) {
+        if ((ySpeed > 0 && ySpeedPrev < 0) || (ySpeed < 0 && ySpeedPrev > 0)) {
             ySpeed = 0;
         }
         xSpeed = limitVal(xSpeed, -maxSpeed, maxSpeed);
@@ -131,8 +131,8 @@ public class BallEnvironmentImpl implements BallEnvironment {
     }
 
     private Optional<Boundary> detectCollision() {
-        for(Boundary b : boundaries) {
-            if(!(lastFrameCollision && b.equals(lastCollision)) && b.isColliding(centerX, centerY, radius)) {
+        for (Boundary b : boundaries) {
+            if (!(lastFrameCollision && b.equals(lastCollision)) && b.isColliding(centerX, centerY, radius)) {
                 lastCollision = b;
                 lastFrameCollision = true;
                 return Optional.of(b);
@@ -143,28 +143,28 @@ public class BallEnvironmentImpl implements BallEnvironment {
     }
 
     private void handleCollision(Boundary collision) {
-        if(collision.getCollisionType().equals(CollisionType.RESET)) {
+        if (collision.getCollisionType().equals(CollisionType.RESET)) {
             centerY = startY;
             centerX = startX;
             xSpeed = 0;
             ySpeed = 0;
-        } else if(collision.getCollisionType().equals(CollisionType.GOAL)) {
+        } else if (collision.getCollisionType().equals(CollisionType.GOAL)) {
             xSpeed = 0;
             ySpeed = 0;
             this.wasGoalReached = true;
         } else {
-            if(collision.isHorizontal()) {
+            if (collision.isHorizontal()) {
                 ySpeed = -ySpeed;
                 double minX = Math.min(collision.getEndX(), collision.getStartX());
                 double maxX = Math.max(collision.getEndX(), collision.getStartX());
-                if(minX > centerX || maxX < centerX) {
+                if (minX > centerX || maxX < centerX) {
                     xSpeed = -xSpeed;
                 }
             } else {
                 xSpeed = -xSpeed;
                 double minY = Math.min(collision.getEndY(), collision.getStartY());
                 double maxY = Math.max(collision.getEndY(), collision.getStartY());
-                if(minY > centerY || maxY < centerY) {
+                if (minY > centerY || maxY < centerY) {
                     ySpeed = -ySpeed;
                 }
             }

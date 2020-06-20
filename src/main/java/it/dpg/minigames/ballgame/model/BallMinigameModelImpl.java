@@ -3,7 +3,7 @@ package it.dpg.minigames.ballgame.model;
 import it.dpg.minigames.ballgame.controller.BallMinigameLevel;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
-public class BallMinigameModelImpl implements BallMinigameModel{
+public class BallMinigameModelImpl implements BallMinigameModel {
     private final BallEnvironmentFactory factory;
     private BallEnvironment env;
     private boolean levelIsReady = false;
@@ -17,7 +17,7 @@ public class BallMinigameModelImpl implements BallMinigameModel{
     }
 
     private void checkLevelSetup() {
-        if(!levelIsReady) {
+        if (!levelIsReady) {
             throw new IllegalStateException();
         }
     }

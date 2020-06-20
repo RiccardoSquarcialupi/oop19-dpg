@@ -10,6 +10,7 @@ import java.util.List;
 public interface NodesFactory {
     /**
      * create the nodes that don't need modifications during the game
+     *
      * @param level the chosen level
      * @return the list of nodes (list is used instead of set for preserving the nodes order, witch determine the render order)
      */
@@ -17,6 +18,7 @@ public interface NodesFactory {
 
     /**
      * creates the ball
+     *
      * @param level the chosen level
      * @return the ball
      */
@@ -28,17 +30,17 @@ public interface NodesFactory {
     Text createScore();
 
     /**
-     *  creates the text used for displaying the ready message
+     * creates the text used for displaying the ready message
      */
     Text createReady();
 
     /**
-     *  creates the text used for displaying the go message
+     * creates the text used for displaying the go message
      */
     Text createGo();
 
     /**
-     *  creates the text used for displaying the victory message
+     * creates the text used for displaying the victory message
      */
     Text createVictoryMessage();
 }
