@@ -11,7 +11,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import java.util.Map;
 import java.util.Set;
 
-public class GridViewPlat implements GridView {
+public  class GridViewPlat implements GridView {
 
     private GridView view;
 
@@ -59,11 +59,6 @@ public class GridViewPlat implements GridView {
     }
 
     @Override
-    public void startGeneration() {
-        Platform.runLater(() -> view.startGeneration());
-    }
-
-    @Override
     public void updatePlayers(Map<Integer, ImmutablePair<Integer, Integer>> players) {
         Platform.runLater(() -> view.updatePlayers(players));
     }
@@ -76,5 +71,10 @@ public class GridViewPlat implements GridView {
     @Override
     public void disableDiceThrow() {
         Platform.runLater(() -> view.disableDiceThrow());
+    }
+
+    @Override
+    public void closeView() {
+        Platform.runLater(() -> view.closeView());
     }
 }
