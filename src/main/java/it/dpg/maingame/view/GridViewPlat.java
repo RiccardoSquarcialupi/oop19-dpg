@@ -1,5 +1,6 @@
 package it.dpg.maingame.view;
 
+import it.dpg.maingame.controller.GridObserver;
 import it.dpg.maingame.model.Cell;
 import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.character.Dice;
@@ -15,6 +16,9 @@ public  class GridViewPlat implements GridView {
 
     private GridViewImpl view;
 
+    public GridViewPlat (GridViewImpl view) {
+        this.view = view;
+    }
 
     @Override
     public void setView() {

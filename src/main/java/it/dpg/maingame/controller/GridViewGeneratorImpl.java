@@ -16,9 +16,11 @@ public class GridViewGeneratorImpl implements GridViewGenerator {
     public Map<Cell, ImmutablePair<Integer, Integer>> gridMap;
     public GridViewPlat view;
     private final GridType gridType;
+    private final GameCycle gameCycle;
 
     public GridViewGeneratorImpl (GridType type, GameCycle gameCycle) {
         this.gridType = type;
+        this.gameCycle = gameCycle;
     }
 
     @Override
@@ -32,7 +34,8 @@ public class GridViewGeneratorImpl implements GridViewGenerator {
         this.gridMap = grid.getCellList();
 
         /* The View is initialized */
-        this.view = new GridViewPlat();
+        GridViewImpl platView = new GridViewImpl(gameCycle);
+        this.view = new GridViewPlat(platView);
 
         for (var i : gridMap.entrySet()) {
             /* I save the coordinates of the next cells in a new set */

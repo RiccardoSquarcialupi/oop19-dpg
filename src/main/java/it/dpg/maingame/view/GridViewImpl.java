@@ -1,5 +1,8 @@
 package it.dpg.maingame.view;
 
+import it.dpg.maingame.controller.GridObserver;
+import it.dpg.maingame.controller.GridObserverImpl;
+import it.dpg.maingame.controller.gamecycle.GameCycle;
 import it.dpg.maingame.launcher.Main;
 import it.dpg.maingame.model.Cell;
 import it.dpg.maingame.model.CellType;
@@ -25,6 +28,7 @@ public class GridViewImpl implements GridView {
 
     private static Stage pStage;
     public Scene scene;
+    private GridObserver obs;
 
     public String currentPlayer;
     public int movesLeft;
@@ -48,6 +52,10 @@ public class GridViewImpl implements GridView {
     //these integers are constants that modify the position of a graphic element based on their coordinates
     private int Xmodifier = 130;
     private int Ymodifier = 90;
+
+    public GridViewImpl(GameCycle gameCycle) {
+        this.obs = new GridObserverImpl(gameCycle);
+    }
 
     /**
      * this method creates the CirclesList filled with Circles and next Cell coordinates related to a Cell
