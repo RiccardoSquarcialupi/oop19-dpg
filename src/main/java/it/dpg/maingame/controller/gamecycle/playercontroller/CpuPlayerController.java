@@ -1,8 +1,10 @@
 package it.dpg.maingame.controller.gamecycle.playercontroller;
 
 import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
-import it.dpg.maingame.model.character.*;
 import it.dpg.maingame.model.character.Character;
+import it.dpg.maingame.model.character.Cpu;
+import it.dpg.maingame.model.character.CpuImpl;
+import it.dpg.maingame.model.character.Difficulty;
 import it.dpg.maingame.view.GridView;
 import it.dpg.minigames.MinigameType;
 import it.dpg.minigames.base.controller.Minigame;

@@ -3,8 +3,6 @@ package it.dpg.maingame.controller.gamecycle;
 import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.model.character.Difficulty;
 
-import java.util.List;
-
 public interface GameCycleBuilder {
 
     /**

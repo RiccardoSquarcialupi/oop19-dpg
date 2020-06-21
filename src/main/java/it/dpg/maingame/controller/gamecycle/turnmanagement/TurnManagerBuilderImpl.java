@@ -11,9 +11,9 @@ import java.util.Set;
 public class TurnManagerBuilderImpl implements TurnManagerBuilder {
 
     private final int nTurns;
+    private final Set<PlayerController> players = new HashSet<>();
     private Dice defaultDice;
     private List<Dice> rewardDices = new ArrayList<>();
-    private final Set<PlayerController> players = new HashSet<>();
 
     public TurnManagerBuilderImpl(final int nTurns) {
         this.nTurns = nTurns;

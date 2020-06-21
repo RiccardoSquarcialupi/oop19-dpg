@@ -10,7 +10,6 @@ import it.dpg.maingame.model.GridType;
 import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.model.character.Difficulty;
 import it.dpg.maingame.view.GridView;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;

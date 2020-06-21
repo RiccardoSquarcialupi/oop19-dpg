@@ -54,14 +54,6 @@ public class TurnStateImpl implements TurnState {
     }
 
     @Override
-    public void setLastDirectionChoice(final Pair<Integer, Integer> direction) {
-        checkGameStarted();
-
-        this.hasChosenDirection = true;
-        this.lastDirectionChosen = direction;
-    }
-
-    @Override
     public Optional<Pair<Integer, Integer>> getLastDirectionChoice() {
         checkGameStarted();
 
@@ -69,6 +61,14 @@ public class TurnStateImpl implements TurnState {
             return Optional.of(this.lastDirectionChosen);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public void setLastDirectionChoice(final Pair<Integer, Integer> direction) {
+        checkGameStarted();
+
+        this.hasChosenDirection = true;
+        this.lastDirectionChosen = direction;
     }
 
     @Override

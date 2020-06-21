@@ -1,6 +1,5 @@
 package it.dpg.maingame.controller.gamecycle.turnmanagement;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Optional;
@@ -42,19 +41,19 @@ public interface TurnState {
     boolean isChoosing();
 
     /**
+     * get the last direction choice made by a player/cpu
+     *
+     * @return Optional.empty if no choice has been made in the turn, or the chosen cell otherwise
+     */
+    Optional<Pair<Integer, Integer>> getLastDirectionChoice();
+
+    /**
      * save the last direction choice of the player/cpu currently playing the turn
      *
      * @param direction id of the chosen cell
      * @throws IllegalStateException if newTurn was never called
      */
     void setLastDirectionChoice(final Pair<Integer, Integer> direction);
-
-    /**
-     * get the last direction choice made by a player/cpu
-     *
-     * @return Optional.empty if no choice has been made in the turn, or the chosen cell otherwise
-     */
-    Optional<Pair<Integer, Integer>> getLastDirectionChoice();
 
     /**
      * notify if the turn is currently paused or not

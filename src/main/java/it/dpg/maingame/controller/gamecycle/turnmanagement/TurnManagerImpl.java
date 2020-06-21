@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 
 public class TurnManagerImpl implements TurnManager {
 
-    private int remainingTurns;
     private final List<PlayerController> players;
     private final List<Dice> rewardDices;
+    private int remainingTurns;
     private Iterator<PlayerController> iterator;
 
     /**

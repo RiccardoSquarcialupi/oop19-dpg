@@ -5,7 +5,6 @@ import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
 
 public class BallEnvironmentFactoryImpl implements BallEnvironmentFactory {
 
