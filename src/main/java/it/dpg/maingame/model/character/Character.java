@@ -2,6 +2,7 @@ package it.dpg.maingame.model.character;
 
 import it.dpg.maingame.model.CellType;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Set;
 
@@ -11,7 +12,7 @@ public interface Character {
     void setTurn(int turn);
     int getTurn();
     void setPosition(final ImmutablePair<Integer, Integer> coordinates);
-    ImmutablePair<Integer, Integer> getPosition();
+    Pair<Integer, Integer> getPosition();
     Set<ImmutablePair<Integer, Integer>> getAdjacentPositions();
     CellType getCellType();
     boolean stepForward();

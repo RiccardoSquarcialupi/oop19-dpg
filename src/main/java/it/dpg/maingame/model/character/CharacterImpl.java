@@ -4,6 +4,7 @@ import it.dpg.maingame.model.Cell;
 import it.dpg.maingame.model.CellType;
 import it.dpg.maingame.model.Grid;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Random;
 import java.util.Set;
@@ -61,7 +62,7 @@ public class CharacterImpl implements Character {
     }
 
     @Override
-    public ImmutablePair<Integer, Integer> getPosition() {
+    public Pair<Integer, Integer> getPosition() {
         return this.position.getCoordinates();
     }
 

@@ -1,6 +1,7 @@
 package it.dpg.maingame.model.character;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Random;
 import java.util.Set;
@@ -26,7 +27,7 @@ public class CpuImpl implements Cpu {
     }
 
     @Override
-    public ImmutablePair<Integer, Integer> getRandomDirection() {
+    public Pair<Integer, Integer> getRandomDirection() {
         Set<ImmutablePair<Integer, Integer>> s = getControlledCharacter().getAdjacentPositions();
         int n = new Random().nextInt(s.size());
         
