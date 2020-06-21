@@ -1,14 +1,15 @@
 package it.dpg.minigames.jumpgame.model;
 
-import org.apache.commons.lang3.tuple.Pair;
+public class Platform extends AbstractGameObject {
 
-public interface Platform {
-    Pair<Integer, Integer> getPosition();
-    int getHeight();
-    int getWidth();
-    int getX();
-    int getY();
-    int getId();
-    void setSpeedY(final int speedY);
-    void updatePosition();
+    private final int id;
+
+    public Platform(final int x, final int y, final int width, final int height, final int id) {
+        super(x, y, width, height);
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 }

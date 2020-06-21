@@ -1,15 +1,18 @@
 package it.dpg.minigames.jumpgame.model;
 
-import org.apache.commons.lang3.tuple.Pair;
+public class Player extends AbstractGameObject {
 
-public interface Player {
-    Pair<Integer, Integer> getPosition();
-    void setPosition(final int x, final int y);
-    int getSize();
-    int getSpeedX();
-    int getSpeedY();
-    void setSpeedX(final int speedX);
-    void setSpeedY(final int speedY);
-    void updatePosition();
-    void checkCollisionWithPlatform(final int platformX, final int platformY, final int platformLength);
+    private final int gravity;
+
+    public Player(final int size, final int x, final int y, final int gravity) {
+        super(x, y, size, size);
+        this.gravity = gravity;
+        this.setSpeedY(20);
+    }
+
+    @Override
+    public void updatePosition() {
+        super.updatePosition();
+        super.setSpeedY(super.getSpeedY() - gravity);
+    }
 }

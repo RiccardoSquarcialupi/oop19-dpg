@@ -1,12 +1,17 @@
 package it.dpg.minigames.jumpgame.model;
 
-import java.util.List;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.Map;
 
 public interface World {
-    void update();
-    boolean isGameOver();
-    Player getPlayer();
-    List<Platform> getPlatforms();
     int getWidth();
     int getHeight();
+    void update();
+    boolean isGameOver();
+    Pair<Integer, Integer> getPlayerPosition();
+    int getPlayerSize();
+    Map<Integer, Pair<Integer, Integer>> getPlatformsPositions();
+    Map<Integer, Integer> getPlatformsWidth();
+    Map<Integer, Integer> getPlatformsHeight();
 }

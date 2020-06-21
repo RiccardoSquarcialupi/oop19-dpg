@@ -1,14 +1,11 @@
 package it.dpg.minigames.jumpgame.controller;
 
 import it.dpg.minigames.base.controller.MinigameCycle;
-import it.dpg.minigames.jumpgame.model.Platform;
 import it.dpg.minigames.jumpgame.model.Player;
 import it.dpg.minigames.jumpgame.model.World;
 import it.dpg.minigames.jumpgame.model.WorldImpl;
 import it.dpg.minigames.jumpgame.view.JumpMinigameView;
 import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.List;
 
 public class JumpMinigameCycle implements MinigameCycle {
 
@@ -50,20 +47,19 @@ public class JumpMinigameCycle implements MinigameCycle {
     }
 
     private void setup() {
-        view.setGameSize(600, 900);
-        Player p = world.getPlayer();
+        view.setGameSize(world.getWidth(), world.getHeight());
 
-        view.createPlayer(p.getPosition().getLeft(), p.getPosition().getRight(), p.getSize());
-        world.getPlatforms().forEach(
-                plat -> view.createPlatform(plat.getX(), plat.getY(), plat.getWidth(), plat.getHeight(), plat.getId())
+        view.createPlayer(world.getPlayerPosition().getLeft(), world.getPlayerPosition().getRight(), world.getPlayerSize());
+        world.getPlatformsPositions().forEach(
+                (id, pos) -> view.createPlatform(pos.getLeft(), pos.getRight(), world.getPlatformsWidth().get(id), world.getPlatformsHeight().get(id), id)
         );
     }
 
     private void render() {
-        Pair<Integer, Integer> positions = world.getPlayer().getPosition();
+        Pair<Integer, Integer> positions = world.getPlayerPosition();
         view.updatePlayer(positions.getLeft(), positions.getRight());
-        world.getPlatforms().forEach(
-                plat -> view.updatePlatform(plat.getX(), plat.getY(), plat.getId())
+        world.getPlatformsPositions().forEach(
+                (id, pos) -> view.updatePlatform(pos.getLeft(), pos.getRight(), id)
         );
     }
 }
