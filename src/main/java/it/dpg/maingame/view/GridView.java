@@ -6,7 +6,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.Map;
 import java.util.Set;
 
-public interface GridView {
+public interface GridView extends View{
 
     /**
      * this methods sets the view
