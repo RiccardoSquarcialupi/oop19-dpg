@@ -9,6 +9,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -127,6 +128,11 @@ public class GridViewImpl implements GridView {
         root.setCenter(gridGroup);
 
         scene = new Scene(root, 1000, 1000, Color.AQUAMARINE);
+        scene.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                obs.KeyPressHandler();
+            }
+        });
 
     }
 

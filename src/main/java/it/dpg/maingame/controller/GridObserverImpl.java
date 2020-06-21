@@ -20,4 +20,6 @@ public class GridObserverImpl implements GridObserver {
     public void throwDiceHandler() {
         gameCycle.signalDiceThrown();
     }
+
+    public void KeyPressHandler() { gameCycle.signalNextStep(); }
 }

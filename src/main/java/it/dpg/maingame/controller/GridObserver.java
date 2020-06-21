@@ -14,4 +14,9 @@ public interface GridObserver {
      */
     void throwDiceHandler();
 
+    /**
+     * Enter Key Press Handler
+     */
+    void KeyPressHandler();
+
 }
