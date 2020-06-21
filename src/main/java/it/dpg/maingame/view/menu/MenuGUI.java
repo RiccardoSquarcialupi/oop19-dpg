@@ -1,7 +1,11 @@
 package it.dpg.maingame.view.menu;
 
+import it.dpg.maingame.controller.gamecycle.GameCycle;
+import it.dpg.maingame.controller.gamecycle.GameCycleBuilder;
+import it.dpg.maingame.controller.gamecycle.GameCycleBuilderImpl;
 import it.dpg.maingame.controller.menu.MenuController;
 import it.dpg.maingame.controller.menu.MenuControllerImpl;
+import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.model.character.Difficulty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +20,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The Menu when the application start
@@ -211,6 +217,30 @@ public class MenuGUI implements MenuView {
      */
     @Override
     public void startGame() {
-        //startgame with variable from input
+        GameCycleBuilder gb = new GameCycleBuilderImpl();
+
+        Map<String, Difficulty> mpAI = new HashMap<>();
+        mpAI.putAll(optionController.getOptionsAI());
+
+        Map<Integer, String> mpPlayer = new HashMap<>();
+        mpPlayer.putAll(optionController.getOptionsPlayer());
+
+        for(var ai : mpAI.entrySet()){
+            gb.addCpu(ai.getKey(),ai.getValue());
+        }
+        for(var pl : mpPlayer.entrySet()){
+            gb.addHumanPlayer(pl.getValue());
+        }
+        gb.addRewardDice(Dice.D10);
+        gb.addRewardDice(Dice.D8);
+        gb.addRewardDice(Dice.D6);
+        gb.addRewardDice(Dice.D4);
+
+        gb.setDefaultDice(Dice.D6);
+        gb.setNTurns(10);
+
+        GameCycle gs = gb.build();
+
+        gs.startGameCycle();
     }
 }
