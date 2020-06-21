@@ -3,7 +3,6 @@ package it.dpg.maingame.model.character;
 import it.dpg.maingame.model.Cell;
 import it.dpg.maingame.model.CellType;
 import it.dpg.maingame.model.Grid;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Random;
@@ -54,7 +53,7 @@ public class CharacterImpl implements Character {
     }
 
     @Override
-    public void setPosition(final ImmutablePair<Integer, Integer> coordinates) {
+    public void setPosition(final Pair<Integer, Integer> coordinates) {
         this.position = this.grid.getCellByCoordinates(
                 coordinates.getLeft(),
                 coordinates.getRight()
@@ -88,7 +87,7 @@ public class CharacterImpl implements Character {
     }
 
     @Override
-    public boolean stepInDirection(final ImmutablePair<Integer, Integer> coordinates) {
+    public boolean stepInDirection(final Pair<Integer, Integer> coordinates) {
         if(this.remainingMoves > 0) {
             this.remainingMoves--;
             this.position = this.position.getNext().stream()

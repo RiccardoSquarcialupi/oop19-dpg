@@ -11,12 +11,12 @@ public interface Character {
     String getName();
     void setTurn(int turn);
     int getTurn();
-    void setPosition(final ImmutablePair<Integer, Integer> coordinates);
+    void setPosition(final Pair<Integer, Integer> coordinates);
     Pair<Integer, Integer> getPosition();
     Set<Pair<Integer, Integer>> getAdjacentPositions();
     CellType getCellType();
     boolean stepForward();
-    boolean stepInDirection(final ImmutablePair<Integer, Integer> coordinates);
+    boolean stepInDirection(final Pair<Integer, Integer> coordinates);
     void setDice(final Dice dice);
     Dice getDice();
     int throwDice();
