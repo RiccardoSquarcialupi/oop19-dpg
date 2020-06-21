@@ -1,7 +1,7 @@
 package it.dpg.maingame.controller.gamecycle.playercontroller;
 
-import it.dpg.minigames.MinigameType;
 import it.dpg.maingame.model.character.Character;
+import it.dpg.minigames.MinigameType;
 
 /**
  * interface for handle behaviours of a specific entity, human or cpu

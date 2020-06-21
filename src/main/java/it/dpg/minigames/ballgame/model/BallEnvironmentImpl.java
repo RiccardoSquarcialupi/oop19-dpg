@@ -1,25 +1,24 @@
 package it.dpg.minigames.ballgame.model;
 
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
 public class BallEnvironmentImpl implements BallEnvironment {
     private final double radius;
-    private double centerX;
-    private double centerY;
     private final double startX;
     private final double startY;
     private final Set<Boundary> boundaries;
-    private Boundary lastCollision;
-    private boolean lastFrameCollision = false;
     private final double deltaT;
-    private boolean wasGoalReached = false;
-    private double timePassed = 0;
     private final double ballAcceleration = 15;
     private final double ballDeceleration = 7;
     private final double maxSpeed = 20;
     private final int maxScore;
+    private double centerX;
+    private double centerY;
+    private Boundary lastCollision;
+    private boolean lastFrameCollision = false;
+    private boolean wasGoalReached = false;
+    private double timePassed = 0;
     private double xSpeed = 0;
     private double ySpeed = 0;
 

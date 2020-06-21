@@ -12,11 +12,11 @@ public enum MinigameType {
 
     private final Supplier<Minigame> implementationSupplier;
 
-    public Minigame getMinigame() {
-        return implementationSupplier.get();
-    }
-
     MinigameType(Supplier<Minigame> implementationSupplier) {
         this.implementationSupplier = implementationSupplier;
+    }
+
+    public Minigame getMinigame() {
+        return implementationSupplier.get();
     }
 }
