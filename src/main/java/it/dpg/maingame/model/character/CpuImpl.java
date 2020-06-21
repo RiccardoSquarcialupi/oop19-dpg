@@ -28,7 +28,7 @@ public class CpuImpl implements Cpu {
 
     @Override
     public Pair<Integer, Integer> getRandomDirection() {
-        Set<ImmutablePair<Integer, Integer>> s = getControlledCharacter().getAdjacentPositions();
+        Set<Pair<Integer, Integer>> s = getControlledCharacter().getAdjacentPositions();
         int n = new Random().nextInt(s.size());
         
         return s.stream().skip(n).findFirst().orElseThrow(
