@@ -111,7 +111,7 @@ public class GridViewImpl implements GridView {
         diceButton.setMinSize(60, 60);
 
         /* action handler */
-        diceButton.setOnAction(actionEvent -> obs.throwDiceHandler());
+        diceButton.setOnMousePressed(actionEvent -> obs.throwDiceHandler());
 
         diceLayout.getChildren().addAll(diceBox, diceButton);
 
@@ -181,7 +181,7 @@ public class GridViewImpl implements GridView {
             button.setText(arrow);
             button.setTextAlignment(TextAlignment.CENTER);
 
-            button.setOnAction(actionEvent -> obs.choosePathHandler(i));
+            button.setOnMousePressed(actionEvent -> obs.choosePathHandler(i));
 
             gridGroup.getChildren().add(button);
         }
