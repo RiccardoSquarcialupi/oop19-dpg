@@ -27,7 +27,7 @@ public abstract class AbstractPlayerController implements PlayerController {
         character.setMinigameScore(score);
         view.showText(getCharacter().getName() + " achieved a score of " + score);
         try {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.MILLISECONDS.sleep(2500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

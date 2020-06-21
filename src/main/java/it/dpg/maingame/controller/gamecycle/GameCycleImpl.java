@@ -71,11 +71,7 @@ public class GameCycleImpl implements GameCycle {
                 waitNextStep("minigames are starting");
                 turnManager.nextTurn();
             }
-            turnManager.getPlayers().forEach(player -> {
-                view.showText(player.getCharacter().getName() + " won a " + player.getCharacter().getDice());
-                sleepMillis(1000);
-                view.removeText();
-            });
+            displayMinigameResults();
         }
         waitNextStep("no more turns remaining, game over");
         view.closeView();
@@ -89,6 +85,7 @@ public class GameCycleImpl implements GameCycle {
 
     private void turnStart(PlayerController player) {
         view.showText("it's " + player.getCharacter().getName() + "'s turn");
+        view.setCurrentPlayerName(player.getCharacter().getName());
         sleepMillis(1000);
         view.removeText();
         int roll = player.throwDice();
@@ -137,6 +134,14 @@ public class GameCycleImpl implements GameCycle {
             }
             return player.getCharacter().stepInDirection(turnState.getLastDirectionChoice().get());
         }
+    }
+
+    private void displayMinigameResults() {
+        StringBuilder results = new StringBuilder();
+        for(PlayerController p : turnManager.getPlayers()) {
+            results.append(p.getCharacter().getName()).append(" won a ").append(p.getCharacter().getDice()).append("\n");
+        }
+        waitNextStep(results.toString());
     }
 
     private void sleepMillis(final int milliseconds) {
