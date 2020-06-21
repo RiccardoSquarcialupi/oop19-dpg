@@ -9,7 +9,7 @@ import it.dpg.minigames.jumpgame.view.JumpMinigameViewImpl;
 
 public class JumpMinigame extends AbstractMinigame {
 
-    JumpMinigameView view = new JumpMinigameViewImpl();
+    private JumpMinigameView view = new JumpMinigameViewImpl();
 
     @Override
     public int getMaxScore() {

@@ -30,4 +30,14 @@ public class PlatformImpl implements Platform {
     public int getWidth() {
         return width;
     }
+
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
+    }
 }

@@ -6,4 +6,6 @@ public interface Platform {
     Pair<Integer, Integer> getPosition();
     int getHeight();
     int getWidth();
+    int getX();
+    int getY();
 }

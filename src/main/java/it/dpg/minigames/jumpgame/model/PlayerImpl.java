@@ -4,6 +4,8 @@ import org.apache.commons.lang3.tuple.Pair;
 
 public class PlayerImpl implements Player {
 
+    private static final int COLLISION_VERTICAL_TOLERANCE = 5;
+
     private int size;
     private int x;
     private int y;
@@ -15,7 +17,9 @@ public class PlayerImpl implements Player {
         this.size = size;
         this.x = x;
         this.y = y;
-        gravity = 1;
+        this.speedX = 0;
+        this.speedY = 20;
+        this.gravity = -1;
     }
 
     @Override
@@ -56,14 +60,18 @@ public class PlayerImpl implements Player {
 
     @Override
     public void updatePosition() {
-        speedY += gravity;
         x += speedX;
         y += speedY;
+        speedY += gravity;
     }
 
+    @Override
     public void checkCollisionWithPlatform(final int platformX, final int platformY, final int platformLength) {
-        if(speedY > 0 && (x+size > platformX && x < platformX+platformLength) && y+size >= platformY) {
-            speedY = -speedY;
+        if(speedY < 0 &&
+                (x+size > platformX && x < platformX+platformLength) &&
+                (y-size <= platformY && y-size >= platformY-COLLISION_VERTICAL_TOLERANCE))
+        {
+            speedY = 25;
         }
     }
 }
