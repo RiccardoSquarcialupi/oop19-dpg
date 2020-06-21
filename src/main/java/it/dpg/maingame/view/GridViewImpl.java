@@ -9,6 +9,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -85,14 +86,16 @@ public class GridViewImpl implements GridView {
         StackPane movesLayout = new StackPane();
 
         /*
-         Grid Group
+         Grid Group; everything is added to a Scroll Pane
          */
+        ScrollPane sp = new ScrollPane();
         Group circleGroup = new Group();
 
         for (var i : circlesList.entrySet()) {       //every circle is added to the Group
             circleGroup.getChildren().add(i.getKey());
         }
         gridGroup.getChildren().addAll(nodes.generateLines(circlesList, Xmodifier, Ymodifier), circleGroup);
+        sp.setContent(gridGroup);
 
         /*
          * upper Group
@@ -125,7 +128,7 @@ public class GridViewImpl implements GridView {
         root.setBackground(new Background(new BackgroundFill(Color.BEIGE, null, null)));
 
         root.setTop(upperGroup);
-        root.setCenter(gridGroup);
+        root.setCenter(sp);
 
         scene = new Scene(root, 1000, 1000, Color.AQUAMARINE);
         scene.setOnKeyPressed(e -> {

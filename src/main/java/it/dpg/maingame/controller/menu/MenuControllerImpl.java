@@ -22,6 +22,10 @@ public class MenuControllerImpl implements MenuController {
      * Empty Constructor
      */
     public MenuControllerImpl() {
+        //DEFAULT OPTIONS
+        mapAI.put("AI1", Difficulty.EASY);
+        mapPlayer.put(1, "Giocatore1");
+
     }
 
     /**
