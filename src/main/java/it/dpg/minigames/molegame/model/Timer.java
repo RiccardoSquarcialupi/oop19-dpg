@@ -13,6 +13,11 @@ public interface Timer {
      */
     boolean checkTimeIsUp();
 
+    /**
+     * get the remain time
+     */
+    int getRemainTime();
+
 
 
 

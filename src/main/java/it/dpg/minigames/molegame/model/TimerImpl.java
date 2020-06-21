@@ -3,7 +3,7 @@ package it.dpg.minigames.molegame.model;
 
 public class TimerImpl implements Timer {
 
-    private static long time= 0;
+    private static long time = 0;
     private static final long MAX_T = 20000;//tempo max del gioco in millisecondi
 
     public TimerImpl(){}
@@ -23,4 +23,14 @@ public class TimerImpl implements Timer {
     public boolean checkTimeIsUp() {
         return System.currentTimeMillis() >= time + MAX_T;
     }
+
+    /**
+     * get the remain time
+     */
+    @Override
+    public int getRemainTime() {
+        return (int) (System.currentTimeMillis()-time)/1000;
+    }
+
+
 }
