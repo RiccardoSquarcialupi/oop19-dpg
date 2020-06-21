@@ -15,8 +15,9 @@ public class HitTheMoleCycleImpl implements  HitTheMoleCycle {
     private List<Integer> moleOut = new ArrayList<>();
     private Score score = new ScoreImpl();
     private Timer timer = new TimerImpl();
-    HitTheMoleView moleView = new HitTheMoleViewImpl();
-    private final static int NMOLES= 25;
+    private volatile boolean isStartClick = false;
+    HitTheMoleView moleView = new HitTheMoleViewImpl(this);
+    private final static int NMOLES = 25;
 
     public HitTheMoleCycleImpl(){
         for(int i=0;i<NMOLES;i++){
@@ -26,9 +27,16 @@ public class HitTheMoleCycleImpl implements  HitTheMoleCycle {
 
     @Override
     public int startCycle(){
-        moleView.setView();
-        timer.timeStart();
 
+        while(!isStartClick){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        timer.timeStart();
         while(!timer.checkTimeIsUp()){
 
             moleOutOrIn();
@@ -37,8 +45,16 @@ public class HitTheMoleCycleImpl implements  HitTheMoleCycle {
             moleOutOrIn();
             updateView();
 
+            try {
+                wait(250);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            moleView.updateTimer(timer);
+
         }
 
+        moleView.closeView();
         return score.finalScore();
     }
 
@@ -49,7 +65,7 @@ public class HitTheMoleCycleImpl implements  HitTheMoleCycle {
     public void pressOnAMole(int whichMole) {
         if(moleList.get(whichMole).getValue().isOut()){
             score.addPoint();
-            moleView.updateScore();
+            moleView.updateScore(score);
             moleList.get(whichMole).getValue().setMoleIn();
             moleOut.remove(whichMole);
 
@@ -80,6 +96,15 @@ public class HitTheMoleCycleImpl implements  HitTheMoleCycle {
     @Override
     public void updateView() {
         moleView.updateMole(moleOut);
+    }
+
+    /**
+     * start the gamecycle when button start is clicked on the view
+     */
+    @Override
+    public void startGame() {
+        isStartClick=true;
+        notify();
     }
 
 }

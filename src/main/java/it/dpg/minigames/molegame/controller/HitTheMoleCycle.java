@@ -19,4 +19,9 @@ public interface HitTheMoleCycle extends MinigameCycle {
      */
     void updateView();
 
+    /**
+     * start the gamecycle when button start is clicked on the view
+     */
+    void startGame();
+
 }
