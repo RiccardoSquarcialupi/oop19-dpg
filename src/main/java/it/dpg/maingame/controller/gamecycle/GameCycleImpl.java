@@ -12,6 +12,7 @@ import it.dpg.maingame.model.character.Difficulty;
 import it.dpg.maingame.view.GridView;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -50,16 +51,18 @@ public class GameCycleImpl implements GameCycle {
             view.setView();
             int turnCounter = 1;
             boolean turnRemaining = true;
+            updatePlayersInView();
             while (turnRemaining) {
                 waitNextStep("turn " + turnCounter + " has started");
                 turnCounter++;
+                boolean hasArrived;
                 while (turnManager.hasNextPlayer()) {
                     PlayerController currentPlayer = turnManager.nextPlayer();
                     turnStart(currentPlayer);
-                    boolean hasArrived = movePlayer(currentPlayer);
+                    hasArrived = movePlayer(currentPlayer);
                     if (hasArrived) {
-                        view.showText(currentPlayer.getCharacter().getName() + " wins!");
-                        //view.close()
+                        waitNextStep(currentPlayer.getCharacter().getName() + " wins!");
+                        view.closeView();
                         return;
                     }
                     //events control
@@ -75,8 +78,15 @@ public class GameCycleImpl implements GameCycle {
                     });
                 }
                 waitNextStep("no mo turns remaining, game over");
+                view.closeView();
             }
         };
+    }
+
+    private void updatePlayersInView() {
+        var positions = new HashMap<Integer, Pair<Integer, Integer>>();
+        turnManager.getPlayers().forEach(p -> positions.put(p.getCharacter().getId(), p.getCharacter().getPosition()));
+        this.view.updatePlayers(positions);
     }
 
     private void turnStart(PlayerController player) {
@@ -111,6 +121,7 @@ public class GameCycleImpl implements GameCycle {
         boolean movesRemaining = true;
         while (movesRemaining) {
             movesRemaining = singleStep(player);
+            updatePlayersInView();
             if (player.getCharacter().getCellType().equals(CellType.END)) {
                 return true;
             }
