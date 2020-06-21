@@ -2,15 +2,14 @@ package it.dpg.minigames.jumpgame.view;
 
 import it.dpg.minigames.base.view.AbstractMinigameView;
 import javafx.application.Platform;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMinigameView {
 
@@ -19,7 +18,7 @@ public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMi
 
     private Pane pane;
     private Rectangle player;
-    private List<Rectangle> platforms = new ArrayList<>();
+    private Map<Integer, Rectangle> platforms = new HashMap<>();
 
     @Override
     public Scene createScene() {
@@ -61,13 +60,13 @@ public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMi
     }
 
     @Override
-    public void createPlatform(int x, int y, int width, int height) {
+    public void createPlatform(int x, int y, int width, int height, int id) {
         Platform.runLater(() -> {
             Rectangle r = new Rectangle(width, height, Color.BLACK);
             r.setX(x);
             r.setY(mapY(y));
-            platforms.add(r);
-            pane.getChildren().addAll(platforms);
+            platforms.put(id, r);
+            pane.getChildren().addAll(platforms.values());
         });
     }
 
@@ -79,6 +78,17 @@ public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMi
                 player.setY(mapY(y));
             } else {
                 throw new UnsupportedOperationException("You must create a player before updating it");
+            }
+        });
+    }
+
+    @Override
+    public void updatePlatform(int x, int y, int id) {
+        Platform.runLater(() -> {
+            Rectangle r = platforms.get(id);
+            if(r != null) {
+                r.setX(x);
+                r.setY(mapY(y));
             }
         });
     }

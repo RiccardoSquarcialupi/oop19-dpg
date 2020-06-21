@@ -52,16 +52,18 @@ public class JumpMinigameCycle implements MinigameCycle {
     private void setup() {
         view.setGameSize(600, 900);
         Player p = world.getPlayer();
-        List<Platform> platforms = world.getPlatforms();
 
         view.createPlayer(p.getPosition().getLeft(), p.getPosition().getRight(), p.getSize());
-        platforms.forEach(
-                plat -> view.createPlatform(plat.getX(), plat.getY(), plat.getWidth(), plat.getHeight())
+        world.getPlatforms().forEach(
+                plat -> view.createPlatform(plat.getX(), plat.getY(), plat.getWidth(), plat.getHeight(), plat.getId())
         );
     }
 
     private void render() {
         Pair<Integer, Integer> positions = world.getPlayer().getPosition();
         view.updatePlayer(positions.getLeft(), positions.getRight());
+        world.getPlatforms().forEach(
+                plat -> view.updatePlatform(plat.getX(), plat.getY(), plat.getId())
+        );
     }
 }

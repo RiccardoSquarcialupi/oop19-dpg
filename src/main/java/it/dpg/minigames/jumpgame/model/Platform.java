@@ -8,4 +8,7 @@ public interface Platform {
     int getWidth();
     int getX();
     int getY();
+    int getId();
+    void setSpeedY(final int speedY);
+    void updatePosition();
 }

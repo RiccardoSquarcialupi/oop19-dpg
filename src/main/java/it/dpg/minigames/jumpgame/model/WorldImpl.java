@@ -20,15 +20,17 @@ public class WorldImpl implements World {
         gameOver = false;
         player = new PlayerImpl(PLAYER_SIZE, WIDTH/2 - 2*UNIT, PLAYER_SIZE);
         platforms = new ArrayList<>();
-        platforms.add(new PlatformImpl(WIDTH/2 - 3*UNIT,8*UNIT, PLATFORM_WIDTH, PLATFORM_HEIGHT));
+        platforms.add(new PlatformImpl(WIDTH/2 - 3*UNIT,8*UNIT, PLATFORM_WIDTH, PLATFORM_HEIGHT, 0));
     }
 
     @Override
     public void update() {
-        platforms.forEach(
-                p -> player.checkCollisionWithPlatform(p.getX(), p.getY(), p.getWidth())
-        );
         player.updatePosition();
+        platforms.forEach(p -> {
+            player.checkCollisionWithPlatform(p.getX(), p.getY(), p.getWidth());
+            p.setSpeedY(-player.getSpeedY()/2);
+            p.updatePosition();
+        });
     }
 
     @Override

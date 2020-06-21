@@ -4,7 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 public class PlayerImpl implements Player {
 
-    private static final int COLLISION_VERTICAL_TOLERANCE = 5;
+    private static final int COLLISION_VERTICAL_TOLERANCE = 15;
 
     private int size;
     private int x;
