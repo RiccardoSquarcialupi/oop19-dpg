@@ -67,7 +67,7 @@ public class CharacterImpl implements Character {
     }
 
     @Override
-    public Set<ImmutablePair<Integer, Integer>> getAdjacentPositions() {
+    public Set<Pair<Integer, Integer>> getAdjacentPositions() {
         return this.position.getNext().stream()
                 .map(Cell::getCoordinates)
                 .collect(Collectors.toSet());

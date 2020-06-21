@@ -13,7 +13,7 @@ public interface Character {
     int getTurn();
     void setPosition(final ImmutablePair<Integer, Integer> coordinates);
     Pair<Integer, Integer> getPosition();
-    Set<ImmutablePair<Integer, Integer>> getAdjacentPositions();
+    Set<Pair<Integer, Integer>> getAdjacentPositions();
     CellType getCellType();
     boolean stepForward();
     boolean stepInDirection(final ImmutablePair<Integer, Integer> coordinates);
