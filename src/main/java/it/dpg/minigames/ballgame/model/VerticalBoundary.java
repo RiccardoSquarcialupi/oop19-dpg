@@ -24,14 +24,14 @@ public class VerticalBoundary extends AbstractBoundary {
         double minY = Math.min(start.getY(), end.getY());
         double maxY = Math.max(start.getY(), end.getY());
         double xPos = start.getX();
-        if(ballCenterY > minY && ballCenterY < maxY) { // the ball is left or right
-            if(ballCenterX > xPos && (ballCenterX - ballRadius) < xPos) {//ball is right
+        if (ballCenterY > minY && ballCenterY < maxY) { // the ball is left or right
+            if (ballCenterX > xPos && (ballCenterX - ballRadius) < xPos) {//ball is right
                 return true;
             }
             return ballCenterX < xPos && (ballCenterX + ballRadius) > xPos;//ball is left
-        } else if(ballCenterY > (minY - ballRadius) && ballCenterY < minY) { // the ball is slightly higher
+        } else if (ballCenterY > (minY - ballRadius) && ballCenterY < minY) { // the ball is slightly higher
             return Point2D.distance(ballCenterX, ballCenterY, xPos, minY) < ballRadius;
-        } else if(ballCenterY > maxY && ballCenterY < (maxY + ballRadius)) { // the ball is slightly lower
+        } else if (ballCenterY > maxY && ballCenterY < (maxY + ballRadius)) { // the ball is slightly lower
             return Point2D.distance(ballCenterX, ballCenterY, xPos, maxY) < ballRadius;
         }
         return false;

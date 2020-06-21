@@ -1,11 +1,7 @@
 package it.dpg.maingame.view;
 
 import it.dpg.maingame.model.character.Dice;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;
 import java.util.Set;
@@ -15,7 +11,7 @@ public interface GridView {
     /**
      * this methods sets the view
      */
-    void setView(Stage stage);
+    void setView();
 
     /**
      * Sets the name of who's currently playing in the main text
@@ -40,7 +36,7 @@ public interface GridView {
     /**
      * enables direction choice by enabling two buttons corresponding to the possible choices
      */
-    void enableDirectionChoice(Set<ImmutablePair<Integer, Integer>> cells);
+    void enableDirectionChoice(Set<Pair<Integer, Integer>> cells);
 
     /**
      * disables the direction choice buttons and removes them
@@ -48,14 +44,9 @@ public interface GridView {
     void disableDirectionChoice();
 
     /**
-     * generates the View for the Grid
-     */
-    void startGeneration(Stage stage);
-
-    /**
      * Updates the Players positions in the Grid
      */
-    void updatePlayers(Map<Integer, ImmutablePair<Integer,Integer>> players);
+    void updatePlayers(Map<Integer, Pair<Integer,Integer>> players);
 
     /**
      * enables the dice button
@@ -66,4 +57,8 @@ public interface GridView {
      * disables the dice button
      */
     void disableDiceThrow();
+    /**
+     * this method closes the Grid View
+     */
+    void closeView();
 }

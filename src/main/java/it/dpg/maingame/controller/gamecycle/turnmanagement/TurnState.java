@@ -1,6 +1,7 @@
 package it.dpg.maingame.controller.gamecycle.turnmanagement;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Optional;
 
@@ -17,56 +18,54 @@ public interface TurnState {
     /**
      * notify if the dice has been thrown or not
      *
-     * @exception IllegalStateException if newTurn was never called
+     * @throws IllegalStateException if newTurn was never called
      */
     void setDiceThrown(final boolean wasThrown);
 
     /**
      * @return true if the dice has been thrown, false otherwise
-     *
-     * @exception IllegalStateException if newTurn was never called
+     * @throws IllegalStateException if newTurn was never called
      */
     boolean wasDiceThrown();
 
     /**
      * notify if a choice has to be done or not
      *
-     * @exception IllegalStateException if newTurn was never called
+     * @throws IllegalStateException if newTurn was never called
      */
     void setChoice(final boolean isChoosing);
 
     /**
      * @return true if the player is currently choosing, false otherwise
-     *
-     * @exception IllegalStateException if newTurn was never called
+     * @throws IllegalStateException if newTurn was never called
      */
     boolean isChoosing();
 
     /**
      * save the last direction choice of the player/cpu currently playing the turn
-     * @param direction id of the chosen cell
      *
-     * @exception IllegalStateException if newTurn was never called
+     * @param direction id of the chosen cell
+     * @throws IllegalStateException if newTurn was never called
      */
-    void setLastDirectionChoice(final ImmutablePair<Integer, Integer> direction);
+    void setLastDirectionChoice(final Pair<Integer, Integer> direction);
 
     /**
      * get the last direction choice made by a player/cpu
+     *
      * @return Optional.empty if no choice has been made in the turn, or the chosen cell otherwise
      */
-    Optional<ImmutablePair<Integer, Integer>> getLastDirectionChoice();
+    Optional<Pair<Integer, Integer>> getLastDirectionChoice();
 
     /**
      * notify if the turn is currently paused or not
      *
-     * @exception IllegalStateException if newTurn was never called
+     * @throws IllegalStateException if newTurn was never called
      */
     void setTurnPause(final boolean isPaused);
 
     /**
      * @return true if the turn is paused, false otherwise
-     *
-     * @exception IllegalStateException if newTurn was never called
+     * @throws IllegalStateException if newTurn was never called
      */
     boolean isPaused();
 }

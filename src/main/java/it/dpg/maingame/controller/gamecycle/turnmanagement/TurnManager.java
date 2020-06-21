@@ -1,19 +1,19 @@
 package it.dpg.maingame.controller.gamecycle.turnmanagement;
 
-import it.dpg.maingame.controller.gamecycle.player.Player;
+import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * PlayerManager handles the operations on the players relative to the turn order and dices, already starts in the first turn when created
  */
-public interface PlayerManager {
+public interface TurnManager {
 
     /**
      * @return the next player in order of turn
-     * @exception java.util.NoSuchElementException if no players have to play in this turn
+     * @throws java.util.NoSuchElementException if no players have to play in this turn
      */
-    Player nextPlayer();
+    PlayerController nextPlayer();
 
     /**
      * @return true if there are other players who have to do their turns, false otherwise
@@ -22,7 +22,8 @@ public interface PlayerManager {
 
     /**
      * go to the next turn making everyone play a minigame, and calculating the dices for the players of the next turn basing on the scores
-     * @exception IllegalStateException if no more turns have to be done
+     *
+     * @throws IllegalStateException if no more turns have to be done
      */
     void nextTurn();
 
@@ -32,7 +33,7 @@ public interface PlayerManager {
     boolean hasNextTurn();
 
     /**
-     * @return the set of players saved
+     * @return the list of players saved ordered by turn
      */
-    Set<Player> getPlayers();
+    List<PlayerController> getPlayers();
 }

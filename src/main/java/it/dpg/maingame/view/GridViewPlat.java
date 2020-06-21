@@ -1,28 +1,28 @@
 package it.dpg.maingame.view;
 
+import it.dpg.maingame.controller.GridObserver;
 import it.dpg.maingame.model.Cell;
 import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.character.Dice;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;
 import java.util.Set;
 
 public class GridViewPlat implements GridView {
 
-    private GridView view;
+    private GridViewImpl view;
 
-    public GridViewPlat (Map<Cell, ImmutablePair<Integer, Integer>> grid) {
-        view = new GridViewImpl(grid);
+    public GridViewPlat(GridViewImpl view) {
+        this.view = view;
     }
 
-
     @Override
-    public void setView(Stage stage) {
-        Platform.runLater(() -> view.setView(stage));
+    public void setView() {
+        Platform.runLater(() -> view.setView());
     }
 
     @Override
@@ -49,7 +49,7 @@ public class GridViewPlat implements GridView {
     }
 
     @Override
-    public void enableDirectionChoice(Set<ImmutablePair<Integer, Integer>> cells) {
+    public void enableDirectionChoice(Set<Pair<Integer, Integer>> cells) {
         Platform.runLater(() -> view.enableDirectionChoice(cells));
     }
 
@@ -58,13 +58,12 @@ public class GridViewPlat implements GridView {
         Platform.runLater(() -> view.disableDirectionChoice());
     }
 
-    @Override
-    public void startGeneration(Stage stage) {
-        Platform.runLater(() -> view.startGeneration(stage));
+    public void startGeneration() {
+        Platform.runLater(() -> view.startGeneration());
     }
 
     @Override
-    public void updatePlayers(Map<Integer, ImmutablePair<Integer, Integer>> players) {
+    public void updatePlayers(Map<Integer, Pair<Integer, Integer>> players) {
         Platform.runLater(() -> view.updatePlayers(players));
     }
 
@@ -76,5 +75,14 @@ public class GridViewPlat implements GridView {
     @Override
     public void disableDiceThrow() {
         Platform.runLater(() -> view.disableDiceThrow());
+    }
+
+    @Override
+    public void closeView() {
+        Platform.runLater(() -> view.closeView());
+    }
+
+    public void makeCellList(Pair<Integer, Integer> coordinates, String type, Set<Pair<Integer, Integer>> nextCells) {
+        Platform.runLater(() -> view.makeCellList(coordinates, type, nextCells));
     }
 }

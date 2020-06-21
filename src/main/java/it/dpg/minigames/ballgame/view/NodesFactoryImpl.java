@@ -30,9 +30,9 @@ public class NodesFactoryImpl implements NodesFactory {
     private Polygon generatePolygon(List<Double> coordinates) {
         Polygon pol = new Polygon();
         boolean isX = true;
-        for(Double d : coordinates) {
+        for (Double d : coordinates) {
             double c;
-            if(!isX) {
+            if (!isX) {
                 c = map(100 - d);
             } else {
                 c = map(d);
@@ -117,7 +117,7 @@ public class NodesFactoryImpl implements NodesFactory {
     @Override
     public Text createReady() {
         Text temp = new Text(map(35), map(52), "ready?");
-        temp.setFont(Font.font("Helvetica", FontWeight.BOLD, map( 10)));
+        temp.setFont(Font.font("Helvetica", FontWeight.BOLD, map(10)));
         temp.setFill(Color.DARKORANGE);
         return temp;
     }
@@ -125,7 +125,7 @@ public class NodesFactoryImpl implements NodesFactory {
     @Override
     public Text createGo() {
         Text temp = new Text(map(42), map(54), "GO!");
-        temp.setFont(Font.font("Helvetica", FontWeight.BOLD, map( 10)));
+        temp.setFont(Font.font("Helvetica", FontWeight.BOLD, map(10)));
         temp.setFill(Color.DARKORANGE);
         return temp;
     }
@@ -133,7 +133,7 @@ public class NodesFactoryImpl implements NodesFactory {
     @Override
     public Text createVictoryMessage() {
         Text temp = new Text(map(34), map(54), "GOAL!");
-        temp.setFont(Font.font("Helvetica", FontWeight.BOLD, map( 10)));
+        temp.setFont(Font.font("Helvetica", FontWeight.BOLD, map(10)));
         temp.setFill(Color.DARKORANGE);
         return temp;
     }

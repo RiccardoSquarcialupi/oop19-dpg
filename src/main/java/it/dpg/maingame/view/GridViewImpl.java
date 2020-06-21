@@ -1,8 +1,9 @@
 package it.dpg.maingame.view;
 
-import it.dpg.maingame.model.Cell;
-import it.dpg.maingame.model.CellType;
-import it.dpg.maingame.model.Grid;
+import it.dpg.maingame.controller.GridObserver;
+import it.dpg.maingame.controller.GridObserverImpl;
+import it.dpg.maingame.controller.gamecycle.GameCycle;
+import it.dpg.maingame.launcher.Main;
 import it.dpg.maingame.model.character.Dice;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -14,14 +15,15 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
 
 public class GridViewImpl implements GridView {
 
-    private final Map<Cell, ImmutablePair<Integer, Integer>> grid;
+    private static Stage pStage;
     public Scene scene;
+    private GridObserver obs;
 
     public String currentPlayer;
     public int movesLeft;
@@ -35,7 +37,7 @@ public class GridViewImpl implements GridView {
     Button diceButton = new Button("Dice");
 
     //this map keeps track of the various cells (by graphic representation) and the coordinates of the cells connected to the Key Cell
-    private Map<Circle, Set<ImmutablePair<Integer, Integer>>> circlesList = new LinkedHashMap<>();
+    private Map<Circle, Set<Pair<Integer, Integer>>> circlesList = new LinkedHashMap<>();
 
     //this map keeps track of the player'id and corresponding graphic representation
     private Map<Integer, Rectangle> playerList = new LinkedHashMap<>();
@@ -46,13 +48,36 @@ public class GridViewImpl implements GridView {
     private int Xmodifier = 130;
     private int Ymodifier = 90;
 
-
-    public GridViewImpl (Map<Cell, ImmutablePair<Integer, Integer>> grid) {
-        this.grid = grid;
+    public GridViewImpl(GameCycle gameCycle) {
+        this.obs = new GridObserverImpl(gameCycle);
     }
 
-    @Override
-    public void startGeneration(Stage stage) {
+    /**
+     * this method creates the CirclesList filled with Circles and next Cell coordinates related to a Cell
+     */
+    public void makeCellList(Pair<Integer, Integer> coordinates, String type, Set<Pair<Integer, Integer>> nextCells) {
+
+        Circle circle;
+
+        //the color is dictated by the Cell Type
+        if (type.equals("START") || type.equals("END")) {
+            circle = nodes.generateCell(Color.LIGHTBLUE);
+        } else if (type.equals("NORMAL")) {
+            circle = nodes.generateCell(Color.LIGHTGREEN);
+        } else {
+            circle = nodes.generateCell(Color.WHITE);
+        }
+
+        int left = coordinates.getLeft() * Xmodifier;
+        int right = coordinates.getRight() * Ymodifier;
+        circle.setLayoutX(left);
+        circle.setLayoutY(right);
+
+        circlesList.put(circle, nextCells);
+
+    }
+
+    public void startGeneration() {
 
         StackPane mainTextLayout = new StackPane();
         StackPane diceLayout = new StackPane();
@@ -61,39 +86,10 @@ public class GridViewImpl implements GridView {
         /*
          Grid Group
          */
-
         Group circleGroup = new Group();
 
-        for (var i : grid.entrySet()) {       //for every Cell present in Grid, a Circle is created
-
-            Circle circle;
-
-            //the color is dictated by the Cell Type
-            if (i.getKey().getType().equals(CellType.START) || i.getKey().getType().equals(CellType.END)) {
-                circle = nodes.generateCell(Color.LIGHTBLUE);
-            } else if (i.getKey().getType().equals(CellType.NORMAL)) {
-                circle = nodes.generateCell(Color.LIGHTGREEN);
-            } else {
-                circle = nodes.generateCell(Color.WHITE);
-            }
-
-            //the Circle gets its position modified based on the corresponding Cell coordinates
-            int left = i.getValue().getLeft()*Xmodifier;
-            int right = i.getValue().getRight()*Ymodifier;
-            circle.setLayoutX(left);
-            circle.setLayoutY(right);
-
-            //a new set of coordinates is created to keep track of the linked Cells
-            Set<ImmutablePair<Integer, Integer>> next = new HashSet<>();
-
-            //a new Map is created to keep track of each Cell Circle and the linked Cells coordinates
-            for (var j : i.getKey().getNext()) {
-                next.add(j.getCoordinates());
-            }
-            circlesList.put(circle, next);
-
-            //the Circles are added
-            circleGroup.getChildren().add(circle);
+        for (var i : circlesList.entrySet()) {       //every circle is added to the Group
+            circleGroup.getChildren().add(i.getKey());
         }
         gridGroup.getChildren().addAll(nodes.generateLines(circlesList, Xmodifier, Ymodifier), circleGroup);
 
@@ -109,6 +105,10 @@ public class GridViewImpl implements GridView {
         diceButton.setDisable(true);
         diceButton.setShape(new Rectangle(1, 1));
         diceButton.setMinSize(60, 60);
+
+        /* action handler */
+        diceButton.setOnAction(actionEvent -> obs.throwDiceHandler());
+
         diceLayout.getChildren().addAll(diceBox, diceButton);
 
         Rectangle movesBox = new Rectangle(500, 60);
@@ -131,9 +131,9 @@ public class GridViewImpl implements GridView {
     }
 
     @Override
-    public void setView(Stage stage) {
-        this.startGeneration(stage);
-        stage.setScene(this.scene);
+    public void setView() {
+        pStage = Main.getPrimaryStage();
+        pStage.setScene(this.scene);
     }
 
     @Override
@@ -159,18 +159,21 @@ public class GridViewImpl implements GridView {
     }
 
     @Override
-    public void enableDirectionChoice(Set<ImmutablePair<Integer, Integer>> cells) {
+    public void enableDirectionChoice(Set<Pair<Integer, Integer>> cells) {
 
         //the method searches for the wanted fork inside the map, and creates and places buttons to the corresponding fork cells inside the Grid
         for (var i : cells) {
             Button button = new Button();
             button.setShape(new Circle(4));
             button.setMinSize(40, 40);
-            button.setLayoutX(i.getLeft()*Xmodifier-20);
-            button.setLayoutY(i.getRight()*Ymodifier-20);
+            button.setLayoutX(i.getLeft() * Xmodifier - 20);
+            button.setLayoutY(i.getRight() * Ymodifier - 20);
             String arrow = "|\nV";
             button.setText(arrow);
             button.setTextAlignment(TextAlignment.CENTER);
+
+            button.setOnAction(actionEvent -> obs.choosePathHandler(i));
+
             gridGroup.getChildren().add(button);
         }
 
@@ -183,13 +186,13 @@ public class GridViewImpl implements GridView {
     }
 
     @Override
-    public void updatePlayers(Map<Integer, ImmutablePair<Integer, Integer>> players) {
+    public void updatePlayers(Map<Integer, Pair<Integer, Integer>> players) {
 
         int playerMod = 0;  //player modifier is a modifier that changes every time more than one player sit on the same Cell
         if (playerList.isEmpty()) {
             //if there's still no players, they are generated
             for (var i : players.entrySet()) {
-                Rectangle playerSquare =  nodes.generatePlayer(i.getKey());
+                Rectangle playerSquare = nodes.generatePlayer(i.getKey());
                 playerList.put(i.getKey(), playerSquare);
                 gridGroup.getChildren().add(playerSquare);
             }
@@ -197,8 +200,8 @@ public class GridViewImpl implements GridView {
 
         //the players are placed in the grid by coordinates, which are the ones passed through @param; they are modified to fit nicely and avoid overlapping
         for (var j : players.entrySet()) {
-            playerList.get(j.getKey()).setLayoutX(j.getValue().getLeft()*Xmodifier+playerMod);
-            playerList.get(j.getKey()).setLayoutY(j.getValue().getRight()*Ymodifier);
+            playerList.get(j.getKey()).setLayoutX(j.getValue().getLeft() * Xmodifier + playerMod);
+            playerList.get(j.getKey()).setLayoutY(j.getValue().getRight() * Ymodifier);
             for (var k : players.entrySet()) {
                 //this cycle counts how many player sit on the same cell, to apply a modifier accordingly
                 if (j.getValue().equals(k.getValue())) {
@@ -213,11 +216,16 @@ public class GridViewImpl implements GridView {
     @Override
     public void enableDiceThrow(Dice dice) {
         diceButton.setDisable(false);
-        diceButton.setText("D"+dice.getFaces());
+        diceButton.setText("D" + dice.getFaces());
     }
 
     @Override
     public void disableDiceThrow() {
         diceButton.setDisable(true);
+    }
+
+    @Override
+    public void closeView() {
+        pStage.close();
     }
 }

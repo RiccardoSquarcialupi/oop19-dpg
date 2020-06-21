@@ -20,10 +20,11 @@ public class BallMinigame extends AbstractMinigame implements Minigame {
     private BallMinigameView view;
     private BallGamecycle cycle;
 
-    public BallMinigame() {}
+    public BallMinigame() {
+    }
 
     private void createComponents() {
-        if(view == null || cycle == null) {
+        if (view == null || cycle == null) {
             BallMinigameObserver observer = new BallObserverImpl();
             this.view = new BallViewImpl(Toolkit.getDefaultToolkit().getScreenSize().height * 0.7, observer);
             this.cycle = new BallGamecycleImpl(view, maxScore);

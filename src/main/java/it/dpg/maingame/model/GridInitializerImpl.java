@@ -3,6 +3,7 @@ package it.dpg.maingame.model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,7 +12,7 @@ import java.util.*;
 
 public class GridInitializerImpl implements GridInitializer {
 
-    private Map<Cell, ImmutablePair<Integer, Integer>> gridMap = new HashMap<>();
+    private Map<Cell, Pair<Integer, Integer>> gridMap = new HashMap<>();
     private Grid grid;
     private String jsonString;
 
@@ -67,8 +68,8 @@ public class GridInitializerImpl implements GridInitializer {
                     int cellId = tempList.indexOf(i);           //gets index of Cell inside tempList
 
                     if (tempNext.get(cellId).length > 0) {
-                        for ( var j : tempNext.get(cellId)) {   //every linked Cell is put in the "next" field of cell
-                        next.add(tempList.get(j));              //finds the next Cell in the temporary list created and saves it
+                        for (var j : tempNext.get(cellId)) {   //every linked Cell is put in the "next" field of cell
+                            next.add(tempList.get(j));              //finds the next Cell in the temporary list created and saves it
                         }
                     }
                     i.setNext(next);

@@ -1,6 +1,6 @@
 package it.dpg.maingame.model;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,10 +9,10 @@ public class CellImpl implements Cell {
 
     private Set<Cell> nextCell = new HashSet<>();
     private final boolean isAFork;
-    private final ImmutablePair<Integer, Integer> coordinates;
+    private final Pair<Integer, Integer> coordinates;
     private final CellType type;
 
-    public CellImpl (final boolean isAFork, final ImmutablePair<Integer, Integer> coordinates, final CellType type) {
+    public CellImpl(final boolean isAFork, final Pair<Integer, Integer> coordinates, final CellType type) {
         this.isAFork = isAFork;
         this.coordinates = coordinates;
         this.type = type;
@@ -34,7 +34,7 @@ public class CellImpl implements Cell {
     }
 
     @Override
-    public ImmutablePair<Integer, Integer> getCoordinates() {
+    public Pair<Integer, Integer> getCoordinates() {
         return this.coordinates;
     }
 

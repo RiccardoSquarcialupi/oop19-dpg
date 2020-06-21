@@ -1,6 +1,6 @@
 package it.dpg.maingame.model;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;
 
@@ -8,9 +8,9 @@ public class GridImpl implements Grid {
 
     private final Cell first;
     private final Cell last;
-    private final Map<Cell, ImmutablePair<Integer, Integer>> grid;
+    private final Map<Cell, Pair<Integer, Integer>> grid;
 
-    public GridImpl(final Cell first, final Cell last, final Map<Cell, ImmutablePair<Integer, Integer>> grid) {
+    public GridImpl(final Cell first, final Cell last, final Map<Cell, Pair<Integer, Integer>> grid) {
         this.first = first;
         this.last = last;
         this.grid = grid;
@@ -28,7 +28,7 @@ public class GridImpl implements Grid {
 
     @Override
     public Cell getCellByCoordinates(Integer X, Integer Y) {
-        for(var i : grid.entrySet()) {
+        for (var i : grid.entrySet()) {
             if (i.getValue().getLeft().equals(X) && i.getValue().getRight().equals(Y)) {
                 return i.getKey();
             }
@@ -37,7 +37,7 @@ public class GridImpl implements Grid {
         throw new IllegalStateException();
     }
 
-    public Map<Cell, ImmutablePair<Integer, Integer>> getCellList () {
+    public Map<Cell, Pair<Integer, Integer>> getCellList() {
         return this.grid;
     }
 }
