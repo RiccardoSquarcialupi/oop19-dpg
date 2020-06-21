@@ -26,7 +26,7 @@ public class GameCycleImpl implements GameCycle {
     private final Thread backgroundThread;
 
     GameCycleImpl(final int nTurns, final Dice defaultDice, final List<Dice> rewardDices, final Set<String> humanPlayers, final Set<Pair<String, Difficulty>> cpuPlayers) {
-        this.backgroundThread = new Thread(createRunnable());
+        this.backgroundThread = new Thread(this::mainCycle);
         this.backgroundThread.setDaemon(true);
         this.turnState = new TurnStateImpl();
         GridType level = GridType.GRID_ONE;//randomize when multiple levels are present
@@ -46,41 +46,39 @@ public class GameCycleImpl implements GameCycle {
         this.turnManager = turnManagerBuilder.build();
     }
 
-    private Runnable createRunnable() {
-        return () -> {
-            view.setView();
-            int turnCounter = 1;
-            boolean turnRemaining = true;
-            updatePlayersInView();
-            while (turnRemaining) {
-                waitNextStep("turn " + turnCounter + " has started");
-                turnCounter++;
-                boolean hasArrived;
-                while (turnManager.hasNextPlayer()) {
-                    PlayerController currentPlayer = turnManager.nextPlayer();
-                    turnStart(currentPlayer);
-                    hasArrived = movePlayer(currentPlayer);
-                    if (hasArrived) {
-                        waitNextStep(currentPlayer.getCharacter().getName() + " wins!");
-                        view.closeView();
-                        return;
-                    }
-                    //events control
-                    turnRemaining = turnManager.hasNextTurn();
-                    if (turnManager.hasNextTurn()) {
-                        waitNextStep("minigames are starting");
-                        turnManager.nextTurn();
-                    }
-                    turnManager.getPlayers().forEach(player -> {
-                        view.showText(player.getCharacter().getName() + " won a " + player.getCharacter().getDice());
-                        sleepMillis(1000);
-                        view.removeText();
-                    });
+    private void mainCycle() {
+        view.setView();
+        int turnCounter = 1;
+        boolean turnRemaining = true;
+        updatePlayersInView();
+        while (turnRemaining) {
+            waitNextStep("turn " + turnCounter + " has started");
+            turnCounter++;
+            boolean hasArrived;
+            while (turnManager.hasNextPlayer()) {
+                PlayerController currentPlayer = turnManager.nextPlayer();
+                turnStart(currentPlayer);
+                hasArrived = movePlayer(currentPlayer);
+                if (hasArrived) {
+                    waitNextStep(currentPlayer.getCharacter().getName() + " wins!");
+                    view.closeView();
+                    return;
                 }
-                waitNextStep("no mo turns remaining, game over");
-                view.closeView();
+                //events control
             }
-        };
+            turnRemaining = turnManager.hasNextTurn();
+            if (turnManager.hasNextTurn()) {
+                waitNextStep("minigames are starting");
+                turnManager.nextTurn();
+            }
+            turnManager.getPlayers().forEach(player -> {
+                view.showText(player.getCharacter().getName() + " won a " + player.getCharacter().getDice());
+                sleepMillis(1000);
+                view.removeText();
+            });
+        }
+        waitNextStep("no more turns remaining, game over");
+        view.closeView();
     }
 
     private void updatePlayersInView() {
@@ -94,12 +92,10 @@ public class GameCycleImpl implements GameCycle {
         sleepMillis(1000);
         view.removeText();
         int roll = player.throwDice();
-        view.showText(player.getCharacter().getName() + " rolled a " + roll);//add number rolled
-        sleepMillis(700);
-        view.removeText();
+        waitNextStep(player.getCharacter().getName() + " rolled a " + roll);
     }
 
-    public void waitNextStep(String message) {
+    private void waitNextStep(String message) {
         turnState.setTurnPause(true);
         view.showText(message + "   continue ►");
         synchronized (this.turnState) {
@@ -120,6 +116,7 @@ public class GameCycleImpl implements GameCycle {
     private boolean movePlayer(PlayerController player) {
         boolean movesRemaining = true;
         while (movesRemaining) {
+            sleepMillis(700);
             movesRemaining = singleStep(player);
             updatePlayersInView();
             if (player.getCharacter().getCellType().equals(CellType.END)) {
