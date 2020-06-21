@@ -12,11 +12,13 @@ public class TurnManagerBuilderImpl implements TurnManagerBuilder {
 
     private final int nTurns;
     private final Set<PlayerController> players = new HashSet<>();
+    private final TurnState state;
     private Dice defaultDice;
     private List<Dice> rewardDices = new ArrayList<>();
 
-    public TurnManagerBuilderImpl(final int nTurns) {
+    public TurnManagerBuilderImpl(final int nTurns, final TurnState state) {
         this.nTurns = nTurns;
+        this.state = state;
     }
 
     @Override
@@ -42,6 +44,6 @@ public class TurnManagerBuilderImpl implements TurnManagerBuilder {
         if (defaultDice == null || rewardDices == null || players.isEmpty()) {
             throw new IllegalStateException();
         }
-        return new TurnManagerImpl(defaultDice, rewardDices, nTurns, players);
+        return new TurnManagerImpl(defaultDice, rewardDices, nTurns, players, state);
     }
 }

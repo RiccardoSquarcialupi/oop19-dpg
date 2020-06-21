@@ -32,7 +32,7 @@ public class GameCycleImpl implements GameCycle {
         var pair = new GridViewGeneratorImpl(level, this).generate();
         this.view = pair.getRight();
         PlayerFactory playerFactory = new PlayerFactoryImpl(turnState, view, pair.getLeft());
-        TurnManagerBuilder turnManagerBuilder = new TurnManagerBuilderImpl(nTurns);
+        TurnManagerBuilder turnManagerBuilder = new TurnManagerBuilderImpl(nTurns, turnState);
         turnManagerBuilder
                 .setDefaultDice(defaultDice)
                 .setRewardDices(rewardDices);
@@ -47,6 +47,7 @@ public class GameCycleImpl implements GameCycle {
 
     private Runnable createRunnable() {
         return () -> {
+            view.setView();
             int turnCounter = 1;
             boolean turnRemaining = true;
             while (turnRemaining) {

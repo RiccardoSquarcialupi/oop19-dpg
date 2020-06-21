@@ -6,6 +6,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,8 +15,8 @@ public class GameCycleBuilderImpl implements GameCycleBuilder {
     private int nTurns = 0;
     private Dice defaultDice;
     private List<Dice> rewardDices = new ArrayList<>();
-    private Set<String> humanPlayers;
-    private Set<Pair<String, Difficulty>> cpuPlayers;
+    private Set<String> humanPlayers = new HashSet<>();
+    private Set<Pair<String, Difficulty>> cpuPlayers = new HashSet<>();
 
     @Override
     public GameCycleBuilder setNTurns(int nTurns) {
