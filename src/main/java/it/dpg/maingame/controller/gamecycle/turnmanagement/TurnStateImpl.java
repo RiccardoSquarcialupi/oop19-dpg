@@ -73,15 +73,11 @@ public class TurnStateImpl implements TurnState {
 
     @Override
     public void setTurnPause(final boolean isPaused) {
-        checkGameStarted();
-
         this.turnPaused = isPaused;
     }
 
     @Override
     public boolean isPaused() {
-        checkGameStarted();
-
         return this.turnPaused;
     }
 
