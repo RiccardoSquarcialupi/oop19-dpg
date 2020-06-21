@@ -15,22 +15,25 @@ public class MoleMiniGame extends AbstractMinigame implements Minigame {
     private HitTheMoleView view;
     private HitTheMoleCycle cycle;
 
-    public MoleMiniGame(){}
+    public MoleMiniGame(){
+        cycle = new HitTheMoleCycleImpl();
+        view = new HitTheMoleViewImpl(cycle);
+    }
 
     @Override
     public int getMaxScore() {
-        return 0;
+        return maxScore;
     }
 
     @Override
     public MinigameView createView() {
-        view = new HitTheMoleViewImpl();
+
         return view;
     }
 
     @Override
     public MinigameCycle createCycle() {
-        cycle = new HitTheMoleCycleImpl();
+
         return cycle;
     }
 }
