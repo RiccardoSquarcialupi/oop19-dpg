@@ -27,8 +27,8 @@ public class GridViewImpl implements GridView {
     public Scene scene;
     private GridObserver obs;
 
-    public String currentPlayer;
     public int movesLeft;
+    public String currentPlayer;
 
     private BorderPane root = new BorderPane();
     private VBox upperGroup = new VBox(5);
@@ -36,6 +36,7 @@ public class GridViewImpl implements GridView {
 
     private Label mainText = new Label();
     private Label movesText = new Label();
+    private Label playerText = new Label();
     Button diceButton = new Button("Dice");
 
     //this map keeps track of the various cells (by graphic representation) and the coordinates of the cells connected to the Key Cell
@@ -115,9 +116,11 @@ public class GridViewImpl implements GridView {
 
         diceLayout.getChildren().addAll(diceBox, diceButton);
 
-        Rectangle movesBox = new Rectangle(500, 60);
-        movesBox.setFill(Color.WHITE);
-        movesLayout.getChildren().addAll(movesBox, movesText);
+        Rectangle LabelBox = new Rectangle(500, 60);
+        LabelBox.setFill(Color.WHITE);
+        VBox labelBox = new VBox();
+        labelBox.getChildren().addAll(movesText, playerText);
+        movesLayout.getChildren().addAll(LabelBox, labelBox);
 
         upperGroup.getChildren().addAll(mainTextLayout, diceLayout, movesLayout);
 
@@ -130,7 +133,7 @@ public class GridViewImpl implements GridView {
         root.setTop(upperGroup);
         root.setCenter(sp);
 
-        scene = new Scene(root, 1000, 1000, Color.AQUAMARINE);
+        scene = new Scene(root, 1500, 1000, Color.AQUAMARINE);
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
                 obs.KeyPressHandler();
@@ -147,8 +150,8 @@ public class GridViewImpl implements GridView {
 
     @Override
     public void setCurrentPlayerName(String name) {
-
         this.currentPlayer = name;
+        this.playerText.setText("Currently playing: " +currentPlayer);
     }
 
     @Override
