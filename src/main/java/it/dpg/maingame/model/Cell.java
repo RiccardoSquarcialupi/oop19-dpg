@@ -17,11 +17,6 @@ public interface Cell {
     Set<Cell> getNext();
 
     /**
-     * sets the next Cells
-     */
-    void setNext(Set<Cell> next);
-
-    /**
      * returns the Cell coordinates
      */
     Pair<Integer, Integer> getCoordinates();
@@ -30,11 +25,6 @@ public interface Cell {
      * returns the Cell Type
      */
     CellType getType();
-
-    /**
-     * sets the previous Cell
-     */
-    void setPrevious(Cell previous);
 
     /**
      * returns the previous Cell
