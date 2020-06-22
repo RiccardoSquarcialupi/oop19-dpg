@@ -22,6 +22,11 @@ public class gridInitializerTest {
         Assertions.assertEquals(CellType.START, grid.getCellByCoordinates(1, 0).getType());
         Assertions.assertTrue(cell.contains(grid.getCellByCoordinates(1, 1)));
         Assertions.assertThrows(IllegalStateException.class, () -> grid.getCellByCoordinates(0,0));
+
+        Cell tempCell = grid.getCellByCoordinates(1,1);
+        Cell tempCell2 = grid.getCellByCoordinates(0,4);
+
+        Assertions.assertEquals(tempCell, tempCell2.getPrevious());
     }
 
 
