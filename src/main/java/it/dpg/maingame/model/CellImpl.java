@@ -8,6 +8,7 @@ import java.util.Set;
 public class CellImpl implements Cell {
 
     private Set<Cell> nextCell = new HashSet<>();
+    private Cell previous;
     private final boolean isAFork;
     private final Pair<Integer, Integer> coordinates;
     private final CellType type;
@@ -44,7 +45,12 @@ public class CellImpl implements Cell {
     }
 
     @Override
+    public void setPrevious(Cell previous) {
+        this.previous = previous;
+    }
+
+    @Override
     public Cell getPrevious() {
-        return null;
+        return this.previous;
     }
 }
