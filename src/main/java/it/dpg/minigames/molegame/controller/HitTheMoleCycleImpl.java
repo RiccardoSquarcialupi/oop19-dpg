@@ -41,16 +41,16 @@ public class HitTheMoleCycleImpl implements  HitTheMoleCycle {
 
             moleOutOrIn();
             updateView();
-
             moleOutOrIn();
             updateView();
+
+            moleView.updateTimer(timer);
 
             try {
                 wait(250);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            moleView.updateTimer(timer);
 
         }
 
