@@ -63,7 +63,7 @@ public class TurnManagerImpl implements TurnManager {
             player.playMinigame(playedMinigame);
         }
         List<PlayerController> ranking = players.stream()
-                .sorted(Comparator.comparingInt(p -> p.getCharacter().getMinigameScore()))
+                .sorted(Comparator.comparingInt(p -> ((PlayerController) p).getCharacter().getMinigameScore()).reversed())
                 .collect(Collectors.toList());
 
         for (int i = 0; i < players.size(); i++) {
