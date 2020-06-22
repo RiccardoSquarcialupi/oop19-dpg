@@ -44,7 +44,7 @@ public class GridInitializerImpl implements GridInitializer {
 
         setJson(gridType); //the json is set based on the grid Type
 
-        Map<Integer, Cell> tempList = new HashMap<>();   //temporary List of Cells
+        Map<Integer, CellImpl> tempList = new HashMap<>();   //temporary List of Cells
         Map<Integer, int[]> tempNext = new HashMap<>();  //temporary list of references to next cells
         Map<Integer, Integer> tempPrev = new HashMap<>(); //list of references to previous Cell
 
@@ -68,7 +68,7 @@ public class GridInitializerImpl implements GridInitializer {
                 for (var i : tempList.entrySet()) {             //this cycle sets the next Cells linked to a Cell and puts the Cells in the Grid
                     Set<Cell> next = new HashSet<>();
                     int cellId = i.getKey();
-                    Cell previousCell;
+                    CellImpl previousCell;
 
                     //Set Next Cells
                     if (tempNext.get(cellId).length > 0) {
