@@ -110,6 +110,11 @@ public class CpuPlayerControllerTest {
         }
 
         @Override
+        public boolean stepBackward() {
+            return false;
+        }
+
+        @Override
         public boolean stepInDirection(Pair<Integer, Integer> coordinates) {
             return false;
         }
