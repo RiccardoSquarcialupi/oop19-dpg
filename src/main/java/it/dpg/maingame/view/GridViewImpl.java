@@ -125,6 +125,7 @@ public class GridViewImpl implements GridView {
         movesLayout.getChildren().addAll(LabelBox, labels);
 
         upperGroup.getChildren().addAll(mainTextLayout, diceLayout, movesLayout);
+        upperGroup.setAlignment(Pos.CENTER);
 
         /*
         root layout
