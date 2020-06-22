@@ -14,4 +14,5 @@ public interface World {
     Map<Integer, Pair<Integer, Integer>> getPlatformsPositions();
     Map<Integer, Integer> getPlatformsWidth();
     Map<Integer, Integer> getPlatformsHeight();
+    void setPlayerSpeedX(final int speedX);
 }

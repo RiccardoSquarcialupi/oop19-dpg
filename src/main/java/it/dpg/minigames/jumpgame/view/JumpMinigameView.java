@@ -1,6 +1,7 @@
 package it.dpg.minigames.jumpgame.view;
 
 import it.dpg.minigames.base.view.MinigameView;
+import it.dpg.minigames.jumpgame.controller.input.InputObserver;
 
 public interface JumpMinigameView extends MinigameView {
     void setGameSize(final int width, final int height);
@@ -8,4 +9,5 @@ public interface JumpMinigameView extends MinigameView {
     void createPlatform(final int x, final int y, final int width, final int height, final int id);
     void updatePlayer(final int x, final int y);
     void updatePlatform(final int x, final int y, final int id);
+    void setInputObserver(final InputObserver observer);
 }

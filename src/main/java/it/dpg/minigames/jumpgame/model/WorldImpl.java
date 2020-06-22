@@ -73,6 +73,11 @@ public class WorldImpl implements World {
     }
 
     @Override
+    public void setPlayerSpeedX(final int speedX) {
+        player.setSpeedX(speedX);
+    }
+
+    @Override
     public int getWidth() {
         return WIDTH;
     }

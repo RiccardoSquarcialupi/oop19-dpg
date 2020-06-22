@@ -1,6 +1,10 @@
 package it.dpg.minigames.jumpgame.view;
 
 import it.dpg.minigames.base.view.AbstractMinigameView;
+import it.dpg.minigames.jumpgame.controller.input.InputObserver;
+import it.dpg.minigames.jumpgame.controller.input.MoveLeft;
+import it.dpg.minigames.jumpgame.controller.input.MoveRight;
+import it.dpg.minigames.jumpgame.controller.input.StopMovement;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -20,6 +24,8 @@ public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMi
     private Rectangle player;
     private Map<Integer, Rectangle> platforms = new HashMap<>();
 
+    private InputObserver observer;
+
     @Override
     public Scene createScene() {
         pane = new Pane();
@@ -27,15 +33,15 @@ public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMi
 
         scene.setOnKeyPressed(k -> {
             if(k.getCode() == KeyCode.LEFT) {
-
+                observer.notifyInput(new MoveLeft());
             } else if(k.getCode() == KeyCode.RIGHT) {
-
+                observer.notifyInput(new MoveRight());
             }
         });
 
         scene.setOnKeyReleased(k -> {
             if(k.getCode() == KeyCode.LEFT || k.getCode() == KeyCode.RIGHT) {
-
+                observer.notifyInput(new StopMovement());
             }
         });
 
@@ -91,6 +97,11 @@ public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMi
                 r.setY(mapY(y));
             }
         });
+    }
+
+    @Override
+    public void setInputObserver(final InputObserver observer) {
+        this.observer = observer;
     }
 
     private double mapY(final int y) {

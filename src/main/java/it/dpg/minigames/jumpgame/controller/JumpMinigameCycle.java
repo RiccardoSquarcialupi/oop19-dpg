@@ -1,20 +1,27 @@
 package it.dpg.minigames.jumpgame.controller;
 
 import it.dpg.minigames.base.controller.MinigameCycle;
+import it.dpg.minigames.jumpgame.controller.input.Input;
+import it.dpg.minigames.jumpgame.controller.input.InputObserver;
 import it.dpg.minigames.jumpgame.model.Player;
 import it.dpg.minigames.jumpgame.model.World;
 import it.dpg.minigames.jumpgame.model.WorldImpl;
 import it.dpg.minigames.jumpgame.view.JumpMinigameView;
 import org.apache.commons.lang3.tuple.Pair;
 
-public class JumpMinigameCycle implements MinigameCycle {
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+public class JumpMinigameCycle implements MinigameCycle, InputObserver {
 
     private JumpMinigameView view;
     private World world;
+    private BlockingQueue<Input> inputBuffer;
 
     public JumpMinigameCycle(final JumpMinigameView view) {
         this.view = view;
         this.world = new WorldImpl();
+        this.inputBuffer = new ArrayBlockingQueue<>(10);
     }
 
     @Override
@@ -36,8 +43,7 @@ public class JumpMinigameCycle implements MinigameCycle {
 
             total += currentTime - lastTime;
             if(total > 20) {
-                world.update();
-                render();
+                update();
                 total = 0;
             }
 
@@ -46,7 +52,14 @@ public class JumpMinigameCycle implements MinigameCycle {
         return 0;
     }
 
+    @Override
+    public void notifyInput(final Input input) {
+        inputBuffer.add(input);
+    }
+
     private void setup() {
+        view.setInputObserver(this);
+
         view.setGameSize(world.getWidth(), world.getHeight());
 
         view.createPlayer(world.getPlayerPosition().getLeft(), world.getPlayerPosition().getRight(), world.getPlayerSize());
@@ -61,5 +74,18 @@ public class JumpMinigameCycle implements MinigameCycle {
         world.getPlatformsPositions().forEach(
                 (id, pos) -> view.updatePlatform(pos.getLeft(), pos.getRight(), id)
         );
+    }
+
+    private void update() {
+        processInput();
+        world.update();
+        render();
+    }
+
+    private void processInput() {
+        Input i = inputBuffer.poll();
+        if(i != null) {
+            i.execute(world);
+        }
     }
 }

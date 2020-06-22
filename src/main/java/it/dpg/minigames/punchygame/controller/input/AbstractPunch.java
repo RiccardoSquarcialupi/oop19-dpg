@@ -1,12 +1,12 @@
 package it.dpg.minigames.punchygame.controller.input;
 
 import it.dpg.minigames.punchygame.model.Direction;
-import it.dpg.minigames.punchygame.model.WorldImpl;
+import it.dpg.minigames.punchygame.model.World;
 
 public abstract class AbstractPunch implements Input {
 
     @Override
-    public boolean execute(WorldImpl world) {
+    public boolean execute(World world) {
         return world.checkSackHit(getPunchDirection());
     }
 
