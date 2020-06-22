@@ -19,7 +19,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.w3c.dom.css.Rect;
 
 import java.util.*;
 
@@ -43,11 +45,11 @@ public class GridViewImpl implements GridView {
 
     //this map keeps track of the various cells (by graphic representation) and the coordinates of the cells connected to the Key Cell
     private Map<Circle, Set<Pair<Integer, Integer>>> circlesList = new LinkedHashMap<>();
-    //this map is similar to the previous, but keeps track of the grid panes associated to each Cell
-    private Map<GridPane, Set<Pair<Integer, Integer>>> gridsList = new LinkedHashMap<>();
+    //this map keeps track of each Cell gridPane by its coordinates
+    private Map<Pair<Integer, Integer>, GridPane> gridsList = new LinkedHashMap<>();
 
-    //this map keeps track of the player'id and corresponding graphic representation
-    private Map<Integer, Pair<Rectangle, StackPane>> playerList = new LinkedHashMap<>();
+    //this map keeps track of the player'id, its corresponding graphic representation and the cell gridPane where it is sitting
+    private Map<Integer, Pair<Rectangle, GridPane>> playerList = new LinkedHashMap<>();
 
     private ViewNodesFactory nodes = new ViewNodesFactoryImpl();
 
@@ -85,7 +87,7 @@ public class GridViewImpl implements GridView {
         GridPane gridPane = new GridPane();
         circlePane.getChildren().addAll(circle, gridPane);
 
-        gridsList.put(gridPane, nextCells);
+        gridsList.put(coordinates, gridPane);
         circlesList.put(circle, nextCells);
 
     }
@@ -212,16 +214,21 @@ public class GridViewImpl implements GridView {
     @Override
     public void updatePlayers(Map<Integer, Pair<Integer, Integer>> players) {
 
-        int playerMod = 0;  //player modifier is a modifier that changes every time more than one player sit on the same Cell
+        //int playerMod = 0;  //player modifier is a modifier that changes every time more than one player sit on the same Cell
         if (playerList.isEmpty()) {
             //if there's still no players, they are generated
             for (var i : players.entrySet()) {
                 Rectangle playerSquare = nodes.generatePlayer(i.getKey());
-                //playerList.put(i.getKey(), playerSquare);
-                gridGroup.getChildren().add(playerSquare);
+                GridPane gp = gridsList.get(i.getValue());
+                gp.getChildren().add(playerSquare);
+                playerList.put(i.getKey(), new ImmutablePair<>(playerSquare, gp));
             }
         }
 
+        //the Players are added and removed from the gridPane corresponding to the Cell where the player is supposed to sit
+
+
+        /*
         //the players are placed in the grid by coordinates, which are the ones passed through @param; they are modified to fit nicely and avoid overlapping
         for (var j : players.entrySet()) {
             //playerList.get(j.getKey()).setLayoutX(j.getValue().getLeft() * Xmodifier + playerMod);
@@ -234,6 +241,8 @@ public class GridViewImpl implements GridView {
                 }
             }
         }
+
+         */
 
     }
 
