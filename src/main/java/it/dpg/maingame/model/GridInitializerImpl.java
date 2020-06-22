@@ -46,7 +46,7 @@ public class GridInitializerImpl implements GridInitializer {
 
         Map<Integer, Cell> tempList = new HashMap<>();   //temporary List of Cells
         Map<Integer, int[]> tempNext = new HashMap<>();  //temporary list of references to next cells
-        int prev = 0;                                       //reference to previous Cell
+        Map<Integer, Integer> tempPrev = new HashMap<>(); //list of references to previous Cell
 
         ObjectMapper mapper = new ObjectMapper();        //mapper class from jackson is used to extract elements from the json
 
@@ -62,7 +62,7 @@ public class GridInitializerImpl implements GridInitializer {
                     isFork = i.getNext().length > 1;            //checks if the cell leads to a fork
                     tempList.put(i.getId(), new CellImpl(isFork, new ImmutablePair<>(i.getX_coordinate(), i.getY_coordinate()), CellType.valueOf(i.getCell_type())));
                     tempNext.put(i.getId(), i.getNext());
-                    prev = i.getPrev();
+                    tempPrev.put(i.getId(), i.getPrev());
                 }
 
                 for (var i : tempList.entrySet()) {             //this cycle sets the next Cells linked to a Cell and puts the Cells in the Grid
@@ -70,18 +70,22 @@ public class GridInitializerImpl implements GridInitializer {
                     int cellId = i.getKey();
                     Cell previousCell;
 
+                    //Set Next Cells
                     if (tempNext.get(cellId).length > 0) {
                         for (var j : tempNext.get(cellId)) {   //every linked Cell is put in the "next" field of cell
                             next.add(tempList.get(j));         //finds the next Cell in the temporary list created and saves it
                         }
                     }
-                    if (i.getKey() == prev) {
-                        previousCell = i.getValue();
-                    } else {
-                        throw new IllegalStateException();
-                    }
                     i.getValue().setNext(next);
-                    i.getValue().setPrevious(previousCell);
+
+                    //Set Previous Cell
+                    for (var k : tempPrev.entrySet()) {
+                        if (k.getKey().equals(i.getKey())) {
+                            i.getValue().setPrevious(tempList.get(k.getValue()));
+                        }
+                    }
+
+                    //puts Cell from tempList that is now completed in gridMap
                     gridMap.put(i.getValue(), i.getValue().getCoordinates());
                 }
 
