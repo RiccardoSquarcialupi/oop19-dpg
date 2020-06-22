@@ -5,6 +5,7 @@ import it.dpg.maingame.controller.GridObserverImpl;
 import it.dpg.maingame.controller.gamecycle.GameCycle;
 import it.dpg.maingame.launcher.Main;
 import it.dpg.maingame.model.character.Dice;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -84,7 +85,7 @@ public class GridViewImpl implements GridView {
 
         StackPane mainTextLayout = new StackPane();
         StackPane diceLayout = new StackPane();
-        StackPane movesLayout = new StackPane();
+        Group movesLayout = new Group();
 
         /*
          Grid Group; everything is added to a Scroll Pane
@@ -118,9 +119,10 @@ public class GridViewImpl implements GridView {
 
         Rectangle LabelBox = new Rectangle(500, 60);
         LabelBox.setFill(Color.WHITE);
-        VBox labelBox = new VBox();
-        labelBox.getChildren().addAll(movesText, playerText);
-        movesLayout.getChildren().addAll(LabelBox, labelBox);
+        VBox labels = new VBox();
+        labels.getChildren().addAll(movesText, playerText);
+        labels.setAlignment(Pos.CENTER);
+        movesLayout.getChildren().addAll(LabelBox, labels);
 
         upperGroup.getChildren().addAll(mainTextLayout, diceLayout, movesLayout);
 
