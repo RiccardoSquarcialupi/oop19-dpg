@@ -4,6 +4,7 @@ import it.dpg.maingame.controller.GridObserver;
 import it.dpg.maingame.controller.GridObserverImpl;
 import it.dpg.maingame.controller.gamecycle.GameCycle;
 import it.dpg.maingame.launcher.Main;
+import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.character.Dice;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -42,9 +43,11 @@ public class GridViewImpl implements GridView {
 
     //this map keeps track of the various cells (by graphic representation) and the coordinates of the cells connected to the Key Cell
     private Map<Circle, Set<Pair<Integer, Integer>>> circlesList = new LinkedHashMap<>();
+    //this map is similar to the previous, but keeps track of the grid panes associated to each Cell
+    private Map<GridPane, Set<Pair<Integer, Integer>>> gridsList = new LinkedHashMap<>();
 
     //this map keeps track of the player'id and corresponding graphic representation
-    private Map<Integer, Rectangle> playerList = new LinkedHashMap<>();
+    private Map<Integer, Pair<Rectangle, StackPane>> playerList = new LinkedHashMap<>();
 
     private ViewNodesFactory nodes = new ViewNodesFactoryImpl();
 
@@ -77,6 +80,12 @@ public class GridViewImpl implements GridView {
         circle.setLayoutX(left);
         circle.setLayoutY(right);
 
+        /* A new StackPane is created to keep the Circle and the associated GridPane where the Players will sit */
+        StackPane circlePane = new StackPane();
+        GridPane gridPane = new GridPane();
+        circlePane.getChildren().addAll(circle, gridPane);
+
+        gridsList.put(gridPane, nextCells);
         circlesList.put(circle, nextCells);
 
     }
@@ -208,15 +217,15 @@ public class GridViewImpl implements GridView {
             //if there's still no players, they are generated
             for (var i : players.entrySet()) {
                 Rectangle playerSquare = nodes.generatePlayer(i.getKey());
-                playerList.put(i.getKey(), playerSquare);
+                //playerList.put(i.getKey(), playerSquare);
                 gridGroup.getChildren().add(playerSquare);
             }
         }
 
         //the players are placed in the grid by coordinates, which are the ones passed through @param; they are modified to fit nicely and avoid overlapping
         for (var j : players.entrySet()) {
-            playerList.get(j.getKey()).setLayoutX(j.getValue().getLeft() * Xmodifier + playerMod);
-            playerList.get(j.getKey()).setLayoutY(j.getValue().getRight() * Ymodifier);
+            //playerList.get(j.getKey()).setLayoutX(j.getValue().getLeft() * Xmodifier + playerMod);
+            //playerList.get(j.getKey()).setLayoutY(j.getValue().getRight() * Ymodifier);
             for (var k : players.entrySet()) {
                 //this cycle counts how many player sit on the same cell, to apply a modifier accordingly
                 if (j.getValue().equals(k.getValue())) {
