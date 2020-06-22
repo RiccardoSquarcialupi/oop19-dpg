@@ -13,7 +13,7 @@ public class PunchyMinigame extends AbstractMinigame {
 
     @Override
     public int getMaxScore() {
-        return 0;
+        return 400;
     }
 
     @Override

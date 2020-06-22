@@ -13,8 +13,7 @@ import java.util.concurrent.BlockingQueue;
 
 public class JumpMinigameCycle implements MinigameCycle, InputObserver {
 
-    private static final long FPS = 40;
-    private static final double PERIOD = (1d/FPS)*1000;
+    private static final double PERIOD = 20;
 
     private JumpMinigameView view;
     private World world;
@@ -44,7 +43,7 @@ public class JumpMinigameCycle implements MinigameCycle, InputObserver {
             currentTime = System.currentTimeMillis();
 
             total += currentTime - lastTime;
-            if(total > 20) {
+            if(total > PERIOD) {
                 update();
                 total = 0;
             }

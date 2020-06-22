@@ -13,7 +13,7 @@ public class JumpMinigame extends AbstractMinigame {
 
     @Override
     public int getMaxScore() {
-        return 0;
+        return 100;
     }
 
     @Override
