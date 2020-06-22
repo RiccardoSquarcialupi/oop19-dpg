@@ -44,8 +44,9 @@ public class GridInitializerImpl implements GridInitializer {
 
         setJson(gridType); //the json is set based on the grid Type
 
-        List<Cell> tempList = new ArrayList<>();         //temporary List of Cells
+        Map<Integer, Cell> tempList = new HashMap<>();   //temporary List of Cells
         Map<Integer, int[]> tempNext = new HashMap<>();  //temporary list of references to next cells
+        Map<Integer, Integer> tempPrev = new HashMap<>(); //list of references to previous Cell
 
         ObjectMapper mapper = new ObjectMapper();        //mapper class from jackson is used to extract elements from the json
 
@@ -59,21 +60,33 @@ public class GridInitializerImpl implements GridInitializer {
                 for (var i : mp) {      //generates a temporary Array of Cells; it's missing the connections between cells.
                     boolean isFork;
                     isFork = i.getNext().length > 1;            //checks if the cell leads to a fork
-                    tempList.add(new CellImpl(isFork, new ImmutablePair<>(i.getX_coordinate(), i.getY_coordinate()), CellType.valueOf(i.getCell_type())));
+                    tempList.put(i.getId(), new CellImpl(isFork, new ImmutablePair<>(i.getX_coordinate(), i.getY_coordinate()), CellType.valueOf(i.getCell_type())));
                     tempNext.put(i.getId(), i.getNext());
+                    tempPrev.put(i.getId(), i.getPrev());
                 }
 
-                for (var i : tempList) {                        //this cycle sets the next Cells linked to a Cell and puts the Cells in the Grid
+                for (var i : tempList.entrySet()) {             //this cycle sets the next Cells linked to a Cell and puts the Cells in the Grid
                     Set<Cell> next = new HashSet<>();
-                    int cellId = tempList.indexOf(i);           //gets index of Cell inside tempList
+                    int cellId = i.getKey();
+                    Cell previousCell;
 
+                    //Set Next Cells
                     if (tempNext.get(cellId).length > 0) {
                         for (var j : tempNext.get(cellId)) {   //every linked Cell is put in the "next" field of cell
-                            next.add(tempList.get(j));              //finds the next Cell in the temporary list created and saves it
+                            next.add(tempList.get(j));         //finds the next Cell in the temporary list created and saves it
                         }
                     }
-                    i.setNext(next);
-                    gridMap.put(i, i.getCoordinates());
+                    i.getValue().setNext(next);
+
+                    //Set Previous Cell
+                    for (var k : tempPrev.entrySet()) {
+                        if (k.getKey().equals(i.getKey())) {
+                            i.getValue().setPrevious(tempList.get(k.getValue()));
+                        }
+                    }
+
+                    //puts Cell from tempList that is now completed in gridMap
+                    gridMap.put(i.getValue(), i.getValue().getCoordinates());
                 }
 
             } catch (JsonProcessingException e) {

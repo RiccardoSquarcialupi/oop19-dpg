@@ -70,12 +70,20 @@ public class GridViewImpl implements GridView {
         Circle circle;
 
         //the color is dictated by the Cell Type
-        if (type.equals("START") || type.equals("END")) {
-            circle = nodes.generateCell(Color.LIGHTBLUE);
-        } else if (type.equals("NORMAL")) {
-            circle = nodes.generateCell(Color.LIGHTGREEN);
-        } else {
-            circle = nodes.generateCell(Color.WHITE);
+        switch (type) {
+            case "START":
+            case "END":
+                circle = nodes.generateCell(Color.LIGHTBLUE);
+                break;
+            case "NORMAL":
+                circle = nodes.generateCell(Color.LIGHTGREEN);
+                break;
+            case "GO_BACK":
+                circle = nodes.generateCell(Color.PALEVIOLETRED);
+                break;
+            default:
+                circle = nodes.generateCell(Color.WHITE);
+                break;
         }
 
         /* A new StackPane is created to keep the Circle and the associated GridPane where the Players will sit */

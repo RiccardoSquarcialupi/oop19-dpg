@@ -30,4 +30,14 @@ public interface Cell {
      * returns the Cell Type
      */
     CellType getType();
+
+    /**
+     * sets the previous Cell
+     */
+    void setPrevious(Cell previous);
+
+    /**
+     * returns the previous Cell
+     */
+    Cell getPrevious();
 }
