@@ -1,5 +1,5 @@
 package it.dpg.maingame.model;
 
 public enum CellType {
-    START, END, NORMAL
+    START, END, NORMAL, GO_BACK
 }

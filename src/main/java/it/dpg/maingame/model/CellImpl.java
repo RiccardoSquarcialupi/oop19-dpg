@@ -42,4 +42,9 @@ public class CellImpl implements Cell {
     public CellType getType() {
         return this.type;
     }
+
+    @Override
+    public Cell getPrevious() {
+        return null;
+    }
 }
