@@ -191,8 +191,8 @@ public class GridViewImpl implements GridView {
             Button button = new Button();
             button.setShape(new Circle(4));
             button.setMinSize(40, 40);
-            button.setLayoutX(i.getLeft() * Xmodifier - 20);
-            button.setLayoutY(i.getRight() * Ymodifier - 20);
+            button.setLayoutX(i.getLeft() * Xmodifier+20);
+            button.setLayoutY(i.getRight() * Ymodifier+20);
             String arrow = "|\nV";
             button.setText(arrow);
             button.setTextAlignment(TextAlignment.CENTER);
@@ -213,7 +213,6 @@ public class GridViewImpl implements GridView {
     @Override
     public void updatePlayers(Map<Integer, Pair<Integer, Integer>> players) {
 
-        //int playerMod = 0;  //player modifier is a modifier that changes every time more than one player sit on the same Cell
         if (playerList.isEmpty()) {
             //if there's still no players, they are generated
             for (var i : players.entrySet()) {
@@ -224,24 +223,20 @@ public class GridViewImpl implements GridView {
             }
         }
 
-        //the Players are added and removed from the gridPane corresponding to the Cell where the player is supposed to sit
-
-
-        /*
-        //the players are placed in the grid by coordinates, which are the ones passed through @param; they are modified to fit nicely and avoid overlapping
+        //the Players are added and removed to the gridPane corresponding to the Cell where the player is supposed to sit and from the old GridPane it was sitting on
         for (var j : players.entrySet()) {
-            //playerList.get(j.getKey()).setLayoutX(j.getValue().getLeft() * Xmodifier + playerMod);
-            //playerList.get(j.getKey()).setLayoutY(j.getValue().getRight() * Ymodifier);
-            for (var k : players.entrySet()) {
-                //this cycle counts how many player sit on the same cell, to apply a modifier accordingly
-                if (j.getValue().equals(k.getValue())) {
-                    playerMod = j.getKey() * 35;
-                    break;
-                }
-            }
-        }
+            Rectangle playerP = playerList.get(j.getKey()).getLeft();
+            GridPane oldGrid = playerList.get(j.getKey()).getRight();
 
-         */
+            //searches for the corresponding rectangle and removes it from the old grid pane
+            oldGrid.getChildren().remove(playerP);
+
+            //adds the rectangle to the new Grid Pane (according to the @param coordinates)
+            GridPane newGrid = gridsList.get(j.getValue());
+            newGrid.getChildren().add(playerP);
+            //adds the new grid to the players list modifying the existing key
+            playerList.put(j.getKey(), new ImmutablePair<>(playerP, newGrid));
+        }
 
     }
 
