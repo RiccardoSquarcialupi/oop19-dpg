@@ -13,6 +13,7 @@ import it.dpg.maingame.model.character.Character;
 import it.dpg.maingame.model.character.CharacterImpl;
 import it.dpg.maingame.model.character.Dice;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -38,7 +39,7 @@ public class HumanPlayerControllerTest {
         }
 
         @Override
-        public Map<Cell, ImmutablePair<Integer, Integer>> getCellList() {
+        public Map<Cell, Pair<Integer, Integer>> getCellList() {
             return null;
         }
     };
@@ -65,7 +66,7 @@ public class HumanPlayerControllerTest {
         }
 
         @Override
-        public void setPosition(ImmutablePair<Integer, Integer> coordinates) {
+        public void setPosition(Pair<Integer, Integer> coordinates) {
 
         }
 
@@ -75,7 +76,7 @@ public class HumanPlayerControllerTest {
         }
 
         @Override
-        public Set<ImmutablePair<Integer, Integer>> getAdjacentPositions() {
+        public Set<Pair<Integer, Integer>> getAdjacentPositions() {
             return Set.of(
                     new ImmutablePair<>(4, 8),
                     new ImmutablePair<>(3, 9),
@@ -93,7 +94,7 @@ public class HumanPlayerControllerTest {
         }
 
         @Override
-        public boolean stepInDirection(ImmutablePair<Integer, Integer> coordinates) {
+        public boolean stepInDirection(Pair<Integer, Integer> coordinates) {
             return false;
         }
 
