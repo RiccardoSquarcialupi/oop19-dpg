@@ -72,44 +72,8 @@ public class BallEnvironmentImpl implements BallEnvironment {
     private void calculateSpeed(boolean isGoingUp, boolean isGoingDown, boolean isGoingLeft, boolean isGoingRight) {
         double xAcc;
         double yAcc;
-        if ((isGoingUp && isGoingDown) || (!isGoingUp && !isGoingDown)) {
-            if (ySpeed > 0) {
-                yAcc = -ballDeceleration;
-            } else if (ySpeed < 0) {
-                yAcc = ballDeceleration;
-            } else {
-                yAcc = 0;
-            }
-        } else if (isGoingUp) {
-            yAcc = ballAcceleration;
-            if (ySpeed < 0) {
-                yAcc += ballDeceleration;
-            }
-        } else {
-            yAcc = -ballAcceleration;
-            if (ySpeed > 0) {
-                yAcc -= ballDeceleration;
-            }
-        }
-        if ((isGoingLeft && isGoingRight) || (!isGoingLeft && !isGoingRight)) {
-            if (xSpeed > 0) {
-                xAcc = -ballDeceleration;
-            } else if (xSpeed < 0) {
-                xAcc = ballDeceleration;
-            } else {
-                xAcc = 0;
-            }
-        } else if (isGoingRight) {
-            xAcc = ballAcceleration;
-            if (xSpeed < 0) {
-                xAcc += ballDeceleration;
-            }
-        } else {
-            xAcc = -ballAcceleration;
-            if (xSpeed > 0) {
-                xAcc -= ballDeceleration;
-            }
-        }
+        xAcc = computeAcceleration(xSpeed, isGoingRight, isGoingLeft);
+        yAcc = computeAcceleration(ySpeed, isGoingUp, isGoingDown);
         double xSpeedPrev = this.xSpeed;
         double ySpeedPrev = this.ySpeed;
         xSpeed = xSpeed + (xAcc * deltaT);
@@ -122,6 +86,29 @@ public class BallEnvironmentImpl implements BallEnvironment {
         }
         xSpeed = limitVal(xSpeed, -maxSpeed, maxSpeed);
         ySpeed = limitVal(ySpeed, -maxSpeed, maxSpeed);
+    }
+
+    private double computeAcceleration(double speed, boolean isGoingForward, boolean isGoingBackwards) {
+        double a;
+        if ((isGoingForward && isGoingBackwards) || (!isGoingForward && !isGoingBackwards)) {
+            if (speed > 0) {
+                return -ballDeceleration;
+            } else if (ySpeed < 0) {
+                return ballDeceleration;
+            }
+            return 0;
+        } else if (isGoingForward) {
+            a = ballAcceleration;
+            if (speed < 0) {
+                a += ballDeceleration;
+            }
+        }else {
+            a = -ballAcceleration;
+            if (ySpeed > 0) {
+                a -= ballDeceleration;
+            }
+        }
+        return a;
     }
 
     private double limitVal(double val, double lowerBound, double upperBound) {
