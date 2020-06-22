@@ -87,6 +87,11 @@ public class CharacterImpl implements Character {
     }
 
     @Override
+    public boolean stepBackward() {
+        return this.stepInDirection(position.getPrevious().getCoordinates());
+    }
+
+    @Override
     public boolean stepInDirection(final Pair<Integer, Integer> coordinates) {
         if(this.remainingMoves > 0) {
             this.remainingMoves--;
