@@ -7,6 +7,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;
 import java.util.Set;
@@ -38,6 +39,11 @@ public class GridViewMock implements GridView {
     }
 
     @Override
+    public void closeView() {
+
+    }
+
+    @Override
     public void showText(String text) {
         System.out.println("text: " + text);
     }
@@ -48,7 +54,7 @@ public class GridViewMock implements GridView {
     }
 
     @Override
-    public void enableDirectionChoice(Set<ImmutablePair<Integer, Integer>> cells) {
+    public void enableDirectionChoice(Set<Pair<Integer, Integer>> cells) {
         System.out.println("direction choice enabled between coordinates " + cells.toString());
     }
 
@@ -57,14 +63,8 @@ public class GridViewMock implements GridView {
         System.out.println("direction choice disabled");
     }
 
-
     @Override
-    public void startGeneration() {
-
-    }
-
-    @Override
-    public void updatePlayers(Map<Integer, ImmutablePair<Integer,Integer>> players) {
+    public void updatePlayers(Map<Integer, Pair<Integer,Integer>> players) {
         System.out.println("players are at the following positions " + players);
     }
 }

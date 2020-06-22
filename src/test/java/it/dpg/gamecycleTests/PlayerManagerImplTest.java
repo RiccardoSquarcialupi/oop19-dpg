@@ -9,6 +9,7 @@ import it.dpg.maingame.model.character.*;
 import it.dpg.maingame.model.character.Character;
 import it.dpg.maingame.view.GridView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +32,7 @@ public class PlayerManagerImplTest {
         }
 
         @Override
-        public ImmutablePair<Integer, Integer> getRandomDirection() {
+        public Pair<Integer, Integer> getRandomDirection() {
             return new ImmutablePair<>(4, 8);
         }
     }
@@ -53,7 +54,7 @@ public class PlayerManagerImplTest {
         }
 
         @Override
-        public Map<Cell, ImmutablePair<Integer, Integer>> getCellList() {
+        public Map<Cell, Pair<Integer, Integer>> getCellList() {
             return null;
         }
     };
@@ -74,7 +75,7 @@ public class PlayerManagerImplTest {
         PlayerController p1 = new CpuPlayerController(state, view, new CharacterImpl(1, "Franco", gridMock), Difficulty.HARD);
         PlayerController p2 = new CpuPlayerController(state, view, new CharacterImpl(2, "Alberto", gridMock), Difficulty.NORMAL);
         PlayerController p3 = new CpuPlayerController(state, view, new CharacterImpl(3, "CPU1", gridMock), Difficulty.EASY);
-        manager = new TurnManagerImpl(defaultDice, rewardDice, 5, Set.of(p1, p2, p3));
+        manager = new TurnManagerImpl(defaultDice, rewardDice, 5, Set.of(p1, p2, p3), state);
     }
 
     @Test
