@@ -9,6 +9,8 @@ public abstract class AbstractGameObject implements GameObject {
     private int y;
     private int speedX;
     private int speedY;
+    private int accX;
+    private int accY;
 
     public AbstractGameObject(final int x, final int y, final int width, final int height) {
         this.x = x;

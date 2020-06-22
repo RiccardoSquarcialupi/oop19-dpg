@@ -18,25 +18,34 @@ public class WorldImpl implements World {
 
     private static final int GRAVITY = 1;
 
+    private int score = 0;
     private Player player;
-    private List<Platform> platforms;
+    private PlatformSpawner spawner;
     private boolean gameOver;
 
     public WorldImpl() {
         gameOver = false;
-        player = new Player(PLAYER_SIZE, WIDTH/2 - 2*UNIT, PLAYER_SIZE, GRAVITY);
-        platforms = new ArrayList<>();
-        platforms.add(new Platform(WIDTH/2 - 3*UNIT,8*UNIT, PLATFORM_WIDTH, PLATFORM_HEIGHT, 0));
+        player = new Player(PLAYER_SIZE, WIDTH/2 - 2*UNIT, PLAYER_SIZE, GRAVITY, 20);
+        spawner = new PlatformSpawnerImpl(WIDTH, PLATFORM_WIDTH, PLATFORM_HEIGHT);
     }
 
     @Override
     public void update() {
         player.updatePosition();
-        platforms.forEach(p -> {
-            checkCollisionWithPlatform(p);
-            p.setSpeedY(-player.getSpeedY()/2);
-            p.updatePosition();
-        });
+
+        spawner.getPlatforms().forEach(this::checkCollisionWithPlatform);
+        if(player.getPosition().getRight() >= HEIGHT/3 && player.getSpeedY() > 0) {
+            spawner.getPlatforms().forEach(p -> {
+                p.setSpeedY(-player.getSpeedY());
+                p.updatePosition();
+            });
+        }
+
+        spawner.updatePlatformsGeneration();
+
+        if(player.getPosition().getRight() <= 0 || player.getPosition().getLeft() <= 0 || player.getPosition().getLeft() + player.getWidth() >= WIDTH) {
+            gameOver = true;
+        }
     }
 
     @Override
@@ -55,26 +64,18 @@ public class WorldImpl implements World {
     }
 
     @Override
-    public Map<Integer, Pair<Integer, Integer>> getPlatformsPositions() {
-        return platforms.stream()
-                .collect(Collectors.toMap(Platform::getId, Platform::getPosition));
-    }
-
-    @Override
-    public Map<Integer, Integer> getPlatformsWidth() {
-        return platforms.stream()
-                .collect(Collectors.toMap(Platform::getId, Platform::getWidth));
-    }
-
-    @Override
-    public Map<Integer, Integer> getPlatformsHeight() {
-        return platforms.stream()
-                .collect(Collectors.toMap(Platform::getId, Platform::getHeight));
+    public List<Platform> getPlatforms() {
+        return new ArrayList<>(spawner.getPlatforms());
     }
 
     @Override
     public void setPlayerSpeedX(final int speedX) {
         player.setSpeedX(speedX);
+    }
+
+    @Override
+    public int getScore() {
+        return score;
     }
 
     @Override
@@ -88,21 +89,23 @@ public class WorldImpl implements World {
     }
 
     private void checkCollisionWithPlatform(final Platform p) {
-        int playerLeftSide = player.getPosition().getLeft();
-        int playerRightSide = player.getPosition().getLeft() + player.getWidth();
-        int playerBottomSide = player.getPosition().getRight() - player.getHeight();
+        if(p.doesExist()) {
+            int playerLeftSide = player.getPosition().getLeft();
+            int playerRightSide = player.getPosition().getLeft() + player.getWidth();
+            int playerBottomSide = player.getPosition().getRight() - player.getHeight();
 
-        int platformLeftSide = p.getPosition().getLeft();
-        int platformRightSide = p.getPosition().getLeft() + p.getWidth();
-        int platformTopSide = p.getPosition().getRight();
-        int platformBottomSide = p.getPosition().getRight() - p.getHeight();
+            int platformLeftSide = p.getPosition().getLeft();
+            int platformRightSide = p.getPosition().getLeft() + p.getWidth();
+            int platformTopSide = p.getPosition().getRight();
+            int platformBottomSide = p.getPosition().getRight() - p.getHeight();
 
-        if(player.getSpeedY() < 0 &&
-                playerRightSide > platformLeftSide && playerLeftSide < platformRightSide &&
-                playerBottomSide <= platformTopSide && playerBottomSide >= platformBottomSide
-        )
-        {
-            player.setSpeedY(25);
+            if (player.getSpeedY() < 0 &&
+                    playerRightSide > platformLeftSide && playerLeftSide < platformRightSide &&
+                    playerBottomSide <= platformTopSide && playerBottomSide >= platformBottomSide
+            ) {
+                player.setSpeedY(18);
+                score++;
+            }
         }
     }
 }

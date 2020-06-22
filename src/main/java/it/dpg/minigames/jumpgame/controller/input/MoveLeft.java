@@ -5,6 +5,6 @@ import it.dpg.minigames.jumpgame.model.World;
 public class MoveLeft implements Input {
     @Override
     public void execute(World world) {
-        world.setPlayerSpeedX(-5);
+        world.setPlayerSpeedX(-12);
     }
 }

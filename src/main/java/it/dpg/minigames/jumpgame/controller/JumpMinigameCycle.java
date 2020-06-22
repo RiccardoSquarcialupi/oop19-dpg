@@ -3,7 +3,6 @@ package it.dpg.minigames.jumpgame.controller;
 import it.dpg.minigames.base.controller.MinigameCycle;
 import it.dpg.minigames.jumpgame.controller.input.Input;
 import it.dpg.minigames.jumpgame.controller.input.InputObserver;
-import it.dpg.minigames.jumpgame.model.Player;
 import it.dpg.minigames.jumpgame.model.World;
 import it.dpg.minigames.jumpgame.model.WorldImpl;
 import it.dpg.minigames.jumpgame.view.JumpMinigameView;
@@ -13,6 +12,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class JumpMinigameCycle implements MinigameCycle, InputObserver {
+
+    private static final long FPS = 40;
+    private static final double PERIOD = (1d/FPS)*1000;
 
     private JumpMinigameView view;
     private World world;
@@ -31,11 +33,11 @@ public class JumpMinigameCycle implements MinigameCycle, InputObserver {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
 
-        long lastTime = System.currentTimeMillis();
         long currentTime;
+        long lastTime = System.currentTimeMillis();
         long total = 0;
 
         while(!world.isGameOver()) {
@@ -49,7 +51,9 @@ public class JumpMinigameCycle implements MinigameCycle, InputObserver {
 
             lastTime = currentTime;
         }
-        return 0;
+
+        view.closeView();
+        return world.getScore();
     }
 
     @Override
@@ -63,23 +67,22 @@ public class JumpMinigameCycle implements MinigameCycle, InputObserver {
         view.setGameSize(world.getWidth(), world.getHeight());
 
         view.createPlayer(world.getPlayerPosition().getLeft(), world.getPlayerPosition().getRight(), world.getPlayerSize());
-        world.getPlatformsPositions().forEach(
-                (id, pos) -> view.createPlatform(pos.getLeft(), pos.getRight(), world.getPlatformsWidth().get(id), world.getPlatformsHeight().get(id), id)
-        );
     }
 
     private void render() {
         Pair<Integer, Integer> positions = world.getPlayerPosition();
         view.updatePlayer(positions.getLeft(), positions.getRight());
-        world.getPlatformsPositions().forEach(
-                (id, pos) -> view.updatePlatform(pos.getLeft(), pos.getRight(), id)
+        view.updateScore(world.getScore());
+        world.getPlatforms().forEach(
+                plat -> view.updatePlatform(
+                        plat.getPosition().getLeft(),
+                        plat.getPosition().getRight(),
+                        plat.getWidth(),
+                        plat.getHeight(),
+                        plat.getId(),
+                        plat.doesExist()
+                )
         );
-    }
-
-    private void update() {
-        processInput();
-        world.update();
-        render();
     }
 
     private void processInput() {
@@ -87,5 +90,11 @@ public class JumpMinigameCycle implements MinigameCycle, InputObserver {
         if(i != null) {
             i.execute(world);
         }
+    }
+
+    private void update() {
+        processInput();
+        world.update();
+        render();
     }
 }

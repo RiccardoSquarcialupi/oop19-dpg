@@ -11,37 +11,53 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMinigameView {
 
-    private static final Color BG_COLOR = Color.WHITE;
     private static final Color PLAYER_COLOR = Color.BLUEVIOLET;
+    private static final Color PLATFORM_COLOR = Color.BLACK;
+
+    private static final String SCORE_TEXT = "SCORE: ";
 
     private Pane pane;
     private Rectangle player;
+    private Text scoreText;
     private Map<Integer, Rectangle> platforms = new HashMap<>();
+
+    private boolean leftPressed = false;
+    private boolean rightPressed = true;
 
     private InputObserver observer;
 
     @Override
     public Scene createScene() {
         pane = new Pane();
+        scoreText = new Text(0, 20, SCORE_TEXT.concat("0"));
+        scoreText.setFont(new Font(20));
+        pane.getChildren().add(scoreText);
+
         Scene scene = new Scene(pane);
 
         scene.setOnKeyPressed(k -> {
-            if(k.getCode() == KeyCode.LEFT) {
+            if(k.getCode() == KeyCode.LEFT && !leftPressed) {
                 observer.notifyInput(new MoveLeft());
-            } else if(k.getCode() == KeyCode.RIGHT) {
+                leftPressed = true;
+            } else if(k.getCode() == KeyCode.RIGHT && !rightPressed) {
                 observer.notifyInput(new MoveRight());
+                rightPressed = true;
             }
         });
 
         scene.setOnKeyReleased(k -> {
             if(k.getCode() == KeyCode.LEFT || k.getCode() == KeyCode.RIGHT) {
                 observer.notifyInput(new StopMovement());
+                leftPressed = false;
+                rightPressed = false;
             }
         });
 
@@ -66,17 +82,6 @@ public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMi
     }
 
     @Override
-    public void createPlatform(int x, int y, int width, int height, int id) {
-        Platform.runLater(() -> {
-            Rectangle r = new Rectangle(width, height, Color.BLACK);
-            r.setX(x);
-            r.setY(mapY(y));
-            platforms.put(id, r);
-            pane.getChildren().addAll(platforms.values());
-        });
-    }
-
-    @Override
     public void updatePlayer(final int x, final int y) {
         Platform.runLater(() -> {
             if(player != null) {
@@ -89,14 +94,30 @@ public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMi
     }
 
     @Override
-    public void updatePlatform(int x, int y, int id) {
+    public void updatePlatform(final int x, final int y, final int width, final int height, final int id, final boolean exist) {
         Platform.runLater(() -> {
-            Rectangle r = platforms.get(id);
-            if(r != null) {
+            if (platforms.get(id) == null && exist) {
+                Rectangle r = new Rectangle(width, height, PLATFORM_COLOR);
                 r.setX(x);
                 r.setY(mapY(y));
+                platforms.put(id, r);
+                pane.getChildren().add(r);
+            } else if(exist) {
+                Rectangle r = platforms.get(id);
+                if (r != null) {
+                    r.setX(x);
+                    r.setY(mapY(y));
+                }
+            } else {
+                pane.getChildren().remove(platforms.get(id));
+                platforms.remove(id);
             }
         });
+    }
+
+    @Override
+    public void updateScore(int score) {
+        Platform.runLater(() -> scoreText.setText(SCORE_TEXT.concat(String.valueOf(score))));
     }
 
     @Override

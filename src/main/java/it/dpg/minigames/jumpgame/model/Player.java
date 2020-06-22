@@ -4,10 +4,10 @@ public class Player extends AbstractGameObject {
 
     private final int gravity;
 
-    public Player(final int size, final int x, final int y, final int gravity) {
+    public Player(final int size, final int x, final int y, final int gravity, final int startingSpeed) {
         super(x, y, size, size);
         this.gravity = gravity;
-        this.setSpeedY(20);
+        this.setSpeedY(startingSpeed);
     }
 
     @Override

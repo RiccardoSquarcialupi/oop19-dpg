@@ -2,6 +2,7 @@ package it.dpg.minigames.jumpgame.model;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.List;
 import java.util.Map;
 
 public interface World {
@@ -11,8 +12,7 @@ public interface World {
     boolean isGameOver();
     Pair<Integer, Integer> getPlayerPosition();
     int getPlayerSize();
-    Map<Integer, Pair<Integer, Integer>> getPlatformsPositions();
-    Map<Integer, Integer> getPlatformsWidth();
-    Map<Integer, Integer> getPlatformsHeight();
+    List<Platform> getPlatforms();
     void setPlayerSpeedX(final int speedX);
+    int getScore();
 }
