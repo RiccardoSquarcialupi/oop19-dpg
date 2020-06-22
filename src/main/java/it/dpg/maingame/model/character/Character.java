@@ -16,7 +16,7 @@ public interface Character {
     Set<Pair<Integer, Integer>> getAdjacentPositions();
     CellType getCellType();
     boolean stepForward();
-    boolean stepBackward();
+    void stepBackward();
     boolean stepInDirection(final Pair<Integer, Integer> coordinates);
     void setDice(final Dice dice);
     Dice getDice();
