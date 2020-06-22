@@ -1,7 +1,7 @@
 package it.dpg.minigames.punchygame.controller.input;
 
-import it.dpg.minigames.punchygame.model.WorldImpl;
+import it.dpg.minigames.punchygame.model.World;
 
 public interface Input {
-    boolean execute(WorldImpl world);
+    boolean execute(World world);
 }
