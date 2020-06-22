@@ -6,6 +6,7 @@ import it.dpg.maingame.controller.gamecycle.GameCycle;
 import it.dpg.maingame.launcher.Main;
 import it.dpg.maingame.model.character.Dice;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -25,9 +27,10 @@ import java.util.*;
 
 public class GridViewImpl implements GridView {
 
-    private static Stage pStage;
+    private static Stage pStage = Main.getPrimaryStage();
     public Scene scene;
     private GridObserver obs;
+    private Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 
     public int movesLeft;
     public String currentPlayer;
@@ -52,8 +55,8 @@ public class GridViewImpl implements GridView {
     private ViewNodesFactory nodes = new ViewNodesFactoryImpl();
 
     //these integers are constants that modify the position of a graphic element based on their coordinates
-    private int Xmodifier = 130;
-    private int Ymodifier = 100;
+    private double Xmodifier = screenBounds.getWidth()/15;
+    private double Ymodifier = screenBounds.getHeight()/12;
 
     public GridViewImpl(GameCycle gameCycle) {
         this.obs = new GridObserverImpl(gameCycle);
@@ -84,8 +87,8 @@ public class GridViewImpl implements GridView {
         flowPane.setMaxWidth(circle.getRadius()*2);
         flowPane.setMaxHeight(circle.getRadius()*2);
         circlePane.getChildren().addAll(circle, flowPane);
-        int left = coordinates.getLeft() * Xmodifier;
-        int right = coordinates.getRight() * Ymodifier;
+        double left = coordinates.getLeft() * Xmodifier;
+        double right = coordinates.getRight() * Ymodifier;
         circlePane.setLayoutX(left);
         circlePane.setLayoutY(right);
         circlePane.setAlignment(Pos.CENTER);
@@ -150,7 +153,7 @@ public class GridViewImpl implements GridView {
         root.setTop(upperGroup);
         root.setCenter(sp);
 
-        scene = new Scene(root, 1500, 1000, Color.AQUAMARINE);
+        scene = new Scene(root, screenBounds.getWidth()/2, screenBounds.getHeight()/2, Color.AQUAMARINE);
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
                 obs.KeyPressHandler();
@@ -161,8 +164,8 @@ public class GridViewImpl implements GridView {
 
     @Override
     public void setView() {
-        pStage = Main.getPrimaryStage();
         pStage.setScene(this.scene);
+        pStage.setMaximized(true);
     }
 
     @Override
@@ -193,10 +196,11 @@ public class GridViewImpl implements GridView {
         //the method searches for the wanted fork inside the map, and creates and places buttons to the corresponding fork cells inside the Grid
         for (var i : cells) {
             Button button = new Button();
-            button.setShape(new Circle(4));
-            button.setMinSize(40, 40);
-            button.setLayoutX(i.getLeft() * Xmodifier+20);
-            button.setLayoutY(i.getRight() * Ymodifier+20);
+            button.setShape(new Circle(Xmodifier/5));
+            button.setPrefWidth(Xmodifier/3);
+            button.setPrefHeight(Xmodifier/3);
+            button.setLayoutX(i.getLeft() * Xmodifier+Xmodifier/7);
+            button.setLayoutY(i.getRight() * Ymodifier+Xmodifier/7);
             String arrow = "|\nV";
             button.setText(arrow);
             button.setTextAlignment(TextAlignment.CENTER);

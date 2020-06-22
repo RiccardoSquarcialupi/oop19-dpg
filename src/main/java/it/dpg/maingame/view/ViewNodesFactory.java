@@ -25,5 +25,5 @@ public interface ViewNodesFactory {
     /**
      * generates a group of lines based on the cells
      */
-    Group generateLines(Map<StackPane, Set<Pair<Integer, Integer>>> cellsList, int modifierX, int modifierY);
+    Group generateLines(Map<StackPane, Set<Pair<Integer, Integer>>> cellsList, double modifierX, double modifierY);
 }
