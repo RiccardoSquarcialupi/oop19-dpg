@@ -14,7 +14,7 @@ public class BallEnvironmentImpl implements BallEnvironment {
     private double timePassed = 0;
 
     public BallEnvironmentImpl(double startX, double startY, double radius, Set<Boundary> boundaries, int expectedFPS, int maxScore) {
-        this.ball = new Ball(radius, startX, startY, 15, 7, 20);
+        this.ball = new Ball(radius, startX, startY, 18, 9, 22);
         this.boundaries = boundaries;
         this.deltaT = 1d / expectedFPS;
         this.maxScore = maxScore;
