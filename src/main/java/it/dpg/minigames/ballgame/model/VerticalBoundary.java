@@ -18,7 +18,7 @@ public class VerticalBoundary extends AbstractBoundary {
     }
 
     @Override
-    public boolean isColliding(double ballCenterX, double ballCenterY, double ballRadius) {
+    public boolean isBallColliding(double ballCenterX, double ballCenterY, double ballRadius) {
         checkCoordinate(ballCenterX);
         checkCoordinate(ballCenterY);
         double minY = Math.min(start.getY(), end.getY());

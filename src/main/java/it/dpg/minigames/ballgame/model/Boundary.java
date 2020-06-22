@@ -40,7 +40,7 @@ public interface Boundary {
      * @param ballRadius  radius value of the ball
      * @return true if a collision is detected with a ball of the specified characteristics
      */
-    boolean isColliding(double ballCenterX, double ballCenterY, double ballRadius);
+    boolean isBallColliding(double ballCenterX, double ballCenterY, double ballRadius);
 
     /**
      * @return the type of collision the boundary provides
