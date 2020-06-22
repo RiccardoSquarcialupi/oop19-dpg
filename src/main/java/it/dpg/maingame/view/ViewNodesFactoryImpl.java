@@ -1,6 +1,7 @@
 package it.dpg.maingame.view;
 
 import javafx.scene.Group;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -37,7 +38,7 @@ public class ViewNodesFactoryImpl implements ViewNodesFactory {
     }
 
     @Override
-    public Group generateLines(Map<Circle, Set<Pair<Integer, Integer>>> cellsList, int modifierX, int modifierY) {
+    public Group generateLines(Map<StackPane, Set<Pair<Integer, Integer>>> cellsList, int modifierX, int modifierY) {
 
         Group linesGroup = new Group();
         for (var i : cellsList.entrySet()) {
@@ -45,10 +46,10 @@ public class ViewNodesFactoryImpl implements ViewNodesFactory {
                 Line line = new Line();
                 line.setStroke(Color.FORESTGREEN);
                 line.setStrokeWidth(10);
-                line.setStartX(i.getKey().getLayoutX());
-                line.setStartY(i.getKey().getLayoutY());
-                line.setEndX(j.getLeft() * modifierX);
-                line.setEndY(j.getRight() * modifierY);
+                line.setStartX(i.getKey().getLayoutX()+40);
+                line.setStartY(i.getKey().getLayoutY()+40);
+                line.setEndX(j.getLeft() * modifierX+40);
+                line.setEndY(j.getRight() * modifierY+40);
                 linesGroup.getChildren().add(line);
             }
         }

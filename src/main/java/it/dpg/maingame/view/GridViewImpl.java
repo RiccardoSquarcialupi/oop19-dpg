@@ -18,6 +18,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
@@ -41,16 +42,18 @@ public class GridViewImpl implements GridView {
     Button diceButton = new Button("Dice");
 
     //this map keeps track of the various cells (by graphic representation) and the coordinates of the cells connected to the Key Cell
-    private Map<Circle, Set<Pair<Integer, Integer>>> circlesList = new LinkedHashMap<>();
+    private Map<StackPane, Set<Pair<Integer, Integer>>> circlesList = new LinkedHashMap<>();
+    //this map keeps track of each Cell gridPane by its coordinates
+    private Map<Pair<Integer, Integer>, FlowPane> gridsList = new LinkedHashMap<>();
 
-    //this map keeps track of the player'id and corresponding graphic representation
-    private Map<Integer, Rectangle> playerList = new LinkedHashMap<>();
+    //this map keeps track of the player'id, its corresponding graphic representation and the cell gridPane where it is sitting
+    private Map<Integer, Pair<Rectangle, FlowPane>> playerList = new LinkedHashMap<>();
 
     private ViewNodesFactory nodes = new ViewNodesFactoryImpl();
 
     //these integers are constants that modify the position of a graphic element based on their coordinates
     private int Xmodifier = 130;
-    private int Ymodifier = 90;
+    private int Ymodifier = 100;
 
     public GridViewImpl(GameCycle gameCycle) {
         this.obs = new GridObserverImpl(gameCycle);
@@ -72,12 +75,23 @@ public class GridViewImpl implements GridView {
             circle = nodes.generateCell(Color.WHITE);
         }
 
+        /* A new StackPane is created to keep the Circle and the associated GridPane where the Players will sit */
+        StackPane circlePane = new StackPane();
+        FlowPane flowPane = new FlowPane();
+        flowPane.setAlignment(Pos.CENTER);
+        flowPane.setVgap(5);
+        flowPane.setHgap(5);
+        flowPane.setMaxWidth(circle.getRadius()*2);
+        flowPane.setMaxHeight(circle.getRadius()*2);
+        circlePane.getChildren().addAll(circle, flowPane);
         int left = coordinates.getLeft() * Xmodifier;
         int right = coordinates.getRight() * Ymodifier;
-        circle.setLayoutX(left);
-        circle.setLayoutY(right);
+        circlePane.setLayoutX(left);
+        circlePane.setLayoutY(right);
+        circlePane.setAlignment(Pos.CENTER);
 
-        circlesList.put(circle, nextCells);
+        gridsList.put(coordinates, flowPane);
+        circlesList.put(circlePane, nextCells);
 
     }
 
@@ -181,8 +195,8 @@ public class GridViewImpl implements GridView {
             Button button = new Button();
             button.setShape(new Circle(4));
             button.setMinSize(40, 40);
-            button.setLayoutX(i.getLeft() * Xmodifier - 20);
-            button.setLayoutY(i.getRight() * Ymodifier - 20);
+            button.setLayoutX(i.getLeft() * Xmodifier+20);
+            button.setLayoutY(i.getRight() * Ymodifier+20);
             String arrow = "|\nV";
             button.setText(arrow);
             button.setTextAlignment(TextAlignment.CENTER);
@@ -203,27 +217,29 @@ public class GridViewImpl implements GridView {
     @Override
     public void updatePlayers(Map<Integer, Pair<Integer, Integer>> players) {
 
-        int playerMod = 0;  //player modifier is a modifier that changes every time more than one player sit on the same Cell
         if (playerList.isEmpty()) {
             //if there's still no players, they are generated
             for (var i : players.entrySet()) {
                 Rectangle playerSquare = nodes.generatePlayer(i.getKey());
-                playerList.put(i.getKey(), playerSquare);
-                gridGroup.getChildren().add(playerSquare);
+                FlowPane fp = gridsList.get(i.getValue());
+                fp.getChildren().add(playerSquare);
+                playerList.put(i.getKey(), new ImmutablePair<>(playerSquare, fp));
             }
         }
 
-        //the players are placed in the grid by coordinates, which are the ones passed through @param; they are modified to fit nicely and avoid overlapping
+        //the Players are added and removed to the gridPane corresponding to the Cell where the player is supposed to sit and from the old GridPane it was sitting on
         for (var j : players.entrySet()) {
-            playerList.get(j.getKey()).setLayoutX(j.getValue().getLeft() * Xmodifier + playerMod);
-            playerList.get(j.getKey()).setLayoutY(j.getValue().getRight() * Ymodifier);
-            for (var k : players.entrySet()) {
-                //this cycle counts how many player sit on the same cell, to apply a modifier accordingly
-                if (j.getValue().equals(k.getValue())) {
-                    playerMod = j.getKey() * 35;
-                    break;
-                }
-            }
+            Rectangle playerP = playerList.get(j.getKey()).getLeft();
+            FlowPane oldFlow = playerList.get(j.getKey()).getRight();
+
+            //searches for the corresponding rectangle and removes it from the old grid pane
+            oldFlow.getChildren().remove(playerP);
+
+            //adds the rectangle to the new Grid Pane (according to the @param coordinates)
+            FlowPane newFlow = gridsList.get(j.getValue());
+            newFlow.getChildren().add(playerP);
+            //adds the new grid to the players list modifying the existing key
+            playerList.put(j.getKey(), new ImmutablePair<>(playerP, newFlow));
         }
 
     }
