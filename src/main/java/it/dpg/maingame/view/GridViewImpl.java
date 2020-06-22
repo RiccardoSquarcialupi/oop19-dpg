@@ -44,7 +44,7 @@ public class GridViewImpl implements GridView {
     Button diceButton = new Button("Dice");
 
     //this map keeps track of the various cells (by graphic representation) and the coordinates of the cells connected to the Key Cell
-    private Map<Circle, Set<Pair<Integer, Integer>>> circlesList = new LinkedHashMap<>();
+    private Map<StackPane, Set<Pair<Integer, Integer>>> circlesList = new LinkedHashMap<>();
     //this map keeps track of each Cell gridPane by its coordinates
     private Map<Pair<Integer, Integer>, GridPane> gridsList = new LinkedHashMap<>();
 
@@ -77,18 +77,17 @@ public class GridViewImpl implements GridView {
             circle = nodes.generateCell(Color.WHITE);
         }
 
-        int left = coordinates.getLeft() * Xmodifier;
-        int right = coordinates.getRight() * Ymodifier;
-        circle.setLayoutX(left);
-        circle.setLayoutY(right);
-
         /* A new StackPane is created to keep the Circle and the associated GridPane where the Players will sit */
         StackPane circlePane = new StackPane();
         GridPane gridPane = new GridPane();
         circlePane.getChildren().addAll(circle, gridPane);
+        int left = coordinates.getLeft() * Xmodifier;
+        int right = coordinates.getRight() * Ymodifier;
+        circlePane.setLayoutX(left);
+        circlePane.setLayoutY(right);
 
         gridsList.put(coordinates, gridPane);
-        circlesList.put(circle, nextCells);
+        circlesList.put(circlePane, nextCells);
 
     }
 
