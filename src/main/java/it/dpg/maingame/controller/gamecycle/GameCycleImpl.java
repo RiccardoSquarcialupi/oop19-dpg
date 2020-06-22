@@ -64,7 +64,12 @@ public class GameCycleImpl implements GameCycle {
                     view.closeView();
                     return;
                 }
-                //events control
+                if (currentPlayer.getCharacter().getCellType().equals(CellType.GO_BACK)) {
+                    view.showText(currentPlayer.getCharacter().getName() + " ended up on a red cell \nand fell one step backwards");
+                    sleepMillis(1500);
+                    currentPlayer.getCharacter().stepBackward();
+                    updatePlayersInView();
+                }
             }
             turnRemaining = turnManager.hasNextTurn();
             if (turnManager.hasNextTurn()) {
@@ -138,7 +143,7 @@ public class GameCycleImpl implements GameCycle {
 
     private void displayMinigameResults() {
         StringBuilder results = new StringBuilder();
-        for(PlayerController p : turnManager.getPlayers()) {
+        for (PlayerController p : turnManager.getPlayers()) {
             results.append(p.getCharacter().getName()).append(" won a ").append(p.getCharacter().getDice()).append("\n");
         }
         waitNextStep(results.toString());

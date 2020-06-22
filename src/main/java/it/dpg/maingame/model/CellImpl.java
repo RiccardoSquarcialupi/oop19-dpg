@@ -24,7 +24,6 @@ public class CellImpl implements Cell {
         return this.isAFork;
     }
 
-    @Override
     public void setNext(Set<Cell> next) {
         this.nextCell = next;
     }
@@ -44,7 +43,6 @@ public class CellImpl implements Cell {
         return this.type;
     }
 
-    @Override
     public void setPrevious(Cell previous) {
         this.previous = previous;
     }
