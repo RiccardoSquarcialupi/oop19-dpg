@@ -10,13 +10,12 @@ import it.dpg.minigames.molegame.view.HitTheMoleViewImpl;
 
 public class MoleMiniGame extends AbstractMinigame {
 
-    private final int maxScore = 60;
-    private HitTheMoleView view;
-    private HitTheMoleCycle cycle;
+    private final int maxScore = 27;
+    private HitTheMoleCycle cycle = new HitTheMoleCycleImpl();
+    private HitTheMoleView view = new HitTheMoleViewImpl(cycle);
+
 
     public MoleMiniGame() {
-        cycle = new HitTheMoleCycleImpl();
-        view = new HitTheMoleViewImpl(cycle);
     }
 
     @Override
@@ -26,13 +25,11 @@ public class MoleMiniGame extends AbstractMinigame {
 
     @Override
     public MinigameView createView() {
-
         return view;
     }
 
     @Override
     public MinigameCycle createCycle() {
-
         return cycle;
     }
 }
