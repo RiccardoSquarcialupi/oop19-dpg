@@ -113,7 +113,7 @@ public class MenuGUI implements MenuView {
         Stage optionStage = new Stage();
         ObservableList<Integer> listNumPlayer = FXCollections.observableArrayList(1, 2, 3, 4);
         ObservableList<Integer> listNumAI = FXCollections.observableArrayList(0, 1, 2, 3, 4);
-        ObservableList<Difficulty> listDifficultyAI = FXCollections.observableArrayList(Difficulty.EASY, Difficulty.NORMAL, Difficulty.HARD, Difficulty.CRAZY);
+        ObservableList<Difficulty> listDifficultyAI = FXCollections.observableArrayList(Difficulty.EASY, Difficulty.NORMAL, Difficulty.HARD);
 
         List<ComboBox<Difficulty>> listDifficulty = new ArrayList<>();
         listDifficulty.add(0, new ComboBox<>(listDifficultyAI));
