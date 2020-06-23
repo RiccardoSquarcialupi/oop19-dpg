@@ -36,13 +36,13 @@ public class WorldImpl implements World {
     public void update() {
         player.updatePosition();
 
-        spawner.getPlatforms().forEach(this::checkCollisionWithPlatform);
         if(player.getPosition().getRight() >= HEIGHT/3 && player.getSpeedY() > 0) {
             spawner.getPlatforms().forEach(p -> {
                 p.setSpeedY(-player.getSpeedY());
                 p.updatePosition();
             });
         }
+        spawner.getPlatforms().forEach(this::checkCollisionWithPlatform);
 
         spawner.updatePlatformsGeneration();
 
@@ -89,6 +89,10 @@ public class WorldImpl implements World {
     @Override
     public int getHeight() {
         return HEIGHT;
+    }
+
+    public int getPlayerSpeedY() {
+        return player.getSpeedY();
     }
 
     private void checkCollisionWithPlatform(final Platform p) {

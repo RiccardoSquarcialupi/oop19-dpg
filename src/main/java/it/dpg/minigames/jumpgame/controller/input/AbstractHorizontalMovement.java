@@ -10,7 +10,7 @@ import it.dpg.minigames.jumpgame.model.World;
 public abstract class AbstractHorizontalMovement implements Input {
     @Override
     public void execute(World world) {
-        world.setPlayerSpeedX(0);
+        world.setPlayerSpeedX(getHorizontalMovementSpeed());
     }
 
     /**
