@@ -1,5 +1,9 @@
 package it.dpg.maingame.controller.menu;
 
+import it.dpg.maingame.controller.gamecycle.GameCycle;
+import it.dpg.maingame.controller.gamecycle.GameCycleBuilder;
+import it.dpg.maingame.controller.gamecycle.GameCycleBuilderImpl;
+import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.model.character.Difficulty;
 
 import java.util.HashMap;
@@ -77,5 +81,36 @@ public class MenuControllerImpl implements MenuController {
     public void setAIDifficulty(Integer whichAI, Difficulty dif) {
         mapAI.replace("AI" + (whichAI + 1), dif);
         System.out.println(mapAI.toString());
+    }
+
+    /**
+     * initialize the game with input parameters from option
+     */
+    @Override
+    public void startGame() {
+        GameCycleBuilder gb = new GameCycleBuilderImpl();
+
+        Map<String, Difficulty> mpAI = new HashMap<>(getOptionsAI());
+
+        Map<Integer, String> mpPlayer = new HashMap<>(getOptionsPlayer());
+
+        for(var ai : mpAI.entrySet()){
+            gb.addCpu(ai.getKey(),ai.getValue());
+        }
+        for(var pl : mpPlayer.entrySet()){
+            gb.addHumanPlayer(pl.getValue());
+        }
+        gb.addRewardDice(Dice.D10);
+        gb.addRewardDice(Dice.D8);
+        gb.addRewardDice(Dice.D6);
+        gb.addRewardDice(Dice.D4);
+
+        gb.setDefaultDice(Dice.D6);
+        gb.setNTurns(10);
+
+        GameCycle gs = gb.build();
+
+        gs.startGameCycle();
+
     }
 }
