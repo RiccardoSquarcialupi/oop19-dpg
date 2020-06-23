@@ -1,5 +1,11 @@
 package it.dpg.minigames.punchygame.model;
 
+/**
+ * Basic implementation of Timer
+ * @author Davide Picchiotti
+ * @see Timer
+ * */
+
 public class TimerImpl implements Timer {
 
     private float timeLeft;

@@ -1,5 +1,10 @@
 package it.dpg.minigames.jumpgame.model;
 
+/**
+ * Class that models the player
+ * @author Davide Picchiotti
+ * */
+
 public class Player extends AbstractGameObject {
 
     private final int gravity;

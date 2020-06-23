@@ -4,6 +4,12 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Abstract implementation of MinigameView
+ * @author Davide Picchiotti
+ * @see MinigameView
+ * */
+
 public abstract class AbstractMinigameView implements MinigameView {
 
     private Stage stage;
@@ -28,5 +34,8 @@ public abstract class AbstractMinigameView implements MinigameView {
         });
     }
 
+    /**
+     * Create the scene to set on the view
+     * */
     public abstract Scene createScene();
 }

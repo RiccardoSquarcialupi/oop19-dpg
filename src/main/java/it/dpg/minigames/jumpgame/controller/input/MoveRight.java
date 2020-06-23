@@ -1,10 +1,13 @@
 package it.dpg.minigames.jumpgame.controller.input;
 
-import it.dpg.minigames.jumpgame.model.World;
+/**
+ * Implementation of Input that moves the player to the right
+ * @author Davide Picchiotti
+ * */
 
-public class MoveRight implements Input {
+public class MoveRight extends AbstractHorizontalMovement {
     @Override
-    public void execute(World world) {
-        world.setPlayerSpeedX(12);
+    public int getHorizontalMovementSpeed() {
+        return 12;
     }
 }

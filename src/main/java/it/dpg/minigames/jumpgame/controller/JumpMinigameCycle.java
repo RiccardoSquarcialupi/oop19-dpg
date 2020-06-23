@@ -11,6 +11,14 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * This class serves as InputObserver and MinigameCycle for JumpMinigame
+ * @author Davide Picchiotti
+ * @see it.dpg.minigames.jumpgame.JumpMinigame
+ * @see MinigameCycle
+ * @see InputObserver
+ * */
+
 public class JumpMinigameCycle implements MinigameCycle, InputObserver {
 
     private static final double PERIOD = 20;

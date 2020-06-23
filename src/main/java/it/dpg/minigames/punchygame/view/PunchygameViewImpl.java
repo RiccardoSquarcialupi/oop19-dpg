@@ -24,6 +24,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Implementation for PunchygameView and extension of AbstractMinigameView,
+ * that represents the entire view for PunchyMinigame
+ * @author Davide Picchiotti
+ * @see AbstractMinigameView
+ * @see PunchygameView
+ * @see it.dpg.minigames.punchygame.PunchyMinigame
+ * */
+
 public class PunchygameViewImpl extends AbstractMinigameView implements PunchygameView {
 
     private static final double WIDTH = 1200;

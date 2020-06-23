@@ -1,10 +1,14 @@
 package it.dpg.minigames.jumpgame.model;
 
+/**
+ * Class that models a platform for the player to jump on
+ * @author Davide Picchiotti
+ * */
+
 public class Platform extends AbstractGameObject {
 
     private final int id;
     private boolean exist = true;
-    private boolean hit = false;
 
     public Platform(final int x, final int y, final int width, final int height, final int id) {
         super(x, y, width, height);
@@ -21,13 +25,5 @@ public class Platform extends AbstractGameObject {
 
     public void destroy() {
         exist = false;
-    }
-
-    public void hit() {
-        hit = true;
-    }
-
-    public boolean isHit() {
-        return hit;
     }
 }

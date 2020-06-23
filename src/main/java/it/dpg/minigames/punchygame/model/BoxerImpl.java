@@ -1,5 +1,11 @@
 package it.dpg.minigames.punchygame.model;
 
+/**
+ * Basic implementation of Boxer
+ * @author Davide Picchiotti
+ * @see Boxer
+ * */
+
 public class BoxerImpl implements Boxer {
 
     private Direction direction;

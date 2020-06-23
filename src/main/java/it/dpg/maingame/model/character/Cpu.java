@@ -2,19 +2,28 @@ package it.dpg.maingame.model.character;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+/**
+ * Interface representing a cpu that controls a character on the grid
+ * @see Character
+ * @author Davide Picchiotti
+ * */
+
 public interface Cpu {
     /**
-     * get the character controlled by this cpu
+     * @return the character controlled by this cpu
+     * @see Character
      * */
     Character getControlledCharacter();
 
     /**
-     * get the difficulty of this cpu
+     * @return the difficulty of this cpu
+     * @see Difficulty
      * */
     Difficulty getDifficulty();
 
     /**
-     * get a random direction adjacent to the character controlled by this cpu
+     * @return  a random direction adjacent to the character controlled by this cpu
+     * @see Pair
      * */
     Pair<Integer, Integer> getRandomDirection();
 }

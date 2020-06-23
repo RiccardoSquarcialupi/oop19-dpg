@@ -5,6 +5,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+/**
+ * Basic implementation of PlatformSpawner
+ * @author Davide Picchiotti
+ * @see PlatformSpawner
+ * */
+
 public class PlatformSpawnerImpl implements PlatformSpawner {
 
     private List<Platform> platforms;

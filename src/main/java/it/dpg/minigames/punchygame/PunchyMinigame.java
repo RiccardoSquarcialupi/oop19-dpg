@@ -7,6 +7,12 @@ import it.dpg.minigames.punchygame.controller.PunchygameCycle;
 import it.dpg.minigames.punchygame.view.PunchygameView;
 import it.dpg.minigames.punchygame.view.PunchygameViewImpl;
 
+/**
+ * Minigame in which the players use the directional arrow left and right
+ * to punch boxing sacks that approaches with each correct punch
+ * @author Davide Picchiotti
+ * */
+
 public class PunchyMinigame extends AbstractMinigame {
 
     private PunchygameView view = new PunchygameViewImpl();
