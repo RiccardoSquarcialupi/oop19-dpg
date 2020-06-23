@@ -31,7 +31,7 @@ public class GridViewTest extends Application {
     public void start(Stage stage) {
 
         /*
-        Test doesn't work because the stages are different;
+         * This test runs when a different stage is set. Now the stage is the same of Main.
          */
 
         /*
@@ -64,6 +64,7 @@ public class GridViewTest extends Application {
         view.updatePlayers(players);
 
         view.enableDiceThrow(Dice.D8);
+        view.disableDiceThrow();
 
 
          */
