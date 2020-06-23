@@ -1,7 +1,7 @@
-package it.dpg.maingame.controller;
+package it.dpg.maingame.controller.grid;
 
-import it.dpg.maingame.model.Grid;
-import it.dpg.maingame.view.GridView;
+import it.dpg.maingame.model.grid.Grid;
+import it.dpg.maingame.view.grid.GridView;
 import org.apache.commons.lang3.tuple.Pair;
 
 public interface GridViewGenerator {

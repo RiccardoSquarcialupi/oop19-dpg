@@ -5,7 +5,7 @@ import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
 import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnStateImpl;
 import it.dpg.maingame.model.character.Difficulty;
-import it.dpg.maingame.view.GridView;
+import it.dpg.maingame.view.grid.GridView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import it.dpg.maingame.model.character.Character;

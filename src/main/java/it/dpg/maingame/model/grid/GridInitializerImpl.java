@@ -1,4 +1,4 @@
-package it.dpg.maingame.model;
+package it.dpg.maingame.model.grid;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -7,19 +7,13 @@ import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
 import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnStateImpl;
 import it.dpg.maingame.controller.gamecycle.playercontroller.HumanPlayerController;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
-import it.dpg.maingame.model.Cell;
-import it.dpg.maingame.model.CellType;
-import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.character.Character;
-import it.dpg.maingame.model.character.Dice;
-import it.dpg.maingame.view.GridView;
+import it.dpg.maingame.view.grid.GridView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
-import java.util.Map;
 import java.util.Set;
 
 

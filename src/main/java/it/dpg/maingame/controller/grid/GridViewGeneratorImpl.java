@@ -1,14 +1,13 @@
-package it.dpg.maingame.controller;
+package it.dpg.maingame.controller.grid;
 
 import it.dpg.maingame.controller.gamecycle.GameCycle;
-import it.dpg.maingame.model.*;
-import it.dpg.maingame.view.GridView;
-import it.dpg.maingame.view.GridViewImpl;
-import it.dpg.maingame.view.GridViewPlat;
+import it.dpg.maingame.model.grid.*;
+import it.dpg.maingame.view.grid.GridView;
+import it.dpg.maingame.view.grid.GridViewImpl;
+import it.dpg.maingame.view.grid.GridViewPlat;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;

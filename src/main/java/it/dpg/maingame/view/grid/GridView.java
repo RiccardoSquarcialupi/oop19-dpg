@@ -1,4 +1,4 @@
-package it.dpg.maingame.view;
+package it.dpg.maingame.view.grid;
 
 import it.dpg.maingame.model.character.Dice;
 import org.apache.commons.lang3.tuple.Pair;

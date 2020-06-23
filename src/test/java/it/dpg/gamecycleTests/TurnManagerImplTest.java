@@ -3,18 +3,11 @@ package it.dpg.gamecycleTests;
 import it.dpg.maingame.controller.gamecycle.playercontroller.CpuPlayerController;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.controller.gamecycle.turnmanagement.*;
-import it.dpg.maingame.model.Cell;
-import it.dpg.maingame.model.Grid;
+import it.dpg.maingame.model.grid.Grid;
 import it.dpg.maingame.model.character.*;
-import it.dpg.maingame.model.character.Character;
-import it.dpg.maingame.view.GridView;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
-import org.junit.jupiter.api.BeforeAll;
+import it.dpg.maingame.view.grid.GridView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
 import java.util.*;
 

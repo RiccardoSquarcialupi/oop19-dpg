@@ -1,7 +1,7 @@
-package it.dpg.maingame.view;
+package it.dpg.maingame.view.grid;
 
-import it.dpg.maingame.controller.GridObserver;
-import it.dpg.maingame.controller.GridObserverImpl;
+import it.dpg.maingame.controller.grid.GridObserver;
+import it.dpg.maingame.controller.grid.GridObserverImpl;
 import it.dpg.maingame.controller.gamecycle.GameCycle;
 import it.dpg.maingame.launcher.Main;
 import it.dpg.maingame.model.character.Dice;

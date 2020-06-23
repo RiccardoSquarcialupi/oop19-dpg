@@ -1,7 +1,6 @@
 package it.dpg.gridTest;
 
-import it.dpg.maingame.model.*;
-import org.apache.commons.lang3.tuple.ImmutablePair;
+import it.dpg.maingame.model.grid.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

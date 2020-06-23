@@ -1,4 +1,4 @@
-package it.dpg.maingame.controller;
+package it.dpg.maingame.controller.grid;
 
 import it.dpg.maingame.controller.gamecycle.GameCycle;
 import org.apache.commons.lang3.tuple.Pair;
