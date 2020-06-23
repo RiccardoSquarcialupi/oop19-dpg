@@ -104,13 +104,16 @@ public class NodesFactoryImpl implements NodesFactory {
 
     @Override
     public Circle createBall(BallMinigameLevel level) {
-        return new Circle(map(17.5), map(87.5), map(3), Color.RED);
+        Circle c = new Circle(map(17.5), map(87.5), map(3), Color.RED);
+        c.setId("ball_node");
+        return c;
     }
 
     @Override
     public Text createScore() {
         Text temp = new Text(map(75), map(5), "Score: 000");
         temp.setFont(new Font(map(4)));
+        temp.setId("score_node");
         return temp;
     }
 
@@ -119,6 +122,7 @@ public class NodesFactoryImpl implements NodesFactory {
         Text temp = new Text(map(35), map(52), "ready?");
         temp.setFont(Font.font("Helvetica", FontWeight.BOLD, map(10)));
         temp.setFill(Color.DARKORANGE);
+        temp.setId("ready_node");
         return temp;
     }
 
@@ -127,6 +131,7 @@ public class NodesFactoryImpl implements NodesFactory {
         Text temp = new Text(map(42), map(54), "GO!");
         temp.setFont(Font.font("Helvetica", FontWeight.BOLD, map(10)));
         temp.setFill(Color.DARKORANGE);
+        temp.setId("go_node");
         return temp;
     }
 
@@ -135,6 +140,7 @@ public class NodesFactoryImpl implements NodesFactory {
         Text temp = new Text(map(34), map(54), "GOAL!");
         temp.setFont(Font.font("Helvetica", FontWeight.BOLD, map(10)));
         temp.setFill(Color.DARKORANGE);
+        temp.setId("victory_node");
         return temp;
     }
 }

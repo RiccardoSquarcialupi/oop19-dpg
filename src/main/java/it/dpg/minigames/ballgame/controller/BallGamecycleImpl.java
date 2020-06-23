@@ -2,16 +2,16 @@ package it.dpg.minigames.ballgame.controller;
 
 import it.dpg.minigames.ballgame.model.BallMinigameModel;
 import it.dpg.minigames.ballgame.model.BallMinigameModelImpl;
-import it.dpg.minigames.ballgame.view.BallMinigameView;
+import it.dpg.minigames.ballgame.view.BallView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import java.util.concurrent.TimeUnit;
 
 public class BallGamecycleImpl implements BallGamecycle {
     private final BallMinigameModel model;
-    private final BallMinigameView view;
+    private final BallView view;
 
-    BallGamecycleImpl(BallMinigameView view, int maxScore) {
+    BallGamecycleImpl(BallView view, int maxScore) {
         this.view = view;
         this.model = new BallMinigameModelImpl(30, maxScore);
     }

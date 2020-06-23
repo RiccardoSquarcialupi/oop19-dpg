@@ -3,7 +3,7 @@ package it.dpg.minigames.ballgame.view;
 import it.dpg.minigames.ballgame.controller.BallMinigameLevel;
 import it.dpg.minigames.base.view.MinigameView;
 
-public interface BallMinigameView extends MinigameView {
+public interface BallView extends MinigameView {
 
     /**
      * display ready message

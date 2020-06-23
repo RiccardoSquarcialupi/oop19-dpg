@@ -22,9 +22,6 @@ public interface MenuView {
      */
     void exitGUI();
 
-    /**
-     * initialize the game with input parameters from option
-     */
-    void startGame();
+
 
 }
