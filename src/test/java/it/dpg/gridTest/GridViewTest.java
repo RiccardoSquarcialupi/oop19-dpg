@@ -19,13 +19,9 @@ import org.mockito.Mockito;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
-import org.w3c.dom.css.Rect;
-
-import static org.testfx.api.FxAssert.verifyThat;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @ExtendWith(ApplicationExtension.class)
 public class GridViewTest{
