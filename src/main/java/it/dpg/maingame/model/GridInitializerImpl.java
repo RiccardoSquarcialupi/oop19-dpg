@@ -68,6 +68,7 @@ public class GridInitializerImpl implements GridInitializer {
                 for (var i : tempList.entrySet()) {             //this cycle sets the next Cells linked to a Cell and puts the Cells in the Grid
                     Set<Cell> next = new HashSet<>();
                     int cellId = i.getKey();
+                    CellImpl previousCell;
 
                     //Set Next Cells
                     if (tempNext.get(cellId).length > 0) {
@@ -100,7 +101,9 @@ public class GridInitializerImpl implements GridInitializer {
     @Override
     public Grid getGrid() {
         //this exception is thrown if the grid hasn't been created yet
-        Objects.requireNonNull(this.grid);
+        if (this.grid == null) {
+            throw new IllegalStateException();
+        }
         return this.grid;
     }
 
