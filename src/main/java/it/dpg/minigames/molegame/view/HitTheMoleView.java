@@ -1,8 +1,9 @@
 package it.dpg.minigames.molegame.view;
 
 import it.dpg.minigames.base.view.MinigameView;
+import it.dpg.minigames.molegame.model.Mole;
 import it.dpg.minigames.molegame.model.Score;
-import it.dpg.minigames.molegame.model.Timer;
+import javafx.util.Pair;
 
 import java.util.List;
 
@@ -16,12 +17,13 @@ public interface HitTheMoleView extends MinigameView {
     /**
      * decrease the timer
      */
-    void updateTimer(Timer time);
+    void updateTimer(long time);
 
     /**
      * update the view of out moles
+     *
      * @param moleOut list of the out mole
      */
-    void updateMole(List<Integer> moleOut);
+    void updateMole(List<Pair<Integer, Mole>> moleOut);
 
 }

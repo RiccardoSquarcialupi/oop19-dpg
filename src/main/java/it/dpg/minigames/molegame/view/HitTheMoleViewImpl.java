@@ -2,15 +2,18 @@ package it.dpg.minigames.molegame.view;
 
 import it.dpg.minigames.base.view.AbstractMinigameView;
 import it.dpg.minigames.molegame.controller.HitTheMoleCycle;
+import it.dpg.minigames.molegame.model.Mole;
 import it.dpg.minigames.molegame.model.Score;
-import it.dpg.minigames.molegame.model.Timer;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -23,31 +26,57 @@ import java.util.List;
 
 public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMoleView {
 
-    private static final double WIDTH = 800;
-    private static final double HEIGHT = 800;
-    private static final int NMOLE = 25;
+    private static final double WIDTH = 790;
+    private static final double HEIGHT = 500;
+    private static final int NROW = 5;
+    private static final int NCOLUMN = 5;
     private static final Color BG_COLOR = Color.GREEN;
-    private Label scoreLbl;
-    private Label timerLbl;
-    private List<Pair<Integer, Label>> listMole = new ArrayList<>();
+    String holeWithoutMole = "images" + sep + "molegame" + sep + "holewithoutmole.png";
     private String sep = File.separator;
-    private String holeWithoutMole = "images" + sep + "molegame" + sep + "holewithoutmole.png";
+    private volatile Label scoreLbl = new Label("0");
+    private volatile Label timerLbl = new Label("20");
+
     private String holeWithMole = "images" + sep + "molegame" + sep + "holewithmole.png";
+    private volatile List<Pair<Integer, Label>> listMole = new ArrayList<>();
+    private GridPane gp = new GridPane();
     private HitTheMoleCycle gameCycle;
 
 
-    public HitTheMoleViewImpl(final HitTheMoleCycle gm) {
-        this.gameCycle = gm;
+    public HitTheMoleViewImpl(final HitTheMoleCycle gc) {
+        this.gameCycle = gc;
+        int count = 0;
+
+        EventHandler<MouseEvent> al = mouseEvent -> {
+            for (var p : listMole) {
+                if (p.getValue().equals(mouseEvent.getSource())) {
+                    gameCycle.pressOnAMole(p.getKey());
+                }
+
+            }
+        };
+
+        for (int i = 0; i < NROW; i++) {
+            for (int j = 0; j < NCOLUMN; j++) {
+                final Label l = new Label();
+                l.setGraphic(new ImageView(new Image(holeWithoutMole)));
+                l.setOnMouseClicked(al);
+                gp.add(l, j, i);
+                listMole.add(new Pair<>(count, l));
+                count++;
+            }
+        }
     }
 
     @Override
     public Scene createScene() {
-
         BorderPane bp = new BorderPane();
-        HBox hb = new HBox();
+        gp.setHgap(10);
+        gp.setVgap(10);
+        bp.setCenter(gp);
+        HBox hb = new HBox(15);
         Scene scene = new Scene(bp, WIDTH, HEIGHT, BG_COLOR);
 
-        Button start = new Button();
+        Button start = new Button("START");
         start.setOnMouseClicked(mouseEvent -> {
             gameCycle.startGame();
             start.setDisable(true);
@@ -55,11 +84,9 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
 
 
         Text score = new Text("Score");
-        scoreLbl = new Label("0");
         Text timer = new Text("Timer");
-        timerLbl = new Label("20");
 
-        bp.getChildren().add(hb);
+
         bp.setTop(hb);
 
         hb.getChildren().add(start);
@@ -68,27 +95,9 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
         hb.getChildren().add(timer);
         hb.getChildren().add(timerLbl);
 
-
-        for (int i = 0; i < NMOLE; i++) {
-            Label l = new Label();
-            bp.getChildren().add(l);
-            bp.setCenter(l);
-            l.setGraphic(new ImageView(new Image(holeWithoutMole)));
-            l.setOnMouseClicked(mouseEvent -> {
-                for (var p : listMole) {
-                    if (p.getValue().equals(l)) {
-                        gameCycle.pressOnAMole(p.getKey());
-                    }
-
-                }
-
-            });
-            listMole.add(new Pair<>(i, l));
-
-        }
-
-
+        System.out.println(listMole.size());
         return scene;
+
     }
 
 
@@ -97,16 +106,17 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
      */
     @Override
     public void updateScore(Score score) {
-        Platform.runLater(() -> scoreLbl.setText(String.valueOf(score.finalScore() + 1)));
+
+        Platform.runLater(() -> scoreLbl.setText("" + score.finalScore()));
+
     }
 
     /**
      * decrease the timer in the view
      */
     @Override
-    public void updateTimer(Timer time) {
-        Platform.runLater(() -> timerLbl.setText(String.valueOf(time.getRemainTime())));
-
+    public void updateTimer(long time) {
+        Platform.runLater(() -> timerLbl.setText("" + time));
     }
 
     /**
@@ -115,15 +125,16 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
      * @param moleOut list of the out mole
      */
     @Override
-    public void updateMole(List<Integer> moleOut) {
+    public synchronized void updateMole(List<Pair<Integer, Mole>> moleOut) {
         Platform.runLater(() -> {
             for (var p : listMole) {
                 for (var i : moleOut) {
-                    if (p.getKey().equals(i)) {
+                    if (p.getKey().equals(i.getKey())) {
                         p.getValue().setGraphic(new ImageView(new Image(holeWithMole)));
                     }
                 }
             }
+
         });
     }
 
