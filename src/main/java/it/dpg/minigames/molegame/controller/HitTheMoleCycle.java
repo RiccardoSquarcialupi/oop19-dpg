@@ -1,6 +1,7 @@
 package it.dpg.minigames.molegame.controller;
 
 import it.dpg.minigames.base.controller.MinigameCycle;
+import it.dpg.minigames.molegame.view.HitTheMoleView;
 
 public interface HitTheMoleCycle extends MinigameCycle {
 
@@ -23,5 +24,10 @@ public interface HitTheMoleCycle extends MinigameCycle {
      * start the gamecycle when button start is clicked on the view
      */
     void startGame();
+
+    /**
+     * set the view
+     */
+    void setView(HitTheMoleView view);
 
 }

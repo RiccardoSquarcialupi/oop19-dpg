@@ -2,7 +2,6 @@ package it.dpg.minigames.molegame.controller;
 
 import it.dpg.minigames.molegame.model.*;
 import it.dpg.minigames.molegame.view.HitTheMoleView;
-import it.dpg.minigames.molegame.view.HitTheMoleViewImpl;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -12,12 +11,12 @@ import java.util.Random;
 public class HitTheMoleCycleImpl implements HitTheMoleCycle {
 
     private final static int NMOLES = 25;
-    HitTheMoleView moleView = new HitTheMoleViewImpl(this);
     private List<Pair<Integer, Mole>> moleList = new ArrayList<>();
     private List<Pair<Integer, Mole>> moleOut = new ArrayList<>();
     private Score score = new ScoreImpl();
     private Timer timer = new TimerImpl();
-    private volatile boolean isStartClick = false;
+    private HitTheMoleView moleView;
+    private boolean isStartClick = false;
 
 
     public HitTheMoleCycleImpl() {
@@ -39,11 +38,11 @@ public class HitTheMoleCycleImpl implements HitTheMoleCycle {
             moleOutOrIn();
             updateView();
 
+
             waitTime();
 
 
         }
-
         moleView.closeView();
         return score.finalScore();
     }
@@ -60,7 +59,7 @@ public class HitTheMoleCycleImpl implements HitTheMoleCycle {
 
     private synchronized void waitTime() {
         try {
-            wait(500);
+            wait(650);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -99,7 +98,7 @@ public class HitTheMoleCycleImpl implements HitTheMoleCycle {
     @Override
     public void moleOutOrIn() {
         Random r = new Random();
-        int i = r.nextInt(15);
+        int i = r.nextInt(25);
         if (!moleList.get(i).getValue().isOut()) {
             moleList.get(i).getValue().setMoleOut();
             moleOut.add(new Pair<>(i, moleList.get(i).getValue()));
@@ -126,6 +125,16 @@ public class HitTheMoleCycleImpl implements HitTheMoleCycle {
     public synchronized void startGame() {
         this.isStartClick = true;
         notifyAll();
+    }
+
+    /**
+     * set the view
+     *
+     * @param view is the view pass from the GUI
+     */
+    @Override
+    public void setView(HitTheMoleView view) {
+        moleView = view;
     }
 
 }
