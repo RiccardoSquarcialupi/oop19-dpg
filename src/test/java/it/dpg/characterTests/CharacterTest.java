@@ -7,6 +7,7 @@ import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.character.*;
 import it.dpg.maingame.model.character.Character;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,15 +26,15 @@ public class CharacterTest {
     @Mock
     Grid grid;
 
-    ImmutablePair<Integer, Integer> startPos = new ImmutablePair<>(1, 1);
-    Cell startFork;
+    Pair<Integer, Integer> startPos = new ImmutablePair<>(1, 1);
+    CellImpl startFork;
 
     @BeforeEach
     void setupMock() {
         final Set<Cell> singleNext = new HashSet<>();
         singleNext.add(new CellImpl(false, new ImmutablePair<>(2, 2), CellType.NORMAL));
 
-        final Cell startNoFork = new CellImpl(false, startPos, CellType.START);
+        final CellImpl startNoFork = new CellImpl(false, startPos, CellType.START);
         startNoFork.setNext(singleNext);
 
         final Set<Cell> forkNext = new HashSet<>();
@@ -95,15 +96,15 @@ public class CharacterTest {
         final String name = "Lena";
         final Character c = new CharacterImpl(id, name, grid);
 
-        assertEquals(c.getPosition().left, startPos.left);
-        assertEquals(c.getPosition().right, startPos.right);
+        assertEquals(c.getPosition().getLeft(), startPos.getRight());
+        assertEquals(c.getPosition().getLeft(), startPos.getRight());
 
         assertEquals(c.getAdjacentPositions().size(), 1);
 
         c.throwDice();
         c.stepForward();
-        assertEquals(c.getPosition().left, 2);
-        assertEquals(c.getPosition().right, 2);
+        assertEquals(c.getPosition().getLeft(), 2);
+        assertEquals(c.getPosition().getRight(), 2);
     }
 
     @Test
@@ -114,8 +115,8 @@ public class CharacterTest {
         final String name = "Lena";
         final Character c = new CharacterImpl(id, name, grid);
 
-        assertEquals(c.getPosition().left, startPos.left);
-        assertEquals(c.getPosition().right, startPos.right);
+        assertEquals(c.getPosition().getLeft(), startPos.getLeft());
+        assertEquals(c.getPosition().getRight(), startPos.getRight());
 
         assertTrue(c.getAdjacentPositions().size() > 1);
 
@@ -160,10 +161,10 @@ public class CharacterTest {
         final Character c = new CharacterImpl(id, name, grid);
         final Cpu cpu = new CpuImpl(c, Difficulty.NORMAL);
 
-        ImmutablePair<Integer, Integer> randomDirection = cpu.getRandomDirection();
+        Pair<Integer, Integer> randomDirection = cpu.getRandomDirection();
         assertTrue(
-                randomDirection.left == 2 && randomDirection.right == 2 ||
-                        randomDirection.left == 3 && randomDirection.right == 3
+                randomDirection.getLeft() == 2 && randomDirection.getRight() == 2 ||
+                        randomDirection.getLeft() == 3 && randomDirection.getRight() == 3
         );
     }
 

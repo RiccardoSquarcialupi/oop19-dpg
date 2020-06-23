@@ -79,11 +79,16 @@ public class CharacterImpl implements Character {
 
     @Override
     public boolean stepForward() {
-        if(this.position.getNext().size() == 1) {
+        if(!this.position.isAFork()) {
             return this.stepInDirection(this.position.getNext().iterator().next().getCoordinates());
         } else {
             throw new UnsupportedOperationException("Fork detected in the grid");
         }
+    }
+
+    @Override
+    public void stepBackward() {
+        position = position.getPrevious();
     }
 
     @Override

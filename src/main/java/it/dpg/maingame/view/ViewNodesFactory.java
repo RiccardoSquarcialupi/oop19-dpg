@@ -1,6 +1,7 @@
 package it.dpg.maingame.view;
 
 import javafx.scene.Group;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -24,5 +25,5 @@ public interface ViewNodesFactory {
     /**
      * generates a group of lines based on the cells
      */
-    Group generateLines(Map<Circle, Set<Pair<Integer, Integer>>> cellsList, int modifierX, int modifierY);
+    Group generateLines(Map<StackPane, Set<Pair<Integer, Integer>>> cellsList, double modifierX, double modifierY);
 }

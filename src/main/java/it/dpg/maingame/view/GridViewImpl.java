@@ -5,6 +5,8 @@ import it.dpg.maingame.controller.GridObserverImpl;
 import it.dpg.maingame.controller.gamecycle.GameCycle;
 import it.dpg.maingame.launcher.Main;
 import it.dpg.maingame.model.character.Dice;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,19 +18,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
 
 public class GridViewImpl implements GridView {
 
-    private static Stage pStage;
+    private static Stage pStage = Main.getPrimaryStage();
     public Scene scene;
     private GridObserver obs;
+    private Rectangle2D screenBounds = Screen.getPrimary().getBounds();
 
-    public String currentPlayer;
     public int movesLeft;
+    public String currentPlayer;
 
     private BorderPane root = new BorderPane();
     private VBox upperGroup = new VBox(5);
@@ -36,19 +41,22 @@ public class GridViewImpl implements GridView {
 
     private Label mainText = new Label();
     private Label movesText = new Label();
+    private Label playerText = new Label();
     Button diceButton = new Button("Dice");
 
     //this map keeps track of the various cells (by graphic representation) and the coordinates of the cells connected to the Key Cell
-    private Map<Circle, Set<Pair<Integer, Integer>>> circlesList = new LinkedHashMap<>();
+    private Map<StackPane, Set<Pair<Integer, Integer>>> circlesList = new LinkedHashMap<>();
+    //this map keeps track of each Cell gridPane by its coordinates
+    private Map<Pair<Integer, Integer>, FlowPane> gridsList = new LinkedHashMap<>();
 
-    //this map keeps track of the player'id and corresponding graphic representation
-    private Map<Integer, Rectangle> playerList = new LinkedHashMap<>();
+    //this map keeps track of the player'id, its corresponding graphic representation and the cell gridPane where it is sitting
+    private Map<Integer, Pair<Rectangle, FlowPane>> playerList = new LinkedHashMap<>();
 
     private ViewNodesFactory nodes = new ViewNodesFactoryImpl();
 
     //these integers are constants that modify the position of a graphic element based on their coordinates
-    private int Xmodifier = 130;
-    private int Ymodifier = 90;
+    private double Xmodifier = screenBounds.getWidth()/15;
+    private double Ymodifier = screenBounds.getHeight()/12;
 
     public GridViewImpl(GameCycle gameCycle) {
         this.obs = new GridObserverImpl(gameCycle);
@@ -62,20 +70,39 @@ public class GridViewImpl implements GridView {
         Circle circle;
 
         //the color is dictated by the Cell Type
-        if (type.equals("START") || type.equals("END")) {
-            circle = nodes.generateCell(Color.LIGHTBLUE);
-        } else if (type.equals("NORMAL")) {
-            circle = nodes.generateCell(Color.LIGHTGREEN);
-        } else {
-            circle = nodes.generateCell(Color.WHITE);
+        switch (type) {
+            case "START":
+            case "END":
+                circle = nodes.generateCell(Color.LIGHTBLUE);
+                break;
+            case "NORMAL":
+                circle = nodes.generateCell(Color.LIGHTGREEN);
+                break;
+            case "GO_BACK":
+                circle = nodes.generateCell(Color.PALEVIOLETRED);
+                break;
+            default:
+                circle = nodes.generateCell(Color.WHITE);
+                break;
         }
 
-        int left = coordinates.getLeft() * Xmodifier;
-        int right = coordinates.getRight() * Ymodifier;
-        circle.setLayoutX(left);
-        circle.setLayoutY(right);
+        /* A new StackPane is created to keep the Circle and the associated GridPane where the Players will sit */
+        StackPane circlePane = new StackPane();
+        FlowPane flowPane = new FlowPane();
+        flowPane.setAlignment(Pos.CENTER);
+        flowPane.setVgap(5);
+        flowPane.setHgap(5);
+        flowPane.setMaxWidth(circle.getRadius()*2);
+        flowPane.setMaxHeight(circle.getRadius()*2);
+        circlePane.getChildren().addAll(circle, flowPane);
+        double left = coordinates.getLeft() * Xmodifier;
+        double right = coordinates.getRight() * Ymodifier;
+        circlePane.setLayoutX(left);
+        circlePane.setLayoutY(right);
+        circlePane.setAlignment(Pos.CENTER);
 
-        circlesList.put(circle, nextCells);
+        gridsList.put(coordinates, flowPane);
+        circlesList.put(circlePane, nextCells);
 
     }
 
@@ -83,7 +110,7 @@ public class GridViewImpl implements GridView {
 
         StackPane mainTextLayout = new StackPane();
         StackPane diceLayout = new StackPane();
-        StackPane movesLayout = new StackPane();
+        Group movesLayout = new Group();
 
         /*
          Grid Group; everything is added to a Scroll Pane
@@ -111,15 +138,19 @@ public class GridViewImpl implements GridView {
         diceButton.setMinSize(60, 60);
 
         /* action handler */
-        diceButton.setOnAction(actionEvent -> obs.throwDiceHandler());
+        diceButton.setOnMousePressed(actionEvent -> obs.throwDiceHandler());
 
         diceLayout.getChildren().addAll(diceBox, diceButton);
 
-        Rectangle movesBox = new Rectangle(500, 60);
-        movesBox.setFill(Color.WHITE);
-        movesLayout.getChildren().addAll(movesBox, movesText);
+        Rectangle LabelBox = new Rectangle(500, 60);
+        LabelBox.setFill(Color.WHITE);
+        VBox labels = new VBox();
+        labels.getChildren().addAll(movesText, playerText);
+        labels.setAlignment(Pos.CENTER);
+        movesLayout.getChildren().addAll(LabelBox, labels);
 
         upperGroup.getChildren().addAll(mainTextLayout, diceLayout, movesLayout);
+        upperGroup.setAlignment(Pos.CENTER);
 
         /*
         root layout
@@ -130,7 +161,7 @@ public class GridViewImpl implements GridView {
         root.setTop(upperGroup);
         root.setCenter(sp);
 
-        scene = new Scene(root, 1000, 1000, Color.AQUAMARINE);
+        scene = new Scene(root, screenBounds.getWidth()/2, screenBounds.getHeight()/2, Color.AQUAMARINE);
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
                 obs.KeyPressHandler();
@@ -141,14 +172,14 @@ public class GridViewImpl implements GridView {
 
     @Override
     public void setView() {
-        pStage = Main.getPrimaryStage();
         pStage.setScene(this.scene);
+        pStage.setMaximized(true);
     }
 
     @Override
     public void setCurrentPlayerName(String name) {
-
         this.currentPlayer = name;
+        this.playerText.setText("Currently playing: " +currentPlayer);
     }
 
     @Override
@@ -173,15 +204,16 @@ public class GridViewImpl implements GridView {
         //the method searches for the wanted fork inside the map, and creates and places buttons to the corresponding fork cells inside the Grid
         for (var i : cells) {
             Button button = new Button();
-            button.setShape(new Circle(4));
-            button.setMinSize(40, 40);
-            button.setLayoutX(i.getLeft() * Xmodifier - 20);
-            button.setLayoutY(i.getRight() * Ymodifier - 20);
+            button.setShape(new Circle(Xmodifier/5));
+            button.setPrefWidth(Xmodifier/3);
+            button.setPrefHeight(Xmodifier/3);
+            button.setLayoutX(i.getLeft() * Xmodifier+Xmodifier/7);
+            button.setLayoutY(i.getRight() * Ymodifier+Xmodifier/7);
             String arrow = "|\nV";
             button.setText(arrow);
             button.setTextAlignment(TextAlignment.CENTER);
 
-            button.setOnAction(actionEvent -> obs.choosePathHandler(i));
+            button.setOnMousePressed(actionEvent -> obs.choosePathHandler(i));
 
             gridGroup.getChildren().add(button);
         }
@@ -197,27 +229,29 @@ public class GridViewImpl implements GridView {
     @Override
     public void updatePlayers(Map<Integer, Pair<Integer, Integer>> players) {
 
-        int playerMod = 0;  //player modifier is a modifier that changes every time more than one player sit on the same Cell
         if (playerList.isEmpty()) {
             //if there's still no players, they are generated
             for (var i : players.entrySet()) {
                 Rectangle playerSquare = nodes.generatePlayer(i.getKey());
-                playerList.put(i.getKey(), playerSquare);
-                gridGroup.getChildren().add(playerSquare);
+                FlowPane fp = gridsList.get(i.getValue());
+                fp.getChildren().add(playerSquare);
+                playerList.put(i.getKey(), new ImmutablePair<>(playerSquare, fp));
             }
         }
 
-        //the players are placed in the grid by coordinates, which are the ones passed through @param; they are modified to fit nicely and avoid overlapping
+        //the Players are added and removed to the gridPane corresponding to the Cell where the player is supposed to sit and from the old GridPane it was sitting on
         for (var j : players.entrySet()) {
-            playerList.get(j.getKey()).setLayoutX(j.getValue().getLeft() * Xmodifier + playerMod);
-            playerList.get(j.getKey()).setLayoutY(j.getValue().getRight() * Ymodifier);
-            for (var k : players.entrySet()) {
-                //this cycle counts how many player sit on the same cell, to apply a modifier accordingly
-                if (j.getValue().equals(k.getValue())) {
-                    playerMod = j.getKey() * 35;
-                    break;
-                }
-            }
+            Rectangle playerP = playerList.get(j.getKey()).getLeft();
+            FlowPane oldFlow = playerList.get(j.getKey()).getRight();
+
+            //searches for the corresponding rectangle and removes it from the old grid pane
+            oldFlow.getChildren().remove(playerP);
+
+            //adds the rectangle to the new Grid Pane (according to the @param coordinates)
+            FlowPane newFlow = gridsList.get(j.getValue());
+            newFlow.getChildren().add(playerP);
+            //adds the new grid to the players list modifying the existing key
+            playerList.put(j.getKey(), new ImmutablePair<>(playerP, newFlow));
         }
 
     }

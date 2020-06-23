@@ -10,7 +10,16 @@ public class CellParser {
     private int x_coordinate;
     private int y_coordinate;
     private int[] next;
+    private int prev;
     private String cell_type;
+
+    public int getPrev() {
+        return prev;
+    }
+
+    public void setPrev(int prev) {
+        this.prev = prev;
+    }
 
     public int getId() {
         return id;

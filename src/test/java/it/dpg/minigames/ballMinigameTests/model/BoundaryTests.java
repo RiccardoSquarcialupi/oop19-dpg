@@ -28,20 +28,20 @@ public class BoundaryTests {
     @Test
     public void testBoundaries() {
         Boundary b1 = new HorizontalBoundary(40, 60, 50, CollisionType.BOUNCE);
-        assertTrue(b1.isColliding(38, 52, 8));
-        assertTrue(b1.isColliding(45, 49, 5));
-        assertFalse(b1.isColliding(51, 30, 5));
-        assertFalse(b1.isColliding(30, 20, 15));
-        assertTrue(b1.isColliding(45, 51, 5));
-        assertFalse(b1.isColliding(51, 70, 5));
-        assertTrue(b1.isColliding(62, 48, 5));
-        assertFalse(b1.isColliding(70, 80, 15));
+        assertTrue(b1.isBallColliding(38, 52, 8));
+        assertTrue(b1.isBallColliding(45, 49, 5));
+        assertFalse(b1.isBallColliding(51, 30, 5));
+        assertFalse(b1.isBallColliding(30, 20, 15));
+        assertTrue(b1.isBallColliding(45, 51, 5));
+        assertFalse(b1.isBallColliding(51, 70, 5));
+        assertTrue(b1.isBallColliding(62, 48, 5));
+        assertFalse(b1.isBallColliding(70, 80, 15));
         Boundary b2 = new VerticalBoundary(50, 40, 60, CollisionType.BOUNCE);
-        assertTrue(b2.isColliding(53, 47, 5));
-        assertTrue(b2.isColliding(48, 62, 8));
-        assertTrue(b2.isColliding(49, 55, 7));
-        assertFalse(b2.isColliding(20, 50, 10));
-        assertFalse(b2.isColliding(80, 50, 10));
-        assertFalse(b2.isColliding(80, 30, 15));
+        assertTrue(b2.isBallColliding(53, 47, 5));
+        assertTrue(b2.isBallColliding(48, 62, 8));
+        assertTrue(b2.isBallColliding(49, 55, 7));
+        assertFalse(b2.isBallColliding(20, 50, 10));
+        assertFalse(b2.isBallColliding(80, 50, 10));
+        assertFalse(b2.isBallColliding(80, 30, 15));
     }
 }

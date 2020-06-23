@@ -12,11 +12,11 @@ import java.util.Set;
 
 public class GameCycleBuilderImpl implements GameCycleBuilder {
 
+    private final List<Dice> rewardDices = new ArrayList<>();
+    private final Set<String> humanPlayers = new HashSet<>();
+    private final Set<Pair<String, Difficulty>> cpuPlayers = new HashSet<>();
     private int nTurns = 0;
     private Dice defaultDice;
-    private List<Dice> rewardDices = new ArrayList<>();
-    private Set<String> humanPlayers = new HashSet<>();
-    private Set<Pair<String, Difficulty>> cpuPlayers = new HashSet<>();
 
     @Override
     public GameCycleBuilder setNTurns(int nTurns) {
@@ -53,8 +53,8 @@ public class GameCycleBuilderImpl implements GameCycleBuilder {
 
     @Override
     public GameCycle build() {
-        if (defaultDice == null || rewardDices.isEmpty()) {
-            throw new IllegalStateException();
+        if (defaultDice == null || rewardDices.isEmpty() || humanPlayers.isEmpty()) {
+            throw new IllegalStateException("gamecycle fields not set properly");
         }
         return new GameCycleImpl(nTurns, defaultDice, rewardDices, humanPlayers, cpuPlayers);
     }

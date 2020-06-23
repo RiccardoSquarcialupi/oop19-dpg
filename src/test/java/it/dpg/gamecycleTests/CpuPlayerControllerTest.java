@@ -10,6 +10,7 @@ import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.character.*;
 import it.dpg.maingame.model.character.Character;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -54,7 +55,7 @@ public class CpuPlayerControllerTest {
         }
 
         @Override
-        public Map<Cell, ImmutablePair<Integer, Integer>> getCellList() {
+        public Map<Cell, Pair<Integer, Integer>> getCellList() {
             return null;
         }
     };
@@ -81,7 +82,7 @@ public class CpuPlayerControllerTest {
         }
 
         @Override
-        public void setPosition(ImmutablePair<Integer, Integer> coordinates) {
+        public void setPosition(Pair<Integer, Integer> coordinates) {
 
         }
 
@@ -91,7 +92,7 @@ public class CpuPlayerControllerTest {
         }
 
         @Override
-        public Set<ImmutablePair<Integer, Integer>> getAdjacentPositions() {
+        public Set<Pair<Integer, Integer>> getAdjacentPositions() {
             return Set.of(
                     new ImmutablePair<>(4, 8),
                     new ImmutablePair<>(3, 9),
@@ -109,7 +110,11 @@ public class CpuPlayerControllerTest {
         }
 
         @Override
-        public boolean stepInDirection(ImmutablePair<Integer, Integer> coordinates) {
+        public void stepBackward() {
+        }
+
+        @Override
+        public boolean stepInDirection(Pair<Integer, Integer> coordinates) {
             return false;
         }
 
@@ -158,8 +163,11 @@ public class CpuPlayerControllerTest {
                 new ImmutablePair<>(3, 9),
                 new ImmutablePair<>(4, 9));
         pc.chooseDirection();
-        assertTrue(state.getLastDirectionChoice().isPresent());
-        assertTrue(choices.contains(state.getLastDirectionChoice().get()));
+        if(state.getLastDirectionChoice().isEmpty()) {
+            fail();
+        }
+        ImmutablePair<Integer, Integer> temp = (ImmutablePair<Integer, Integer>) state.getLastDirectionChoice().get();
+        assertTrue(choices.contains(temp));
         assertFalse(state.isChoosing());
     }
 }

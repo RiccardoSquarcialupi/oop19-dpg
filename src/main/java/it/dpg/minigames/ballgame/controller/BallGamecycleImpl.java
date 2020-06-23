@@ -59,6 +59,9 @@ public class BallGamecycleImpl implements BallGamecycle {
                 sleepMillis(1500);
                 exitCycle = true;
             }
+            if(model.getScore() == 0) {
+                exitCycle = true;
+            }
             sleepMillis(30);
         }
         this.view.closeView();

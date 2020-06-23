@@ -12,6 +12,7 @@ import it.dpg.maingame.model.character.Difficulty;
 import it.dpg.maingame.view.GridView;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +26,7 @@ public class GameCycleImpl implements GameCycle {
     private final Thread backgroundThread;
 
     GameCycleImpl(final int nTurns, final Dice defaultDice, final List<Dice> rewardDices, final Set<String> humanPlayers, final Set<Pair<String, Difficulty>> cpuPlayers) {
-        this.backgroundThread = new Thread(createRunnable());
+        this.backgroundThread = new Thread(this::mainCycle);
         this.backgroundThread.setDaemon(true);
         this.turnState = new TurnStateImpl();
         GridType level = GridType.GRID_ONE;//randomize when multiple levels are present
@@ -45,51 +46,58 @@ public class GameCycleImpl implements GameCycle {
         this.turnManager = turnManagerBuilder.build();
     }
 
-    private Runnable createRunnable() {
-        return () -> {
-            view.setView();
-            int turnCounter = 1;
-            boolean turnRemaining = true;
-            while (turnRemaining) {
-                waitNextStep("turn " + turnCounter + " has started");
-                turnCounter++;
-                while (turnManager.hasNextPlayer()) {
-                    PlayerController currentPlayer = turnManager.nextPlayer();
-                    turnStart(currentPlayer);
-                    boolean hasArrived = movePlayer(currentPlayer);
-                    if (hasArrived) {
-                        view.showText(currentPlayer.getCharacter().getName() + " wins!");
-                        //view.close()
-                        return;
-                    }
-                    //events control
-                    turnRemaining = turnManager.hasNextTurn();
-                    if (turnManager.hasNextTurn()) {
-                        waitNextStep("minigames are starting");
-                        turnManager.nextTurn();
-                    }
-                    turnManager.getPlayers().forEach(player -> {
-                        view.showText(player.getCharacter().getName() + " won a " + player.getCharacter().getDice());
-                        sleepMillis(1000);
-                        view.removeText();
-                    });
+    private void mainCycle() {
+        view.setView();
+        int turnCounter = 1;
+        boolean turnRemaining = true;
+        updatePlayersInView();
+        while (turnRemaining) {
+            waitNextStep("turn " + turnCounter + " has started");
+            turnCounter++;
+            boolean hasArrived;
+            while (turnManager.hasNextPlayer()) {
+                PlayerController currentPlayer = turnManager.nextPlayer();
+                turnStart(currentPlayer);
+                hasArrived = movePlayer(currentPlayer);
+                if (hasArrived) {
+                    waitNextStep(currentPlayer.getCharacter().getName() + " wins!");
+                    view.closeView();
+                    return;
                 }
-                waitNextStep("no mo turns remaining, game over");
+                if (currentPlayer.getCharacter().getCellType().equals(CellType.GO_BACK)) {
+                    view.showText(currentPlayer.getCharacter().getName() + " ended up on a red cell \nand fell one step backwards");
+                    sleepMillis(1500);
+                    currentPlayer.getCharacter().stepBackward();
+                    updatePlayersInView();
+                }
             }
-        };
+            turnRemaining = turnManager.hasNextTurn();
+            if (turnManager.hasNextTurn()) {
+                waitNextStep("minigames are starting");
+                turnManager.nextTurn();
+            }
+            displayMinigameResults();
+        }
+        waitNextStep("no more turns remaining, game over");
+        view.closeView();
+    }
+
+    private void updatePlayersInView() {
+        var positions = new HashMap<Integer, Pair<Integer, Integer>>();
+        turnManager.getPlayers().forEach(p -> positions.put(p.getCharacter().getId(), p.getCharacter().getPosition()));
+        this.view.updatePlayers(positions);
     }
 
     private void turnStart(PlayerController player) {
         view.showText("it's " + player.getCharacter().getName() + "'s turn");
+        view.setCurrentPlayerName(player.getCharacter().getName());
         sleepMillis(1000);
         view.removeText();
         int roll = player.throwDice();
-        view.showText(player.getCharacter().getName() + " rolled a " + roll);//add number rolled
-        sleepMillis(700);
-        view.removeText();
+        waitNextStep(player.getCharacter().getName() + " rolled a " + roll);
     }
 
-    public void waitNextStep(String message) {
+    private void waitNextStep(String message) {
         turnState.setTurnPause(true);
         view.showText(message + "   continue ►");
         synchronized (this.turnState) {
@@ -110,7 +118,9 @@ public class GameCycleImpl implements GameCycle {
     private boolean movePlayer(PlayerController player) {
         boolean movesRemaining = true;
         while (movesRemaining) {
+            sleepMillis(700);
             movesRemaining = singleStep(player);
+            updatePlayersInView();
             if (player.getCharacter().getCellType().equals(CellType.END)) {
                 return true;
             }
@@ -129,6 +139,14 @@ public class GameCycleImpl implements GameCycle {
             }
             return player.getCharacter().stepInDirection(turnState.getLastDirectionChoice().get());
         }
+    }
+
+    private void displayMinigameResults() {
+        StringBuilder results = new StringBuilder();
+        for (PlayerController p : turnManager.getPlayers()) {
+            results.append(p.getCharacter().getName()).append(" won a ").append(p.getCharacter().getDice()).append("\n");
+        }
+        waitNextStep(results.toString());
     }
 
     private void sleepMillis(final int milliseconds) {

@@ -17,6 +17,7 @@ public class HumanPlayerController extends AbstractPlayerController {
     @Override
     public int throwDice() {
         view.enableDiceThrow(character.getDice());
+        view.showText("throw the dice!");
         synchronized (this.turnState) {
             try {
                 while (!turnState.wasDiceThrown()) {
@@ -27,12 +28,14 @@ public class HumanPlayerController extends AbstractPlayerController {
             }
         }
         view.disableDiceThrow();
+        view.removeText();
         return character.throwDice();
     }
 
     @Override
     public void chooseDirection() {
         view.enableDirectionChoice(getCharacter().getAdjacentPositions());
+        view.showText("choose the direction on the map");
         turnState.setChoice(true);
         synchronized (this.turnState) {
             try {
@@ -43,6 +46,7 @@ public class HumanPlayerController extends AbstractPlayerController {
                 System.out.println("thread interrupted during direction choice wait");
             }
         }
+        view.removeText();
         view.disableDirectionChoice();
     }
 
@@ -51,7 +55,7 @@ public class HumanPlayerController extends AbstractPlayerController {
         Minigame minigame = type.getMinigame();
         view.showText("it's " + character.getName() + "'s turn to play the minigame");
         try {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.MILLISECONDS.sleep(2500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
