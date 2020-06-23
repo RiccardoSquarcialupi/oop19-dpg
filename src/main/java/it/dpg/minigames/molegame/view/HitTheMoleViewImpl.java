@@ -31,11 +31,10 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
     private static final int NROW = 5;
     private static final int NCOLUMN = 5;
     private static final Color BG_COLOR = Color.GREEN;
-    String holeWithoutMole = "images" + sep + "molegame" + sep + "holewithoutmole.png";
     private String sep = File.separator;
     private volatile Label scoreLbl = new Label("0");
     private volatile Label timerLbl = new Label("20");
-
+    String holeWithoutMole = "images" + sep + "molegame" + sep + "holewithoutmole.png";
     private String holeWithMole = "images" + sep + "molegame" + sep + "holewithmole.png";
     private volatile List<Pair<Integer, Label>> listMole = new ArrayList<>();
     private GridPane gp = new GridPane();
