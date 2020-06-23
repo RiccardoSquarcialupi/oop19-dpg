@@ -21,5 +21,6 @@ public class GridObserverImpl implements GridObserver {
         gameCycle.signalDiceThrown();
     }
 
+    @Override
     public void KeyPressHandler() { gameCycle.signalNextStep(); }
 }

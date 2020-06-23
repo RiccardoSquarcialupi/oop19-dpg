@@ -3,7 +3,6 @@ package it.dpg.maingame.view.grid;
 import it.dpg.maingame.controller.grid.GridObserver;
 import it.dpg.maingame.controller.grid.GridObserverImpl;
 import it.dpg.maingame.controller.gamecycle.GameCycle;
-import it.dpg.maingame.launcher.Main;
 import it.dpg.maingame.model.character.Dice;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -27,7 +26,7 @@ import java.util.*;
 
 public class GridViewImpl implements GridView {
 
-    private static Stage pStage = Main.getPrimaryStage();
+    private static Stage pStage = new Stage();
     public Scene scene;
     private GridObserver obs;
     private Rectangle2D screenBounds = Screen.getPrimary().getBounds();
@@ -168,12 +167,24 @@ public class GridViewImpl implements GridView {
             }
         });
 
+        this.assignIds();
+
+    }
+
+    private void assignIds() {
+        //to test the view, ids are assigned to a few view nodes
+        mainText.setId("main_text");
+        diceButton.setId("dice_button");
+        for (var j : gridsList.entrySet()) {
+            j.getValue().setId("pane"+j.getKey().getLeft()+j.getKey().getRight());
+        }
     }
 
     @Override
     public void setView() {
         pStage.setScene(this.scene);
         pStage.setMaximized(true);
+        pStage.show();
     }
 
     @Override
@@ -253,6 +264,14 @@ public class GridViewImpl implements GridView {
             playerList.put(key, new ImmutablePair<>(playerP, newFlow));
         });
 
+        //afters players are created, ids are assigned for the sake of testing the view
+        this.assignPlayersId();
+    }
+
+    private void assignPlayersId() {
+        for (var i : playerList.entrySet()) {
+            i.getValue().getLeft().setId("player"+i.getKey());
+        }
     }
 
     @Override
