@@ -48,7 +48,6 @@ public class GridGenerator {
         });
 
         view.startGeneration();
-        view.setView();
         return new ImmutablePair<>(grid, view);
     }
 }

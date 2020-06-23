@@ -3,7 +3,6 @@ package it.dpg.maingame.view.grid;
 import it.dpg.maingame.controller.grid.GridObserver;
 import it.dpg.maingame.controller.grid.GridObserverImpl;
 import it.dpg.maingame.controller.gamecycle.GameCycle;
-import it.dpg.maingame.launcher.Main;
 import it.dpg.maingame.model.character.Dice;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -27,7 +26,7 @@ import java.util.*;
 
 public class GridViewImpl implements GridView {
 
-    private static Stage pStage = Main.getPrimaryStage();
+    private static Stage pStage = new Stage();
     public Scene scene;
     private GridObserver obs;
     private Rectangle2D screenBounds = Screen.getPrimary().getBounds();
@@ -188,6 +187,7 @@ public class GridViewImpl implements GridView {
     public void setView() {
         pStage.setScene(this.scene);
         pStage.setMaximized(true);
+        pStage.show();
     }
 
     @Override
