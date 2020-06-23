@@ -1,6 +1,6 @@
 package it.dpg.minigames.ballgame.controller;
 
-public class BallObserverImpl implements BallMinigameObserver {
+public class BallObserverImpl implements BallObserver {
     private BallGamecycle cycle;
     private boolean isGamecycleSet = false;
 
