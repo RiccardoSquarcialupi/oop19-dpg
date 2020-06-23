@@ -1,9 +1,9 @@
 package it.dpg.maingame.controller.gamecycle.playercontroller;
 
 import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
-import it.dpg.maingame.model.grid.Grid;
 import it.dpg.maingame.model.character.CharacterImpl;
 import it.dpg.maingame.model.character.Difficulty;
+import it.dpg.maingame.model.grid.Grid;
 import it.dpg.maingame.view.grid.GridView;
 
 public class PlayerFactoryImpl implements PlayerFactory {
