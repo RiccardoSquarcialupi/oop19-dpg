@@ -2,17 +2,16 @@ package it.dpg.minigames.ballMinigameTests.view;
 
 import it.dpg.minigames.ballgame.controller.BallGamecycle;
 import it.dpg.minigames.ballgame.controller.BallMinigameLevel;
-import it.dpg.minigames.ballgame.controller.BallMinigameObserver;
+import it.dpg.minigames.ballgame.controller.BallObserver;
 import it.dpg.minigames.ballgame.view.BallMinigameView;
 import it.dpg.minigames.ballgame.view.BallViewImpl;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.util.concurrent.TimeUnit;
 
 public class Main extends Application {
-    private final BallMinigameObserver o = new BallMinigameObserver() {
+    private final BallObserver o = new BallObserver() {
         @Override
         public void addGamecycle(BallGamecycle cycle) {}
 

@@ -1,7 +1,7 @@
 package it.dpg.minigames.ballgame.view;
 
 import it.dpg.minigames.ballgame.controller.BallMinigameLevel;
-import it.dpg.minigames.ballgame.controller.BallMinigameObserver;
+import it.dpg.minigames.ballgame.controller.BallObserver;
 import it.dpg.minigames.base.view.AbstractMinigameView;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 
 public class BallViewImpl extends AbstractMinigameView implements BallMinigameView {
     private final double viewSize;
-    private final BallMinigameObserver observer;
+    private final BallObserver observer;
     private final Group panel = new Group();
     private final NodesFactory factory = new NodesFactoryImpl(this::mapCoordinate);
     private Circle ball;
@@ -20,7 +20,7 @@ public class BallViewImpl extends AbstractMinigameView implements BallMinigameVi
     private Text goText;
     private Text victoryText;
 
-    public BallViewImpl(final double viewSize, BallMinigameObserver observer) {
+    public BallViewImpl(final double viewSize, BallObserver observer) {
         super();
         this.viewSize = viewSize;
         this.observer = observer;

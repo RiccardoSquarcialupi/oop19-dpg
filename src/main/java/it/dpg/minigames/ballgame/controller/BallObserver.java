@@ -1,6 +1,6 @@
 package it.dpg.minigames.ballgame.controller;
 
-public interface BallMinigameObserver {
+public interface BallObserver {
 
     /**
      * adds the gamecycle witch needs to be signaled when events happen

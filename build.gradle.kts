@@ -12,7 +12,7 @@ val javaFXModules = listOf (
         "controls",
         "fxml",
         "graphics",
-	"media"
+	    "media"
 )
 
 val supportedPlatforms = listOf(
@@ -37,6 +37,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
     testImplementation("org.mockito:mockito-core:3.3.3")
     testImplementation("org.mockito:mockito-junit-jupiter:3.3.3")
+    testImplementation("org.testfx:testfx-junit5:4.0.16-alpha")
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
 }
