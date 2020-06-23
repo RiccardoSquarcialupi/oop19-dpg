@@ -23,4 +23,9 @@ public interface Timer {
      * @return time left on the timer
      * */
     float getTimeLeft();
+
+    /**
+     * @return max timer time
+     * */
+    float getMaxTime();
 }
