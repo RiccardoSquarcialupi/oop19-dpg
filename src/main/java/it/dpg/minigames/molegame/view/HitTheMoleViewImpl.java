@@ -34,7 +34,7 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
     private String sep = File.separator;
     private volatile Label scoreLbl = new Label("0");
     private volatile Label timerLbl = new Label("20");
-    String holeWithoutMole = "images" + sep + "molegame" + sep + "holewithoutmole.png";
+    private String holeWithoutMole = "images" + sep + "molegame" + sep + "holewithoutmole.png";
     private String holeWithMole = "images" + sep + "molegame" + sep + "holewithmole.png";
     private volatile List<Pair<Integer, Label>> listMole = new ArrayList<>();
     private GridPane gp = new GridPane();
@@ -107,6 +107,7 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
     public void updateScore(Score score) {
 
         Platform.runLater(() -> scoreLbl.setText("" + score.finalScore()));
+        System.out.println("punteggio: "+score.finalScore());
 
     }
 
@@ -116,6 +117,7 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
     @Override
     public void updateTimer(long time) {
         Platform.runLater(() -> timerLbl.setText("" + time));
+        System.out.println("tempo: "+time);
     }
 
     /**
