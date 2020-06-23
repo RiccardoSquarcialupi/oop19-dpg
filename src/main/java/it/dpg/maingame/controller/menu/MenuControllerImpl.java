@@ -18,9 +18,6 @@ public class MenuControllerImpl implements MenuController {
     private Map<String, Difficulty> mapAI = new HashMap<>();
     private Map<Integer, String> mapPlayer = new HashMap<>();
 
-    /**
-     * Empty Constructor
-     */
     public MenuControllerImpl() {
         //DEFAULT OPTIONS
         mapAI.put("AI1", Difficulty.EASY);
