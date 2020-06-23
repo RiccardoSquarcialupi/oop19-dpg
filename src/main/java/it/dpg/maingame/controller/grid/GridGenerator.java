@@ -1,30 +1,29 @@
-package it.dpg.maingame.controller;
+package it.dpg.maingame.controller.grid;
 
 import it.dpg.maingame.controller.gamecycle.GameCycle;
-import it.dpg.maingame.model.*;
-import it.dpg.maingame.view.GridView;
-import it.dpg.maingame.view.GridViewImpl;
-import it.dpg.maingame.view.GridViewPlat;
+import it.dpg.maingame.model.grid.*;
+import it.dpg.maingame.view.grid.GridView;
+import it.dpg.maingame.view.grid.GridViewImpl;
+import it.dpg.maingame.view.grid.GridViewPlat;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-public class GridViewGeneratorImpl implements GridViewGenerator {
+public class GridGenerator {
 
     public Map<Cell, Pair<Integer, Integer>> gridMap;
     public GridViewPlat view;
     private final GridType gridType;
     private final GameCycle gameCycle;
 
-    public GridViewGeneratorImpl(GridType type, GameCycle gameCycle) {
+    public GridGenerator(GridType type, GameCycle gameCycle) {
         this.gridType = type;
         this.gameCycle = gameCycle;
     }
 
-    @Override
     public Pair<Grid, GridView> generate() {
 
         /* The grid is initialized */
@@ -38,14 +37,15 @@ public class GridViewGeneratorImpl implements GridViewGenerator {
         GridViewImpl viewImpl = new GridViewImpl(gameCycle);
         this.view = new GridViewPlat(viewImpl);
 
-        for (var i : gridMap.entrySet()) {
+        gridMap.forEach((key, value) -> {
             /* I save the coordinates of the next cells in a new set */
-            Set<Pair<Integer, Integer>> nextCell = new HashSet<>();
-            for (var j : i.getKey().getNext()) {
-                nextCell.add(j.getCoordinates());
-            }
-            view.makeCellList(i.getValue(), i.getKey().getType().toString(), nextCell);
-        }
+            Set<Pair<Integer, Integer>> nextCell;
+            nextCell = key.getNext().stream()
+                    .map(Cell::getCoordinates)
+                    .collect(Collectors.toSet());
+
+            view.makeCellList(value, key.getType().toString(), nextCell);
+        });
 
         view.startGeneration();
         view.setView();

@@ -56,19 +56,21 @@ public class TurnStateImpl implements TurnState {
     @Override
     public Optional<Pair<Integer, Integer>> getLastDirectionChoice() {
         checkGameStarted();
-
-        if (hasChosenDirection) {
-            return Optional.of(this.lastDirectionChosen);
+        synchronized (this) {
+            if (hasChosenDirection) {
+                return Optional.of(this.lastDirectionChosen);
+            }
+            return Optional.empty();
         }
-        return Optional.empty();
     }
 
     @Override
     public void setLastDirectionChoice(final Pair<Integer, Integer> direction) {
         checkGameStarted();
-
-        this.hasChosenDirection = true;
-        this.lastDirectionChosen = direction;
+        synchronized (this) {
+            this.hasChosenDirection = true;
+            this.lastDirectionChosen = direction;
+        }
     }
 
     @Override

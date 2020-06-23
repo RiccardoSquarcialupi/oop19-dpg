@@ -210,20 +210,14 @@ public class MenuGUI implements MenuView {
 
     /**
      * Method that start the game
-     *
-     * @param
-     * @param
-     * @param
      */
     @Override
     public void startGame() {
         GameCycleBuilder gb = new GameCycleBuilderImpl();
 
-        Map<String, Difficulty> mpAI = new HashMap<>();
-        mpAI.putAll(optionController.getOptionsAI());
+        Map<String, Difficulty> mpAI = new HashMap<>(optionController.getOptionsAI());
 
-        Map<Integer, String> mpPlayer = new HashMap<>();
-        mpPlayer.putAll(optionController.getOptionsPlayer());
+        Map<Integer, String> mpPlayer = new HashMap<>(optionController.getOptionsPlayer());
 
         for(var ai : mpAI.entrySet()){
             gb.addCpu(ai.getKey(),ai.getValue());

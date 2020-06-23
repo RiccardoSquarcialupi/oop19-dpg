@@ -1,4 +1,4 @@
-package it.dpg.maingame.model;
+package it.dpg.maingame.model.grid;
 
 import org.apache.commons.lang3.tuple.Pair;
 

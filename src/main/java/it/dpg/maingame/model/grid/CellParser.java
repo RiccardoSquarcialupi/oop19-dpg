@@ -1,4 +1,4 @@
-package it.dpg.maingame.model;
+package it.dpg.maingame.model.grid;
 
 /**
  * this class is used by the GridInitializer class to set and get elements contained in the json file

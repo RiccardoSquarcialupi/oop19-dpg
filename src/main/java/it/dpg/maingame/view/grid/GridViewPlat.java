@@ -1,12 +1,7 @@
-package it.dpg.maingame.view;
+package it.dpg.maingame.view.grid;
 
-import it.dpg.maingame.controller.GridObserver;
-import it.dpg.maingame.model.Cell;
-import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.character.Dice;
 import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;

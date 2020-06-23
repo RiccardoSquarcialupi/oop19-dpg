@@ -1,15 +1,15 @@
 package it.dpg.maingame.controller.gamecycle;
 
-import it.dpg.maingame.controller.GridViewGeneratorImpl;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerFactory;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerFactoryImpl;
 import it.dpg.maingame.controller.gamecycle.turnmanagement.*;
-import it.dpg.maingame.model.CellType;
-import it.dpg.maingame.model.GridType;
+import it.dpg.maingame.controller.grid.GridGenerator;
 import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.model.character.Difficulty;
-import it.dpg.maingame.view.GridView;
+import it.dpg.maingame.model.grid.CellType;
+import it.dpg.maingame.model.grid.GridType;
+import it.dpg.maingame.view.grid.GridView;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class GameCycleImpl implements GameCycle {
         this.backgroundThread.setDaemon(true);
         this.turnState = new TurnStateImpl();
         GridType level = GridType.GRID_ONE;//randomize when multiple levels are present
-        var pair = new GridViewGeneratorImpl(level, this).generate();
+        var pair = new GridGenerator(level, this).generate();
         this.view = pair.getRight();
         PlayerFactory playerFactory = new PlayerFactoryImpl(turnState, view, pair.getLeft());
         TurnManagerBuilder turnManagerBuilder = new TurnManagerBuilderImpl(nTurns, turnState);
@@ -133,12 +133,10 @@ public class GameCycleImpl implements GameCycle {
             return player.getCharacter().stepForward();
         }
         player.chooseDirection();
-        synchronized (turnState) {
-            if (turnState.getLastDirectionChoice().isEmpty()) {
-                throw new IllegalStateException("Turn state wasn't set properly");
-            }
-            return player.getCharacter().stepInDirection(turnState.getLastDirectionChoice().get());
+        if (turnState.getLastDirectionChoice().isEmpty()) {
+            throw new IllegalStateException("Turn state wasn't set properly");
         }
+        return player.getCharacter().stepInDirection(turnState.getLastDirectionChoice().get());
     }
 
     private void displayMinigameResults() {

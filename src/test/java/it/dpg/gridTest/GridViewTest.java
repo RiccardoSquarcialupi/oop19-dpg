@@ -1,23 +1,7 @@
 package it.dpg.gridTest;
 
-import it.dpg.maingame.controller.GridViewGenerator;
-import it.dpg.maingame.controller.GridViewGeneratorImpl;
-import it.dpg.maingame.controller.gamecycle.GameCycleImpl;
-import it.dpg.maingame.launcher.Main;
-import it.dpg.maingame.model.Grid;
-import it.dpg.maingame.model.GridInitializer;
-import it.dpg.maingame.model.GridInitializerImpl;
-import it.dpg.maingame.model.GridType;
-import it.dpg.maingame.model.character.Dice;
-import it.dpg.maingame.view.GridView;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 public class GridViewTest extends Application {
 
@@ -31,7 +15,7 @@ public class GridViewTest extends Application {
     public void start(Stage stage) {
 
         /*
-        Test doesn't work because the stages are different;
+         * This test runs when a different stage is set. Now the stage is the same of Main.
          */
 
         /*
@@ -64,6 +48,7 @@ public class GridViewTest extends Application {
         view.updatePlayers(players);
 
         view.enableDiceThrow(Dice.D8);
+        view.disableDiceThrow();
 
 
          */

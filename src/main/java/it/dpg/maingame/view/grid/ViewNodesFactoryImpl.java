@@ -1,4 +1,4 @@
-package it.dpg.maingame.view;
+package it.dpg.maingame.view.grid;
 
 import javafx.scene.Group;
 import javafx.scene.layout.StackPane;
@@ -61,18 +61,18 @@ public class ViewNodesFactoryImpl implements ViewNodesFactory {
     public Group generateLines(Map<StackPane, Set<Pair<Integer, Integer>>> cellsList, double modifierX, double modifierY) {
 
         Group linesGroup = new Group();
-        for (var i : cellsList.entrySet()) {
-            for (var j : i.getValue()) {
+        cellsList.forEach((key, value) -> {
+            for (var j : value) {
                 Line line = new Line();
                 line.setStroke(Color.FORESTGREEN);
                 line.setStrokeWidth(10);
-                line.setStartX(i.getKey().getLayoutX()+modifierX/3.3);
-                line.setStartY(i.getKey().getLayoutY()+modifierX/3.3);
-                line.setEndX(j.getLeft() * modifierX+modifierX/3.3);
-                line.setEndY(j.getRight() * modifierY+modifierX/3.3);
+                line.setStartX(key.getLayoutX() + modifierX / 3.3);
+                line.setStartY(key.getLayoutY() + modifierX / 3.3);
+                line.setEndX(j.getLeft() * modifierX + modifierX / 3.3);
+                line.setEndY(j.getRight() * modifierY + modifierX / 3.3);
                 linesGroup.getChildren().add(line);
             }
-        }
+        });
 
         return linesGroup;
 

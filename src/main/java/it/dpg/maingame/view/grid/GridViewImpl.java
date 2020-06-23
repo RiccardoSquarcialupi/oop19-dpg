@@ -1,7 +1,7 @@
-package it.dpg.maingame.view;
+package it.dpg.maingame.view.grid;
 
-import it.dpg.maingame.controller.GridObserver;
-import it.dpg.maingame.controller.GridObserverImpl;
+import it.dpg.maingame.controller.grid.GridObserver;
+import it.dpg.maingame.controller.grid.GridObserverImpl;
 import it.dpg.maingame.controller.gamecycle.GameCycle;
 import it.dpg.maingame.launcher.Main;
 import it.dpg.maingame.model.character.Dice;
@@ -118,9 +118,9 @@ public class GridViewImpl implements GridView {
         ScrollPane sp = new ScrollPane();
         Group circleGroup = new Group();
 
-        for (var i : circlesList.entrySet()) {       //every circle is added to the Group
-            circleGroup.getChildren().add(i.getKey());
-        }
+        circlesList.forEach((key, value) -> {       //every circle is added to the Group
+            circleGroup.getChildren().add(key);
+        });
         gridGroup.getChildren().addAll(nodes.generateLines(circlesList, Xmodifier, Ymodifier), circleGroup);
         sp.setContent(gridGroup);
 
@@ -195,7 +195,6 @@ public class GridViewImpl implements GridView {
     @Override
     public void removeText() {
         mainText.setText("");
-
     }
 
     @Override
@@ -231,28 +230,28 @@ public class GridViewImpl implements GridView {
 
         if (playerList.isEmpty()) {
             //if there's still no players, they are generated
-            for (var i : players.entrySet()) {
-                Rectangle playerSquare = nodes.generatePlayer(i.getKey());
-                FlowPane fp = gridsList.get(i.getValue());
+            players.forEach((key, value) -> {
+                Rectangle playerSquare = nodes.generatePlayer(key);
+                FlowPane fp = gridsList.get(value);
                 fp.getChildren().add(playerSquare);
-                playerList.put(i.getKey(), new ImmutablePair<>(playerSquare, fp));
-            }
+                playerList.put(key, new ImmutablePair<>(playerSquare, fp));
+            });
         }
 
         //the Players are added and removed to the gridPane corresponding to the Cell where the player is supposed to sit and from the old GridPane it was sitting on
-        for (var j : players.entrySet()) {
-            Rectangle playerP = playerList.get(j.getKey()).getLeft();
-            FlowPane oldFlow = playerList.get(j.getKey()).getRight();
+        players.forEach((key, value) -> {
+            Rectangle playerP = playerList.get(key).getLeft();
+            FlowPane oldFlow = playerList.get(key).getRight();
 
             //searches for the corresponding rectangle and removes it from the old grid pane
             oldFlow.getChildren().remove(playerP);
 
             //adds the rectangle to the new Grid Pane (according to the @param coordinates)
-            FlowPane newFlow = gridsList.get(j.getValue());
+            FlowPane newFlow = gridsList.get(value);
             newFlow.getChildren().add(playerP);
             //adds the new grid to the players list modifying the existing key
-            playerList.put(j.getKey(), new ImmutablePair<>(playerP, newFlow));
-        }
+            playerList.put(key, new ImmutablePair<>(playerP, newFlow));
+        });
 
     }
 

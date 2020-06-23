@@ -3,64 +3,23 @@ package it.dpg.gamecycleTests;
 import it.dpg.maingame.controller.gamecycle.playercontroller.CpuPlayerController;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.controller.gamecycle.turnmanagement.*;
-import it.dpg.maingame.model.Cell;
-import it.dpg.maingame.model.Grid;
+import it.dpg.maingame.model.grid.Grid;
 import it.dpg.maingame.model.character.*;
-import it.dpg.maingame.model.character.Character;
-import it.dpg.maingame.view.GridView;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
+import it.dpg.maingame.view.grid.GridView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
-public class PlayerManagerImplTest {
+public class TurnManagerImplTest {
 
-    private static class CpuMock implements Cpu {
-
-        @Override
-        public Character getControlledCharacter() {
-            return null;
-        }
-
-        @Override
-        public Difficulty getDifficulty() {
-            return null;
-        }
-
-        @Override
-        public Pair<Integer, Integer> getRandomDirection() {
-            return new ImmutablePair<>(4, 8);
-        }
-    }
-
-    public final Grid gridMock = new Grid() {
-        @Override
-        public Cell getFirst() {
-            return null;
-        }
-
-        @Override
-        public Cell getLast() {
-            return null;
-        }
-
-        @Override
-        public Cell getCellByCoordinates(Integer X, Integer Y) {
-            return null;
-        }
-
-        @Override
-        public Map<Cell, Pair<Integer, Integer>> getCellList() {
-            return null;
-        }
-    };
+    Grid gridMock = mock(Grid.class);
+    GridView view = mock(GridView.class);
 
     private final TurnState state = new TurnStateImpl();
-    private final GridView view = new GridViewMock();
     private TurnManager manager;
     private final Dice defaultDice = Dice.D6;
     private final List<Dice> rewardDice = List.of(Dice.D10, Dice.D8, Dice.D6);
@@ -75,7 +34,7 @@ public class PlayerManagerImplTest {
         PlayerController p1 = new CpuPlayerController(state, view, new CharacterImpl(1, "Franco", gridMock), Difficulty.HARD);
         PlayerController p2 = new CpuPlayerController(state, view, new CharacterImpl(2, "Alberto", gridMock), Difficulty.NORMAL);
         PlayerController p3 = new CpuPlayerController(state, view, new CharacterImpl(3, "CPU1", gridMock), Difficulty.EASY);
-        manager = new TurnManagerImpl(defaultDice, rewardDice, 5, Set.of(p1, p2, p3), state);
+        manager = new TurnManagerImpl(defaultDice, rewardDice, 4, Set.of(p1, p2, p3), state);
     }
 
     @Test
@@ -109,7 +68,7 @@ public class PlayerManagerImplTest {
         assertTrue(temp.isPresent());
         PlayerController third = temp.get();
 
-        for(int i = 0; i < 4; i++) {
+        for(int i = 0; i < 3; i++) {
             basicTestTurn(first, second, third);
             assertTrue(manager.hasNextTurn());
             manager.nextTurn();

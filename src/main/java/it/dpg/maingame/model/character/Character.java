@@ -1,6 +1,6 @@
 package it.dpg.maingame.model.character;
 
-import it.dpg.maingame.model.CellType;
+import it.dpg.maingame.model.grid.CellType;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Set;

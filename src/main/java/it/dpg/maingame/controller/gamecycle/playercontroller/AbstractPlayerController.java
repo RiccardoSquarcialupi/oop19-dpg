@@ -2,7 +2,7 @@ package it.dpg.maingame.controller.gamecycle.playercontroller;
 
 import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
 import it.dpg.maingame.model.character.Character;
-import it.dpg.maingame.view.GridView;
+import it.dpg.maingame.view.grid.GridView;
 
 import java.util.concurrent.TimeUnit;
 

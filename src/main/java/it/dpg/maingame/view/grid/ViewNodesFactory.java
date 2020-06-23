@@ -1,4 +1,4 @@
-package it.dpg.maingame.view;
+package it.dpg.maingame.view.grid;
 
 import javafx.scene.Group;
 import javafx.scene.layout.StackPane;

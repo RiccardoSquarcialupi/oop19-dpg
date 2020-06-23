@@ -1,12 +1,13 @@
-package it.dpg.maingame.view;
+package it.dpg.maingame.view.grid;
 
 import it.dpg.maingame.model.character.Dice;
+import it.dpg.maingame.view.View;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;
 import java.util.Set;
 
-public interface GridView extends View{
+public interface GridView extends View {
 
     /**
      * this methods sets the view
