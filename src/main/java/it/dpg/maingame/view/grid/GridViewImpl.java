@@ -175,11 +175,8 @@ public class GridViewImpl implements GridView {
         //to test the view, ids are assigned to a few view nodes
         mainText.setId("main_text");
         diceButton.setId("dice_button");
-        for (var i : playerList.entrySet()) {
-            i.getValue().getLeft().setId("player"+i);
-        }
         for (var j : gridsList.entrySet()) {
-            j.getValue().setId("pane"+j);
+            j.getValue().setId("pane"+j.getKey().getLeft()+j.getKey().getRight());
         }
     }
 
@@ -267,6 +264,14 @@ public class GridViewImpl implements GridView {
             playerList.put(key, new ImmutablePair<>(playerP, newFlow));
         });
 
+        //afters players are created, ids are assigned for the sake of testing the view
+        this.assignPlayersId();
+    }
+
+    private void assignPlayersId() {
+        for (var i : playerList.entrySet()) {
+            i.getValue().getLeft().setId("player"+i.getKey());
+        }
     }
 
     @Override
