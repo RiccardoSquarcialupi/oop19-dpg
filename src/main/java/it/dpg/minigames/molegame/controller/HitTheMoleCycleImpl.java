@@ -9,48 +9,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class HitTheMoleCycleImpl implements  HitTheMoleCycle {
+public class HitTheMoleCycleImpl implements HitTheMoleCycle {
 
+    private final static int NMOLES = 25;
+    HitTheMoleView moleView = new HitTheMoleViewImpl(this);
     private List<Pair<Integer, Mole>> moleList = new ArrayList<>();
-    private List<Integer> moleOut = new ArrayList<>();
+    private List<Pair<Integer, Mole>> moleOut = new ArrayList<>();
     private Score score = new ScoreImpl();
     private Timer timer = new TimerImpl();
     private volatile boolean isStartClick = false;
-    HitTheMoleView moleView = new HitTheMoleViewImpl(this);
-    private final static int NMOLES = 25;
 
-    public HitTheMoleCycleImpl(){
-        for(int i=0;i<NMOLES;i++){
-            moleList.add(new Pair<>(i,new MoleImpl()));
+
+    public HitTheMoleCycleImpl() {
+        for (int i = 0; i < NMOLES; i++) {
+            moleList.add(new Pair<>(i, new MoleImpl()));
         }
     }
 
     @Override
-    public int startCycle(){
+    public int startCycle() {
 
-        while(!isStartClick){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        waitForTheStart();
 
         timer.timeStart();
-        while(!timer.checkTimeIsUp()){
+        while (!timer.checkTimeIsUp()) {
 
             moleOutOrIn();
             updateView();
             moleOutOrIn();
             updateView();
 
-            moleView.updateTimer(timer);
+            waitTime();
 
-            try {
-                wait(250);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
         }
 
@@ -58,19 +48,49 @@ public class HitTheMoleCycleImpl implements  HitTheMoleCycle {
         return score.finalScore();
     }
 
+    private synchronized void waitForTheStart() {
+        while (!isStartClick) {
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private synchronized void waitTime() {
+        try {
+            wait(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
-     *  check if the mole press is out or in
+     * check if the mole press is out or in
      */
     @Override
     public void pressOnAMole(int whichMole) {
-        if(moleList.get(whichMole).getValue().isOut()){
+        if (moleList.get(whichMole).getValue().isOut()) {
             score.addPoint();
-            moleView.updateScore(score);
-            moleList.get(whichMole).getValue().setMoleIn();
-            moleOut.remove(whichMole);
+
+            removeMole(whichMole);
 
         }
 
+    }
+
+    private void removeMole(int whichMole) {
+        moleList.get(whichMole).getValue().setMoleIn();
+
+        int c = 0;
+        for (var s : moleOut) {
+            if (s.getKey() == whichMole) {
+                moleOut.remove(c);
+                break;
+            }
+            c++;
+        }
     }
 
     /**
@@ -79,14 +99,13 @@ public class HitTheMoleCycleImpl implements  HitTheMoleCycle {
     @Override
     public void moleOutOrIn() {
         Random r = new Random();
-        int i=r.nextInt(15);
-        if(!moleList.get(i).getValue().isOut()){
+        int i = r.nextInt(15);
+        if (!moleList.get(i).getValue().isOut()) {
             moleList.get(i).getValue().setMoleOut();
-            moleOut.add(i);
-        }
-        else{
-            moleList.get(i).getValue().setMoleIn();
-            moleOut.remove(i);
+            moleOut.add(new Pair<>(i, moleList.get(i).getValue()));
+        } else {
+
+            removeMole(i);
         }
     }
 
@@ -95,6 +114,8 @@ public class HitTheMoleCycleImpl implements  HitTheMoleCycle {
      */
     @Override
     public void updateView() {
+        moleView.updateTimer(timer.getRemainTime());
+        moleView.updateScore(score);
         moleView.updateMole(moleOut);
     }
 
@@ -102,9 +123,9 @@ public class HitTheMoleCycleImpl implements  HitTheMoleCycle {
      * start the gamecycle when button start is clicked on the view
      */
     @Override
-    public void startGame() {
-        isStartClick=true;
-        notify();
+    public synchronized void startGame() {
+        this.isStartClick = true;
+        notifyAll();
     }
 
 }
