@@ -11,6 +11,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GridViewGeneratorImpl implements GridViewGenerator {
 
@@ -38,14 +39,15 @@ public class GridViewGeneratorImpl implements GridViewGenerator {
         GridViewImpl viewImpl = new GridViewImpl(gameCycle);
         this.view = new GridViewPlat(viewImpl);
 
-        for (var i : gridMap.entrySet()) {
+        gridMap.forEach((key, value) -> {
             /* I save the coordinates of the next cells in a new set */
-            Set<Pair<Integer, Integer>> nextCell = new HashSet<>();
-            for (var j : i.getKey().getNext()) {
-                nextCell.add(j.getCoordinates());
-            }
-            view.makeCellList(i.getValue(), i.getKey().getType().toString(), nextCell);
-        }
+            Set<Pair<Integer, Integer>> nextCell;
+            nextCell = key.getNext().stream()
+                    .map(Cell::getCoordinates)
+                    .collect(Collectors.toSet());
+
+            view.makeCellList(value, key.getType().toString(), nextCell);
+        });
 
         view.startGeneration();
         view.setView();
