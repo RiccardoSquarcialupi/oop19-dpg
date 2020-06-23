@@ -26,10 +26,12 @@ public class TimerImpl implements Timer {
 
     /**
      * get the remain time
+     *
+     * @return the remain time
      */
     @Override
-    public int getRemainTime() {
-        return (int) (System.currentTimeMillis()-time)/1000;
+    public long getRemainTime() {
+        return (20 - (System.currentTimeMillis() - time) / 1000);
     }
 
 

@@ -15,8 +15,10 @@ public interface Timer {
 
     /**
      * get the remain time
+     *
+     * @return remain time
      */
-    int getRemainTime();
+    long getRemainTime();
 
 
 
