@@ -12,19 +12,18 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class GridViewGeneratorImpl implements GridViewGenerator {
+public class GridGeneratorImpl {
 
     public Map<Cell, Pair<Integer, Integer>> gridMap;
     public GridViewPlat view;
     private final GridType gridType;
     private final GameCycle gameCycle;
 
-    public GridViewGeneratorImpl(GridType type, GameCycle gameCycle) {
+    public GridGeneratorImpl(GridType type, GameCycle gameCycle) {
         this.gridType = type;
         this.gameCycle = gameCycle;
     }
 
-    @Override
     public Pair<Grid, GridView> generate() {
 
         /* The grid is initialized */
