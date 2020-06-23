@@ -1,10 +1,15 @@
 package it.dpg.maingame.model.character;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Random;
 import java.util.Set;
+
+/**
+ * Basic implementation of Cpu interface
+ * @see Cpu
+ * @author Davide Picchiotti
+ * */
 
 public class CpuImpl implements Cpu {
 

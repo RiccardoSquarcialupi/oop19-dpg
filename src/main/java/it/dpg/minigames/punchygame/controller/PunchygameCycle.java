@@ -10,6 +10,14 @@ import java.util.Objects;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * This class serves as InputObserver and MinigameCycle for PunchyMinigame
+ * @author Davide Picchiotti
+ * @see it.dpg.minigames.punchygame.PunchyMinigame
+ * @see MinigameCycle
+ * @see InputObserver
+ * */
+
 public class PunchygameCycle implements MinigameCycle, InputObserver {
 
     private static final int TIMER_TICK_MILLIS = 20;
@@ -30,6 +38,12 @@ public class PunchygameCycle implements MinigameCycle, InputObserver {
         long lastTime = System.currentTimeMillis();
         long currentTime;
         long total = 0;
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
         while(!world.isGameOver()) {
             currentTime = System.currentTimeMillis();

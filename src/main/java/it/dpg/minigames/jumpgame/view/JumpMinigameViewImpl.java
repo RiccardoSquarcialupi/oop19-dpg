@@ -17,6 +17,12 @@ import javafx.scene.text.Text;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Basic implementation of JumpMinigameView
+ * @author Davide Picchiotti
+ * @see JumpMinigameView
+ * */
+
 public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMinigameView {
 
     private static final Color PLAYER_COLOR = Color.BLUEVIOLET;

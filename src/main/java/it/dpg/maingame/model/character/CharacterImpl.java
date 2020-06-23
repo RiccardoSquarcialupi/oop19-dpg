@@ -9,6 +9,12 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Basic implementation of Character interface
+ * @see Character
+ * @author Davide Picchiotti
+ * */
+
 public class CharacterImpl implements Character {
 
     private final int id;

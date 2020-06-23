@@ -2,6 +2,12 @@ package it.dpg.minigames.jumpgame.model;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+/**
+ * Basic implementation of GameObject interface
+ * @author Davide Picchiotti
+ * @see GameObject
+ * */
+
 public abstract class AbstractGameObject implements GameObject {
     private final int width;
     private final int height;

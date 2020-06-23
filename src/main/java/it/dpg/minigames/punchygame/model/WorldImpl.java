@@ -4,6 +4,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Basic implementation of World
+ * @author Davide Picchiotti
+ * @see World
+ * */
+
 public class WorldImpl implements World {
     private Random r = new Random();
 

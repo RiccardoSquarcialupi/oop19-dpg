@@ -4,8 +4,11 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+
+/**
+ * Basic implementation of world
+ * @author Davide Picchiotti
+ * */
 
 public class WorldImpl implements World {
     private static final int HEIGHT = 900;

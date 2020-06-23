@@ -1,10 +1,13 @@
 package it.dpg.minigames.jumpgame.controller.input;
 
-import it.dpg.minigames.jumpgame.model.World;
+/**
+ * Implementation of Input that stops the player
+ * @author Davide Picchiotti
+ * */
 
-public class StopMovement implements Input {
+public class StopMovement extends AbstractHorizontalMovement {
     @Override
-    public void execute(World world) {
-        world.setPlayerSpeedX(0);
+    public int getHorizontalMovementSpeed() {
+        return 0;
     }
 }

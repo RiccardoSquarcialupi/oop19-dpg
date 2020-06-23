@@ -1,5 +1,11 @@
 package it.dpg.minigames.punchygame.model;
 
+/**
+ * Basic implementation of Score
+ * @author Davide Picchiotti
+ * @see Score
+ * */
+
 public class ScoreImpl implements Score {
     private int score;
     private int multiplier;
