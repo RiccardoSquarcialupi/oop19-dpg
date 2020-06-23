@@ -133,12 +133,10 @@ public class GameCycleImpl implements GameCycle {
             return player.getCharacter().stepForward();
         }
         player.chooseDirection();
-        synchronized (turnState) {
-            if (turnState.getLastDirectionChoice().isEmpty()) {
-                throw new IllegalStateException("Turn state wasn't set properly");
-            }
-            return player.getCharacter().stepInDirection(turnState.getLastDirectionChoice().get());
+        if (turnState.getLastDirectionChoice().isEmpty()) {
+            throw new IllegalStateException("Turn state wasn't set properly");
         }
+        return player.getCharacter().stepInDirection(turnState.getLastDirectionChoice().get());
     }
 
     private void displayMinigameResults() {
