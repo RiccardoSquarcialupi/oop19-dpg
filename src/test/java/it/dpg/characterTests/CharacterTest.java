@@ -27,14 +27,14 @@ public class CharacterTest {
     Grid grid;
 
     Pair<Integer, Integer> startPos = new ImmutablePair<>(1, 1);
-    Cell startFork;
+    CellImpl startFork;
 
     @BeforeEach
     void setupMock() {
         final Set<Cell> singleNext = new HashSet<>();
         singleNext.add(new CellImpl(false, new ImmutablePair<>(2, 2), CellType.NORMAL));
 
-        final Cell startNoFork = new CellImpl(false, startPos, CellType.START);
+        final CellImpl startNoFork = new CellImpl(false, startPos, CellType.START);
         startNoFork.setNext(singleNext);
 
         final Set<Cell> forkNext = new HashSet<>();
