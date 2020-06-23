@@ -110,8 +110,7 @@ public class CpuPlayerControllerTest {
         }
 
         @Override
-        public boolean stepBackward() {
-            return false;
+        public void stepBackward() {
         }
 
         @Override

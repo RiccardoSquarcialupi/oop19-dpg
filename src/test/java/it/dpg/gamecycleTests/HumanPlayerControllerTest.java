@@ -10,7 +10,6 @@ import it.dpg.maingame.model.Cell;
 import it.dpg.maingame.model.CellType;
 import it.dpg.maingame.model.Grid;
 import it.dpg.maingame.model.character.Character;
-import it.dpg.maingame.model.character.CharacterImpl;
 import it.dpg.maingame.model.character.Dice;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -94,8 +93,7 @@ public class HumanPlayerControllerTest {
         }
 
         @Override
-        public boolean stepBackward() {
-            return false;
+        public void stepBackward() {
         }
 
         @Override
