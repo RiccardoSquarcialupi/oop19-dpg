@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
-public class BallViewImpl extends AbstractMinigameView implements BallMinigameView {
+public class BallViewImpl extends AbstractMinigameView implements BallView {
     private final double viewSize;
     private final BallObserver observer;
     private final Group panel = new Group();
@@ -24,6 +24,7 @@ public class BallViewImpl extends AbstractMinigameView implements BallMinigameVi
         super();
         this.viewSize = viewSize;
         this.observer = observer;
+        this.panel.setId("group_node");
     }
 
     /**

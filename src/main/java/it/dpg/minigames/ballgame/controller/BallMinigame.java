@@ -1,6 +1,6 @@
 package it.dpg.minigames.ballgame.controller;
 
-import it.dpg.minigames.ballgame.view.BallMinigameView;
+import it.dpg.minigames.ballgame.view.BallView;
 import it.dpg.minigames.ballgame.view.BallViewImpl;
 import it.dpg.minigames.base.controller.AbstractMinigame;
 import it.dpg.minigames.base.controller.Minigame;
@@ -11,7 +11,7 @@ import java.awt.*;
 
 public class BallMinigame extends AbstractMinigame implements Minigame {
     private final int maxScore = 999;
-    private BallMinigameView view;
+    private BallView view;
     private BallGamecycle cycle;
 
     public BallMinigame() {
