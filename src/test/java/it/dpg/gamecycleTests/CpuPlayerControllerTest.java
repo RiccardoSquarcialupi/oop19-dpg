@@ -12,6 +12,8 @@ import it.dpg.maingame.model.character.Character;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import java.util.Map;
 import java.util.Set;
@@ -19,24 +21,6 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CpuPlayerControllerTest {
-
-    private static class CpuMock implements Cpu{
-
-        @Override
-        public Character getControlledCharacter() {
-            return null;
-        }
-
-        @Override
-        public Difficulty getDifficulty() {
-            return null;
-        }
-
-        @Override
-        public ImmutablePair<Integer, Integer> getRandomDirection() {
-            return new ImmutablePair<>(4, 8);
-        }
-    }
 
     public final Grid gridMock = new Grid() {
         @Override
@@ -144,7 +128,6 @@ public class CpuPlayerControllerTest {
         }
     };
 
-    private final Cpu cpuMock = new CpuMock();
     private final TurnState state = new TurnStateImpl();
     private final PlayerController pc = new CpuPlayerController(state, new GridViewMock() , cMock, Difficulty.NORMAL);
 
@@ -158,15 +141,13 @@ public class CpuPlayerControllerTest {
     @Test
     public void testDirectionChoice() {
         state.newTurn();
-        var choices = Set.of(
+        var choices = Set.<Pair<Integer, Integer>>of(
                 new ImmutablePair<>(4, 8),
                 new ImmutablePair<>(3, 9),
                 new ImmutablePair<>(4, 9));
         pc.chooseDirection();
-        if(state.getLastDirectionChoice().isEmpty()) {
-            fail();
-        }
-        ImmutablePair<Integer, Integer> temp = (ImmutablePair<Integer, Integer>) state.getLastDirectionChoice().get();
+        assertTrue(state.getLastDirectionChoice().isPresent());
+        Pair<Integer, Integer> temp = state.getLastDirectionChoice().get();
         assertTrue(choices.contains(temp));
         assertFalse(state.isChoosing());
     }
