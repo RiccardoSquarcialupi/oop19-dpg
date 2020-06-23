@@ -4,7 +4,7 @@ import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerFactory;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerFactoryImpl;
 import it.dpg.maingame.controller.gamecycle.turnmanagement.*;
-import it.dpg.maingame.controller.grid.GridGeneratorImpl;
+import it.dpg.maingame.controller.grid.GridGenerator;
 import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.model.character.Difficulty;
 import it.dpg.maingame.model.grid.CellType;
@@ -30,7 +30,7 @@ public class GameCycleImpl implements GameCycle {
         this.backgroundThread.setDaemon(true);
         this.turnState = new TurnStateImpl();
         GridType level = GridType.GRID_ONE;//randomize when multiple levels are present
-        var pair = new GridGeneratorImpl(level, this).generate();
+        var pair = new GridGenerator(level, this).generate();
         this.view = pair.getRight();
         PlayerFactory playerFactory = new PlayerFactoryImpl(turnState, view, pair.getLeft());
         TurnManagerBuilder turnManagerBuilder = new TurnManagerBuilderImpl(nTurns, turnState);

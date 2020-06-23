@@ -12,14 +12,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class GridGeneratorImpl {
+public class GridGenerator {
 
     public Map<Cell, Pair<Integer, Integer>> gridMap;
     public GridViewPlat view;
     private final GridType gridType;
     private final GameCycle gameCycle;
 
-    public GridGeneratorImpl(GridType type, GameCycle gameCycle) {
+    public GridGenerator(GridType type, GameCycle gameCycle) {
         this.gridType = type;
         this.gameCycle = gameCycle;
     }
