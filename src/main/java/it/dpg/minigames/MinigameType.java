@@ -11,6 +11,7 @@ public enum MinigameType {
 
     BALLGAME(BallMinigame::new),
     PUNCHYGAME(PunchyMinigame::new),
+    MOLEGAME(MoleMiniGame::new),
     JUMPGAME(JumpMinigame::new);
 
 

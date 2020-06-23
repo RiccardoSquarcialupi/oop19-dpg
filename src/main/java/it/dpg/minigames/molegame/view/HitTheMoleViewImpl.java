@@ -32,19 +32,23 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
     private static final int NCOLUMN = 5;
     private static final Color BG_COLOR = Color.GREEN;
     private String sep = File.separator;
-    private volatile Label scoreLbl = new Label("0");
-    private volatile Label timerLbl = new Label("20");
+
     private String holeWithoutMole = "images" + sep + "molegame" + sep + "holewithoutmole.png";
     private String holeWithMole = "images" + sep + "molegame" + sep + "holewithmole.png";
+
     private volatile List<Pair<Integer, Label>> listMole = new ArrayList<>();
     private GridPane gp = new GridPane();
     private HitTheMoleCycle gameCycle;
+    private Text scoreLbl;
+    private Text timerLbl;
 
 
-    public HitTheMoleViewImpl(final HitTheMoleCycle gc) {
-        this.gameCycle = gc;
+    public HitTheMoleViewImpl(HitTheMoleCycle gc) {
+        gameCycle = gc;
+        gc.setView(this);
         int count = 0;
-
+        timerLbl = new Text("20");
+        scoreLbl = new Text("0");
         EventHandler<MouseEvent> al = mouseEvent -> {
             for (var p : listMole) {
                 if (p.getValue().equals(mouseEvent.getSource())) {
@@ -81,7 +85,6 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
             start.setDisable(true);
         });
 
-
         Text score = new Text("Score");
         Text timer = new Text("Timer");
 
@@ -94,7 +97,6 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
         hb.getChildren().add(timer);
         hb.getChildren().add(timerLbl);
 
-        System.out.println(listMole.size());
         return scene;
 
     }
@@ -106,8 +108,8 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
     @Override
     public void updateScore(Score score) {
 
-        Platform.runLater(() -> scoreLbl.setText("" + score.finalScore()));
-        System.out.println("punteggio: "+score.finalScore());
+        Platform.runLater(() -> scoreLbl.setText(String.valueOf(score.finalScore())));
+
 
     }
 
@@ -116,8 +118,10 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
      */
     @Override
     public void updateTimer(long time) {
-        Platform.runLater(() -> timerLbl.setText("" + time));
-        System.out.println("tempo: "+time);
+
+        Platform.runLater(() -> timerLbl.setText(String.valueOf(time)));
+
+
     }
 
     /**
@@ -126,12 +130,14 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
      * @param moleOut list of the out mole
      */
     @Override
-    public synchronized void updateMole(List<Pair<Integer, Mole>> moleOut) {
+    public void updateMole(List<Pair<Integer, Mole>> moleOut) {
         Platform.runLater(() -> {
             for (var p : listMole) {
                 for (var i : moleOut) {
                     if (p.getKey().equals(i.getKey())) {
                         p.getValue().setGraphic(new ImageView(new Image(holeWithMole)));
+                    } else {
+                        p.getValue().setGraphic(new ImageView(new Image(holeWithoutMole)));
                     }
                 }
             }
