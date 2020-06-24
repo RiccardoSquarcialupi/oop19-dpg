@@ -26,6 +26,6 @@ class MenuControllerImpl{
 }
 MenuView <|.. MenuGUI
 MenuController <|.. MenuControllerImpl
-MenuControllerImpl --> MenuGUI
+MenuControllerImpl --o MenuGUI
 MenuView --|> View
 @enduml

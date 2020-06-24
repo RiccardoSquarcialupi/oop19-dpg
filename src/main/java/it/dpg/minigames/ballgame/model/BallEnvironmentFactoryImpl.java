@@ -9,11 +9,9 @@ import java.util.Set;
 public class BallEnvironmentFactoryImpl implements BallEnvironmentFactory {
 
     private final int expectedFPS;
-    private final int maxScore;
 
-    BallEnvironmentFactoryImpl(int expectedFPS, int maxScore) {
+    BallEnvironmentFactoryImpl(int expectedFPS) {
         this.expectedFPS = expectedFPS;
-        this.maxScore = maxScore;
     }
 
     @Override
@@ -53,7 +51,7 @@ public class BallEnvironmentFactoryImpl implements BallEnvironmentFactory {
 
             temp.add(new HorizontalBoundary(30, 45, 100, CollisionType.GOAL));
 
-            return new BallEnvironmentImpl(17.5, 12.5, 3, temp, expectedFPS, maxScore);
+            return new BallEnvironmentImpl(17.5, 12.5, 3, temp, expectedFPS);
         }
         throw new NotImplementedException("level not implemented");
     }

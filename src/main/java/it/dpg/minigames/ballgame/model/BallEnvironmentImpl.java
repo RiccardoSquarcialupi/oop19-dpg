@@ -6,18 +6,15 @@ import java.util.Set;
 public class BallEnvironmentImpl implements BallEnvironment {
     private final Set<Boundary> boundaries;
     private final double deltaT;
-    private final int maxScore;
     private final Ball ball;
     private Boundary lastCollision;
     private boolean lastFrameCollision = false;
     private boolean wasGoalReached = false;
-    private double timePassed = 0;
 
-    public BallEnvironmentImpl(double startX, double startY, double radius, Set<Boundary> boundaries, int expectedFPS, int maxScore) {
+    public BallEnvironmentImpl(double startX, double startY, double radius, Set<Boundary> boundaries, int expectedFPS) {
         this.ball = new Ball(radius, startX, startY, 18, 9, 22);
         this.boundaries = boundaries;
         this.deltaT = 1d / expectedFPS;
-        this.maxScore = maxScore;
     }
 
     @Override
@@ -31,14 +28,7 @@ public class BallEnvironmentImpl implements BallEnvironment {
     }
 
     @Override
-    public int getScore() {
-        int score = maxScore - ((int) (timePassed * 20));
-        return Math.max(score, 0);
-    }
-
-    @Override
     public void nextFrame(boolean isGoingUp, boolean isGoingDown, boolean isGoingLeft, boolean isGoingRight) {
-        timePassed += deltaT;
         ball.calculateNextPosition(isGoingUp, isGoingDown, isGoingLeft, isGoingRight, deltaT);
         Optional<Boundary> collision = detectCollision();
         if (collision.isEmpty()) {

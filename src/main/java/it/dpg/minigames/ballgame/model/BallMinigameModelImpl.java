@@ -12,9 +12,14 @@ public class BallMinigameModelImpl implements BallMinigameModel {
     private volatile boolean isGoingRight = false;
     private volatile boolean isGoingUp = false;
     private volatile boolean isGoingDown = false;
+    private final int maxScore;
+    private double timePassed = 0;
+    private final double deltaT;
 
     public BallMinigameModelImpl(int expectedFPS, int maxScore) {
-        this.factory = new BallEnvironmentFactoryImpl(expectedFPS, maxScore);
+        this.maxScore = maxScore;
+        this.deltaT = 1d / expectedFPS;
+        this.factory = new BallEnvironmentFactoryImpl(expectedFPS);
     }
 
     private void checkLevelSetup() {
@@ -53,14 +58,15 @@ public class BallMinigameModelImpl implements BallMinigameModel {
     @Override
     public Pair<Double, Double> calculateNextFrame() {
         checkLevelSetup();
+        timePassed += deltaT;
         env.nextFrame(isGoingUp, isGoingDown, isGoingLeft, isGoingRight);
         return new ImmutablePair<>(env.getX(), env.getY());
     }
 
     @Override
     public int getScore() {
-        checkLevelSetup();
-        return env.getScore();
+        int score = maxScore - ((int) (timePassed * 20));
+        return Math.max(score, 0);
     }
 
     @Override
