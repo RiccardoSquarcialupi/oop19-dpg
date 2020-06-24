@@ -63,7 +63,7 @@ I personaggi si muovono all'interno di una griglia (Grid) composta da caselle (C
 %
 Alla fine del turno il gamecycle avvierà dei minigiochi (Minigame), che ritorneranno un certo punteggio intero.
 %
-Le difficlotà primarie potrebbero essere le seguenti:
+Le difficoltà primarie potrebbero essere le seguenti:
 \begin{itemize}
     \item gestire le cpu in maniera intelligente, evitando di complicare eccessivamente il codice
     \item generare una griglia senza impostarne tutti i dettagli manualmente dal codice
@@ -122,7 +122,7 @@ Design dettagliato Davide Picchiotti
 
 \subsection{Design dettagliato Miriana Ascenzo}
 
-A partire dalla classe GridGenerator e dal suo unico metodo generate(), vengono creati prima una Grid (modello del Tabellone di Gioco), usando il metodo makeGrid(gridType: gridType) di GridInitializer, e poi una GridView (view del Tabellone), che si basa sulla Grid creata.
+A partire dalla classe GridGenerator e dal suo unico metodo generate(), vengono creati prima una Grid (modello del Tabellone di Gioco) composta da più Cell, e poi una GridView (view del Tabellone), che si basa sulla Grid creata.
 %
 Abbiamo un pattern Factory Method, per cui una Grid viene creata a partire dagli elementi che gli vengono forniti: infatti GridGenerator prende per costruttore una GridType (enum di possibili griglie) e tramite essa cerca nelle resources un file Json corrispondente.
 %
@@ -134,7 +134,7 @@ La lettura e estrazione dei dati dal file Json avvengono tramite l’uso dei met
 
 \begin{figure}[!t]
 \centering{}
-\includegraphics[width=\textwidth]{images/gridImages/gridFactoryMethod.png}
+\includegraphics[width=\textwidth]{images/miriana/grid_generator.png}
 \caption{Schema UML delle classi di generazione del Tabellone. Segue il pattern Factory Method.}
 \label{img:gridfactorymethod}
 \end{figure}
@@ -147,7 +147,7 @@ Una classe GridObserver ha per Observable GridViewImpl: Se un determinato botton
 
 \begin{figure}[!t]
 \centering{}
-\includegraphics[width=\textwidth]{images/gridImages/gridObserver.png}
+\includegraphics[width=\textwidth]{images/miriana/grid_observer.png}
 \caption{Schema UML delle classi di View, e di come interagiscono con il gameCycle. Segue il pattern Observer.}
 \label{img:gridobserver}
 \end{figure}
@@ -164,7 +164,7 @@ Abbiamo un pattern Mediator, per cui gameCycle e GridViewImpl non comunicano dir
 
 \begin{figure}[!t]
 \centering{}
-\includegraphics[width=\textwidth]{images/gridImages/gridMediator.png}
+\includegraphics[width=\textwidth]{images/miriana/grid_mediator.png}
 \caption{Schema UML di come GameCycle e GridView comunicano. Segue il pattern Mediator.}
 \label{img:gridmediator}
 \end{figure}
@@ -249,6 +249,29 @@ Sono stati fatti errori di distrazione, il che ha richiesto dover tornare indiet
 \chapter{Guida utente}
 
 Spiegazione comandi e utilizzo del gioco
+
+All'avvio del gioco compare un menù: premere start avvia un game in impostazioni standard (2 giocatori, di cui uno è una CPU).
+%
+Se si vuole modificare il numero di giocatori e/o il numero di CPU, premere Options ed inserire le preferenze.
+%
+Una volta premuto start il game inizia con i giocatori sulla casella start.
+%
+Da qui bisogna seguire le istruzioni che vengono dettate nel riquadro bianco più in alto:
+\begin {itemize}
+	\item quando appare l'istruzione "continue..", premere invio per proseguire
+	\item quando appare l'istruzione "Throw the Dice!", il bottone dado sottostante verrà abilitato: premere il bottone per tirare il dado
+	\item quando appare l'istruzione "choose the direction on the map", due bottoni verrano abilitati: premere il bottone corrispondente alla casella che si vuole raggiungere
+\end {itemize}
+Ogni turno finisce con un minigioco: ottenere più punti possibili per vincere dadi migliori da tirare.
+Istruzioni minigiochi:
+\begin {itemize}
+	\item ballgame: premere le frecce direzionali per comandare la palla rossa. Raggiungere il traguardo evitando i muri rossi nel tempo limite(punteggio basato sul tempo impiegato).
+	\item punchygame: premere le frecce direzioni destra e sinistra per colpire i sacchi da boxe rossi. Colpirne il maggior numero nel tempo limite (punteggio basato sul numero di sacchi colpiti).
+	\item jumpgame: premere le frecce direzionali per comandare il quadratino. Saltare più piattaforme possibili senza cadere o toccare i bordi laterali della finestra (punteggio basato sul numero di piattaforme saltate).
+	\item molegame: premere start per avviare il minigioco: cliccare su più talpe possibili nel tempo limite (punteggio basato sul numero di talpe cliccate).
+\end {itemize}
+Il gioco finisce quando un giocatore raggiunge l'ultima casella del Tabellone, vincendo il game.
+
 
 \bibliographystyle{abbrv}
 \bibliography{template}

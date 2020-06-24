@@ -1,0 +1,26 @@
+@startuml
+
+title Punchy Minigame - Overview
+
+class PunchyMinigame {
+    +getMaxScore(): int
+    #createView(): View
+    #createCycle(): MinigameCycle
+}
+
+class PunchygameCycle {}
+
+abstract class AbstractMinigame {}
+interface PunchygameView {}
+interface MinigameCycle
+interface World {}
+interface View {}
+
+AbstractMinigame <|-- PunchyMinigame
+PunchygameView --|> View
+PunchyMinigame *-- PunchygameView
+PunchyMinigame *-- World
+PunchyMinigame *-- PunchygameCycle
+PunchygameCycle ..|> MinigameCycle
+
+@enduml
