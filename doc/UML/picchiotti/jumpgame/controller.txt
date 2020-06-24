@@ -1,0 +1,24 @@
+@startuml
+
+title Jump Minigame - Controller
+
+class JumpMinigameCycle {
+}
+
+interface MinigameCycle {
+    +startCycle(): int
+}
+
+interface InputObserver {
+    +notify(input: Input)
+}
+
+interface Input {
+    +execute(model: World)
+}
+
+JumpMinigameCycle ..|> MinigameCycle
+JumpMinigameCycle ..|> InputObserver
+InputObserver <-- Input
+
+@enduml

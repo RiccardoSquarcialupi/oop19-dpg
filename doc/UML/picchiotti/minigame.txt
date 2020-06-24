@@ -9,7 +9,7 @@ interface Minigame {
 
 abstract class AbstractMinigame {
     #{abstract} getMaxScore(): int
-    #{abstract} createView(): MinigameView
+    #{abstract} createView(): View
     #{abstract} createCycle(): MinigameCycle
 }
 
@@ -26,6 +26,6 @@ interface View {}
 AbstractMinigameView ..|> View
 Minigame <|.. AbstractMinigame
 AbstractMinigame *-- MinigameCycle
-AbstractMinigame *-- MinigameView
+AbstractMinigame *-- AbstractMinigameView
 
 @enduml

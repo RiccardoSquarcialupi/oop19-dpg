@@ -1,6 +1,6 @@
 @startuml
 
-title Punchy Minigame - Controller (Input)
+title Punchy Minigame - Input
 
 interface InputObserver {
     +notify(input: Input)

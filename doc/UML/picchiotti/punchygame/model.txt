@@ -1,0 +1,42 @@
+@startuml
+
+title Punchy Minigame - Model
+
+interface World {
+    +checkSackHit(dir: Direction)
+    +getSacks(): List<Direction>
+    +getScore(): int
+    +getScoreMultiplier(): int
+    +getTimer(): float
+    +updateTimer(elapsed: float)
+    +getBoxerDirection(): Direction
+    +isGameOver(): boolean
+}
+
+interface Timer {
+    +timerDecrease(elapsed: flaot)
+    +timerIncrease()
+    +getTimeLeft(): float
+    +getMaxTime(): float
+}
+
+interface Score {
+    +incrementScore()
+    +getPoints(): int
+    +getMultiplier(): int
+    +resetCombo()
+}
+
+interface Boxer {
+    +setDirection(dir: Direction)
+    +getDirection(): Direction
+}
+
+class WorldImpl {}
+
+WorldImpl *-- Timer
+WorldImpl *-- Score
+WorldImpl *-- Boxer
+World <|.. WorldImpl
+
+@enduml

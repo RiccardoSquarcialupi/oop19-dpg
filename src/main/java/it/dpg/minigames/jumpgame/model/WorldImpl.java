@@ -91,10 +91,6 @@ public class WorldImpl implements World {
         return HEIGHT;
     }
 
-    public int getPlayerSpeedY() {
-        return player.getSpeedY();
-    }
-
     private void checkCollisionWithPlatform(final Platform p) {
         if(p.doesExist()) {
             int playerLeftSide = player.getPosition().getLeft();

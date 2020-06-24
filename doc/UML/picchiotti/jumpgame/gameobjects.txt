@@ -1,0 +1,32 @@
+@startuml
+
+title Jump Minigame - Model - GameObject Detail
+
+interface GameObject {
+    +getHeight(): int
+    +getWidth(): int
+    +getPosition(): Pair<Integer, Integer>
+    +setPosition(pos: Pair<Integer, Integer>)
+    +getSpeedX(): int
+    +getSpeedY(): int
+    +setSpeedX(speed: int)
+    +setSpeedY(speed: int)
+    +updatePosition()
+}
+
+abstract class AbstractGameObject {}
+
+class Player {
+}
+
+class Platform {
+    +getId(): int
+    +doesExist(): boolean
+    +destroy()
+}
+
+AbstractGameObject <|-- Player
+AbstractGameObject <|-- Platform
+GameObject <|.. AbstractGameObject
+
+@enduml
