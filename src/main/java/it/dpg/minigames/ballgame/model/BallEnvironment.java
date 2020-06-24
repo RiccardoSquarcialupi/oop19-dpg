@@ -12,11 +12,6 @@ public interface BallEnvironment {
     double getY();
 
     /**
-     * get current score
-     */
-    int getScore();
-
-    /**
      * calculate next frame, based on the user's input
      */
     void nextFrame(boolean isGoingUp, boolean isGoingDown, boolean isGoingLeft, boolean isGoingRight);
