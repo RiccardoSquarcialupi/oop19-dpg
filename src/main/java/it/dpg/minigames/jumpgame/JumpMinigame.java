@@ -24,12 +24,12 @@ public class JumpMinigame extends AbstractMinigame {
     }
 
     @Override
-    public View createView() {
+    protected View createView() {
         return view;
     }
 
     @Override
-    public MinigameCycle createCycle() {
+    protected MinigameCycle createCycle() {
         return new JumpMinigameCycle(view);
     }
 }

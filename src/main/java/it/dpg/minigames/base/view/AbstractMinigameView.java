@@ -25,6 +25,11 @@ public abstract class AbstractMinigameView implements View {
         Platform.runLater(() -> stage.close());
     }
 
+    /**
+     * Create the scene to set on the view
+     * */
+    protected abstract Scene createScene();
+
     private void setViewUsingAppThread() {
         Scene scene = createScene();
         Platform.runLater(() -> {
@@ -34,9 +39,4 @@ public abstract class AbstractMinigameView implements View {
             stage.show();
         });
     }
-
-    /**
-     * Create the scene to set on the view
-     * */
-    public abstract Scene createScene();
 }

@@ -1,0 +1,28 @@
+@startuml
+
+title Cpu
+
+interface Cpu {
+    +getControlledCharacter(): Character
+    +getDifficulty(): Difficulty
+    +getRandomDirection(): Pair<Integer, Integer>
+}
+
+interface Character {}
+
+class CpuImpl
+
+enum Difficulty {
+    EASY
+    NORMAL
+    HARD
+    +getMultiplier(): float
+}
+
+
+
+Cpu <|.. CpuImpl
+Cpu *-- Difficulty
+CpuImpl o-- Character
+
+@enduml

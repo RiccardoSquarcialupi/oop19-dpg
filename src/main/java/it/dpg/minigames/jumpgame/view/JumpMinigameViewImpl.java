@@ -41,7 +41,7 @@ public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMi
     private InputObserver observer;
 
     @Override
-    public Scene createScene() {
+    protected Scene createScene() {
         pane = new Pane();
         scoreText = new Text(0, 20, SCORE_TEXT.concat("0"));
         scoreText.setFont(new Font(20));

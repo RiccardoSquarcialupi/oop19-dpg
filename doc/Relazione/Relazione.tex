@@ -32,7 +32,7 @@
 
 \chapter{Analisi}
 \section{Requisiti}
-Il software DPG - Dope Party Game consiste in un gioco a turni, in cui l'obbiettivo è far arrivare il proprio personaggio in fondo a un tabellone, costituito da uno o più percorsi formati da caselle.
+Il software DPG - Dope Party Game consiste in un gioco a turni, in cui l'obiettivo è far arrivare il proprio personaggio in fondo a un tabellone, costituito da uno o più percorsi formati da caselle.
 %
 Alla fine di ogni turno, vengono fatti fare dei minigiochi a ogni giocatore.
 
@@ -67,6 +67,8 @@ Le difficlotà primarie potrebbero essere le seguenti:
 \begin{itemize}
     \item gestire le cpu in maniera intelligente, evitando di complicare eccessivamente il codice
     \item generare una griglia senza impostarne tutti i dettagli manualmente dal codice
+	\item generare diverse configurazioni di griglie con un codice flessibile
+	\item individuare una struttura di codice basilare e comune per i minigiochi
     \item gestire le collisioni e la fisica nei minigiochi che lo richiedono
 \end{itemize}
 
@@ -83,25 +85,25 @@ Le difficlotà primarie potrebbero essere le seguenti:
 
 L'architettura del software segue il pattern architetturale MVC.
 %
-Il menu è composto da una view (MenuView), e un controller (MenuController) che ne cattura gli eventi e ne comanda le modifiche.
+Il menu è composto da una View (MenuView), e un Controller (MenuController) che ne cattura gli eventi e ne comanda le modifiche.
 %
-Quando il gioco viene avviato Il controller del menu avvia il ciclo di gioco (GameCycle).
+Quando il gioco viene avviato il Controller del menu avvia il ciclo di gioco (GameCycle).
 %
-Il ciclo di gioco si occupa di gestire una serie di personaggi e le varie CPU, gestire la sequenza dei turni nel gioco, e aggiurnare la view della griglia (Gridview) quando necessario.
+Il ciclo di gioco avvia un nuovo thread in background che si occupa di gestire una serie di personaggi e le varie CPU, gestire la sequenza dei turni nel gioco, e aggiornare la View della griglia (Gridview) quando necessario.
 %
-Il character rappresenta un personaggio, tirare il proprio dado e spostarsi all'interno della griglia (Grid).
+Il Character rappresenta un personaggio in grado di tirare il proprio dado e spostarsi all'interno della griglia (Grid).
 %
 La CPU si occupa invece di fare le decisioni che spetterebbero normalmente al giocatore, come scegliere il percorso da fare in un bivio.
 %
-Il character tiene traccia della propria posizione tramite un riferimento alla casella (Cell) su cui si trova.
+Il Character tiene traccia della propria posizione tramite un riferimento alla casella (Cell) su cui si trova.
 %
 La casella contiene delle coordinate e il riferimento alle caselle successive e precedenti nel tabellone.
 %
-la griglia gestisce le caselle, e permette di ottenere la prima e l'ultima casella del percorso, o una certa casella date delle coordinate.
+La griglia gestisce le caselle, e permette di ottenere la prima e l'ultima casella del percorso, o una certa casella date delle coordinate.
 %
-Minigame si occupa di far partire il minigioco, o ottenere un punteggio per una cpu.
+Minigame si occupa di eseuire il minigioco, o ottenere un punteggio per una CPU in base alla sua difficoltà.
 %
-Ogni minigioco avrà a sua volta delle ulteriori interfacce di view, di controller e di model.
+Ogni minigioco avrà a sua volta delle ulteriori interfacce di View, Controller e Model.
 
 \begin{figure}[!t]
 \centering{}

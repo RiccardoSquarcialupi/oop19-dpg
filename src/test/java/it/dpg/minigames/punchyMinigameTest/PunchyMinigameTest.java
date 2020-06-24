@@ -12,8 +12,6 @@ class PunchyMinigameTest {
         PunchyMinigame pm = new PunchyMinigame();
 
         Assertions.assertTrue(pm.getMaxScore() > 0);
-        Assertions.assertNotNull(pm.createCycle());
-        Assertions.assertNotNull(pm.createView());
 
         for(Difficulty d : Difficulty.values()) {
             Assertions.assertTrue(pm.randomizeScore(d) > 0);

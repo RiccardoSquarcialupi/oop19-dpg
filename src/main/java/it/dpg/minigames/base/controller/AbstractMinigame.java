@@ -25,19 +25,19 @@ public abstract class AbstractMinigame implements Minigame {
      * Get a pseudo max score to calculate cpu score
      * @return the max score
      * */
-    public abstract int getMaxScore();
+    protected abstract int getMaxScore();
 
     /**
      * Create a MinigameView to set for the minigame
      * @return the view
      * @see View
      * */
-    public abstract View createView();
+    protected abstract View createView();
 
     /**
      * Create a MinigameCycle to set for the minigame
      * @return the cycle
      * @see MinigameCycle
      * */
-    public abstract MinigameCycle createCycle();
+    protected abstract MinigameCycle createCycle();
 }

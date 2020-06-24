@@ -16,5 +16,5 @@ public abstract class AbstractHorizontalMovement implements Input {
     /**
      * @return the X speed to assign to the player
      * */
-    public abstract int getHorizontalMovementSpeed();
+    protected abstract int getHorizontalMovementSpeed();
 }

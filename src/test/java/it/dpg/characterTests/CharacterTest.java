@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -66,28 +67,16 @@ public class CharacterTest {
         final String name = "Galuf";
         final Character c = new CharacterImpl(id, name, grid);
 
-        for(int i = 0; i < 1000; i++) {
-            int n = c.throwDice();
-            assertTrue(n <= c.getDice().getFaces() && n >= 1);
-        }
+        diceThrowStream(c);
 
         c.setDice(Dice.D4);
-        for(int i = 0; i < 1000; i++) {
-            int n = c.throwDice();
-            assertTrue(n <= c.getDice().getFaces() && n >= 1);
-        }
+        diceThrowStream(c);
 
         c.setDice(Dice.D8);
-        for(int i = 0; i < 1000; i++) {
-            int n = c.throwDice();
-            assertTrue(n <= c.getDice().getFaces() && n >= 1);
-        }
+        diceThrowStream(c);
 
         c.setDice(Dice.D10);
-        for(int i = 0; i < 1000; i++) {
-            int n = c.throwDice();
-            assertTrue(n <= c.getDice().getFaces() && n >= 1);
-        }
+        diceThrowStream(c);
     }
 
     @Test
@@ -170,5 +159,12 @@ public class CharacterTest {
 
     private void setFirst(final Cell first) {
         when(grid.getFirst()).thenReturn(first);
+    }
+
+    private void diceThrowStream(Character c) {
+        IntStream.range(0, 1000).forEach(i -> {
+            int n = c.throwDice();
+            assertTrue(n <= c.getDice().getFaces() && n >= 1);
+        });
     }
 }
