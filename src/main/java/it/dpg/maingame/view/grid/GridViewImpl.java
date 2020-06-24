@@ -51,7 +51,7 @@ public class GridViewImpl implements GridView {
     //this map keeps track of the player'id, its corresponding graphic representation and the cell gridPane where it is sitting
     private Map<Integer, Pair<Rectangle, FlowPane>> playerList = new LinkedHashMap<>();
 
-    private ViewNodesFactory nodes = new ViewNodesFactoryImpl();
+    private ViewNodesFactory nodes = new ViewNodesFactory();
 
     //these integers are constants that modify the position of a graphic element based on their coordinates
     private double Xmodifier = screenBounds.getWidth()/15;
