@@ -8,19 +8,22 @@ class PunchyMinigame {
     #createCycle(): MinigameCycle
 }
 
-class PunchygameCycle {}
 
 abstract class AbstractMinigame {}
+interface MinigameCycle {}
+interface InputObserver {}
 interface PunchygameView {}
-interface MinigameCycle
+class PunchygameCycle {}
 interface World {}
 interface View {}
 
 AbstractMinigame <|-- PunchyMinigame
 PunchygameView --|> View
-PunchyMinigame *-- PunchygameView
-PunchyMinigame *-- World
+PunchygameCycle *-- World
 PunchyMinigame *-- PunchygameCycle
 PunchygameCycle ..|> MinigameCycle
+PunchygameCycle ..|> InputObserver
+PunchygameCycle *-- PunchygameView
+PunchygameView o-- InputObserver
 
 @enduml

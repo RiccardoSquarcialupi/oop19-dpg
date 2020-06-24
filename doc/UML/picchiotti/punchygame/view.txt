@@ -1,0 +1,26 @@
+@startuml
+
+title Punchy Minigame - View
+
+class PunchygameViewImpl
+interface PunchygameView {
+    +updateSacks(sacks: List<Direction>)
+    +updateScore(score: int, combo: int)
+    +updateTimer(timer: float)
+    +updateBoxer(dir: Direction)
+    +playPunchSound()
+    +playMissSound()
+    +setInputObserver(obs: InputObserver)
+}
+
+interface View {}
+abstract class AbstractMinigameView {}
+interface InputObserver {}
+
+AbstractMinigameView ..|> View
+PunchygameView --|> View
+PunchygameViewImpl ..|> PunchygameView
+PunchygameViewImpl --|> AbstractMinigameView
+PunchygameViewImpl *-- InputObserver
+
+@enduml

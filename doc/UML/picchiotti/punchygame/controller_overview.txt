@@ -1,0 +1,24 @@
+@startuml
+
+title Punchy Minigame - Controller
+
+class PunchygameCycle {
+}
+
+interface MinigameCycle {
+    +startCycle(): int
+}
+
+interface InputObserver {
+    +notify(input: Input)
+}
+
+interface Input {
+    +execute(model: World): boolean
+}
+
+PunchygameCycle ..|> MinigameCycle
+PunchygameCycle ..|> InputObserver
+InputObserver <-- Input
+
+@enduml
