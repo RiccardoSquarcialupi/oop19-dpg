@@ -20,17 +20,17 @@ public class PunchyMinigame extends AbstractMinigame {
     private PunchygameView view = new PunchygameViewImpl();
 
     @Override
-    public int getMaxScore() {
+    protected int getMaxScore() {
         return 400;
     }
 
     @Override
-    public View createView() {
+    protected View createView() {
         return Objects.requireNonNull(view);
     }
 
     @Override
-    public MinigameCycle createCycle() {
+    protected MinigameCycle createCycle() {
         return new PunchygameCycle(Objects.requireNonNull(view));
     }
 }

@@ -19,17 +19,17 @@ public class JumpMinigame extends AbstractMinigame {
     private JumpMinigameView view = new JumpMinigameViewImpl();
 
     @Override
-    public int getMaxScore() {
+    protected int getMaxScore() {
         return 100;
     }
 
     @Override
-    public View createView() {
+    protected View createView() {
         return view;
     }
 
     @Override
-    public MinigameCycle createCycle() {
+    protected MinigameCycle createCycle() {
         return new JumpMinigameCycle(view);
     }
 }

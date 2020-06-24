@@ -32,7 +32,7 @@ public abstract class AbstractMinigame implements Minigame {
      * @return the view
      * @see View
      * */
-    public abstract View createView();
+    protected abstract View createView();
 
     /**
      * Create a MinigameCycle to set for the minigame

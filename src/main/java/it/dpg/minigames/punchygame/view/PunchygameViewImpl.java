@@ -72,7 +72,7 @@ public class PunchygameViewImpl extends AbstractMinigameView implements Punchyga
     }
 
     @Override
-    public Scene createScene() {
+    protected Scene createScene() {
         Scene scene = new Scene(createGroup(), WIDTH, HEIGHT, BG_COLOR);
 
         scene.setOnKeyPressed(k -> {
