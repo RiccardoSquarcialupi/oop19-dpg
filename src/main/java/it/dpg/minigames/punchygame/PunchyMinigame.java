@@ -1,8 +1,8 @@
 package it.dpg.minigames.punchygame;
 
+import it.dpg.maingame.view.View;
 import it.dpg.minigames.base.controller.AbstractMinigame;
 import it.dpg.minigames.base.controller.MinigameCycle;
-import it.dpg.minigames.base.view.MinigameView;
 import it.dpg.minigames.punchygame.controller.PunchygameCycle;
 import it.dpg.minigames.punchygame.view.PunchygameView;
 import it.dpg.minigames.punchygame.view.PunchygameViewImpl;
@@ -25,7 +25,7 @@ public class PunchyMinigame extends AbstractMinigame {
     }
 
     @Override
-    public MinigameView createView() {
+    public View createView() {
         return Objects.requireNonNull(view);
     }
 

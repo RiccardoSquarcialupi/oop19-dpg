@@ -1,8 +1,8 @@
 package it.dpg.minigames.molegame;
 
+import it.dpg.maingame.view.View;
 import it.dpg.minigames.base.controller.AbstractMinigame;
 import it.dpg.minigames.base.controller.MinigameCycle;
-import it.dpg.minigames.base.view.MinigameView;
 import it.dpg.minigames.molegame.controller.HitTheMoleCycle;
 import it.dpg.minigames.molegame.controller.HitTheMoleCycleImpl;
 import it.dpg.minigames.molegame.view.HitTheMoleView;
@@ -24,7 +24,7 @@ public class MoleMiniGame extends AbstractMinigame {
     }
 
     @Override
-    public MinigameView createView() {
+    public View createView() {
         return view;
     }
 

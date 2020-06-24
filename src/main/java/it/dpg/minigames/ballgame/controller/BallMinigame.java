@@ -1,11 +1,11 @@
 package it.dpg.minigames.ballgame.controller;
 
+import it.dpg.maingame.view.View;
 import it.dpg.minigames.ballgame.view.BallView;
 import it.dpg.minigames.ballgame.view.BallViewImpl;
 import it.dpg.minigames.base.controller.AbstractMinigame;
 import it.dpg.minigames.base.controller.Minigame;
 import it.dpg.minigames.base.controller.MinigameCycle;
-import it.dpg.minigames.base.view.MinigameView;
 
 import java.awt.*;
 
@@ -32,7 +32,7 @@ public class BallMinigame extends AbstractMinigame implements Minigame {
     }
 
     @Override
-    public MinigameView createView() {
+    public View createView() {
         createComponents();
         return view;
     }

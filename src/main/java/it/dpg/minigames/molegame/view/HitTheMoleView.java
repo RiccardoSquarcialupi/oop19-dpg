@@ -1,13 +1,13 @@
 package it.dpg.minigames.molegame.view;
 
-import it.dpg.minigames.base.view.MinigameView;
+import it.dpg.maingame.view.View;
 import it.dpg.minigames.molegame.model.Mole;
 import it.dpg.minigames.molegame.model.Score;
 import javafx.util.Pair;
 
 import java.util.List;
 
-public interface HitTheMoleView extends MinigameView {
+public interface HitTheMoleView extends View {
 
     /**
      * update the score of the view

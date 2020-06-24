@@ -1,5 +1,6 @@
 package it.dpg.minigames.base.view;
 
+import it.dpg.maingame.view.View;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -7,10 +8,10 @@ import javafx.stage.Stage;
 /**
  * Abstract implementation of MinigameView
  * @author Davide Picchiotti
- * @see MinigameView
+ * @see View
  * */
 
-public abstract class AbstractMinigameView implements MinigameView {
+public abstract class AbstractMinigameView implements View {
 
     private Stage stage;
 

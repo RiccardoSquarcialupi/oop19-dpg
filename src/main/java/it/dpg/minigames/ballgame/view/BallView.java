@@ -1,9 +1,9 @@
 package it.dpg.minigames.ballgame.view;
 
+import it.dpg.maingame.view.View;
 import it.dpg.minigames.ballgame.controller.BallMinigameLevel;
-import it.dpg.minigames.base.view.MinigameView;
 
-public interface BallView extends MinigameView {
+public interface BallView extends View {
 
     /**
      * display ready message

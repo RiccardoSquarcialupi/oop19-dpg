@@ -1,7 +1,7 @@
 package it.dpg.minigames.base.controller;
 
 import it.dpg.maingame.model.character.Difficulty;
-import it.dpg.minigames.base.view.MinigameView;
+import it.dpg.maingame.view.View;
 
 /**
  * Abstract implementation for a minigame
@@ -30,9 +30,9 @@ public abstract class AbstractMinigame implements Minigame {
     /**
      * Create a MinigameView to set for the minigame
      * @return the view
-     * @see MinigameView
+     * @see View
      * */
-    protected abstract MinigameView createView();
+    public abstract View createView();
 
     /**
      * Create a MinigameCycle to set for the minigame

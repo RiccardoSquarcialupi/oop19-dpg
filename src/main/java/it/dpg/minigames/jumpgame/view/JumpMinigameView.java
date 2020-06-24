@@ -1,6 +1,6 @@
 package it.dpg.minigames.jumpgame.view;
 
-import it.dpg.minigames.base.view.MinigameView;
+import it.dpg.maingame.view.View;
 import it.dpg.minigames.jumpgame.controller.input.InputObserver;
 
 /**
@@ -8,7 +8,7 @@ import it.dpg.minigames.jumpgame.controller.input.InputObserver;
  * @author Davide Picchiotti
  * */
 
-public interface JumpMinigameView extends MinigameView {
+public interface JumpMinigameView extends View {
     /**
      * Set the size of the game window
      * @param width the width of the window
