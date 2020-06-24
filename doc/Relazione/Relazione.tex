@@ -160,7 +160,7 @@ Questo avviene tramite l’uso di Platform.runLater.
 %
 Quello che succede in GridGenerator è quindi: una GridViewImpl viene creata a partire da una Grid, e in seguito, a partire da GridViewImpl, viene creata una GridViewPlat, responsabile dell’aggiornamento della View nel thread dell’applicazione JavaFX.
 %
-Abbiamo un pattern Proxy, per cui gameCycle accede a GridViewPlat (proxy), che contiene GridViewImpl (real target) per aggiornare la View.
+Abbiamo un pattern Proxy, per cui gameCycle accede a GridViewPlat (proxy), che contiene GridViewImpl (real target), per aggiornare la View.
 
 \begin{figure}[!t]
 \centering{}
