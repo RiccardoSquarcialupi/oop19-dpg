@@ -28,6 +28,9 @@ public class TurnManagerImplTest {
     Grid gridMock = mock(Grid.class);
     GridView view = mock(GridView.class);
     private TurnManager manager;
+    private Character c1;
+    private Character c2;
+    private Character c3;
 
     @BeforeEach
     void setup() {
@@ -36,9 +39,9 @@ public class TurnManagerImplTest {
     }
 
     void create() {
-        Character c1 = new CharacterImpl(1, "Franco", gridMock);
-        Character c2 = new CharacterImpl(2, "Alberto", gridMock);
-        Character c3 = new CharacterImpl(3, "CPU1", gridMock);
+        c1 = new CharacterImpl(1, "Franco", gridMock);
+        c2 = new CharacterImpl(2, "Alberto", gridMock);
+        c3 = new CharacterImpl(3, "CPU1", gridMock);
         PlayerController p1 = mock(PlayerController.class);
         PlayerController p2 = mock(PlayerController.class);
         PlayerController p3 = mock(PlayerController.class);
@@ -97,6 +100,9 @@ public class TurnManagerImplTest {
             assertTrue(manager.hasNextTurn());
             manager.nextTurn();
         }
+        assertEquals(Dice.D10, c3.getDice());
+        assertEquals(Dice.D8, c2.getDice());
+        assertEquals(Dice.D6, c1.getDice());
         assertFalse(manager.hasNextTurn());
         assertThrows(IllegalStateException.class, () -> manager.nextTurn());
     }
