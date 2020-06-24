@@ -59,7 +59,7 @@ Il programma partirà da un menu, che al momento opportuno avvierà il gioco.
 %
 All'avvio del gioco il menu notificherà il ciclo di gioco (GameCycle), che gestirà una serie di personaggi (Character).
 %
-I personaggi si muovono all'interno di una griglia (Grid) composta da caselle (Cell), e possono essere controllari o da un giocatore, o da una cpu (CPU), gestita del ciclo di gioco.
+I personaggi si muovono all'interno di una griglia (Grid) composta da caselle (Cell), e possono essere controllati o da un giocatore, o da una cpu (CPU), gestita del ciclo di gioco.
 %
 Alla fine del turno il gamecycle avvierà dei minigiochi (Minigame), che ritorneranno un certo punteggio intero.
 %
@@ -89,7 +89,7 @@ Quando il gioco viene avviato Il controller del menu avvia il ciclo di gioco (Ga
 %
 Il ciclo di gioco avvia un nuovo thread in background che si occupa di gestire una serie di personaggi e le varie CPU, gestire la sequenza dei turni nel gioco, e aggiurnare la view della griglia (Gridview) quando necessario.
 %
-Il character rappresenta un peronaggio, tirare il proprio dado e spostarsi all'interno della griglia (Grid).
+Il character rappresenta un personaggio, tirare il proprio dado e spostarsi all'interno della griglia (Grid).
 %
 La CPU si occupa invece di fare le decisioni che spetterebbero normalmente al giocatore, come scegliere il percorso da fare in un bivio.
 %
@@ -155,7 +155,7 @@ I nodi di GridViewImpl vengono aggiornati in runtime ogni volta che gli elementi
 per aggiornare i nodi correttamente in runtime, esiste una classe GridViewPlat, che implementa GridView, la quale prende per costruttore una GridViewImpl, creata in GridGenerator, e chiama i suoi metodi nel thread dell’applicazione JavaFX.
 %
 Questo avviene tramite l’uso di Platform.runLater.
-
+%
 Quello che succede in GridGenerator è quindi: una GridViewImpl viene creata a partire da una Grid, e in seguito, a partire da GridViewImpl, viene creata una GridViewPlat, responsabile dell’aggiornamento della View nel thread dell’applicazione JavaFX.
 %
 Abbiamo un pattern Mediator, per cui gameCycle e GridViewImpl non comunicano direttamente, ma tramite GridViewPlat.
@@ -180,7 +180,7 @@ Design dettagliato Riccardo Squarcialupi
 È stata sottoposta a test automatici la creazione di una Grid a partire da uno specifico gridType.
 %
 Vengono fatti dei test sul giusto collegamento fra Celle e sul giusto contenimento o meno di alcune celle nella Grid creata.
-
+%
 Per la View sono stati eseguiti dei test automatici facendo uso della libreria TestFX; in particolare sono stati testati il corretto aggiornamento del Label principale nella view (dove appaiono le scritte del tipo “start game”, “dice result”),
 %
 il corretto aggiornamento della posizione dei player all'interno della mappa, e la possibilità di cliccare o meno il button per tirare il dado in base a se il tiro è abilitato o disabilitato.
@@ -218,9 +218,9 @@ Feature avanzate usate:
 La libreria Jackson permette di leggere il contenuto di un file json e di tradurlo tramite un mapper e un parser.
 %
 La classe GridInitializer fa uso di un’altra classe CellParser, con la quale, tramite il mapper, vengono raccolti i dati Cella per Cella e inseriti nella struttura dati.
-
+%
 La classe TestFX permette di eseguire test sulla GUI.
-
+%
 La classe Mockito permette, in fase di test, di creare classi Mock a partire da interfacce esistenti (simulano il comportamento di classi che implementano tali interfacce).
 
 \subsection{Riccardo Squarcialupi}
