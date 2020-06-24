@@ -5,18 +5,18 @@ class GridViewImpl {
 }
 
 interface GridObserver {
-+choosePathHandler(Pair<Integer, Integer>): void
-+throwDiceHandler(): void
-+KeyPressHandler(): void
+    +choosePathHandler(Pair<Integer, Integer>): void
+    +throwDiceHandler(): void
+    +KeyPressHandler(): void
 }
 
 class GridObserver {
 }
 
 interface GameCycle {
-+signalDiceThrown(): void
-+signalPathChosen(Pair<Integer, Integer>): void
-+signalNextStep(): void
+    +signalDiceThrown(): void
+    +signalPathChosen(Pair<Integer, Integer>): void
+    +signalNextStep(): void
 }
 
 GridViewImpl o-- GridObserver
