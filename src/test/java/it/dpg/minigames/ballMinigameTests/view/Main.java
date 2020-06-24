@@ -1,6 +1,5 @@
 package it.dpg.minigames.ballMinigameTests.view;
 
-import it.dpg.minigames.ballgame.controller.BallGamecycle;
 import it.dpg.minigames.ballgame.controller.BallMinigameLevel;
 import it.dpg.minigames.ballgame.controller.BallObserver;
 import it.dpg.minigames.ballgame.view.BallView;
@@ -13,26 +12,23 @@ import java.util.concurrent.TimeUnit;
 public class Main extends Application {
     private final BallObserver o = new BallObserver() {
         @Override
-        public void addGamecycle(BallGamecycle cycle) {}
-
-        @Override
-        public void handleUpButton(boolean isPressed) {
-            System.out.println("Up button: " + isPressed);
+        public void signalGoingUp(boolean isGoing) {
+            System.out.println("Up button: " + isGoing);
         }
 
         @Override
-        public void handleDownButton(boolean isPressed) {
-            System.out.println("Down button: " + isPressed);
+        public void signalGoingDown(boolean isGoing) {
+            System.out.println("Down button: " + isGoing);
         }
 
         @Override
-        public void handleLeftButton(boolean isPressed) {
-            System.out.println("Left button: " + isPressed);
+        public void signalGoingleft(boolean isGoing) {
+            System.out.println("Left button: " + isGoing);
         }
 
         @Override
-        public void handleRightButton(boolean isPressed) {
-            System.out.println("Right button: " + isPressed);
+        public void signalGoingRight(boolean isGoing) {
+            System.out.println("Right button: " + isGoing);
         }
     };
 
@@ -61,6 +57,10 @@ public class Main extends Application {
         view.closeView();
     });
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     private void sleepMillis(long millis) {
         try {
             TimeUnit.MILLISECONDS.sleep(millis);
@@ -72,9 +72,5 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         worker.start();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

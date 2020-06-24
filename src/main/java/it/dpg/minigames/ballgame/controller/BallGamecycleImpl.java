@@ -9,11 +9,14 @@ import java.util.concurrent.TimeUnit;
 
 public class BallGamecycleImpl implements BallGamecycle {
     private final BallMinigameModel model;
-    private final BallView view;
+    private BallView view;
 
-    BallGamecycleImpl(BallView view, int maxScore) {
-        this.view = view;
+    BallGamecycleImpl(int maxScore) {
         this.model = new BallMinigameModelImpl(30, maxScore);
+    }
+
+    public void setView(BallView view) {
+        this.view = view;
     }
 
     @Override
