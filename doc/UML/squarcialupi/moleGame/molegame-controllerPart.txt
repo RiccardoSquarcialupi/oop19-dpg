@@ -1,0 +1,19 @@
+@startuml
+Interface MinigameCycle{
++startCycle(): int
+}
+Interface HitTheMoleCycle{
++pressOnAMole(whichMole: int): void
++moleOutOrIn(): void
++updateView(): void
++startGame(): void
++setView(view: HitTheMoleView): void
+}
+Class HitTheMoleCycleImpl{
+-waitForTheStart(): void
+-waitTime(): void
+-removeMole(whichMole: int): void
+}
+HitTheMoleCycle --|> MinigameCycle
+HitTheMoleCycle <|.. HitTheMoleCycleImpl
+@enduml
