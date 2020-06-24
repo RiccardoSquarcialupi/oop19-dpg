@@ -130,7 +130,7 @@ In base al Json, genera una griglia diversa usando sempre lo stesso procedimento
 %
 La griglia viene dunque generata automaticamente una volta ottenuto il Json che descrive la struttura del Tabellone.
 %
-La lettura e estrazione dei dati dal file Json avvengono tramite l’uso dei metodi della libreria Jackson.
+La lettura e estrazione dei dati dal file Json avvengono tramite l’uso dei metodi della libreria Jackson; esiste una classe CellParser che si occupa di immagazzinare i dati estratti per ogni cella.
 
 \begin{figure}[!t]
 	\centering{}
@@ -151,6 +151,10 @@ Gli elementi di GridView che ricevono input dall’esterno, ad esempio i bottoni
 Per fare questo si applica il pattern Observer.
 %
 Una classe GridObserver ha per Observable GridViewImpl: Se un determinato bottone viene premuto, o una determinata key sulla tastiera viene premuta, viene inviato un segnale al GameCycle.
+%
+La classe GridObserverImpl implementa GridObserver a partire da un GameCycle che gli viene passato per costruttore.
+%
+GridViewImpl si occupa della creazione dell'oggetto observer.
 
 \begin{figure}[!t]
 \centering{}
@@ -161,13 +165,15 @@ Una classe GridObserver ha per Observable GridViewImpl: Se un determinato botton
 
 I nodi di GridViewImpl vengono aggiornati in runtime ogni volta che gli elementi all’interno del software, quali players, dices, scritte da rappresentare, vengono modificati dal controller (ovvero il gameCycle).
 %
-per aggiornare i nodi correttamente in runtime, esiste una classe GridViewPlat, che implementa GridView, la quale contiene GridViewImpl, creata in GridGenerator, e chiama i suoi metodi nel thread dell’applicazione JavaFX.
+Per aggiornare i nodi correttamente in runtime, esiste una classe GridViewPlat: quest'ultima implementa GridView, e riceve da GridGenerator una GridViewImpl.
+%
+GridViewPlat chiama i metodi di GridViewImpl nel thread dell’applicazione JavaFX.
 %
 Questo avviene tramite l’uso di Platform.runLater.
 %
 Quello che succede in GridGenerator è quindi: una GridViewImpl viene creata a partire da una Grid, e in seguito, a partire da GridViewImpl, viene creata una GridViewPlat, responsabile dell’aggiornamento della View nel thread dell’applicazione JavaFX.
 %
-Abbiamo un pattern Proxy, per cui gameCycle accede a GridViewPlat (proxy), che contiene GridViewImpl (real target), per aggiornare la View.
+Abbiamo un pattern Proxy, per cui gameCycle accede a GridViewPlat (proxy), il quale contiene GridViewImpl (real target), per aggiornare la View.
 
 \begin{figure}[!t]
 \centering{}
