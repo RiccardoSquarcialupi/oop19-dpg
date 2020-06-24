@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -36,7 +37,7 @@ public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMi
     private Map<Integer, Rectangle> platforms = new HashMap<>();
 
     private boolean leftPressed = false;
-    private boolean rightPressed = true;
+    private boolean rightPressed = false;
 
     private InputObserver observer;
 
@@ -72,7 +73,9 @@ public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMi
 
     @Override
     public void setGameSize(int width, int height) {
-        pane.setMinSize(width, height);
+        pane.setPrefSize(width, height);
+        pane.setMinWidth(Region.USE_PREF_SIZE);
+        pane.setMinHeight(Region.USE_PREF_SIZE);
     }
 
     @Override
