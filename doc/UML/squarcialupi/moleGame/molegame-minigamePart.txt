@@ -1,0 +1,18 @@
+@startuml
+Interface Minigame{
++start(): int
++randomizeScore(diff: Difficulty): int
+}
+
+abstract class AbstractMinigame {
+    #{abstract} getMaxScore(): int
+    #{abstract} createView(): MinigameView
+    #{abstract} createCycle(): MinigameCycle
+}
+
+class MoleMiniGame{
+}
+
+MoleMiniGame --|> AbstractMinigame
+AbstractMinigame ..|> Minigame
+@enduml

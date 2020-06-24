@@ -1,0 +1,24 @@
+@startuml
+abstract class AbstractMinigameView{
+#{abstract}createScene(): Scene
+-setViewUsingAppThread(): void
+
+}
+
+Interface View{
++setView(): void
++closeView(): void
+}
+
+Interface HitTheMoleView{
++updateScore(score : Score)
++updateTimer(time : long)
++updateMole(moleOut : List<Pair<Integer, Mole>>)
+}
+
+class HitTheMoleViewImpl{}
+
+HitTheMoleViewImpl ..|> HitTheMoleView
+HitTheMoleViewImpl --|> AbstractMinigameView
+HitTheMoleView --|> View
+@enduml
