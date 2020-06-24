@@ -1,20 +1,5 @@
 @startuml
-title Grid Generator
-
-interface GridInitializer {
-    +makeGrid(GridType: gridType): Grid
-    +getGrid(): Grid
-    +getFirst(): Cell
-    +getLast(): Cell
-}
-
-class GridInitializerImpl {
-    -setJson(GridType: gridType) : void
-}
-
-class GridGenerator {
-    +generate(): Pair<Grid, GridView>
-}
+title Grid View
 
 interface View {
     +setView(): void
@@ -38,9 +23,13 @@ class GridViewImpl {
     +startGeneration(): void
 }
 
-GridInitializer <|.. GridInitializerImpl
-GridInitializerImpl --> GridGenerator
-GridGenerator --> GridViewImpl
+class ViewNodesFactory {
++generateCell(Color: color): Circle
++generatePlayer(Integer: player): Rectangle
++generateLines(Map<StackPane, Set<Integer, Integer>>: cells): Group
+}
+
 View <|-- GridView
 GridView <|.. GridViewImpl
+GridView o-- ViewNodesFactory
 @enduml

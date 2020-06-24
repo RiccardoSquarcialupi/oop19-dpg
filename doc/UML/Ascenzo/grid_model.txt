@@ -23,7 +23,20 @@ class GridImpl {
 {field} Map<Cell, Pair<Integer, Integer>: CellList
 }
 
+interface GridInitializer {
+    +makeGrid(GridType: gridType): Grid
+    +getGrid(): Grid
+    +getFirst(): Cell
+    +getLast(): Cell
+}
+
+class GridInitializerImpl {
+    -setJson(GridType: gridType) : void
+}
+
 Grid <|.. GridImpl
 Cell <|.. CellImpl
 Grid o-- Cell
+GridInitializer <|.. GridInitializerImpl
+GridInitializer --> Grid
 @enduml

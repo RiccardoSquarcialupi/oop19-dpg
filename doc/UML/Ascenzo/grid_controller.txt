@@ -1,6 +1,13 @@
 @startuml
-title Grid Observer
+title Grid Controller
 
+interface GridInitializer {
+    +makeGrid(GridType: gridType): Grid
+}
+
+class GridGenerator {
+    +generate(): Pair<Grid, GridView>
+}
 interface GridView {
 }
 
@@ -10,16 +17,15 @@ interface GridObserver {
     +KeyPressHandler(): void
 }
 
-class GridObserver {
-}
-
 interface GameCycle {
     +signalDiceThrown(): void
     +signalPathChosen(Pair<Integer, Integer>): void
     +signalNextStep(): void
 }
 
-GridView o-- GridObserver
-GridObserver <|.. GridObserverImpl
+GridInitializer --> GridGenerator
+GridGenerator <-- GridView
 GridObserver --> GameCycle
+GridGenerator --> GameCycle
+GridView o-- GridObserver
 @enduml
