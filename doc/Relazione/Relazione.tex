@@ -122,7 +122,7 @@ Design dettagliato Davide Picchiotti
 
 \subsection{Design dettagliato Miriana Ascenzo}
 
-A partire dalla classe GridGenerator e dal suo unico metodo generate(), vengono creati prima una Grid (modello del Tabellone di Gioco), e poi una GridView (view del Tabellone), che si basa sulla Grid creata.
+A partire dalla classe GridGenerator e dal suo unico metodo generate(), vengono creati prima una Grid (modello del Tabellone di Gioco) composta da più Cell, e poi una GridView (view del Tabellone), che si basa sulla Grid creata.
 %
 Abbiamo un pattern Factory Method, per cui una Grid viene creata a partire dagli elementi che gli vengono forniti: infatti GridGenerator prende per costruttore una GridType (enum di possibili griglie) e tramite essa cerca nelle resources un file Json corrispondente.
 %
