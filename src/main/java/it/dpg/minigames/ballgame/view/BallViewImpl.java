@@ -13,7 +13,7 @@ public class BallViewImpl extends AbstractMinigameView implements BallView {
     private final double viewSize;
     private final BallObserver observer;
     private final Group panel = new Group();
-    private final NodesFactory factory = new NodesFactoryImpl(this::mapCoordinate);
+    private final NodesFactory factory = new NodesFactory(this::mapCoordinate);
     private Circle ball;
     private Text score;
     private Text readyText;
