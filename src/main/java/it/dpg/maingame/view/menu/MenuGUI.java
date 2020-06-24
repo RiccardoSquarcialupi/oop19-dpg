@@ -40,7 +40,7 @@ public class MenuGUI implements MenuView {
     private final Button optionsBtn = new Button("Options");
     private final Button exitBtn = new Button("Exit");
     private MenuController optionController = new MenuControllerImpl();
-    private Stage optionStage = new Stage();
+    private Stage optionStage;
 
     /**
      * Method for create the menu
@@ -48,7 +48,7 @@ public class MenuGUI implements MenuView {
      * @param stage Represent the "case" for the all Graphics Stuff
      */
     public void initializeGUI(final Stage stage) {
-
+        optionStage = stage;
         startBtn.setPrefSize(100, 60);
         startBtn.setFont(Font.font(15));
         creditBtn.setPrefSize(100, 60);
