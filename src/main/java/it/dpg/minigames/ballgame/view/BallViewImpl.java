@@ -46,32 +46,32 @@ public class BallViewImpl extends AbstractMinigameView implements BallView {
         scene.setOnKeyPressed(ke -> {
             switch (ke.getCode()) {
                 case UP:
-                    observer.handleUpButton(true);
+                    observer.signalGoingUp(true);
                     break;
                 case DOWN:
-                    observer.handleDownButton(true);
+                    observer.signalGoingDown(true);
                     break;
                 case LEFT:
-                    observer.handleLeftButton(true);
+                    observer.signalGoingleft(true);
                     break;
                 case RIGHT:
-                    observer.handleRightButton(true);
+                    observer.signalGoingRight(true);
                     break;
             }
         });
         scene.setOnKeyReleased(ke -> {
             switch (ke.getCode()) {
                 case UP:
-                    observer.handleUpButton(false);
+                    observer.signalGoingUp(false);
                     break;
                 case DOWN:
-                    observer.handleDownButton(false);
+                    observer.signalGoingDown(false);
                     break;
                 case LEFT:
-                    observer.handleLeftButton(false);
+                    observer.signalGoingleft(false);
                     break;
                 case RIGHT:
-                    observer.handleRightButton(false);
+                    observer.signalGoingRight(false);
                     break;
             }
         });

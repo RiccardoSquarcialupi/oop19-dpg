@@ -124,7 +124,7 @@ Design dettagliato Davide Picchiotti
 
 A partire dalla classe GridGenerator e dal suo unico metodo generate(), vengono creati prima una Grid (modello del Tabellone di Gioco) composta da più Cell, e poi una GridView (view del Tabellone), che si basa sulla Grid creata.
 %
-Abbiamo un pattern Factory Method, per cui una Grid viene creata a partire dagli elementi che gli vengono forniti: infatti GridGenerator prende per costruttore una GridType (enum di possibili griglie) e tramite essa cerca nelle resources un file Json corrispondente.
+Una Grid viene creata a partire dagli elementi che gli vengono forniti: GridGenerator prende per costruttore una GridType (enum di possibili griglie) e tramite essa cerca nelle resources un file Json corrispondente.
 %
 In base al Json, genera una griglia diversa usando sempre lo stesso procedimento.
 %
@@ -135,7 +135,7 @@ La lettura e estrazione dei dati dal file Json avvengono tramite l’uso dei met
 \begin{figure}[!t]
 \centering{}
 \includegraphics[width=\textwidth]{images/miriana/grid_generator.png}
-\caption{Schema UML delle classi di generazione del Tabellone. Segue il pattern Factory Method.}
+\caption{Schema UML delle classi di generazione del Tabellone.}
 \label{img:gridfactorymethod}
 \end{figure}
 
