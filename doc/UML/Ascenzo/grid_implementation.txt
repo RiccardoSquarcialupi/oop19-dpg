@@ -1,0 +1,29 @@
+@startuml
+interface Cell {
++isAFork(): boolean
++getNext(): Set<Cell>
++getPrevious(): Cell
++getType(): cellType
++getCoordinates(): Pair<Integer, Integer>
+}
+
+class CellImpl {
++setNext(Set<Cell>: next): void
++setPrevious(Cell): void
+}
+
+interface Grid {
++getFirst(): Cell
++getLast(): Cell
++getCellByCoordinates(Integer: X, Integer: Y): Cell
++getCellList(): Map<Cell, Pair<Integer, Integer>
+}
+
+class GridImpl {
+{field} Map<Cell, Pair<Integer, Integer>: CellList
+}
+
+Grid <|.. GridImpl
+Cell <|.. CellImpl
+Grid o-- Cell
+@enduml

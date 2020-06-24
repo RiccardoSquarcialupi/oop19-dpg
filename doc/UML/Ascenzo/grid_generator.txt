@@ -9,7 +9,7 @@ interface GridInitializer {
 }
 
 class GridInitializerImpl {
-    +setJson(GridType: gridType) : void
+    -setJson(GridType: gridType) : void
 }
 
 class GridGenerator {
