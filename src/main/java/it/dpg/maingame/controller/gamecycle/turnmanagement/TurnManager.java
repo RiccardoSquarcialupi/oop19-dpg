@@ -2,6 +2,7 @@ package it.dpg.maingame.controller.gamecycle.turnmanagement;
 
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -10,15 +11,9 @@ import java.util.List;
 public interface TurnManager {
 
     /**
-     * @return the next player in order of turn
-     * @throws java.util.NoSuchElementException if no players have to play in this turn
+     * @return the iterator of players who have to make their turn
      */
-    PlayerController nextPlayer();
-
-    /**
-     * @return true if there are other players who have to do their turns, false otherwise
-     */
-    boolean hasNextPlayer();
+    Iterator<PlayerController> getPlayersIterator();
 
     /**
      * go to the next turn making everyone play a minigame, and calculating the dices for the players of the next turn basing on the scores

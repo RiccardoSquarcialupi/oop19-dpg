@@ -13,6 +13,7 @@ import it.dpg.maingame.view.grid.GridView;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -55,8 +56,9 @@ public class GameCycleImpl implements GameCycle {
             waitNextStep("turn " + turnCounter + " has started");
             turnCounter++;
             boolean hasArrived;
-            while (turnManager.hasNextPlayer()) {
-                PlayerController currentPlayer = turnManager.nextPlayer();
+            Iterator<PlayerController> iterator = turnManager.getPlayersIterator();
+            while (iterator.hasNext()) {
+                PlayerController currentPlayer = iterator.next();
                 turnStart(currentPlayer);
                 hasArrived = movePlayer(currentPlayer);
                 if (hasArrived) {
