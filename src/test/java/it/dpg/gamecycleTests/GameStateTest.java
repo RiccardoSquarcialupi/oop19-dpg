@@ -2,19 +2,19 @@ package it.dpg.gamecycleTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnStateImpl;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.GameStateImpl;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.GameState;
 
-public class TurnStateTest {
+public class GameStateTest {
 
-    private TurnState state;
+    private GameState state;
 
     @BeforeEach
     void Setup() {
-        state = new TurnStateImpl();
+        state = new GameStateImpl();
     }
 
 

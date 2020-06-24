@@ -1,6 +1,6 @@
 package it.dpg.maingame.controller.gamecycle.playercontroller;
 
-import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.GameState;
 import it.dpg.maingame.model.character.CharacterImpl;
 import it.dpg.maingame.model.character.Difficulty;
 import it.dpg.maingame.model.grid.Grid;
@@ -8,12 +8,12 @@ import it.dpg.maingame.view.grid.GridView;
 
 public class PlayerFactoryImpl implements PlayerFactory {
 
-    private final TurnState state;
+    private final GameState state;
     private final GridView view;
     private final Grid grid;
     private int currentId = 0;
 
-    public PlayerFactoryImpl(TurnState state, GridView view, Grid grid) {
+    public PlayerFactoryImpl(GameState state, GridView view, Grid grid) {
         this.grid = grid;
         this.view = view;
         this.state = state;

@@ -1,6 +1,6 @@
 package it.dpg.maingame.controller.gamecycle.playercontroller;
 
-import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.GameState;
 import it.dpg.maingame.model.character.Character;
 import it.dpg.maingame.view.grid.GridView;
 import it.dpg.minigames.MinigameType;
@@ -10,18 +10,18 @@ import java.util.concurrent.TimeUnit;
 
 public class HumanPlayerController extends AbstractPlayerController {
 
-    public HumanPlayerController(final TurnState turnState, final GridView view, final Character character) {
-        super(turnState, view, character);
+    public HumanPlayerController(final GameState gameState, final GridView view, final Character character) {
+        super(gameState, view, character);
     }
 
     @Override
     public int throwDice() {
         view.enableDiceThrow(character.getDice());
         view.showText("throw the dice!");
-        synchronized (this.turnState) {
+        synchronized (this.gameState) {
             try {
-                while (!turnState.wasDiceThrown()) {
-                    turnState.wait();
+                while (!gameState.wasDiceThrown()) {
+                    gameState.wait();
                 }
             } catch (InterruptedException e) {
                 System.out.println("thread interrupted during dice throw wait");
@@ -36,11 +36,11 @@ public class HumanPlayerController extends AbstractPlayerController {
     public void chooseDirection() {
         view.enableDirectionChoice(getCharacter().getAdjacentPositions());
         view.showText("choose the direction on the map");
-        turnState.setChoice(true);
-        synchronized (this.turnState) {
+        gameState.setChoice(true);
+        synchronized (this.gameState) {
             try {
-                while (turnState.isChoosing()) {
-                    turnState.wait();
+                while (gameState.isChoosing()) {
+                    gameState.wait();
                 }
             } catch (InterruptedException e) {
                 System.out.println("thread interrupted during direction choice wait");

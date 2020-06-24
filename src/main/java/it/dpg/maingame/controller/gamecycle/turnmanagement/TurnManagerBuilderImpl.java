@@ -12,11 +12,11 @@ public class TurnManagerBuilderImpl implements TurnManagerBuilder {
 
     private final int nTurns;
     private final Set<PlayerController> players = new HashSet<>();
-    private final TurnState state;
+    private final GameState state;
     private Dice defaultDice;
     private List<Dice> rewardDices = new ArrayList<>();
 
-    public TurnManagerBuilderImpl(final int nTurns, final TurnState state) {
+    public TurnManagerBuilderImpl(final int nTurns, final GameState state) {
         this.nTurns = nTurns;
         this.state = state;
     }
