@@ -1,57 +1,77 @@
 package it.dpg.gridTest;
 
-import javafx.application.Application;
+import it.dpg.maingame.controller.gamecycle.GameCycle;
+import it.dpg.maingame.controller.grid.GridGenerator;
+import it.dpg.maingame.model.character.Dice;
+import it.dpg.maingame.model.grid.GridType;
+import it.dpg.maingame.view.grid.GridView;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.testfx.api.FxRobot;
+import org.testfx.framework.junit5.ApplicationExtension;
+import org.testfx.framework.junit5.Start;
 
-public class GridViewTest extends Application {
+import java.util.HashMap;
+import java.util.Map;
 
-    private static Stage pStage;
+@ExtendWith(ApplicationExtension.class)
+public class GridViewTest{
 
-    public static void main (String[] args) {
-        launch(args);
-    }
+    GameCycle gc = Mockito.mock(GameCycle.class);
 
-    @Override
+    GridView view;
+
+    @Start
     public void start(Stage stage) {
 
-        /*
-         * This test runs when a different stage is set. Now the stage is the same of Main.
-         */
+        GridGenerator generator = new GridGenerator(GridType.GRID_ONE, gc);
+        var pair = generator.generate();
+        this.view = pair.getRight();
+        view.setView();
+    }
 
-        /*
-        GridView view = new GridViewGeneratorImpl(GridType.GRID_ONE).generate().getRight();
-        stage.setScene(view.getScene());
-        stage.show();
+    @Test
+    public void diceIsClickable(FxRobot robot) {
+        Button dice = robot.lookup("#dice_button").queryAs(Button.class);
+        //asserts that dice isn't clickable
+        Assertions.assertTrue(dice.isDisabled());
 
-        view.setCurrentPlayerName("Giovanna");
-        view.setRemainingMoves(3);
+        view.enableDiceThrow(Dice.D4);
+        dice = robot.lookup("#dice_button").queryAs(Button.class);
+        //asserts that dice is clickable
+        Assertions.assertFalse(dice.isDisabled());
+    }
 
-        view.setCurrentPlayerName("Marco");
-        view.setRemainingMoves(2);
+    @Test
+    public void playerPlacementIsCorrect(FxRobot robot){
 
-        view.setCurrentPlayerName("Davide");
-        view.setRemainingMoves(1);
-
-        Set<ImmutablePair<Integer, Integer>> cellSet = new HashSet<>();
-        cellSet.add(new ImmutablePair<>(1,5));
-        cellSet.add(new ImmutablePair<>(2,4));
-        view.enableDirectionChoice(cellSet);
-        view.disableDirectionChoice();
-
-        view.showText("hello");
-        view.removeText();
-
-        Map<Integer, ImmutablePair<Integer, Integer>> players = new HashMap<>();
+        Map<Integer, Pair<Integer, Integer>> players = new HashMap<>();
         players.put(1, new ImmutablePair<>(1,0));
-        players.put(2, new ImmutablePair<>(1,0));
-        players.put(3, new ImmutablePair<>(1,0));
+
         view.updatePlayers(players);
 
-        view.enableDiceThrow(Dice.D8);
-        view.disableDiceThrow();
+        FlowPane pane = robot.lookup("#pane10").queryAs(FlowPane.class);
+        Rectangle player = robot.lookup("#player1").queryAs(Rectangle.class);
 
+        //asserts that player 1 is in the right Pane (first Cell)
+        Assertions.assertTrue(pane.getChildren().contains(player));
+    }
 
-         */
+    @Test
+    public void textIsCorrect(FxRobot robot) {
+        //verifies that the label is correctly set in the view
+        view.showText("this is a test");
+        Label label = robot.lookup("#main_text").queryAs(Label.class);
+        Assertions.assertEquals("this is a test", label.getText());
     }
 
 }

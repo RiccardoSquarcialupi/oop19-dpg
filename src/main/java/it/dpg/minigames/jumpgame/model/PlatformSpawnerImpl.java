@@ -17,7 +17,6 @@ public class PlatformSpawnerImpl implements PlatformSpawner {
     private Random random = new Random();
 
     private long lastTimeSpawn = 0;
-    private long lastTimeDespawn = 0;
     private int id = 1;
 
     private final int worldWidth;
@@ -42,18 +41,13 @@ public class PlatformSpawnerImpl implements PlatformSpawner {
     public void updatePlatformsGeneration() {
         long currentTime = System.currentTimeMillis();
 
-        if(currentTime - lastTimeDespawn > 600) {
-            platforms = platforms.stream().filter(Platform::doesExist).collect(Collectors.toList());
+        platforms = platforms.stream().filter(Platform::doesExist).collect(Collectors.toList());
 
-            if(platforms.size() > 2) {
-                platforms.stream().filter(Platform::doesExist).collect(Collectors.toList()).get(0).destroy();
-            }
-
-            lastTimeDespawn = currentTime;
+        if(platforms.size() >= 3) {
+            platforms.stream().filter(Platform::doesExist).collect(Collectors.toList()).get(0).destroy();
         }
 
         if(currentTime - lastTimeSpawn > 1000) {
-
             platforms.add(
                     new Platform(
                             random.nextInt(worldWidth - platformWidth),

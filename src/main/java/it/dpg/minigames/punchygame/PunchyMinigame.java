@@ -7,6 +7,8 @@ import it.dpg.minigames.punchygame.controller.PunchygameCycle;
 import it.dpg.minigames.punchygame.view.PunchygameView;
 import it.dpg.minigames.punchygame.view.PunchygameViewImpl;
 
+import java.util.Objects;
+
 /**
  * Minigame in which the players use the directional arrow left and right
  * to punch boxing sacks that approaches with each correct punch
@@ -24,11 +26,11 @@ public class PunchyMinigame extends AbstractMinigame {
 
     @Override
     public MinigameView createView() {
-        return view;
+        return Objects.requireNonNull(view);
     }
 
     @Override
     public MinigameCycle createCycle() {
-        return new PunchygameCycle(view);
+        return new PunchygameCycle(Objects.requireNonNull(view));
     }
 }

@@ -39,4 +39,9 @@ public interface MenuController {
      */
     void setAIDifficulty(Integer whichAI, Difficulty dif);
 
+    /**
+     * initialize the game with input parameters from option
+     */
+    void startGame();
+
 }

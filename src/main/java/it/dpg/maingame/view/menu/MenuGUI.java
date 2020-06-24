@@ -69,7 +69,7 @@ public class MenuGUI implements MenuView {
         Scene mainScene = new Scene(rootBox, 300, 350);
         rootBox.getChildren().addAll(startBtn, creditBtn, optionsBtn, exitBtn);
 
-        startBtn.setOnAction((ActionEvent event) -> startGame());
+        startBtn.setOnAction((ActionEvent event) -> optionController.startGame());
 
         exitBtn.setOnAction((ActionEvent event) -> exitGUI());
 
@@ -208,33 +208,4 @@ public class MenuGUI implements MenuView {
         System.exit(0);
     }
 
-    /**
-     * Method that start the game
-     */
-    @Override
-    public void startGame() {
-        GameCycleBuilder gb = new GameCycleBuilderImpl();
-
-        Map<String, Difficulty> mpAI = new HashMap<>(optionController.getOptionsAI());
-
-        Map<Integer, String> mpPlayer = new HashMap<>(optionController.getOptionsPlayer());
-
-        for(var ai : mpAI.entrySet()){
-            gb.addCpu(ai.getKey(),ai.getValue());
-        }
-        for(var pl : mpPlayer.entrySet()){
-            gb.addHumanPlayer(pl.getValue());
-        }
-        gb.addRewardDice(Dice.D10);
-        gb.addRewardDice(Dice.D8);
-        gb.addRewardDice(Dice.D6);
-        gb.addRewardDice(Dice.D4);
-
-        gb.setDefaultDice(Dice.D6);
-        gb.setNTurns(10);
-
-        GameCycle gs = gb.build();
-
-        gs.startGameCycle();
-    }
 }
