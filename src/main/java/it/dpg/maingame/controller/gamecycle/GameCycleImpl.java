@@ -101,7 +101,7 @@ public class GameCycleImpl implements GameCycle {
 
     private void waitNextStep(String message) {
         turnState.setTurnPause(true);
-        view.showText(message + "   continue ►");
+        view.showText(message + "   continue...");
         synchronized (this.turnState) {
             try {
                 while (turnState.isPaused()) {
