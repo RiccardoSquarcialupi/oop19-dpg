@@ -7,7 +7,7 @@ package it.dpg.minigames.jumpgame.controller.input;
 
 public class MoveLeft extends AbstractHorizontalMovement {
     @Override
-    public int getHorizontalMovementSpeed() {
+    protected int getHorizontalMovementSpeed() {
         return -12;
     }
 }
