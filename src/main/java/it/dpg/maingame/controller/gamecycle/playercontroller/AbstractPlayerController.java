@@ -1,6 +1,6 @@
 package it.dpg.maingame.controller.gamecycle.playercontroller;
 
-import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.GameState;
 import it.dpg.maingame.model.character.Character;
 import it.dpg.maingame.view.grid.GridView;
 
@@ -8,13 +8,13 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractPlayerController implements PlayerController {
 
-    protected final TurnState turnState;
+    protected final GameState gameState;
     protected final GridView view;
     protected final Character character;
 
-    public AbstractPlayerController(final TurnState turnState, final GridView view, final Character character) {
+    public AbstractPlayerController(final GameState gameState, final GridView view, final Character character) {
         this.character = character;
-        this.turnState = turnState;
+        this.gameState = gameState;
         this.view = view;
     }
 

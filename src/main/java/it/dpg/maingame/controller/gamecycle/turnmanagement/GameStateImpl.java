@@ -4,7 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Optional;
 
-public class TurnStateImpl implements TurnState {
+public class GameStateImpl implements GameState {
 
     private boolean gameStarted = false; //true if new turn has been called at least once
     private volatile boolean diceThrown; //booleans are volatile to make parallel thread access easier
@@ -13,7 +13,7 @@ public class TurnStateImpl implements TurnState {
     private boolean hasChosenDirection = false;
     private boolean turnPaused = false;
 
-    public TurnStateImpl() {
+    public GameStateImpl() {
     }
 
     @Override

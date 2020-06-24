@@ -3,8 +3,8 @@ package it.dpg.gamecycleTests;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnManager;
 import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnManagerImpl;
-import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
-import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnStateImpl;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.GameState;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.GameStateImpl;
 import it.dpg.maingame.model.character.Character;
 import it.dpg.maingame.model.character.CharacterImpl;
 import it.dpg.maingame.model.character.Dice;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.mock;
 
 public class TurnManagerImplTest {
 
-    private final TurnState state = new TurnStateImpl();
+    private final GameState state = new GameStateImpl();
     private final Dice defaultDice = Dice.D6;
     private final List<Dice> rewardDice = List.of(Dice.D10, Dice.D8, Dice.D6);
     Grid gridMock = mock(Grid.class);

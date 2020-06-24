@@ -1,6 +1,6 @@
 package it.dpg.maingame.controller.gamecycle.playercontroller;
 
-import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.GameState;
 import it.dpg.maingame.model.character.Character;
 import it.dpg.maingame.model.character.Cpu;
 import it.dpg.maingame.model.character.CpuImpl;
@@ -14,21 +14,21 @@ public class CpuPlayerController extends AbstractPlayerController {
 
     private final Cpu cpu;
 
-    public CpuPlayerController(final TurnState turnState, final GridView view, final Character character, Difficulty difficulty) {
-        super(turnState, view, character);
+    public CpuPlayerController(final GameState gameState, final GridView view, final Character character, Difficulty difficulty) {
+        super(gameState, view, character);
         this.cpu = new CpuImpl(character, difficulty);
     }
 
     @Override
     public int throwDice() {
-        turnState.setDiceThrown(true);
+        gameState.setDiceThrown(true);
         return character.throwDice();
     }
 
     @Override
     public void chooseDirection() {
         Pair<Integer, Integer> direction = cpu.getRandomDirection();
-        turnState.setLastDirectionChoice(direction);
+        gameState.setLastDirectionChoice(direction);
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * keeps track of the current state of a turn
  */
-public interface TurnState {
+public interface GameState {
 
     /**
      * starts a new turn, it needs to be called at least once before accessing other methods

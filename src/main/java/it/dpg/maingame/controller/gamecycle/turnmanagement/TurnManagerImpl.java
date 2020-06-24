@@ -11,7 +11,7 @@ public class TurnManagerImpl implements TurnManager {
 
     private final List<PlayerController> players;
     private final List<Dice> rewardDices;
-    private final TurnState state;
+    private final GameState state;
     private int remainingTurns;
     private Iterator<PlayerController> iterator;
 
@@ -21,7 +21,7 @@ public class TurnManagerImpl implements TurnManager {
      *                    if nPlayers < rewardDices.size() use only the nPlayers highest dices,
      *                    if nPlayers > rewardDices.size() use the last dice for all the remaining players
      */
-    public TurnManagerImpl(final Dice defaultDice, final List<Dice> rewardDices, final int nTurns, final Set<PlayerController> playerSet, TurnState state) {
+    public TurnManagerImpl(final Dice defaultDice, final List<Dice> rewardDices, final int nTurns, final Set<PlayerController> playerSet, GameState state) {
         this.state = state;
         this.rewardDices = new ArrayList<>(rewardDices);//in case the list is immutable
         this.remainingTurns = nTurns - 1;
