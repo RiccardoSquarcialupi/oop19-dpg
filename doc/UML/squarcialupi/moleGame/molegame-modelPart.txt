@@ -22,4 +22,11 @@ class TimerImpl{}
 ScoreImpl ..|> Score
 MoleImpl ..|> Mole
 TimerImpl ..|> Timer
+
+Score --o HitTheMoleViewImpl
+Mole --o HitTheMoleViewImpl
+
+Score --o HitTheMoleCycleImpl
+Mole --o HitTheMoleCycleImpl
+Timer --o  HitTheMoleCycleImpl
 @enduml
