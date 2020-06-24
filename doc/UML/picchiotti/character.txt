@@ -1,0 +1,37 @@
+@startuml
+
+title Character
+
+interface Character {
+    +getId(): int
+    +getName(): String
+    +getTurn()
+    +setTurn()
+    +setPosition(pos: Pair<Integer, Integer>)
+    +getPosition(): Pair<Integer, Integer>
+    +getAdjacentPosition(): Set<Pair<Integer, Integer>>
+    +getCellType(): CellType
+    +stepForward(): boolean
+    +stepBackward()
+    +stepInDirection(dir: Pair<Integer, Integer)
+    +setDice(dice: Dice)
+    +getDice(): Dice
+    +throwDice(): int
+    +setMinigameScore(score: int)
+    +getMinigameScore(): int
+}
+
+class CharacterImpl
+
+enum Dice {
+    D4
+    D6
+    D8
+    D10
+    +getFaces(): int
+}
+
+Character <|.. CharacterImpl
+Character *-- Dice
+
+@enduml
