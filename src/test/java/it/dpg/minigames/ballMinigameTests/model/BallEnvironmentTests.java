@@ -73,4 +73,31 @@ public class BallEnvironmentTests {
         }
         assertTrue(i < 100);
     }
+
+    @Test
+    public void ballTest() {
+        Ball ball = new Ball(3, 50, 50, 10, 5, 50);
+        double deltaT = 1;
+        ball.calculateNextPosition(false, false, false, true, 1);
+        ball.calculateNextPosition(false, false, false, true, 1);
+        assertEquals(80, ball.getCenterX());
+        assertEquals(50, ball.getCenterY());
+        ball.setxSpeed(0);
+        ball.calculateNextPosition(false, true, true, false, 1);
+        assertEquals(70, ball.getCenterX());
+        assertEquals(40, ball.getCenterY());
+        ball.reset();
+        assertEquals(50, ball.getCenterX());
+        assertEquals(50, ball.getCenterY());
+        double yPos1 = ball.getCenterY();
+        for(int i = 0; i < 30; i++) {
+            ball.calculateNextPosition(true, false, false, false, 1d / 15d);
+        }
+        double yPos2 = ball.getCenterY();
+        for(int i = 0; i < 30; i++) {
+            ball.calculateNextPosition(false, false, false, false, 1d / 15d);
+        }
+        double yPos3 = ball.getCenterY();
+        assertTrue(yPos2 - yPos1 > yPos3 - yPos2);
+    }
 }
