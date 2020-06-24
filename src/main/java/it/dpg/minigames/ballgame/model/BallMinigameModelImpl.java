@@ -2,6 +2,7 @@ package it.dpg.minigames.ballgame.model;
 
 import it.dpg.minigames.ballgame.controller.BallMinigameLevel;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 public class BallMinigameModelImpl implements BallMinigameModel {
     private final BallEnvironmentFactory factory;
@@ -50,7 +51,7 @@ public class BallMinigameModelImpl implements BallMinigameModel {
 
 
     @Override
-    public ImmutablePair<Double, Double> calculateNextFrame() {
+    public Pair<Double, Double> calculateNextFrame() {
         checkLevelSetup();
         env.nextFrame(isGoingUp, isGoingDown, isGoingLeft, isGoingRight);
         return new ImmutablePair<>(env.getX(), env.getY());

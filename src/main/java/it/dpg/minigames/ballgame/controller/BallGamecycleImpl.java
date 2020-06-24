@@ -4,6 +4,7 @@ import it.dpg.minigames.ballgame.model.BallMinigameModel;
 import it.dpg.minigames.ballgame.model.BallMinigameModelImpl;
 import it.dpg.minigames.ballgame.view.BallView;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.concurrent.TimeUnit;
 
@@ -54,8 +55,8 @@ public class BallGamecycleImpl implements BallGamecycle {
         setup(level);
         startSequence();
         while (!exitCycle) {
-            ImmutablePair<Double, Double> coords = model.calculateNextFrame();
-            this.view.positionBall(coords.left, 100 - coords.right);
+            Pair<Double, Double> coords = model.calculateNextFrame();
+            this.view.positionBall(coords.getLeft(), 100 - coords.getRight());
             this.view.setScore(model.getScore());
             if (model.isOver()) {
                 this.view.setVictory();
