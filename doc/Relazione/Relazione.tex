@@ -59,7 +59,7 @@ Il programma partirà da un menu, che al momento opportuno avvierà il gioco.
 %
 All'avvio del gioco il menu notificherà il ciclo di gioco (GameCycle), che gestirà una serie di personaggi (Character).
 %
-I personaggi si muovono all'interno di una griglia (Grid) composta da caselle (Cell), e possono essere controllari o da un giocatore, o da una cpu (CPU), gestita del ciclo di gioco.
+I personaggi si muovono all'interno di una griglia (Grid) composta da caselle (Cell), e possono essere controllati o da un giocatore, o da una cpu (CPU), gestita del ciclo di gioco.
 %
 Alla fine del turno il gamecycle avvierà dei minigiochi (Minigame), che ritorneranno un certo punteggio intero.
 %
@@ -89,7 +89,7 @@ Quando il gioco viene avviato Il controller del menu avvia il ciclo di gioco (Ga
 %
 Il ciclo di gioco si occupa di gestire una serie di personaggi e le varie CPU, gestire la sequenza dei turni nel gioco, e aggiurnare la view della griglia (Gridview) quando necessario.
 %
-Il character rappresenta un peronaggio, tirare il proprio dado e spostarsi all'interno della griglia (Grid).
+Il character rappresenta un personaggio, tirare il proprio dado e spostarsi all'interno della griglia (Grid).
 %
 La CPU si occupa invece di fare le decisioni che spetterebbero normalmente al giocatore, come scegliere il percorso da fare in un bivio.
 %
@@ -119,7 +119,53 @@ Design dettagliato davide freddi
 Design dettagliato Davide Picchiotti
 
 \subsection{Design dettagliato Miriana Ascenzo}
-Design dettagliato Miriana Ascenzo
+
+A partire dalla classe GridGenerator e dal suo unico metodo generate(), vengono creati prima una Grid (modello del Tabellone di Gioco), usando il metodo makeGrid(gridType: gridType) di GridInitializer, e poi una GridView (view del Tabellone), che si basa sulla Grid creata.
+%
+Abbiamo un pattern Factory Method, per cui una Grid viene creata a partire dagli elementi che gli vengono forniti: infatti GridGenerator prende per costruttore una GridType (enum di possibili griglie) e tramite essa cerca nelle resources un file Json corrispondente.
+%
+In base al Json, genera una griglia diversa usando sempre lo stesso procedimento.
+%
+La griglia viene dunque generata automaticamente una volta ottenuto il Json che descrive la struttura del Tabellone.
+%
+La lettura e estrazione dei dati dal file Json avvengono tramite l’uso dei metodi della libreria Jackson.
+
+\begin{figure}[!t]
+\centering{}
+\includegraphics[width=\textwidth]{images/gridImages/gridFactoryMethod.png}
+\caption{Schema UML delle classi di generazione del Tabellone. Segue il pattern Factory Method.}
+\label{img:gridfactorymethod}
+\end{figure}
+
+Gli elementi di GridView che ricevono input dall’esterno, ad esempio i bottoni, hanno il ruolo di informare il gameCycle di quale azione è stata intrapresa da chi sta usando il software.
+%
+Per fare questo si applica il pattern Observer.
+%
+Una classe GridObserver ha per Observable GridViewImpl: Se un determinato bottone viene premuto, o una determinata key sulla tastiera viene premuta, viene inviato un segnale al GameCycle.
+
+\begin{figure}[!t]
+\centering{}
+\includegraphics[width=\textwidth]{images/gridImages/gridObserver.png}
+\caption{Schema UML delle classi di View, e di come interagiscono con il gameCycle. Segue il pattern Observer.}
+\label{img:gridobserver}
+\end{figure}
+
+I nodi di GridViewImpl vengono aggiornati in runtime ogni volta che gli elementi all’interno del software, quali players, dices, scritte da rappresentare, vengono modificati dal controller (ovvero il gameCycle).
+%
+per aggiornare i nodi correttamente in runtime, esiste una classe GridViewPlat, che implementa GridView, la quale prende per costruttore una GridViewImpl, creata in GridGenerator, e chiama i suoi metodi nel thread dell’applicazione JavaFX.
+%
+Questo avviene tramite l’uso di Platform.runLater.
+%
+Quello che succede in GridGenerator è quindi: una GridViewImpl viene creata a partire da una Grid, e in seguito, a partire da GridViewImpl, viene creata una GridViewPlat, responsabile dell’aggiornamento della View nel thread dell’applicazione JavaFX.
+%
+Abbiamo un pattern Mediator, per cui gameCycle e GridViewImpl non comunicano direttamente, ma tramite GridViewPlat.
+
+\begin{figure}[!t]
+\centering{}
+\includegraphics[width=\textwidth]{images/gridImages/gridMediator.png}
+\caption{Schema UML di come GameCycle e GridView comunicano. Segue il pattern Mediator.}
+\label{img:gridmediator}
+\end{figure}
 
 \subsection{Design dettagliato Riccardo Squarcialupi}
 Design dettagliato Riccardo Squarcialupi
@@ -130,6 +176,16 @@ Design dettagliato Riccardo Squarcialupi
 \subsection{Davide Freddi}
 \subsection{Davide Picchiotti}
 \subsection{Miriana Ascenzo}
+
+È stata sottoposta a test automatici la creazione di una Grid a partire da uno specifico gridType.
+%
+Vengono fatti dei test sul giusto collegamento fra Celle e sul giusto contenimento o meno di alcune celle nella Grid creata.
+%
+Per la View sono stati eseguiti dei test automatici facendo uso della libreria TestFX; in particolare sono stati testati il corretto aggiornamento del Label principale nella view (dove appaiono le scritte del tipo “start game”, “dice result”),
+%
+il corretto aggiornamento della posizione dei player all'interno della mappa, e la possibilità di cliccare o meno il button per tirare il dado in base a se il tiro è abilitato o disabilitato.
+
+
 \subsection{Riccardo Squarcialupi}
 
 \section{Metodologia di lavoro}
@@ -139,6 +195,11 @@ Descrizione separazione?
 \subsection{Sezione Davide Freddi}
 \subsection{Sezione Davide Picchiotti}
 \subsection{Sezione Miriana Ascenzo}
+
+Il ruolo nel gruppo è stato quello di creare strutture dati per le Celle e la Griglia del gioco, la creazione delle stesse a partire da un json, e la creazione di una View che rappresentasse la griglia creata e che si aggiornasse in tempo reale in base ai cambiamenti dettati dal controller.
+%
+Un problema presentatosi durante la fase d’integrazione, è stato la dimenticanza in fase di design di un metodo “getPrevious” in Cell; il metodo serve per poter implementare la funzionalità “StepBackwards”, ovvero la possibilità di tornare indietro nella griglia.
+
 \subsection{Sezione Riccardo Squarcialupi}
 
 
@@ -147,6 +208,21 @@ Descrizione separazione?
 \subsection{Davide Freddi}
 \subsection{Davide Picchiotti}
 \subsection{Miriana Ascenzo}
+
+Feature avanzate usate:
+\begin{itemize}
+    \item lambda
+    \item stream
+    \item librerie esterne (Jackson, JavaFX, TestFX, Mockito)
+\end {itemize}
+La libreria Jackson permette di leggere il contenuto di un file json e di tradurlo tramite un mapper e un parser.
+%
+La classe GridInitializer fa uso di un’altra classe CellParser, con la quale, tramite il mapper, vengono raccolti i dati Cella per Cella e inseriti nella struttura dati.
+%
+La classe TestFX permette di eseguire test sulla GUI.
+%
+La classe Mockito permette, in fase di test, di creare classi Mock a partire da interfacce esistenti (simulano il comportamento di classi che implementano tali interfacce).
+
 \subsection{Riccardo Squarcialupi}
 
 \chapter{Commenti finali}
@@ -154,6 +230,16 @@ Descrizione separazione?
 \section{Davide Freddi}
 \section{Davide Picchiotti}
 \section{Miriana Ascenzo}
+
+Punti di forza: la classe di costruzione di Grid è stata implementata in modo tale da generare una grid con successo a partire da diversi json.
+%
+Player e Bivi sono gestiti in modo da poter accettare qualunque quantità di Player e qualunque quantità di percorsi disponibili in un bivio.
+%
+È possibile introdurre nuovi tipi di cella con semplicità per la natura di GridInitializer.
+
+Punti di debolezza: difficoltà nella comprensione della libreria TestFX.
+
+
 \section{Riccardo Squarcialupi}
 
 \appendix
