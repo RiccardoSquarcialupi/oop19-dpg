@@ -115,8 +115,6 @@ public class Ball {
     private void calculatePosition(double deltaT) {
         this.centerX = centerX + xSpeed * deltaT;
         this.centerY = centerY + ySpeed * deltaT;
-        centerX = limitVal(centerX, 0, 100);
-        centerY = limitVal(centerY, 0, 100);
     }
 
     private double limitVal(double val, double lowerBound, double upperBound) {

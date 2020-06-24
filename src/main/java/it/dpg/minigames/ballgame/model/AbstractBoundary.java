@@ -9,19 +9,9 @@ public abstract class AbstractBoundary implements Boundary {
     private final CollisionType collisionType;
 
     AbstractBoundary(final double startX, final double startY, final double endX, final double endY, final CollisionType type) {
-        checkCoordinate(startX);
-        checkCoordinate(startY);
-        checkCoordinate(endX);
-        checkCoordinate(endY);
         start = new Point2D.Double(startX, startY);
         end = new Point2D.Double(endX, endY);
         this.collisionType = type;
-    }
-
-    protected void checkCoordinate(double coordinate) {
-        if (coordinate < 0 || coordinate > 100) {
-            throw new IllegalArgumentException();
-        }
     }
 
     @Override

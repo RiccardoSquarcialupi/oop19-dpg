@@ -20,8 +20,6 @@ public class HorizontalBoundary extends AbstractBoundary {
 
     @Override
     public boolean isBallColliding(double ballCenterX, double ballCenterY, double ballRadius) {
-        checkCoordinate(ballCenterX);
-        checkCoordinate(ballCenterY);
         double minX = Math.min(start.getX(), end.getX());
         double maxX = Math.max(start.getX(), end.getX());
         double yPos = start.getY();
