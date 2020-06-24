@@ -1,10 +1,14 @@
 package it.dpg.gamecycleTests;
 
-import it.dpg.maingame.controller.gamecycle.playercontroller.CpuPlayerController;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
-import it.dpg.maingame.controller.gamecycle.turnmanagement.*;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnManager;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnManagerImpl;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnStateImpl;
+import it.dpg.maingame.model.character.Character;
+import it.dpg.maingame.model.character.CharacterImpl;
+import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.model.grid.Grid;
-import it.dpg.maingame.model.character.*;
 import it.dpg.maingame.view.grid.GridView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,17 +16,18 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 
 public class TurnManagerImplTest {
 
-    Grid gridMock = mock(Grid.class);
-    GridView view = mock(GridView.class);
-
     private final TurnState state = new TurnStateImpl();
-    private TurnManager manager;
     private final Dice defaultDice = Dice.D6;
     private final List<Dice> rewardDice = List.of(Dice.D10, Dice.D8, Dice.D6);
+    Grid gridMock = mock(Grid.class);
+    GridView view = mock(GridView.class);
+    private TurnManager manager;
 
     @BeforeEach
     void setup() {
@@ -31,28 +36,47 @@ public class TurnManagerImplTest {
     }
 
     void create() {
-        PlayerController p1 = new CpuPlayerController(state, view, new CharacterImpl(1, "Franco", gridMock), Difficulty.HARD);
-        PlayerController p2 = new CpuPlayerController(state, view, new CharacterImpl(2, "Alberto", gridMock), Difficulty.NORMAL);
-        PlayerController p3 = new CpuPlayerController(state, view, new CharacterImpl(3, "CPU1", gridMock), Difficulty.EASY);
-        manager = new TurnManagerImpl(defaultDice, rewardDice, 4, Set.of(p1, p2, p3), state);
+        Character c1 = new CharacterImpl(1, "Franco", gridMock);
+        Character c2 = new CharacterImpl(2, "Alberto", gridMock);
+        Character c3 = new CharacterImpl(3, "CPU1", gridMock);
+        PlayerController p1 = mock(PlayerController.class);
+        PlayerController p2 = mock(PlayerController.class);
+        PlayerController p3 = mock(PlayerController.class);
+        doAnswer(invocation -> c1).when(p1).getCharacter();
+        doAnswer(invocation -> c2).when(p2).getCharacter();
+        doAnswer(invocation -> c3).when(p3).getCharacter();
+        doAnswer(invocation -> {
+            c1.setMinigameScore(10);
+            return null;
+        }).when(p1).playMinigame(any());
+        doAnswer(invocation -> {
+            c2.setMinigameScore(20);
+            return null;
+        }).when(p2).playMinigame(any());
+        doAnswer(invocation -> {
+            c3.setMinigameScore(30);
+            return null;
+        }).when(p3).playMinigame(any());
+        manager = new TurnManagerImpl(defaultDice, rewardDice, 3, Set.of(p1, p2, p3), state);
     }
 
     @Test
     void startTest1() { //test that every player gets the same dice at the start
-        for(PlayerController player : manager.getPlayers()) {
+        for (PlayerController player : manager.getPlayers()) {
             assertEquals(defaultDice, player.getCharacter().getDice());
         }
     }
 
     void basicTestTurn(PlayerController first, PlayerController second, PlayerController third) {
-        assertTrue(manager.hasNextPlayer());
-        assertEquals(first, manager.nextPlayer());
-        assertTrue(manager.hasNextPlayer());
-        assertEquals(second, manager.nextPlayer());
-        assertTrue(manager.hasNextPlayer());
-        assertEquals(third, manager.nextPlayer());
-        assertFalse(manager.hasNextPlayer());
-        assertThrows(NoSuchElementException.class, () -> manager.nextPlayer());
+        Iterator<PlayerController> it = manager.getPlayersIterator();
+        assertTrue(it.hasNext());
+        assertEquals(first, it.next());
+        assertTrue(it.hasNext());
+        assertEquals(second, it.next());
+        assertTrue(it.hasNext());
+        assertEquals(third, it.next());
+        assertFalse(it.hasNext());
+        assertThrows(NoSuchElementException.class, it::next);
     }
 
     @Test
@@ -68,7 +92,7 @@ public class TurnManagerImplTest {
         assertTrue(temp.isPresent());
         PlayerController third = temp.get();
 
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             basicTestTurn(first, second, third);
             assertTrue(manager.hasNextTurn());
             manager.nextTurn();

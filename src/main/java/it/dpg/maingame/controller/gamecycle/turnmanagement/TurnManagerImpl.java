@@ -43,14 +43,19 @@ public class TurnManagerImpl implements TurnManager {
     }
 
     @Override
-    public PlayerController nextPlayer() {
-        state.newTurn();
-        return iterator.next();
-    }
+    public Iterator<PlayerController> getPlayersIterator() {
+        return new Iterator<>() {
+            @Override
+            public boolean hasNext() {
+                return iterator.hasNext();
+            }
 
-    @Override
-    public boolean hasNextPlayer() {
-        return iterator.hasNext();
+            @Override
+            public PlayerController next() {
+                state.newTurn();
+                return iterator.next();
+            }
+        };
     }
 
     @Override
