@@ -361,6 +361,20 @@
 
 	\subsection{Davide Freddi}
 	\subsection{Davide Picchiotti}
+
+    Sono state sottoposte a testing automatizzato le implmentazioni delle interfacce Character e Cpu.
+    Per quanto riguarda i minigiochi (Punchy e Jump), sono state testate le parti di modello e controller che
+    non fossero completamente chiuse nelle logiche e con metodi quasi esclusivamente privati.\newline
+    Ad esempio non sono state testate le implementazioni di MinigameCycle non sapevo come ottenere lo stato degli oggetti
+    in una classe "bloccata" in un ciclo while.\newline
+    Anche classe WorldImpl del minigioco Jump non è stata testata poichè la sua interfaccia è troppo chiusa e non ho fatto in tempo a
+    rifattorizzarla (negligenza mia).\newline
+    Per entrambi i minigiochi non è stata testata la View, poichè non ero a conoscenza della possibilità di testare la view in JavaFX con
+    un apposito modulo (altra negligenza mia).\newline
+    \newline
+    Per tutti i test è stata usata la suite JUnit 5 e per alcuni test è stato utilizzato Mockito, per rendere i test agnostici
+    rispetto al comportamento di altre classi necessarie al funzionamento.
+
 	\subsection{Miriana Ascenzo}
 
 	È stata sottoposta a test automatici la creazione di una Grid a partire da uno specifico gridType.
@@ -376,10 +390,17 @@
 
 	\section{Metodologia di lavoro}
 
-	Descrizione separazione?
-
 	\subsection{Sezione Davide Freddi}
 	\subsection{Sezione Davide Picchiotti}
+
+    Io mi sono occupato di modellare gli aspetti di Model di un giocatore e quindi delle classi presenti nel package it.dpg.maingame.model.character.\newline
+    Inoltre ho imbastito lo scheletro dei minigiochi contenuto in it.dpg.minigames.base e i due minigiochi presenti rispettivamente in it.dpg.minigames.punchygame e it.dpg.minigames.jumpgame.\newline
+    La linea guida generale è stata quella di definire le principali interfacce in fase di analisi con tutto il gruppo, in modo da poter procedere da subito a lavorare autonomamente,
+    iniziando prima dalla parte principale del gioco, per poi passare ai vari minigiochi.\newline
+    In fase di integrazione sono stati necessari alcuni accorgimenti alle interfacce e classi astratte dei minigiochi, oltre che all'aggiunta di metodi all'interfaccia Character\newline
+    Come DVCS è stato utilizzato Git con lo strumento Git Flow, per poter avere una struttura del repository pulita e standard.
+    Principalmente ognuno ha proceduto a sviluppare in feature branch separate per non sporcare il codice funzionante in develop.
+
 	\subsection{Sezione Miriana Ascenzo}
 
 	Il ruolo nel gruppo è stato quello di creare strutture dati per le Celle e la Griglia del gioco, la creazione delle stesse a partire da un json, e la creazione di una View che rappresentasse la griglia creata e che si aggiornasse in tempo reale in base ai cambiamenti dettati dal controller.
@@ -393,6 +414,14 @@
 
 	\subsection{Davide Freddi}
 	\subsection{Davide Picchiotti}
+
+    Durante lo sviluppo sono stati sfruttati aspetti avanzati del linguaggio, nello specifico: Stream e lambda expressions.\newline
+    Sono state utilizzate inoltre le seguenti librerie esterne: JavaFX, JUnit 5, Mockito, Apache Commons.\newline
+    Inoltre è stato utilizzato Gradle come build system.\newline
+    Non sono stati sviluppati da parte mia algoritmi o gestioni logiche particolarmente complesse o interessanti.\newline
+    Per quanto riguarda lo sviluppo dei minigiochi, per strutturare il lavoro ho preso spunto dagli esempi portati del professor Ricci,
+    al primo incontro del seminario Game as Lab, tenutosi nell'ateneo.\newline
+
 	\subsection{Miriana Ascenzo}
 
 	Feature avanzate usate:
@@ -413,21 +442,47 @@
 
 	\chapter{Commenti finali}
 
-	\section{Davide Freddi}
-	\section{Davide Picchiotti}
-	\section{Miriana Ascenzo}
+    \section{Autovalutazione e lavori futuri}
 
-	Punti di forza:
-	%
-	Il lavoro è stato svolto in maniera abbastanza lineare, realizzando in ordine le diverse fasi del progetto.
-	%
-	Le classi di generazione del Tabellone di Gioco e di View sono state automatizzate al meglio delle capacità, risultando in una view facilmente sostituibile.
-	Punti di debolezza:
-	%
-	Sono stati fatti errori di distrazione, il che ha richiesto dover tornare indietro nel codice più volte pe trovare tali errori e correggerli.
+    \subsection{Miriana Ascenzo}
+    Punti di forza:
+    %
+    Il lavoro è stato svolto in maniera abbastanza lineare, realizzando in ordine le diverse fasi del progetto.
+    %
+    Le classi di generazione del Tabellone di Gioco e di View sono state automatizzate al meglio delle capacità, risultando in una view facilmente sostituibile.
+    Punti di debolezza:
+    %
+    Sono stati fatti errori di distrazione, il che ha richiesto dover tornare indietro nel codice più volte pe trovare tali errori e correggerli.
+
+    \subsection{Davide Freddi}
+    \subsection{Davide Picchiotti}
+    Non sono soddisfatto del codice che ho prodotto nella maggior parte dei casi, in quanto credo di non aver dedicato la giusta attenzione
+    al progetto fino ad averlo preso sottogamba.
+    Sono comunque riuscito a fare abbastanza bene affinchè le mie parti fossero funzionanti e coerenti con analisi e requisiti.\newline
+    Nella parte finale mi sono reso conto di quanto alcune parti dei due minigiochi sviluppati fossero in realtà simili e quindi generalizzabili\newline
+    Credo di aver dato un buon contributo in fase di analisi per individuare e risolvere i principali problemi, rifacendomi anche ad alcune esperienze lavorative.
+    Nonostante ciò, credo di aver spinto verso determinate scelte di design in modo sbagliato per mancanza di visione di insieme e mancanza
+    di esperienza di uno sviluppo da zero di un progetto mediamente grande.\newline
+    Credo che comunque il progetto sia un prodotto ben realizzato, che mette in risalto buone qualità di progettisti dei componenti,
+    nonostante la difficoltà iniziale nello stimare e distribuire equamente il lavoro.
+
+    \subsection{Riccardo Squarcialupi}
+
+    \section{Difficoltà incontrate e commenti per i docenti}
+
+	\subsection{Davide Freddi}
+	\subsection{Davide Picchiotti}
+    La difficoltà principale è stata quella di trovarsi a fare l'analisi del progetto e ridosso degli esami del primo semestre e doverlo sviluppare
+    durante il secondo semestre, mentre ero concentrato principalmente a seguire lezioni di corsi nuovi e per i quali avrei dovuto preparare esami per questa estate.
+
+    \subsection{Riccardo Squarcialupi}
+    \subsection{Miriana Ascenzo}
 
 
-	\section{Riccardo Squarcialupi}
+
+
+
+
 
 	\appendix
 	\chapter{Guida utente}
