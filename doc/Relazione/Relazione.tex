@@ -122,54 +122,75 @@ Design dettagliato Davide Picchiotti
 
 \subsection{Design dettagliato Miriana Ascenzo}
 
-A partire dalla classe GridGenerator e dal suo unico metodo generate(), vengono creati prima una Grid (modello del Tabellone di Gioco) composta da più Cell, e poi una GridView (view del Tabellone), che si basa sulla Grid creata.
+In modello, una classe GridInitializer si occupa della creazione di una Grid, ovvero un Tabellone di Gioco, partendo da un GridType.
+%
+GridInitializer cerca, in base al tipo di Griglia passatogli, un file json corrispondente: tale file viene letto tramite l'uso della libreria Jackson.
+%
+La classe è stata sviluppata quindi in modo tale da rendere automatica la creazione di una grid diverse in base al json, seguendo sempre lo stesso procedimento.
+%
+I dati vengono letti raccolti dal json Cella per Cella, tramite la classe CellParser.
+%
+Vengono quindi create diverse Cell, che compongono una Grid.
+
+\begin{figure}[h]
+	\centering{}
+	\includegraphics[width=\textwidth]{images/miriana/grid_model.png}
+	\caption{Schema UML della generazione di una Grid e della sua struttura.}
+	\label{img:gridmodel}
+\end{figure}
+
+In controller, abbiamo una classe GridGenerator: tramite il suo unico metodo generate(), vengono creati prima una Grid, e poi una GridView basata su tale Grid.
 %
 Una Grid viene creata a partire dagli elementi che gli vengono forniti: GridGenerator prende per costruttore una GridType (enum di possibili griglie) e tramite essa cerca nelle resources un file Json corrispondente.
 %
-In base al Json, genera una griglia diversa usando sempre lo stesso procedimento.
-%
-La griglia viene dunque generata automaticamente una volta ottenuto il Json che descrive la struttura del Tabellone.
-%
-La lettura e estrazione dei dati dal file Json avvengono tramite l’uso dei metodi della libreria Jackson.
+GridGenerator riceve inoltre un GameCycle: questo verrà passato a GridView affinchè la view generi il suo GridObserver.
 
-\begin{figure}[!t]
-	\centering{}
-	\includegraphics[width=\textwidth]{images/miriana/grid_implementation.png}
-	\caption{Schema UML della struttura di una Grid.}
-	\label{img:gridimplementation}
+\begin{figure}[h]
+\centering{}
+\includegraphics[width=\textwidth]{images/miriana/grid_controller.png}
+\caption{Schema UML del controller di Grid e di come interagisce con GameCycle}
+\label{img:gridcontroller}
 \end{figure}
 
-\begin{figure}[!t]
-\centering{}
-\includegraphics[width=\textwidth]{images/miriana/grid_generator.png}
-\caption{Schema UML delle classi di generazione del Tabellone.}
-\label{img:gridfactorymethod}
+La View della Griglia estende da View, e viene in seguito implementata affinchè generi i nodi necessari.
+%
+La generazione di alcuni nodi ripetuti viene gestita in una classe ViewNodesFactory: essa genera le Celle in base alla posizione, le linee che collegano tali Celle, e i player.
+%
+La View può essere sostituita in blocco grazie al modello MVC: essa non riceve mai elementi di modello, solo riferimenti.
+
+\begin{figure}[h]
+	\centering{}
+	\includegraphics[width=\textwidth]{images/miriana/grid_view.png}
+	\caption{Schema UML della View della Grid}
+	\label{img:gridview}
 \end{figure}
 
 Gli elementi di GridView che ricevono input dall’esterno, ad esempio i bottoni, hanno il ruolo di informare il gameCycle di quale azione è stata intrapresa da chi sta usando il software.
 %
-Per fare questo si applica il pattern Observer.
+Per questo viene generato GridObserver, una classe di pattern Observer.
 %
-Una classe GridObserver ha per Observable GridViewImpl: Se un determinato bottone viene premuto, o una determinata key sulla tastiera viene premuta, viene inviato un segnale al GameCycle.
+La classe GridObserver ha per Observable GridViewImpl: Se un determinato bottone viene premuto, o una determinata key sulla tastiera viene premuta, viene inviato un segnale al GameCycle.
 
-\begin{figure}[!t]
+\begin{figure}[h]
 \centering{}
 \includegraphics[width=\textwidth]{images/miriana/grid_observer.png}
-\caption{Schema UML delle classi di View, e di come interagiscono con il gameCycle. Segue il pattern Observer.}
+\caption{Schema UML dell'interazione fra GridView e GameCycle. Segue il pattern Observer.}
 \label{img:gridobserver}
 \end{figure}
 
 I nodi di GridViewImpl vengono aggiornati in runtime ogni volta che gli elementi all’interno del software, quali players, dices, scritte da rappresentare, vengono modificati dal controller (ovvero il gameCycle).
 %
-per aggiornare i nodi correttamente in runtime, esiste una classe GridViewPlat, che implementa GridView, la quale contiene GridViewImpl, creata in GridGenerator, e chiama i suoi metodi nel thread dell’applicazione JavaFX.
+Per aggiornare i nodi correttamente in runtime, esiste una classe GridViewPlat: quest'ultima implementa GridView, e riceve da GridGenerator una GridViewImpl.
+%
+GridViewPlat chiama i metodi di GridViewImpl nel thread dell’applicazione JavaFX.
 %
 Questo avviene tramite l’uso di Platform.runLater.
 %
 Quello che succede in GridGenerator è quindi: una GridViewImpl viene creata a partire da una Grid, e in seguito, a partire da GridViewImpl, viene creata una GridViewPlat, responsabile dell’aggiornamento della View nel thread dell’applicazione JavaFX.
 %
-Abbiamo un pattern Proxy, per cui gameCycle accede a GridViewPlat (proxy), che contiene GridViewImpl (real target), per aggiornare la View.
+Abbiamo un pattern Proxy, per cui gameCycle accede a GridViewPlat (proxy), il quale contiene GridViewImpl (real target), per aggiornare la View.
 
-\begin{figure}[!t]
+\begin{figure}[h]
 \centering{}
 \includegraphics[width=\textwidth]{images/miriana/grid_proxy.png}
 \caption{Schema UML di come GameCycle accede a GridViewImpl. Segue il pattern Proxy.}
