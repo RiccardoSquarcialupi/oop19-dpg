@@ -31,16 +31,8 @@ public class Ball {
         return centerX;
     }
 
-    public void setCenterX(double centerX) {
-        this.centerX = centerX;
-    }
-
     public double getCenterY() {
         return centerY;
-    }
-
-    public void setCenterY(double centerY) {
-        this.centerY = centerY;
     }
 
     public double getxSpeed() {
@@ -59,6 +51,9 @@ public class Ball {
         this.ySpeed = ySpeed;
     }
 
+    /**
+     * reset the ball to the starting point, reset speeds to 0
+     */
     public void reset() {
         this.centerY = startY;
         this.centerX = startX;
@@ -66,6 +61,10 @@ public class Ball {
         this.ySpeed = 0;
     }
 
+    /**
+     * calculate the position of the ball in the next deltaT time
+     * @param deltaT quantity of time that passed from the last movement
+     */
     public void calculateNextPosition(boolean isGoingUp, boolean isGoingDown, boolean isGoingLeft, boolean isGoingRight, double deltaT) {
         calculateSpeed(isGoingUp, isGoingDown, isGoingLeft, isGoingRight, deltaT);
         calculatePosition(deltaT);
@@ -116,8 +115,6 @@ public class Ball {
     private void calculatePosition(double deltaT) {
         this.centerX = centerX + xSpeed * deltaT;
         this.centerY = centerY + ySpeed * deltaT;
-        centerX = limitVal(centerX, 0, 100);
-        centerY = limitVal(centerY, 0, 100);
     }
 
     private double limitVal(double val, double lowerBound, double upperBound) {

@@ -1,0 +1,25 @@
+@startuml
+title Grid Observer
+
+interface GridView {
+}
+
+interface GridObserver {
+    +choosePathHandler(Pair<Integer, Integer>): void
+    +throwDiceHandler(): void
+    +KeyPressHandler(): void
+}
+
+class GridObserver {
+}
+
+interface GameCycle {
+    +signalDiceThrown(): void
+    +signalPathChosen(Pair<Integer, Integer>): void
+    +signalNextStep(): void
+}
+
+GridView o-- GridObserver
+GridObserver <|.. GridObserverImpl
+GridObserver --> GameCycle
+@enduml

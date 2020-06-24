@@ -190,52 +190,80 @@
 	%
 	\subsection{Design dettagliato Miriana Ascenzo}
 
-	A partire dalla classe GridGenerator e dal suo unico metodo generate(), vengono creati prima una Grid (modello del Tabellone di Gioco), usando il metodo makeGrid(gridType: gridType) di GridInitializer, e poi una GridView (view del Tabellone), che si basa sulla Grid creata.
-	%
-	Abbiamo un pattern Factory Method, per cui una Grid viene creata a partire dagli elementi che gli vengono forniti: infatti GridGenerator prende per costruttore una GridType (enum di possibili griglie) e tramite essa cerca nelle resources un file Json corrispondente.
-	%
-	In base al Json, genera una griglia diversa usando sempre lo stesso procedimento.
-	%
-	La griglia viene dunque generata automaticamente una volta ottenuto il Json che descrive la struttura del Tabellone.
-	%
-	La lettura e estrazione dei dati dal file Json avvengono tramite l’uso dei metodi della libreria Jackson.
+In modello, una classe GridInitializer si occupa della creazione di una Grid, ovvero un Tabellone di Gioco, partendo da un GridType.
+%
+GridInitializer cerca, in base al tipo di Griglia passatogli, un file json corrispondente: tale file viene letto tramite l'uso della libreria Jackson.
+%
+La classe è stata sviluppata quindi in modo tale da rendere automatica la creazione di una grid diverse in base al json, seguendo sempre lo stesso procedimento.
+%
+I dati vengono letti raccolti dal json Cella per Cella, tramite la classe CellParser.
+%
+Vengono quindi create diverse Cell, che compongono una Grid.
 
-	\begin{figure}[!t]
-		\centering{}
-		\includegraphics[width=\textwidth]{images/gridImages/gridFactoryMethod.png}
-		\caption{Schema UML delle classi di generazione del Tabellone. Segue il pattern Factory Method.}
-		\label{img:gridfactorymethod}
-	\end{figure}
+\begin{figure}[h]
+	\centering{}
+	\includegraphics[width=\textwidth]{images/miriana/grid_model.png}
+	\caption{Schema UML della generazione di una Grid e della sua struttura.}
+	\label{img:gridmodel}
+\end{figure}
 
-	Gli elementi di GridView che ricevono input dall’esterno, ad esempio i bottoni, hanno il ruolo di informare il gameCycle di quale azione è stata intrapresa da chi sta usando il software.
-	%
-	Per fare questo si applica il pattern Observer.
-	%
-	Una classe GridObserver ha per Observable GridViewImpl: Se un determinato bottone viene premuto, o una determinata key sulla tastiera viene premuta, viene inviato un segnale al GameCycle.
+In controller, abbiamo una classe GridGenerator: tramite il suo unico metodo generate(), vengono creati prima una Grid, e poi una GridView basata su tale Grid.
+%
+Una Grid viene creata a partire dagli elementi che gli vengono forniti: GridGenerator prende per costruttore una GridType (enum di possibili griglie) e tramite essa cerca nelle resources un file Json corrispondente.
+%
+GridGenerator riceve inoltre un GameCycle: questo verrà passato a GridView affinchè la view generi il suo GridObserver.
 
-	\begin{figure}[!t]
-		\centering{}
-		\includegraphics[width=\textwidth]{images/gridImages/gridObserver.png}
-		\caption{Schema UML delle classi di View, e di come interagiscono con il gameCycle. Segue il pattern Observer.}
-		\label{img:gridobserver}
-	\end{figure}
+\begin{figure}[h]
+\centering{}
+\includegraphics[width=\textwidth]{images/miriana/grid_controller.png}
+\caption{Schema UML del controller di Grid e di come interagisce con GameCycle}
+\label{img:gridcontroller}
+\end{figure}
 
-	I nodi di GridViewImpl vengono aggiornati in runtime ogni volta che gli elementi all’interno del software, quali players, dices, scritte da rappresentare, vengono modificati dal controller (ovvero il gameCycle).
-	%
-	per aggiornare i nodi correttamente in runtime, esiste una classe GridViewPlat, che implementa GridView, la quale prende per costruttore una GridViewImpl, creata in GridGenerator, e chiama i suoi metodi nel thread dell’applicazione JavaFX.
-	%
-	Questo avviene tramite l’uso di Platform.runLater.
-	%
-	Quello che succede in GridGenerator è quindi: una GridViewImpl viene creata a partire da una Grid, e in seguito, a partire da GridViewImpl, viene creata una GridViewPlat, responsabile dell’aggiornamento della View nel thread dell’applicazione JavaFX.
-	%
-	Abbiamo un pattern Mediator, per cui gameCycle e GridViewImpl non comunicano direttamente, ma tramite GridViewPlat.
+La View della Griglia estende da View, e viene in seguito implementata affinchè generi i nodi necessari.
+%
+La generazione di alcuni nodi ripetuti viene gestita in una classe ViewNodesFactory: essa genera le Celle in base alla posizione, le linee che collegano tali Celle, e i player.
+%
+La View può essere sostituita in blocco grazie al modello MVC: essa non riceve mai elementi di modello, solo riferimenti.
 
-	\begin{figure}[!t]
-		\centering{}
-		\includegraphics[width=\textwidth]{images/gridImages/gridMediator.png}
-		\caption{Schema UML di come GameCycle e GridView comunicano. Segue il pattern Mediator.}
-		\label{img:gridmediator}
-	\end{figure}
+\begin{figure}[h]
+	\centering{}
+	\includegraphics[width=\textwidth]{images/miriana/grid_view.png}
+	\caption{Schema UML della View della Grid}
+	\label{img:gridview}
+\end{figure}
+
+Gli elementi di GridView che ricevono input dall’esterno, ad esempio i bottoni, hanno il ruolo di informare il gameCycle di quale azione è stata intrapresa da chi sta usando il software.
+%
+Per questo viene generato GridObserver, una classe di pattern Observer.
+%
+La classe GridObserver ha per Observable GridViewImpl: Se un determinato bottone viene premuto, o una determinata key sulla tastiera viene premuta, viene inviato un segnale al GameCycle.
+
+\begin{figure}[h]
+\centering{}
+\includegraphics[width=\textwidth]{images/miriana/grid_observer.png}
+\caption{Schema UML dell'interazione fra GridView e GameCycle. Segue il pattern Observer.}
+\label{img:gridobserver}
+\end{figure}
+
+I nodi di GridViewImpl vengono aggiornati in runtime ogni volta che gli elementi all’interno del software, quali players, dices, scritte da rappresentare, vengono modificati dal controller (ovvero il gameCycle).
+%
+Per aggiornare i nodi correttamente in runtime, esiste una classe GridViewPlat: quest'ultima implementa GridView, e riceve da GridGenerator una GridViewImpl.
+%
+GridViewPlat chiama i metodi di GridViewImpl nel thread dell’applicazione JavaFX.
+%
+Questo avviene tramite l’uso di Platform.runLater.
+%
+Quello che succede in GridGenerator è quindi: una GridViewImpl viene creata a partire da una Grid, e in seguito, a partire da GridViewImpl, viene creata una GridViewPlat, responsabile dell’aggiornamento della View nel thread dell’applicazione JavaFX.
+%
+Abbiamo un pattern Proxy, per cui gameCycle accede a GridViewPlat (proxy), il quale contiene GridViewImpl (real target), per aggiornare la View.
+
+\begin{figure}[h]
+\centering{}
+\includegraphics[width=\textwidth]{images/miriana/grid_proxy.png}
+\caption{Schema UML di come GameCycle accede a GridViewImpl. Segue il pattern Proxy.}
+\label{img:gridmediator}
+\end{figure}
 
 	\subsection{Design dettagliato Riccardo Squarcialupi}
 	Design dettagliato Riccardo Squarcialupi
@@ -318,7 +346,30 @@
 
 	Spiegazione comandi e utilizzo del gioco
 
-	\bibliographystyle{abbrv}
-	\bibliography{template}
+All'avvio del gioco compare un menù: premere start avvia un game in impostazioni standard (2 giocatori, di cui uno è una CPU).
+%
+Se si vuole modificare il numero di giocatori e/o il numero di CPU, premere Options ed inserire le preferenze.
+%
+Una volta premuto start il game inizia con i giocatori sulla casella start.
+%
+Da qui bisogna seguire le istruzioni che vengono dettate nel riquadro bianco più in alto:
+\begin {itemize}
+	\item quando appare l'istruzione "continue..", premere invio per proseguire
+	\item quando appare l'istruzione "Throw the Dice!", il bottone dado sottostante verrà abilitato: premere il bottone per tirare il dado
+	\item quando appare l'istruzione "choose the direction on the map", due bottoni verrano abilitati: premere il bottone corrispondente alla casella che si vuole raggiungere
+\end {itemize}
+Ogni turno finisce con un minigioco: ottenere più punti possibili per vincere dadi migliori da tirare.
+Istruzioni minigiochi:
+\begin {itemize}
+	\item ballgame: premere le frecce direzionali per comandare la palla rossa. Raggiungere il traguardo evitando i muri rossi nel tempo limite(punteggio basato sul tempo impiegato).
+	\item punchygame: premere le frecce direzioni destra e sinistra per colpire i sacchi da boxe rossi. Colpirne il maggior numero nel tempo limite (punteggio basato sul numero di sacchi colpiti).
+	\item jumpgame: premere le frecce direzionali per comandare il quadratino. Saltare più piattaforme possibili senza cadere o toccare i bordi laterali della finestra (punteggio basato sul numero di piattaforme saltate).
+	\item molegame: premere start per avviare il minigioco: cliccare su più talpe possibili nel tempo limite (punteggio basato sul numero di talpe cliccate).
+\end {itemize}
+Il gioco finisce quando un giocatore raggiunge l'ultima casella del Tabellone, vincendo il game.
+
+
+\bibliographystyle{abbrv}
+\bibliography{template}
 
 \end{document}

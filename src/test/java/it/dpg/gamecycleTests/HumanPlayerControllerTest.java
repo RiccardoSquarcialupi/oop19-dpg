@@ -3,8 +3,8 @@ package it.dpg.gamecycleTests;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnState;
-import it.dpg.maingame.controller.gamecycle.turnmanagement.TurnStateImpl;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.GameState;
+import it.dpg.maingame.controller.gamecycle.turnmanagement.GameStateImpl;
 import it.dpg.maingame.controller.gamecycle.playercontroller.HumanPlayerController;
 import it.dpg.maingame.controller.gamecycle.playercontroller.PlayerController;
 import it.dpg.maingame.model.character.Character;
@@ -22,7 +22,7 @@ public class HumanPlayerControllerTest {
     GridView view = mock(GridView.class);
     static Character character = mock(Character.class);
 
-    private final TurnState state = new TurnStateImpl();
+    private final GameState state = new GameStateImpl();
     private final PlayerController pc = new HumanPlayerController(state, view, character);
 
     @BeforeAll

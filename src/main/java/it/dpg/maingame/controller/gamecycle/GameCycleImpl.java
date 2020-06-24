@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 public class GameCycleImpl implements GameCycle {
 
-    private final TurnState turnState;
+    private final GameState gameState;
     private final GridView view;
     private final TurnManager turnManager;
     private final Thread backgroundThread;
@@ -29,12 +29,12 @@ public class GameCycleImpl implements GameCycle {
     GameCycleImpl(final int nTurns, final Dice defaultDice, final List<Dice> rewardDices, final Set<String> humanPlayers, final Set<Pair<String, Difficulty>> cpuPlayers) {
         this.backgroundThread = new Thread(this::mainCycle);
         this.backgroundThread.setDaemon(true);
-        this.turnState = new TurnStateImpl();
+        this.gameState = new GameStateImpl();
         GridType level = GridType.GRID_ONE;//randomize when multiple levels are present
         var pair = new GridGenerator(level, this).generate();
         this.view = pair.getRight();
-        PlayerFactory playerFactory = new PlayerFactoryImpl(turnState, view, pair.getLeft());
-        TurnManagerBuilder turnManagerBuilder = new TurnManagerBuilderImpl(nTurns, turnState);
+        PlayerFactory playerFactory = new PlayerFactoryImpl(gameState, view, pair.getLeft());
+        TurnManagerBuilder turnManagerBuilder = new TurnManagerBuilderImpl(nTurns, gameState);
         turnManagerBuilder
                 .setDefaultDice(defaultDice)
                 .setRewardDices(rewardDices);
@@ -100,12 +100,12 @@ public class GameCycleImpl implements GameCycle {
     }
 
     private void waitNextStep(String message) {
-        turnState.setTurnPause(true);
+        gameState.setTurnPause(true);
         view.showText(message + "   continue...");
-        synchronized (this.turnState) {
+        synchronized (this.gameState) {
             try {
-                while (turnState.isPaused()) {
-                    turnState.wait();
+                while (gameState.isPaused()) {
+                    gameState.wait();
                 }
             } catch (InterruptedException e) {
                 System.out.println("thread interrupted during turn step wait");
@@ -135,10 +135,10 @@ public class GameCycleImpl implements GameCycle {
             return player.getCharacter().stepForward();
         }
         player.chooseDirection();
-        if (turnState.getLastDirectionChoice().isEmpty()) {
+        if (gameState.getLastDirectionChoice().isEmpty()) {
             throw new IllegalStateException("Turn state wasn't set properly");
         }
-        return player.getCharacter().stepInDirection(turnState.getLastDirectionChoice().get());
+        return player.getCharacter().stepInDirection(gameState.getLastDirectionChoice().get());
     }
 
     private void displayMinigameResults() {
@@ -164,26 +164,26 @@ public class GameCycleImpl implements GameCycle {
 
     @Override
     public void signalDiceThrown() {
-        synchronized (turnState) {
-            turnState.setDiceThrown(true);
-            turnState.notify();
+        synchronized (gameState) {
+            gameState.setDiceThrown(true);
+            gameState.notify();
         }
     }
 
     @Override
     public void signalPathChosen(Pair<Integer, Integer> coordinates) {
-        synchronized (turnState) {
-            turnState.setChoice(false);
-            turnState.setLastDirectionChoice(coordinates);
-            turnState.notify();
+        synchronized (gameState) {
+            gameState.setChoice(false);
+            gameState.setLastDirectionChoice(coordinates);
+            gameState.notify();
         }
     }
 
     @Override
     public void signalNextStep() {
-        synchronized (turnState) {
-            turnState.setTurnPause(false);
-            turnState.notify();
+        synchronized (gameState) {
+            gameState.setTurnPause(false);
+            gameState.notify();
         }
     }
 }

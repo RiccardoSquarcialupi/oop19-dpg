@@ -2,6 +2,7 @@ package it.dpg.minigames.ballgame.model;
 
 import it.dpg.minigames.ballgame.controller.BallMinigameLevel;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 public interface BallMinigameModel {
 
@@ -43,7 +44,7 @@ public interface BallMinigameModel {
      *
      * @return the coordinated x and y of the ball, in relation to the 100x100 level
      */
-    ImmutablePair<Double, Double> calculateNextFrame();
+    Pair<Double, Double> calculateNextFrame();
 
     /**
      * @return the current score, going down as time passes

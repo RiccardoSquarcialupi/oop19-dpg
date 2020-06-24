@@ -1,11 +1,7 @@
 package it.dpg.maingame.view.menu;
 
-import it.dpg.maingame.controller.gamecycle.GameCycle;
-import it.dpg.maingame.controller.gamecycle.GameCycleBuilder;
-import it.dpg.maingame.controller.gamecycle.GameCycleBuilderImpl;
 import it.dpg.maingame.controller.menu.MenuController;
 import it.dpg.maingame.controller.menu.MenuControllerImpl;
-import it.dpg.maingame.model.character.Dice;
 import it.dpg.maingame.model.character.Difficulty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,9 +16,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The Menu when the application start
@@ -46,6 +40,7 @@ public class MenuGUI implements MenuView {
     private final Button optionsBtn = new Button("Options");
     private final Button exitBtn = new Button("Exit");
     private MenuController optionController = new MenuControllerImpl();
+    private Stage optionStage;
 
     /**
      * Method for create the menu
@@ -53,7 +48,7 @@ public class MenuGUI implements MenuView {
      * @param stage Represent the "case" for the all Graphics Stuff
      */
     public void initializeGUI(final Stage stage) {
-
+        optionStage = stage;
         startBtn.setPrefSize(100, 60);
         startBtn.setFont(Font.font(15));
         creditBtn.setPrefSize(100, 60);
@@ -71,7 +66,7 @@ public class MenuGUI implements MenuView {
 
         startBtn.setOnAction((ActionEvent event) -> optionController.startGame());
 
-        exitBtn.setOnAction((ActionEvent event) -> exitGUI());
+        exitBtn.setOnAction((ActionEvent event) -> closeView());
 
         creditBtn.setOnAction((ActionEvent event) -> displayCredit());
 
@@ -110,7 +105,7 @@ public class MenuGUI implements MenuView {
      */
     @Override
     public void displayOptions() {
-        Stage optionStage = new Stage();
+
         ObservableList<Integer> listNumPlayer = FXCollections.observableArrayList(1, 2, 3, 4);
         ObservableList<Integer> listNumAI = FXCollections.observableArrayList(0, 1, 2, 3, 4);
         ObservableList<Difficulty> listDifficultyAI = FXCollections.observableArrayList(Difficulty.EASY, Difficulty.NORMAL, Difficulty.HARD);
@@ -196,16 +191,24 @@ public class MenuGUI implements MenuView {
         optionBox.getChildren().addAll(numPlayer, numAI, listDifficulty.get(0), listDifficulty.get(1), listDifficulty.get(2), listDifficulty.get(3));
 
         optionStage.setScene(optionScene);
+        setView();
+    }
+
+    /**
+     * makes the view visible to the user
+     */
+    @Override
+    public void setView() {
         optionStage.setTitle("Dope game Party-Options");
         optionStage.show();
     }
 
     /**
-     * Method for exit the application
+     * closes the view
      */
     @Override
-    public void exitGUI() {
+    public void closeView() {
+        optionStage.close();
         System.exit(0);
     }
-
 }

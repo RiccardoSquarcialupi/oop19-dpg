@@ -3,35 +3,30 @@ package it.dpg.minigames.ballgame.controller;
 public interface BallObserver {
 
     /**
-     * adds the gamecycle witch needs to be signaled when events happen
+     * signal the up input state
+     *
+     * @param isGoing true if it's going up, false if it's not
      */
-    void addGamecycle(BallGamecycle cycle);
+    void signalGoingUp(boolean isGoing);
 
     /**
-     * handle the up button
+     * signal the Down input state
      *
-     * @param isPressed true if it's pressed, false if it's released
+     * @param isGoing true if it's going Down, false if it's not
      */
-    void handleUpButton(boolean isPressed);
+    void signalGoingDown(boolean isGoing);
 
     /**
-     * handle the down button
+     * signal the Left input state
      *
-     * @param isPressed true if it's pressed, false if it's released
+     * @param isGoing true if it's going Left, false if it's not
      */
-    void handleDownButton(boolean isPressed);
+    void signalGoingleft(boolean isGoing);
 
     /**
-     * handle the left button
+     * signal the Right input state
      *
-     * @param isPressed true if it's pressed, false if it's released
+     * @param isGoing true if it's going Right, false if it's not
      */
-    void handleLeftButton(boolean isPressed);
-
-    /**
-     * handle the right button
-     *
-     * @param isPressed true if it's pressed, false if it's released
-     */
-    void handleRightButton(boolean isPressed);
+    void signalGoingRight(boolean isGoing);
 }

@@ -1,0 +1,20 @@
+@startuml
+title Grid Proxy
+
+interface GridView {
+}
+
+class GridViewImpl {
+}
+
+class GridViewPlat {
+}
+
+interface GameCycle {
+}
+
+GridView <|.. GridViewImpl
+GridView <|.. GridViewPlat
+GameCycle --> GridView
+GridViewPlat o-- GridViewImpl
+@enduml
