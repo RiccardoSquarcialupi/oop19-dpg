@@ -9,26 +9,26 @@ public interface BallGamecycle extends MinigameCycle {
      *
      * @param isPressed true if it's pressed, false if it's released
      */
-    void signalUpButton(boolean isPressed);
+    void signalGoingUp(boolean isPressed);
 
     /**
      * signal the gamecycle the down input state
      *
      * @param isPressed true if it's pressed, false if it's released
      */
-    void signalDownButton(boolean isPressed);
+    void signalGoingDown(boolean isPressed);
 
     /**
      * signal the gamecycle the left input state
      *
      * @param isPressed true if it's pressed, false if it's released
      */
-    void signalLeftButton(boolean isPressed);
+    void signalGoingleft(boolean isPressed);
 
     /**
      * signal the gamecycle the right input state
      *
      * @param isPressed true if it's pressed, false if it's released
      */
-    void signalRightButton(boolean isPressed);
+    void signalGoingRight(boolean isPressed);
 }

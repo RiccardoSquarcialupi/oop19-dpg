@@ -19,24 +19,24 @@ public class BallObserverImpl implements BallObserver {
     @Override
     public void handleUpButton(boolean isPressed) {
         checkGamecycle();
-        cycle.signalUpButton(isPressed);
+        cycle.signalGoingUp(isPressed);
     }
 
     @Override
     public void handleDownButton(boolean isPressed) {
         checkGamecycle();
-        cycle.signalDownButton(isPressed);
+        cycle.signalGoingDown(isPressed);
     }
 
     @Override
     public void handleLeftButton(boolean isPressed) {
         checkGamecycle();
-        cycle.signalLeftButton(isPressed);
+        cycle.signalGoingleft(isPressed);
     }
 
     @Override
     public void handleRightButton(boolean isPressed) {
         checkGamecycle();
-        cycle.signalRightButton(isPressed);
+        cycle.signalGoingRight(isPressed);
     }
 }

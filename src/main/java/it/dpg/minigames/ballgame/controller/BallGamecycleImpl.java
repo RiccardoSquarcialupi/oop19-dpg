@@ -17,22 +17,22 @@ public class BallGamecycleImpl implements BallGamecycle {
     }
 
     @Override
-    public void signalUpButton(boolean isPressed) {
+    public void signalGoingUp(boolean isPressed) {
         model.setGoingUp(isPressed);
     }
 
     @Override
-    public void signalDownButton(boolean isPressed) {
+    public void signalGoingDown(boolean isPressed) {
         model.setGoingDown(isPressed);
     }
 
     @Override
-    public void signalLeftButton(boolean isPressed) {
+    public void signalGoingleft(boolean isPressed) {
         model.setGoingLeft(isPressed);
     }
 
     @Override
-    public void signalRightButton(boolean isPressed) {
+    public void signalGoingRight(boolean isPressed) {
         model.setGoingRight(isPressed);
     }
 
