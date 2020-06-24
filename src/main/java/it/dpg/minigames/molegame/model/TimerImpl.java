@@ -31,6 +31,9 @@ public class TimerImpl implements Timer {
      */
     @Override
     public long getRemainTime() {
+        if(time==0){
+            return 0;
+        }
         return (20 - (System.currentTimeMillis() - time) / 1000);
     }
 

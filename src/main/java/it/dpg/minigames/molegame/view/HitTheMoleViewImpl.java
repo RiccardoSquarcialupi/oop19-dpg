@@ -46,9 +46,39 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
     public HitTheMoleViewImpl(HitTheMoleCycle gc) {
         gameCycle = gc;
         gc.setView(this);
-        int count = 0;
+
+    }
+
+    @Override
+    public Scene createScene() {
+
+        BorderPane bp = new BorderPane();
+        gp.setHgap(10);
+        gp.setVgap(10);
+        bp.setCenter(gp);
+        HBox hb = new HBox(15);
+        Scene scene = new Scene(bp, WIDTH, HEIGHT, BG_COLOR);
         timerLbl = new Text("20");
         scoreLbl = new Text("0");
+        Button start = new Button("START");
+        start.setOnMouseClicked(mouseEvent -> {
+            gameCycle.startGame();
+            start.setDisable(true);
+        });
+
+        Text score = new Text("Score");
+        Text timer = new Text("Timer");
+
+
+        bp.setTop(hb);
+
+        hb.getChildren().add(start);
+        hb.getChildren().add(score);
+        hb.getChildren().add(scoreLbl);
+        hb.getChildren().add(timer);
+        hb.getChildren().add(timerLbl);
+
+        int count = 0;
         EventHandler<MouseEvent> al = mouseEvent -> {
             for (var p : listMole) {
                 if (p.getValue().equals(mouseEvent.getSource())) {
@@ -68,35 +98,6 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
                 count++;
             }
         }
-    }
-
-    @Override
-    public Scene createScene() {
-        BorderPane bp = new BorderPane();
-        gp.setHgap(10);
-        gp.setVgap(10);
-        bp.setCenter(gp);
-        HBox hb = new HBox(15);
-        Scene scene = new Scene(bp, WIDTH, HEIGHT, BG_COLOR);
-
-        Button start = new Button("START");
-        start.setOnMouseClicked(mouseEvent -> {
-            gameCycle.startGame();
-            start.setDisable(true);
-        });
-
-        Text score = new Text("Score");
-        Text timer = new Text("Timer");
-
-
-        bp.setTop(hb);
-
-        hb.getChildren().add(start);
-        hb.getChildren().add(score);
-        hb.getChildren().add(scoreLbl);
-        hb.getChildren().add(timer);
-        hb.getChildren().add(timerLbl);
-
         return scene;
 
     }
