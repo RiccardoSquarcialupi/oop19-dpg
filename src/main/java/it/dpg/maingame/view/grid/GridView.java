@@ -8,12 +8,6 @@ import java.util.Map;
 import java.util.Set;
 
 public interface GridView extends View {
-
-    /**
-     * this methods sets the view
-     */
-    void setView();
-
     /**
      * Sets the name of who's currently playing in the main text
      */
@@ -58,8 +52,4 @@ public interface GridView extends View {
      * disables the dice button
      */
     void disableDiceThrow();
-    /**
-     * this method closes the Grid View
-     */
-    void closeView();
 }

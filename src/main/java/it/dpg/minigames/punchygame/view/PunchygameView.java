@@ -1,6 +1,6 @@
 package it.dpg.minigames.punchygame.view;
 
-import it.dpg.minigames.base.view.MinigameView;
+import it.dpg.maingame.view.View;
 import it.dpg.minigames.punchygame.controller.input.InputObserver;
 import it.dpg.minigames.punchygame.model.Direction;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * @see it.dpg.minigames.punchygame.PunchyMinigame
  * */
 
-public interface PunchygameView extends MinigameView {
+public interface PunchygameView extends View {
     /**
      * Update the boxing sacks on the view
      * @param sacks a ordered list of sacks with their directions respective to the player

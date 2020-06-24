@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(ApplicationExtension.class)
-public class BallMinigameViewTest {
+public class BallViewTest {
 
     BallObserver observer = Mockito.mock(BallObserver.class);
 
