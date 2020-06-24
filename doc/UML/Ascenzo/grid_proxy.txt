@@ -1,5 +1,5 @@
 @startuml
-title Grid Mediator
+title Grid Proxy
 
 interface GridView {
 }

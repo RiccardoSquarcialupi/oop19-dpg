@@ -154,18 +154,18 @@ Una classe GridObserver ha per Observable GridViewImpl: Se un determinato botton
 
 I nodi di GridViewImpl vengono aggiornati in runtime ogni volta che gli elementi all’interno del software, quali players, dices, scritte da rappresentare, vengono modificati dal controller (ovvero il gameCycle).
 %
-per aggiornare i nodi correttamente in runtime, esiste una classe GridViewPlat, che implementa GridView, la quale prende per costruttore una GridViewImpl, creata in GridGenerator, e chiama i suoi metodi nel thread dell’applicazione JavaFX.
+per aggiornare i nodi correttamente in runtime, esiste una classe GridViewPlat, che implementa GridView, la quale contiene GridViewImpl, creata in GridGenerator, e chiama i suoi metodi nel thread dell’applicazione JavaFX.
 %
 Questo avviene tramite l’uso di Platform.runLater.
 %
 Quello che succede in GridGenerator è quindi: una GridViewImpl viene creata a partire da una Grid, e in seguito, a partire da GridViewImpl, viene creata una GridViewPlat, responsabile dell’aggiornamento della View nel thread dell’applicazione JavaFX.
 %
-Abbiamo un pattern Mediator, per cui gameCycle e GridViewImpl non comunicano direttamente, ma tramite GridViewPlat.
+Abbiamo un pattern Proxy, per cui gameCycle accede a GridViewPlat (proxy), che contiene GridViewImpl (real target) per aggiornare la View.
 
 \begin{figure}[!t]
 \centering{}
-\includegraphics[width=\textwidth]{images/miriana/grid_mediator.png}
-\caption{Schema UML di come GameCycle e GridView comunicano. Segue il pattern Mediator.}
+\includegraphics[width=\textwidth]{images/miriana/grid_proxy.png}
+\caption{Schema UML di come GameCycle accede a GridViewImpl. Segue il pattern Proxy.}
 \label{img:gridmediator}
 \end{figure}
 
