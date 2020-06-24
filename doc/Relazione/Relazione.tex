@@ -122,10 +122,11 @@
 	In questa sezione si tratterà il design dei giocatori all'interno del modello.\newline
 	\newline
 	Ogni giocatore (umano e non) viene rappresentato tramite l'interfaccia Character.
-	Questo espone metodi per controllare tutti gli aspetti relativi a un dato giocatore durante la partita:\begin{itemize}
-																											   \item movimento step-by-step nella griglia
-																											   \item lancio di dado
-																											   \item salvataggio di valori importanti durante la partita (turno, posizione, punteggio dei minigiochi ecc.)
+	Questo espone metodi per controllare tutti gli aspetti relativi a un dato giocatore durante la partita:
+	\begin{itemize}
+		\item movimento step-by-step nella griglia
+	    \item lancio di dado
+	    \item salvataggio di valori importanti durante la partita (turno, posizione, punteggio dei minigiochi ecc.)
 	\end{itemize}
 	%
 	L'avanzamento del giocatore con gli appositi metodi avviene step-by-step, ovvero si muoverà di una
@@ -133,8 +134,12 @@
 	uno stesso lancio di dado, tra una casella e l'altra, si potessero scatenare eventi sul giocatore
 	dovuti dal tipo di casella attraversata.\newline
 	%
-	//immagine uml character\newline
-	\caption{Schema UML delle classi relative a Character}
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/picchiotti/character.png}
+        \caption{Schema UML dell'interfaccia Character}
+        \label{img:character}
+    \end{figure}
 	%
 	Per fare in modo che nella partita siano presenti giocatori non umani (CPU) è necessario servirsi
 	dell'interfaccia Cpu.\newline
@@ -142,8 +147,12 @@
 	Inoltre ogni Cpu avrà assegnata una difficoltà (enum Difficulty) che al momento stabilisce unicamente il punteggio che otterrà nei minigiochi.\newline
 	In questo modo è possibile creare nuovi tipi di Cpu con diversi comportamenti in maniera disaccoppiata.
 	%
-	//immagine uml cpu\newline
-	\caption{Schema UML delle classi relative a Cpu}
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/picchiotti/cpu.png}
+        \caption{Schema UML dell'interfaccia Cpu}
+        \label{img:cpu}
+    \end{figure}
 
 	\subsubsection{Struttura base dei minigiochi}
 	In questa sezione si tratterà delle classi e interfaccie che stanno alla base di tutti i minigiochi del progetto.\newline
@@ -152,8 +161,12 @@
 	%
 	Le classi e le interfaccie presentate sono state pensate con lo scopo di avere un buona struttura MVC per ogni minigioco e allo stesso tempo aver un entry-point definito per l'avvio e il settaggio di qualunque minigioco. L'unica parte architetturale che non viene definita da questa struttura è il Model di ognuno, poiché considerato troppo specifico in base al tipo di minigioco che si intende realizzare.\newline
 	%
-	//immagine uml minigiochi\newline
-	\caption{Schema UML delle classi relative a Cpu}
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/picchiotti/minigame.png}
+        \caption{Schema UML della struttura generale dei minigiochi}
+        \label{img:minigame}
+    \end{figure}
 	%
 	Per far sì che la routine di avvio e settaggio del minigioco fosse uguale per ognuno si è adottata la strategia delle classi astratte con Template Method.
 	Nello specifico AbstractMinigameView ha il metodo template createScene() per la creazione della Scene di JavaFX e AbstractMinigame ha i metodi template getMaxScore (per il calcolo del punteggio), createGameCycle() (per la creazione del ciclo di gioco) e createView() (per la creazione della View).\newline
@@ -164,60 +177,104 @@
 	\subsubsection{Punchy Minigame}
 	In questa sezione verrà trattato nel dettaglio il design del minigioco Punchy.\newline
 	\newline
-	Per il design di questo minigioco ci si è per lo più limitati a implementare le opportune interfacce e a estendere le classi astratte. Sono state create interfacce aggiuntive per la gestione della View (PunchyminigameView) e del Model (World).
-	\newline
-	//uml punchygame overview\newline
-	\newline
-	In generale, l'interfaccia PunchygameView permette di gestire tutti gli aspetti della View che rispecchiano il Model del gioco, ma la classe che la implementa necessita anche l'estensione di AbstractMinigameView per poter settare e chiudere la View stessa. L'interfaccia consente comunque di scorporare la View e di cambiare in maniera agevole il componente grafico.\newline
+	Per il design di questo minigioco ci si è per lo più limitati a implementare le opportune interfacce e a estendere le classi astratte.
+    Sono state create interfacce aggiuntive per la gestione della View (PunchyminigameView) e del Model (World).
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/picchiotti/punchyoverview.png}
+        \caption{Schema UML generale del minigioco Punchy}
+        \label{img:punchyoverview}
+    \end{figure}
+
+	In generale, l'interfaccia PunchygameView permette di gestire tutti gli aspetti della View che rispecchiano il Model del gioco, ma la classe che la implementa necessita anche l'estensione di AbstractMinigameView per poter settare e chiudere la View stessa.
+    L'interfaccia consente comunque di scorporare la View e di cambiare in maniera agevole il componente grafico.\newline
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/picchiotti/punchyview.png}
+        \caption{Schema UML del componente View}
+        \label{img:punchyview}
+    \end{figure}
+
 	Inoltre è stato utilizzato il pattern Observer per la gestione degli input dell'utente: la View (PunchygameView) è il componente osservato, mentre l'osservatore sarà nel Controller (PunchygameCycle) e otterrà gli input tramite InputObserver.\newline
-	Gli input da propagare verso il Controller sono modellati con l'interfaccia Input, che con pattern Strategy ci permette di cambiare a seconda delle esigenze gli input da passare a InputObserver. Essendo necessari solo due comandi per rappresentare il pugno a destra e a sinistra (molto simili tra loro) si è optato per una classe astratta che implementa Input e fa uso del pattern Template Method per farsi fornire dai suoi sottotipi la Direction del pugno.
+	Gli input da propagare verso il Controller sono modellati con l'interfaccia Input, che con pattern Strategy ci permette di cambiare a seconda delle esigenze gli input da passare a InputObserver.
+    Essendo necessari solo due comandi per rappresentare il pugno a destra e a sinistra (molto simili tra loro) si è optato per una classe astratta che implementa Input e fa uso del pattern Template Method per farsi fornire dai suoi sottotipi la Direction del pugno.
 	Il metodo template in questione è getPunchDirection() in AbstractPunch.
-	\newline
-	//uml punchygame view\newline
-	//uml punchygame input\newline
-	\newline
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/picchiotti/punchyinput.png}
+        \caption{Schema UML dei componenti di gestione di input}
+        \label{img:punchyinput}
+    \end{figure}
+
 	%
 	La parte di Model è molto semplice, in quanto presenta la classe World come unico entry-point del model, la cui implementazione userà al suo interno i vari componenti Boxer, Timer, Score. La componente dei sacchi da boxe del gioco non ha necessitato di una classe specializzata, poiché modellabile con una semplice lista all'interno di WorldImpl.\newline
-	\newline
-	//uml punchygame model\newline
-	\newline
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/picchiotti/punchymodel.png}
+        \caption{Schema UML del componente Model}
+        \label{img:punchymodel}
+    \end{figure}
 	%
-	La parte di Controller è costituita dal ciclo di gioco, ci si limita quindi a implementare l'interfaccia
-	MinigameCycle. Naturalmente è necessario avere un InputObserver all'interno del Controller e si è optato per l'implentazione di esso direttamente nella classe PunchygameCycleImpl.
-	\newline
-	//uml punchygame controller\newline
-	\newline
+	La parte di Controller è costituita dal ciclo di gioco, ci si limita quindi a implementare l'interfaccia MinigameCycle.
+    Naturalmente è necessario avere un InputObserver all'interno del Controller e si è optato per l'implentazione di esso direttamente nella classe PunchygameCycleImpl.
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/picchiotti/punchycontroller.png}
+        \caption{Schema UML del componente Controller}
+        \label{img:punchycontroller}
+    \end{figure}
 	%
-
 
 	\subsubsection{Jump Minigame}
 	In questa sezione verrà trattato nel dettaglio il design del minigioco Jump.\newline
 	\newline
 	Per il design di questo minigioco ci si è per lo più limitati a implementare le opportune interfacce e a estendere le classi astratte. Sono state create interfacce aggiuntive per la gestione della View (JumpminigameView) e del Model (World).
-	\newline
-	//uml punchygame overview\newline
-	\newline
-	In generale, l'interfaccia JumpgameView permette di gestire tutti gli aspetti della View che rispecchiano il Model del gioco, ma la classe che la implementa necessita anche l'estensione di AbstractMinigameView per poter settare e chiudere la View stessa. L'interfaccia consente comunque di scorporare la View e di cambiare in maniera agevole il componente grafico.\newline
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/picchiotti/jumpoverview.png}
+        \caption{Schema UML generale del minigioco Jump}
+        \label{img:jumpoverview}
+    \end{figure}
+
+	In generale, l'interfaccia JumpgameView permette di gestire tutti gli aspetti della View che rispecchiano il Model del gioco, ma la classe che la implementa necessita anche l'estensione di AbstractMinigameView per poter settare e chiudere la View stessa.
+    L'interfaccia consente comunque di scorporare la View e di cambiare in maniera agevole il componente grafico.\newline
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/picchiotti/jumpview.png}
+        \caption{Schema UML del componente View}
+        \label{img:jumpview}
+    \end{figure}
+
 	Inoltre è stato utilizzato il pattern Observer per la gestione degli input dell'utente: la View (JumpminigameView) è il componente osservato, mentre l'osservatore sarà nel Controller (JumpgameCycle) e otterrà gli input tramite InputObserver.\newline
 	Gli input da propagare verso il Controller sono modellati con l'interfaccia Input, che con pattern Strategy ci permette di cambiare a seconda delle esigenze gli input da passare a InputObserver.
-	Nel caso di questo minigioco
-	\newline
-	//uml punchygame view\newline
-	//uml punchygame input\newline
-	\newline
+	Nel caso di questo minigioco abbiamo tre comandi, ognuno dei quali modifica la velocità orizzontale del giocatore;
+    per questo motivo è stata usata una classe astratta che utilizza il pattern Template Method per definire la velocità orizzantale da impostare al giocatore in ogni comando.
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/picchiotti/jumpinput.png}
+        \caption{Schema UML dei componenti di gestione dell'input}
+        \label{img:jumpinput}
+    \end{figure}
 	%
-	La parte di Model è molto semplice, in quanto presenta la classe World come unico entry-point del model, la cui implementazione userà al suo interno i vari componenti Boxer, Timer, Score. La componente dei sacchi da boxe del gioco non ha necessitato di una classe specializzata, poiché modellabile con una semplice lista all'interno di WorldImpl.\newline
-	\newline
-	//uml punchygame model\newline
-	\newline
+	La parte di Model è molto semplice, in quanto presenta la classe World come unico entry-point del model, la cui implementazione userà al suo interno i vari componenti Player, Platform, PlatformSpawner.\newline
+	Come si può vedere dai diagrammi, sia Player che Platform sono sottoclassi di AbstractGameObject, implementazione di base di GameObject.
+    In questo modo è stata definita un'interfaccia generale per gli oggetti di gioco in grado di muoversi.\newline
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/picchiotti/jumpmodel.png}
+        \caption{Schema UML del componente Model}
+        \label{img:jumpmodel}
+    \end{figure}
 	%
-	La parte di Controller è costituita dal ciclo di gioco, ci si limita quindi a implementare l'interfaccia
-	MinigameCycle. Naturalmente è necessario avere un InputObserver all'interno del Controller e si è optato per l'implentazione di esso direttamente nella classe PunchygameCycleImpl.
-	\newline
-	//uml punchygame controller\newline
-	\newline
+	La parte di Controller è costituita dal ciclo di gioco, ci si limita quindi a implementare l'interfaccia MinigameCycle.
+    Naturalmente è necessario avere un InputObserver all'interno del Controller e si è optato per l'implentazione di esso direttamente nella classe JumpgameCycleImpl.
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/picchiotti/jumpcontroller.png}
+        \caption{Schema UML del componente Controller}
+        \label{img:jumpcontroller}
+    \end{figure}
 	%
-
 
 	\subsection{Design dettagliato Miriana Ascenzo}
 

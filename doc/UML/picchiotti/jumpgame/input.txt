@@ -1,0 +1,27 @@
+@startuml
+
+title Jump Minigame - Input
+
+interface InputObserver {
+    +notify(input: Input)
+}
+
+interface Input {
+    +execute(model: World)
+}
+
+abstract class AbstractHorizontalMovement {
+    #getHorizontalMovementSpeed(): int
+}
+
+class MoveLeft {}
+class MoveRight {}
+class StopMovement {}
+
+InputObserver <-- Input
+Input <|.. AbstractHorizontalMovement
+AbstractHorizontalMovement <|-- MoveLeft
+AbstractHorizontalMovement <|-- MoveRight
+AbstractHorizontalMovement <|-- StopMovement
+
+@enduml

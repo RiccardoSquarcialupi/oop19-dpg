@@ -1,8 +1,8 @@
 @startuml
 
-title Punchy Minigame - Controller
+title Jump Minigame - Controller
 
-class PunchygameCycle {
+class JumpMinigameCycle {
 }
 
 interface MinigameCycle {
@@ -14,11 +14,11 @@ interface InputObserver {
 }
 
 interface Input {
-    +execute(model: World): boolean
+    +execute(model: World)
 }
 
-PunchygameCycle ..|> MinigameCycle
-PunchygameCycle ..|> InputObserver
+JumpMinigameCycle ..|> MinigameCycle
+JumpMinigameCycle ..|> InputObserver
 InputObserver <-- Input
 
 @enduml
