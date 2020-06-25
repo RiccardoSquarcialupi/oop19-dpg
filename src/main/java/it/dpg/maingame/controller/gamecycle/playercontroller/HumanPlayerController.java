@@ -62,6 +62,6 @@ public class HumanPlayerController extends AbstractPlayerController {
             e.printStackTrace();
         }
         view.removeText();
-        handleMinigameResult(new JumpMinigame().start());
+        handleMinigameResult(minigame.start());
     }
 }
