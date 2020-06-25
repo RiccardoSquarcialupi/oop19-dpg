@@ -5,6 +5,8 @@ import it.dpg.maingame.model.character.Character;
 import it.dpg.maingame.view.grid.GridView;
 import it.dpg.minigames.MinigameType;
 import it.dpg.minigames.base.controller.Minigame;
+import it.dpg.minigames.jumpgame.JumpMinigame;
+import it.dpg.minigames.punchygame.PunchyMinigame;
 
 import java.util.concurrent.TimeUnit;
 
@@ -60,6 +62,6 @@ public class HumanPlayerController extends AbstractPlayerController {
             e.printStackTrace();
         }
         view.removeText();
-        handleMinigameResult(minigame.start());
+        handleMinigameResult(new JumpMinigame().start());
     }
 }
