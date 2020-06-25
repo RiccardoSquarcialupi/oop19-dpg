@@ -77,7 +77,7 @@
 
 	\begin{figure}[!t]
 		\centering{}
-		\includegraphics[width=150mm]{images/domain.jpeg}
+		\includegraphics{images/domain.png}
 		\caption{Schema UML dell'analisi del problema, con rappresentate le entità principali ed i rapporti fra loro}
 		\label{img:analysis}
 	\end{figure}
@@ -110,7 +110,7 @@
 
 	\begin{figure}[!t]
 		\centering{}
-		\includegraphics[width=\textwidth]{images/arch.jpeg}
+		\includegraphics[width=\textwidth]{images/arch.png}
 		\caption{Schema UML architetturale di DPG. View, GridView e MenuView sono interfacce di view, Gamecycle e Minigame sono interfacce di controller, mentre Grid, Cell e Character sono interfacce di modello.}
 		\label{img:goodarch}
 	\end{figure}
@@ -288,9 +288,9 @@
 	uno stesso lancio di dado, tra una casella e l'altra, si potessero scatenare eventi sul giocatore
 	dovuti dal tipo di casella attraversata.\newline
 	%
-    \begin{figure}[!t]
+    \begin{figure}[h]
         \centering{}
-        \includegraphics[width=150mm]{images/picchiotti/character.png}
+        \includegraphics{images/picchiotti/character.png}
         \caption{Schema UML dell'interfaccia Character}
         \label{img:character}
     \end{figure}
@@ -303,7 +303,7 @@
 	%
     \begin{figure}[!t]
         \centering{}
-        \includegraphics[width=150mm]{images/picchiotti/cpu.png}
+        \includegraphics{images/picchiotti/cpu.png}
         \caption{Schema UML dell'interfaccia Cpu}
         \label{img:cpu}
     \end{figure}
@@ -317,7 +317,7 @@
 	%
     \begin{figure}[!t]
         \centering{}
-        \includegraphics[width=150mm]{images/picchiotti/minigame.png}
+        \includegraphics{images/picchiotti/minigame.png}
         \caption{Schema UML della struttura generale dei minigiochi}
         \label{img:minigame}
     \end{figure}
@@ -335,14 +335,14 @@
     Sono state create interfacce aggiuntive per la gestione della View (PunchyminigameView) e del Model (World).
     \begin{figure}[!t]
         \centering{}
-        \includegraphics[width=150mm]{images/picchiotti/punchyoverview.png}
+        \includegraphics{images/picchiotti/punchyoverview.png}
         \caption{Schema UML generale del minigioco Punchy}
         \label{img:punchyoverview}
     \end{figure}
 
 	In generale, l'interfaccia PunchygameView permette di gestire tutti gli aspetti della View che rispecchiano il Model del gioco, ma la classe che la implementa necessita anche l'estensione di AbstractMinigameView per poter settare e chiudere la View stessa.
     L'interfaccia consente comunque di scorporare la View e di cambiare in maniera agevole il componente grafico.\newline
-    \begin{figure}[!t]
+    \begin{figure}[h]
         \centering{}
         \includegraphics[width=150mm]{images/picchiotti/punchyview.png}
         \caption{Schema UML del componente View}
@@ -353,16 +353,16 @@
 	Gli input da propagare verso il Controller sono modellati con l'interfaccia Input, che con pattern Strategy ci permette di cambiare a seconda delle esigenze gli input da passare a InputObserver.
     Essendo necessari solo due comandi per rappresentare il pugno a destra e a sinistra (molto simili tra loro) si è optato per una classe astratta che implementa Input e fa uso del pattern Template Method per farsi fornire dai suoi sottotipi la Direction del pugno.
 	Il metodo template in questione è getPunchDirection() in AbstractPunch.
-    \begin{figure}[!t]
+    \begin{figure}[h]
         \centering{}
-        \includegraphics[width=150mm]{images/picchiotti/punchyinput.png}
+        \includegraphics{images/picchiotti/punchyinput.png}
         \caption{Schema UML dei componenti di gestione di input}
         \label{img:punchyinput}
     \end{figure}
 
 	%
 	La parte di Model è molto semplice, in quanto presenta la classe World come unico entry-point del model, la cui implementazione userà al suo interno i vari componenti Boxer, Timer, Score. La componente dei sacchi da boxe del gioco non ha necessitato di una classe specializzata, poiché modellabile con una semplice lista all'interno di WorldImpl.\newline
-    \begin{figure}[!t]
+    \begin{figure}[h]
         \centering{}
         \includegraphics[width=150mm]{images/picchiotti/punchymodel.png}
         \caption{Schema UML del componente Model}
@@ -373,7 +373,7 @@
     Naturalmente è necessario avere un InputObserver all'interno del Controller e si è optato per l'implentazione di esso direttamente nella classe PunchygameCycleImpl.
     \begin{figure}[!t]
         \centering{}
-        \includegraphics[width=150mm]{images/picchiotti/punchycontroller.png}
+        \includegraphics{images/picchiotti/punchycontroller.png}
         \caption{Schema UML del componente Controller}
         \label{img:punchycontroller}
     \end{figure}
@@ -385,14 +385,14 @@
 	Per il design di questo minigioco ci si è per lo più limitati a implementare le opportune interfacce e a estendere le classi astratte. Sono state create interfacce aggiuntive per la gestione della View (JumpminigameView) e del Model (World).
     \begin{figure}[!t]
         \centering{}
-        \includegraphics[width=150mm]{images/picchiotti/jumpoverview.png}
+        \includegraphics[width=140mm]{images/picchiotti/jumpoverview.png}
         \caption{Schema UML generale del minigioco Jump}
         \label{img:jumpoverview}
     \end{figure}
 
 	In generale, l'interfaccia JumpgameView permette di gestire tutti gli aspetti della View che rispecchiano il Model del gioco, ma la classe che la implementa necessita anche l'estensione di AbstractMinigameView per poter settare e chiudere la View stessa.
     L'interfaccia consente comunque di scorporare la View e di cambiare in maniera agevole il componente grafico.\newline
-    \begin{figure}[!t]
+    \begin{figure}[h]
         \centering{}
         \includegraphics[width=150mm]{images/picchiotti/jumpview.png}
         \caption{Schema UML del componente View}
@@ -403,9 +403,9 @@
 	Gli input da propagare verso il Controller sono modellati con l'interfaccia Input, che con pattern Strategy ci permette di cambiare a seconda delle esigenze gli input da passare a InputObserver.
 	Nel caso di questo minigioco abbiamo tre comandi, ognuno dei quali modifica la velocità orizzontale del giocatore;
     per questo motivo è stata usata una classe astratta che utilizza il pattern Template Method per definire la velocità orizzantale da impostare al giocatore in ogni comando.
-    \begin{figure}[!t]
+    \begin{figure}[h]
         \centering{}
-        \includegraphics[width=150mm]{images/picchiotti/jumpinput.png}
+        \includegraphics{images/picchiotti/jumpinput.png}
         \caption{Schema UML dei componenti di gestione dell'input}
         \label{img:jumpinput}
     \end{figure}
@@ -413,7 +413,7 @@
 	La parte di Model è molto semplice, in quanto presenta la classe World come unico entry-point del model, la cui implementazione userà al suo interno i vari componenti Player, Platform, PlatformSpawner.\newline
 	Come si può vedere dai diagrammi, sia Player che Platform sono sottoclassi di AbstractGameObject, implementazione di base di GameObject.
     In questo modo è stata definita un'interfaccia generale per gli oggetti di gioco in grado di muoversi.\newline
-    \begin{figure}[!t]
+    \begin{figure}[h]
         \centering{}
         \includegraphics[width=150mm]{images/picchiotti/jumpmodel.png}
         \caption{Schema UML del componente Model}
@@ -446,7 +446,7 @@
 
 	\begin{figure}[h]
 		\centering{}
-		\includegraphics[width=\textwidth]{images/miriana/grid_model.png}
+		\includegraphics[width=150mm]{images/ascenzo/grid_model.png}
 		\caption{Schema UML della generazione di una Grid e della sua struttura.}
 		\label{img:gridmodel}
 	\end{figure}
@@ -462,7 +462,7 @@
 
 	\begin{figure}[h]
 	\centering{}
-	\includegraphics[width=\textwidth]{images/miriana/grid_controller.png}
+	\includegraphics[width=130mm]{images/ascenzo/grid_controller.png}
 	\caption{Schema UML del controller di Grid e di come interagisce con GameCycle}
 	\label{img:gridcontroller}
 	\end{figure}
@@ -476,7 +476,7 @@
 
 	\begin{figure}[h]
 		\centering{}
-		\includegraphics[width=\textwidth]{images/miriana/grid_view.png}
+		\includegraphics[width=150mm]{images/ascenzo/grid_view.png}
 		\caption{Schema UML della View della Grid}
 		\label{img:gridview}
 	\end{figure}
@@ -490,7 +490,7 @@
 
 	\begin{figure}[h]
 	\centering{}
-	\includegraphics[width=\textwidth]{images/miriana/grid_observer.png}
+	\includegraphics[width=\textwidth]{images/ascenzo/grid_observer.png}
 	\caption{Schema UML dell'interazione fra GridView e GameCycle. Segue il pattern Observer.}
 	\label{img:gridobserver}
 	\end{figure}
@@ -510,7 +510,7 @@
 
 	\begin{figure}[h]
 	\centering{}
-	\includegraphics[width=\textwidth]{images/miriana/grid_proxy.png}
+	\includegraphics[width=80mm]{images/ascenzo/grid_proxy.png}
 	\caption{Schema UML di come GameCycle accede a GridViewImpl. Segue il pattern Proxy.}
 	\label{img:gridmediator}
 	\end{figure}
@@ -667,6 +667,13 @@
 
 
     \subsection{Davide Freddi}
+    Penso che quanto realizzato sia un prodotto abbastanza solido, che puù essere tranquillamente espanso aggiungendo nuove funzionalità senza particolare fatica.
+    %
+    Penso di essere stato abbastanza utile nella fase di design, soprattutto per alcune scelte che hanno caratterizzato aspetti importanti del progetto.
+    %
+    Sono deluso del fatto che nonostante ritenga il progetto ben strutturato e realizzato, gli strumenti a noi concessi ci hanno permesso di realizzare un gioco poco interessante, sia a livello di gameplay che di grafica.
+    %
+    Penso che il lavoro fosse equamente distribuito, nel senso che dava la possibilità di espandeere le proprie parti e affiungevi nuove funzionalità a chi ritenesse di aver svolto un lavoro non sufficiente al monte ore.
     \subsection{Davide Picchiotti}
     Non sono soddisfatto del codice che ho prodotto nella maggior parte dei casi, in quanto credo di non aver dedicato la giusta attenzione
     al progetto fino ad averlo preso sottogamba.
