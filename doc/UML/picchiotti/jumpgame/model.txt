@@ -1,0 +1,38 @@
+@startuml
+
+title Jump Minigame - Model
+
+interface World {
+    +getWidth(): int
+    +getHeight(): int
+    +update()
+    +isGameOver(): boolean
+    +getPlayerPosition(): Pair<Integer, Integer>
+    +getPlayerSize(): int
+    +getPlatforms(): List<Platforms>
+    +setPlayerSpeedX(speedX: int)
+    +getScore(): int
+}
+
+interface PlatformSpawner {
+    +getPlatforms(): List<Platforms>
+    +updatePlatformsGeneration()
+}
+
+class Player {
+}
+
+class Platform {
+    +getId(): int
+    +doesExist(): boolean
+    +destroy()
+}
+
+class WorldImpl {}
+
+WorldImpl *-- PlatformSpawner
+WorldImpl *-- Player
+WorldImpl *-- Platform
+World <|.. WorldImpl
+
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+Interface View{}
+
+Interface MenuView {}
+
+Class MenuGUI{}
+
+Interface MenuController {}
+
+class MenuControllerImpl{
+}
+MenuView <|.. MenuGUI
+MenuController <|.. MenuControllerImpl
+MenuControllerImpl --o MenuGUI
+MenuView --|> View
+@enduml

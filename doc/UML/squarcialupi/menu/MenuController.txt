@@ -1,0 +1,15 @@
+@startuml
+
+Interface MenuController {
+ +setOptionPlayer(numPlayer : Integer): void
+ +setOptionAI(AI : Integer): void
+ +getOptionsPlayer(): Map<Integer, String> 
+ +getOptionsAI(): Map<String, Difficulty> 
+ +setAIDifficulty(whichAI:Integer,dif: Difficulty): void
+ +startGame(): void
+}
+
+class MenuControllerImpl{}
+MenuController <|.. MenuControllerImpl
+MenuControllerImpl --o MenuGUI
+@enduml

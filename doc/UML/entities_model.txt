@@ -1,0 +1,61 @@
+@startuml
+
+title DPG - Entities Model
+
+interface Grid {
+    +getFirst(): Cell
+    +getLast(): Cell
+    +loadFromEditor(): void
+}
+
+interface Cell {
+    +getType(): CellType
+    +getNext(): Set<Cell>
+    +getPrev(): Cell
+}
+
+interface CellType {
+
+}
+
+interface Player {
+    +getPosition(): Cell
+    +getMinigameScore(): int
+    +getPlayOrder(): int
+    +throwDice(): int
+    +moveTowards(dir: Direction): boolean
+}
+
+interface Human {
+
+}
+
+interface Cpu {
+    +getDifficulty(): DifficultyLevel
+}
+
+interface Minigame {
+    +start(player: Human): void
+    +randomizeScore(player: Cpu): void
+    +getType(): MinigameType
+}
+
+interface MinigameType {
+
+}
+
+interface DifficultyLevel {
+
+}
+
+Grid *-- Cell
+Player o-- Cell
+Human --> Minigame
+Cpu --> Minigame
+Player <|-- Cpu
+Player <|-- Human
+Cell *-- CellType
+Minigame *-- MinigameType
+Cpu *-- DifficultyLevel
+
+@enduml

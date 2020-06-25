@@ -1,0 +1,25 @@
+@startuml
+
+title Punchy Minigame - Input
+
+interface InputObserver {
+    +notify(input: Input)
+}
+
+interface Input {
+    +execute(model: World): boolean
+}
+
+abstract class AbstractPunch {
+    #getPunchDirection(): Direction
+}
+
+class PunchLeft {}
+class PunchRight {}
+
+InputObserver <-- Input
+Input <|.. AbstractPunch
+AbstractPunch <|-- PunchLeft
+AbstractPunch <|-- PunchRight
+
+@enduml

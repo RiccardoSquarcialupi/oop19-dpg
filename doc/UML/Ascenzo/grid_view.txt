@@ -1,0 +1,35 @@
+@startuml
+title Grid View
+
+interface View {
+    +setView(): void
+    +closeView(): void
+}
+
+interface GridView {
+    +setCurrentPlayerName(String: name): void
+    +setRemainingMoves(int: moves): void
+    +showText(String: text): void
+    +removeTest(): void
+    +enableDirectionChoice(Set<Pair<Integer, Integer>>: cells): void
+    +disableDirectionChoice(): void
+    +enableDiceThrow(Dice: dice): void
+    +disableDiceThrow(): void
+    +updatePlayers(Map<Integer, Pair<Integer, Integer>: players): void
+}
+
+class GridViewImpl {
+    +makeCellsList(Pair<Integer, Integer>: coordinates, GridType: type, Set<Pair<Integer, Integer>>: nextCells): void
+    +startGeneration(): void
+}
+
+class ViewNodesFactory {
++generateCell(Color: color): Circle
++generatePlayer(Integer: player): Rectangle
++generateLines(Map<StackPane, Set<Integer, Integer>>: cells): Group
+}
+
+View <|-- GridView
+GridView <|.. GridViewImpl
+GridView o-- ViewNodesFactory
+@enduml

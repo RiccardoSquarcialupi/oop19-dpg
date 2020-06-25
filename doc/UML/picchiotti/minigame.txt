@@ -1,0 +1,31 @@
+@startuml
+
+title Minigame
+
+interface Minigame {
+    +start(): int
+    +randomizeScore(diff: Difficulty): int
+}
+
+abstract class AbstractMinigame {
+    #{abstract} getMaxScore(): int
+    #{abstract} createView(): View
+    #{abstract} createCycle(): MinigameCycle
+}
+
+interface MinigameCycle {
+    +startCycle(): int
+}
+
+abstract class AbstractMinigameView {
+    #{abstract} createScene(): Scene
+}
+
+interface View {}
+
+AbstractMinigameView ..|> View
+Minigame <|.. AbstractMinigame
+AbstractMinigame *-- MinigameCycle
+AbstractMinigame *-- AbstractMinigameView
+
+@enduml

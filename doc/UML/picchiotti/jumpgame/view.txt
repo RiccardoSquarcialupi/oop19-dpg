@@ -1,0 +1,26 @@
+@startuml
+
+title Jump Minigame - View
+
+class JumpMinigameViewImpl{}
+
+interface JumpMinigameView {
+    +setGameSize(width: int, height: int)
+    +createPlayer(x: int, y: int, size: int)
+    +updatePlayer(x: int, y: int)
+    +updatePlatform(x: int, y: int, width: int, height: int, id: int, exist: boolean)
+    +updateScore(score: int)
+    +setInputObserver(obs: InputObserver)
+}
+
+interface View {}
+abstract class AbstractMinigameView {}
+interface InputObserver {}
+
+AbstractMinigameView ..|> View
+JumpMinigameView --|> View
+JumpMinigameViewImpl ..|> JumpMinigameView
+JumpMinigameViewImpl --|> AbstractMinigameView
+JumpMinigameViewImpl *-- InputObserver
+
+@enduml
