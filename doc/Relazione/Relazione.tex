@@ -12,6 +12,9 @@
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+\newcommand{\subsectionbreak}{\clearpage}
+\newcommand{\subsubsectionbreak}{\clearpage}
 
 % Remove option to use English naming
 \usepackage[italian]{cleveref}
@@ -115,8 +118,151 @@
 	\section{Design Dettagliato}
 	%
 	\subsection{Design dettagliato Davide Freddi}
-	Design dettagliato davide freddi
-	%
+	\subsubsection{Player controller}
+    \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=\textwidth]{images/freddi/PlayerControllerImg.png}
+    \caption{Uml del design di PlayerController.}
+    \label{img:goodarch}
+    \end{figure}
+
+    Per gestire le operazioni che richiedono comportamenti diversi tra cpu e giocatori umani all'interno del ciclo di gioco, è stata creata l'interfaccia PlayerController con HumanPlayerController e CpuPlayerController come implementazioni.
+    %
+    Questo permette a un PlayerController, una volta istanziato, di essere usato indipendentemente da se si tratti di una cpu o un giocatore umano.
+    %
+    I PlayerController contengono al loro interno il Character da controllare, e CpuPlayerController in particolare contiene la CPU relativa al Character da controllare.
+
+    \subsubsection{Turn manager}
+    \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=\textwidth]{images/freddi/TurnManager.png}
+    \caption{UML di TurnManager, gli elementi rappresentati fanno parte del controller.}
+    \end{figure}
+    TurnManager gestisce i PlayerController durante il corso della partita, decidendone l'ordine dei turni e svolgendo le operazioni da svolgere alla fine di ogni turno (quali l'esecuzione dei minigiochi).
+    %
+    TurnManager utilizza il pattern \textbf{iterator}, restituendo un Iterator di PlayerController a ogni turno che scorre i player nell'ordine in cui devono svolgere il loro turno.
+    %
+    In questa istanza di iterator TurnManager è l'aggregate, Iterator è l'iterator, TurnManagerImpl è il concrete aggregate, IteratorImpl è il concrete iterator e GamecycleImpl è il client che sfrutta l'iterator e l'aggregate.
+
+    \subsubsection{PlayerFactory}
+    \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=\textwidth]{images/freddi/PlayerFactory.png}
+    \caption{UML di PlayerFactory, gli elementi rappresentati fanno parte del controller.}
+    \end{figure}
+
+    Per isolare la parte di inizializzazione di un PlayerController (che comprende tra le altre cose la creazione di un Character), dall'utilizzo effettivo di quest'ultimo, è stata creata una PlayerFatory.
+    %
+    PlayerFactory utilizza \textbf{factory method} come pattern, e in questa istanza del pattern PlayerFactory è il creator, PlayerFactoryImpl è il concrete creator, PlayerController è il product e HumanPlayerController e CpuPlayercontroller sono i concrete product.
+
+    \subsubsection{Turn manager builder}
+    \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=\textwidth]{images/freddi/TurnManagerBuilder.png}
+    \caption{UML di TurnManagerBuilder, gli elementi rappresentati fanno parte del controller.}
+    \end{figure}
+
+    TurnManagerBuilder serve per generare un TurnManager in maniera agevole tramite il pattern \textbf{builder}.
+    %
+    In questa istanza di builder TurnManagerBuilder è il builder, TurnManager è il Product e GamecycleImpl è il director che utilizza il builder per creare il product.
+
+    \subsubsection{Gamecycle e gamecycle builder}
+    \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=\textwidth]{images/freddi/GameCycle.png}
+    \caption{UML di Gamecycle, gli elementi rappresentati fanno parte del controller.}
+    \end{figure}
+
+    GamecycleBuilder viene utilizzato da MenuController, e seguendo il pattern \textbf{builder} genera il Gamecycle.
+    %
+    Questo da la possibilità all'utilizzatore del builder di creare un gamecycle che esegua una partita con regole diverse, in base alle esigenze.
+    %
+    Il gamecycle crea un thread che esegue le operazioni in background, aggiurnando la view quando necessario.
+    %
+    GameState esiste per tenere traccia dei vari stati del gioco, nel GameCycle viene creata una sola istanza di GameState e sia il GameCycle sia i PlayerController possono accedervi per leggere o modificare lo stato del gioco.
+    %
+    L'istanza di GameState viene inoltre usata per la sincronizzazione del thread del gamecycle con gli altri thread.
+
+    \subsubsection{Ball minigame}
+    \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=\textwidth]{images/freddi/BallMinigame.png}
+    \caption{UML semplificato di BallMinigame.}
+    \end{figure}
+
+    Il minigioco BallMinigame si compone di un ciclo di gioco, che attua delle modifiche su una view tramite la sua interfaccia.
+    %
+    Vengono estese le classi astratte dei minigiochi.
+
+    \subsubsection{Ball observer}
+    \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=\textwidth]{images/freddi/BallObserver.png}
+    \caption{UML di BallObserver.}
+    \end{figure}
+
+    Viene usato il pattern \textbf{observer} per catturare gli input della view, ricevendo le informazioni necessarie per aggiornare il proprio stato.
+    %
+    In questa istanza di observer BallView è il subject, BallViewImpl è il concrete subject, BallObserver è l'observer e BallGamecycleImpl è il concrete observer.
+
+    \subsubsection{Nodes factory}
+    \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=\textwidth]{images/freddi/NodesFactory.png}
+    \caption{UML di BallObserver, tutti gli elementi fanno parte della view.}
+    \end{figure}
+
+    Questa classe serve per creare i nodi necessari alla view.
+    %
+    NodesFactory segue il pattern \textbf{simple factory}, in quanto restituisce tramite il metodo createNodes un'implementazione di List[Node] che cambia in base al BallMinigameLevel passato come parametro.
+    %
+    Questo permette di creare una serie di view per diversi livelli in maniera agevole.
+    %
+    Dato che la dimensione della view varia in base alla dimensione dello schermo, viene passata l'implementazione di una Function che serve per mappare le coordinate dei nodi in modo da adattarli alla dimansione della view.
+    %
+    Si fa quindi uso del pattern \textbf{strategy}, in cui NodesFactory è il context e Function è la strategy, che viene implementata da BallViewImpl quando istanzia NodesFactory.
+
+    \subsubsection{Ball minigame model}
+    \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=\textwidth]{images/freddi/BallMinigameModel.png}
+    \caption{UML di BallMinigameModel}
+    \end{figure}
+
+    BallMinigameModel è l'unica interfaccia di modello a cui il Gamecycle fa riferimento.
+    %
+    Permette di selezionare il livello, ottenere informazioni sulla partita ad ogni frame e salvare lo stato delle direzioni scelte dall'utente.
+
+    \subsubsection{Ball environment factory}
+    \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=\textwidth]{images/freddi/BallEnvironmentFactory.png}
+    \caption{UML di BallEnvironmentFactory, tutti gli elementi fanno parte del model}
+    \end{figure}
+
+    Sfrutta il pattern \textbf{factory method} per generare un'istanza di BallEnvironment in base al livello passato al metodo createEnvironment.
+    %
+    Questo permette la creazione di diversi livelli in maniera agevole.
+    %
+    In questa istanza di factory method, BallEnvironmentFactory è il creator, BallEnvironmentFactoryImpl è il concrete creator, BallEnvironment è il prouct e BallEnvironmentImpl è il concrete product.
+
+    \subsubsection{Ball environment}
+    \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=\textwidth]{images/freddi/BallEnvironment.png}
+    \caption{UML di BallEnvironment, tutti gli elementi fanno parte del model}
+    \end{figure}
+
+    BallEnvironment è l'ambiente in cui la palla si muove e collide contro i muri.
+    %
+    A ogni frame viene ricalcolata la posizione della palla, si controlla se collide o meno con un muro e si gestisce la collisione nel caso.
+    %
+    Boundary rappresenta un muro, identificato con punti di inizio, fine e tipo di collisione.
+    %
+    Nonostante Boundary sia stato implementato solo con HorizontalBoundary e VerticalBoundary, l'interfaccia Boundary può essere implementata in diversi modi, anche con boundary con angolazioni diverse, che complicano il calcolo della collisione con la palla.
+    %
+    HorizontalBoundary e VertivalBoundary erano tuttavia sufficienti per ball minigame, in quanto i muri sono o verticali o orizzontali.
+
 	\subsection{Design dettagliato Davide Picchiotti}
 	\subsubsection{Modellazione dei giocatori}
 	In questa sezione si tratterà il design dei giocatori all'interno del modello.\newline
@@ -360,6 +506,21 @@
 	\section{Testing automatizzato}
 
 	\subsection{Davide Freddi}
+	I test sono stati eseguiti con junit5, Mockito, e testFx per le view.
+    %
+    Sono stati eseguiti dei test automatici sulle classi principali del camecycle.
+    %
+    In particolare sono state testate le classi HumanPlayerController, controllando che i metodi utilizzati gestissero correttamente le pause e le richieste di scelta, CpuPlayerController, controllando che i metodi funzionassero correttamente interagendo con Cpu e automatizzando le scelte, GameState, controllando che gli stati venissero letti e modificati correttamente, e TurnManager, controllando che i PlayerController venissero gestiti correttamente, e che le ricompense venissero assegnate correttamente ai character con un punteggio più alto.
+    %
+    Sono inoltre stati eseguiti dei test automatici sulle classi si ball minigame.
+    %
+    Sono stati eseguiti dei test sulle boundary per verificare che rilevassero correttamente le collisioni.
+    %
+    Sono stati eseguiti dei test su Ball, per verificare che si muovesse correttamente.
+    %
+    Sono stati eseguiti alcuni test su ballEnvironment, per verificare che gestisse bene le collisioni della palla con le boundary.
+    %
+    Sono stati eseguiti dei test su BallMinigameView con testFx.
 	\subsection{Davide Picchiotti}
 
     Sono state sottoposte a testing automatizzato le implmentazioni delle interfacce Character e Cpu.
@@ -391,6 +552,17 @@
 	\section{Metodologia di lavoro}
 
 	\subsection{Sezione Davide Freddi}
+
+	Il ruolo nel gruppo è stato quello di realizzare le classi relative al gamecycle presenti nel package it.dpg.maingame.controller.gamecycle, e le classi del minigioco gamecycle presenti nel package package it.dpg.minigames.ballgame.
+    %
+    Dopo aver progettato insieme le interfacce principali dell'architettura, abbiamo potuto iniziare a lavorare in maniera individuale sulle nostre parti.
+    %
+    In fase di integrazione è stata necessaria l'aggiunta al gamecycle dei metodi necessari per la pausa del turno, in quanto non c'era modo di fermare il gioco per un tempo indeterminato.
+    %
+    Come DVCS abbiamo usato git, in particolare abbiamo usato una repository su bitbucket, e abbiamo gestito le branch con gitflow.
+    %
+    Generalmente ogniuno procedeva a modificare la propria feature, per poi eseguire il merge delle modifiche in develop.
+
 	\subsection{Sezione Davide Picchiotti}
 
     Io mi sono occupato di modellare gli aspetti di Model di un giocatore e quindi delle classi presenti nel package it.dpg.maingame.model.character.\newline
@@ -413,6 +585,15 @@
 	\section{Note di sviluppo}
 
 	\subsection{Davide Freddi}
+
+	In questa parte di codice sono state usate labda e stream in più punti, perchè risultavano comode nell'implementazione.
+    %
+    Le uniche librerie esterne utilizzate sono JavaFx per le view, testFx per i test sulle view, e Mockito per la geneazione di classi mock nei test.
+    %
+    Gradle è stato utilizzato come build system.
+    %
+    L'unico algoritmo che è risultato non banale, è stato quello della rilvazione delle collisioni nell minigoco.
+
 	\subsection{Davide Picchiotti}
 
     Durante lo sviluppo sono stati sfruttati aspetti avanzati del linguaggio, nello specifico: Stream e lambda expressions.\newline
