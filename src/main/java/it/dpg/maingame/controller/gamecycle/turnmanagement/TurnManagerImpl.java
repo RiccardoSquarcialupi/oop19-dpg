@@ -14,6 +14,7 @@ public class TurnManagerImpl implements TurnManager {
     private final GameState state;
     private int remainingTurns;
     private Iterator<PlayerController> iterator;
+    private int arrayVal = -1;
 
     /**
      * @param defaultDice the dice everyone gets in the first turn
@@ -63,7 +64,7 @@ public class TurnManagerImpl implements TurnManager {
         if (remainingTurns <= 0) {
             throw new IllegalStateException();
         }
-        MinigameType playedMinigame = getRandomMinigame();
+        MinigameType playedMinigame = getMinigameEnum();
         for (PlayerController player : players) {
             player.playMinigame(playedMinigame);
         }
@@ -78,10 +79,14 @@ public class TurnManagerImpl implements TurnManager {
         this.iterator = players.iterator();
     }
 
-    private MinigameType getRandomMinigame() {
+    private MinigameType getMinigameEnum() {
         var types = MinigameType.values();
-        int i = new Random().nextInt(types.length);
-        return types[i];
+        if(arrayVal == -1) {
+            arrayVal = new Random().nextInt(types.length);
+        } else {
+            arrayVal = (arrayVal + 1) % types.length;
+        }
+        return types[arrayVal];
     }
 
     @Override
