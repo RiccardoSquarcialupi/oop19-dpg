@@ -517,6 +517,83 @@
 
 	\subsection{Design dettagliato Riccardo Squarcialupi}
 	Design dettagliato Riccardo Squarcialupi
+	\newline
+	\subsubsection{modello Menu}
+	In questa sezione verrà trattato nel dettaglio il design del Menu iniziale.
+	Per il design si è creato ed implementato la parte di MenuView estendendo l'interfaccia View, e MenuController cioè la logica(Pattern Strategy).
+    	\begin{figure}[h]
+        \centering{}
+        \includegraphics[width=150mm]{images/squarcialupi/Menu-overview.png}
+        \caption{Schema UML generale del Menu.}
+        \label{img:Menu-overview}
+    	\end{figure}
+	\subsubsection{Menu Controller}
+	La parte di controller è essenzialmente costituita dai metodi che vanno ad impostare correttamente le opzioni per il successivo avvio del minigioco.
+    	\begin{figure}[h]
+    	\centering{}
+    	\includegraphics[width=\textwidth]{images/squarcialupi/MenuController.png}
+    	\caption{Uml del design di MenuController.}
+    \newline
+    \label{img:MenuController}
+    \end{figure}
+    %
+    \subsubsection{Menu View}
+    MenuView è stata implementata con JavaFX e contiene:
+	\begin{itemize}
+	    \item un bottone Start per avviare il gioco
+	    \item un bottone Credits per visualizzare gli sviluppatori del gioco (richiamando il controller)
+	    \item un bottone Options per configurare le opzioni dei Giocatori e AI
+	    \item un bottone exit per uscire dall'app
+	\end{itemize}
+	\newline
+    \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=\textwidth]{images/squarcialupi/MenuView.png}
+    \caption{Uml del design di MenuView.}
+    \label{img:MenuView}
+    \end{figure}
+    %
+	\subsubsection{Mole Minigame}
+	In questa sezione verrà trattato nel dettaglio il design del minigioco Mole.\newline
+	\newline
+	Per il design di questo minigioco ci si è per lo più limitati a implementare le opportune interfacce e a estendere le classi astratte.
+    Sono state create interfacce aggiuntive per la gestione della View (HitTheMoleView).
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/squarcialupi/molegame-overview.png}
+        \caption{Schema UML generale del minigioco Hit The Mole}
+        \label{img:molegame-overview}
+    \end{figure}
+
+	L'interfaccia HitTheMoleView permette di gestire tutti gli aspetti della View, ma la classe che la implementa necessita anche l'estensione di AbstractMinigameView per poter settare e chiudere la View stessa.
+    L'interfaccia consente comunque di scorporare la View e di cambiare in maniera agevole il componente grafico.\newline
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/squarcialupi/molegame-viewPart.png}
+        \caption{Schema UML del componente View}
+        \label{img:molegame-viewPart}
+    \end{figure}
+
+	La parte di Controller è costituito dal ciclo di gioco, ci si limita quindi a implementare l'interfaccia MinigameCycle.
+	HitTheMoleCycle quindi gestisce gli input in arrivo dalla view e il ciclo di gioco che consiste nel far visualizzare/sparire le talpe, inoltre gestisce il timer di gioco e i punti.
+    Si utilizza anche in questo caso il pattern Strategy.
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/squarcialupi/molegame-controllerPart.png}
+        \caption{Schema UML dei componenti di gestione di input}
+        \label{img:molegame-controllerPart}
+    \end{figure}
+
+	%
+	La parte di Model è molto semplice, si tratta infatti di 3 semplici implementazioni riguardanti le entità utlizzate nel minigame, ovvero Mole, Score e Timer.\newline
+    \begin{figure}[!t]
+        \centering{}
+        \includegraphics[width=150mm]{images/squarcialupi/molegame-modelPart.png}
+        \caption{Schema UML del componente Model}
+        \label{img:molegame-modelPart}
+    \end{figure}
+	%
+    
 
 	\chapter{Sviluppo}
 	\section{Testing automatizzato}
@@ -566,6 +643,11 @@
 
 
 	\subsection{Riccardo Squarcialupi}
+	
+	I test automatizzati per il Menu sono stati sviluppati esclusivamente per la sua parte di controllo in particolare sulla parte di opzioni.
+    	Per quanto riguarda MoleMiniGame, sono state sottoposte a test automatizzato le parti di modello(Score,Timer,Mole) e controller(HitTHeMoleCycle).
+    	I test della sezione view del minigioco e menu non sono stati sviluppati per la semplicità delle view stesse.
+    	In tutti i test è stata usata la suite JUnit 5.
 
 	\section{Metodologia di lavoro}
 
@@ -610,7 +692,18 @@
     Abbiamo principalmente lavorato in modo ordinato su branch differenti, facendo dei merge in develop per concludere.
 
 	\subsection{Sezione Riccardo Squarcialupi}
-
+	
+Il ruolo nel gruppo è stato quello di creare il Menu inziale e il minigioco Hit The Mole.
+    %
+    La linea guida generale è stata quella di definire le principali interfacce in fase di analisi con tutto il gruppo, in modo da poter procedere da subito a lavorare autonomamente.
+    %
+    Inizialmente si è sviluppato il menu principale del gioco, per poi passare al minigioco.
+	%
+	Un problema presentatosi alla fine dello sviluppo del minigame e' stata la non corretta cooperazione tra view e controller per un errore di codice.
+    %
+    Come DVCS è stato utilizzato Git con lo strumento Git Flow, per poter avere una struttura del repository pulita e standard.
+    %
+    Generalmente ognuno ha proceduto a sviluppare in feature branch separate per non sporcare il codice funzionante in develop.
 
 	\section{Note di sviluppo}
 
@@ -652,6 +745,11 @@
     Gradle è stato utilizzato come build system.
 
 	\subsection{Riccardo Squarcialupi}
+	
+ 	Durante lo sviluppo sono stati utilizzati aspetti avanzati del linguaggio come le lambda, inoltre si è utilizzato librerie esterne come JavaFX, JUnit5.
+    	Non sono stati sviluppati algoritmi o logiche particolarmente complesse o interessanti.
+     	%
+    	Gradle è stato utilizzato come build system.
 
 	\chapter{Commenti finali}
 
@@ -691,6 +789,8 @@
 
     \subsection{Riccardo Squarcialupi}
 
+     Il mio lavoro è iniziato in maniera lineare per poi fermarsi per un periodo abbastanza pronunciato complice gli altri 2 progetti e gli ulteriori esami, credo di aver gestito male il tempo a mia disposizione, sono in generale sufficientemente contento nel mio lavoro all'interno del gruppo acnhe se durante lo sviluppo sono stati fatti alcuni piccoli errori.
+
     \section{Difficoltà incontrate e commenti per i docenti}
 
 	\subsection{Davide Freddi}
@@ -699,6 +799,7 @@
     durante il secondo semestre, mentre ero concentrato principalmente a seguire lezioni di corsi nuovi e per i quali avrei dovuto preparare esami per questa estate.
 
     \subsection{Riccardo Squarcialupi}
+	La mia difficoltà principale è stata la mia inesperienza in un progetto ben esteso come questo ho avuto difficoltà nella comprensione e applicazione dei pattern di progettazione, sicuramente la vicinanza con gli esami della sessione estiva non ha giovato all'insieme.
     \subsection{Miriana Ascenzo}
     Questa è stata la prima esperienza di un lavoro di gruppo mediamente grande.
     %
