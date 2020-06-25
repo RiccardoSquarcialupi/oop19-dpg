@@ -1,0 +1,27 @@
+@startuml
+
+class MoleMiniGame {
+    +getMaxScore(): int
+    #createView(): View
+    #createCycle(): MinigameCycle
+}
+
+
+abstract class AbstractMinigame {}
+interface MinigameCycle {}
+interface HitTheMoleView {}
+class HitTheMoleCycle {}
+interface Score{}
+interface Timer{}
+interface Mole
+interface View {}
+
+AbstractMinigame <|-- MoleMiniGame
+HitTheMoleView --|> View
+MoleMiniGame o-- HitTheMoleCycle
+MoleMiniGame ..|> MinigameCycle
+HitTheMoleCycle o-- Score
+HitTheMoleCycle o-- Timer
+HitTheMoleCycle o-- Mole
+HitTheMoleCycle o-- HitTheMoleView
+@enduml
