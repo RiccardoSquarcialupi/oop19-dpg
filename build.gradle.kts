@@ -1,6 +1,7 @@
 plugins {
     java
     application
+    id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
 repositories {
@@ -44,4 +45,8 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+application {
+    mainClassName = "it.dpg.maingame.launcher.Launcher"
 }

@@ -136,9 +136,9 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
             for (var p : listMole) {
                 for (var i : moleOut) {
                     if (p.getKey().equals(i.getKey())) {
-                        p.getValue().setGraphic(new ImageView(new Image(holeWithMole)));
+                        p.getValue().setGraphic(new ImageView(new Image(ClassLoader.getSystemResourceAsStream(holeWithMole))));
                     } else {
-                        p.getValue().setGraphic(new ImageView(new Image(holeWithoutMole)));
+                        p.getValue().setGraphic(new ImageView(new Image(ClassLoader.getSystemResourceAsStream(holeWithoutMole))));
                     }
                 }
             }

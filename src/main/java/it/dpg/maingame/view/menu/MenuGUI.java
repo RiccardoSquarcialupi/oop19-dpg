@@ -48,7 +48,7 @@ public class MenuGUI implements MenuView {
      * @param stage Represent the "case" for the all Graphics Stuff
      */
     public void initializeGUI(final Stage stage) {
-        optionStage = stage;
+        optionStage = new Stage();
         startBtn.setPrefSize(100, 60);
         startBtn.setFont(Font.font(15));
         creditBtn.setPrefSize(100, 60);
@@ -105,7 +105,6 @@ public class MenuGUI implements MenuView {
      */
     @Override
     public void displayOptions() {
-
         ObservableList<Integer> listNumPlayer = FXCollections.observableArrayList(1, 2, 3, 4);
         ObservableList<Integer> listNumAI = FXCollections.observableArrayList(0, 1, 2, 3, 4);
         ObservableList<Difficulty> listDifficultyAI = FXCollections.observableArrayList(Difficulty.EASY, Difficulty.NORMAL, Difficulty.HARD);

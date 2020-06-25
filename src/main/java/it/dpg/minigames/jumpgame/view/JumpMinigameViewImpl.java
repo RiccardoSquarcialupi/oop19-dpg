@@ -35,6 +35,7 @@ public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMi
     private Rectangle player;
     private Text scoreText;
     private Map<Integer, Rectangle> platforms = new HashMap<>();
+    private Scene scene;
 
     private boolean leftPressed = false;
     private boolean rightPressed = false;
@@ -48,7 +49,7 @@ public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMi
         scoreText.setFont(new Font(20));
         pane.getChildren().add(scoreText);
 
-        Scene scene = new Scene(pane);
+        scene = new Scene(pane);
 
         scene.setOnKeyPressed(k -> {
             if(k.getCode() == KeyCode.LEFT && !leftPressed) {
@@ -74,8 +75,8 @@ public class JumpMinigameViewImpl extends AbstractMinigameView implements JumpMi
     @Override
     public void setGameSize(int width, int height) {
         pane.setPrefSize(width, height);
-        pane.setMinWidth(Region.USE_PREF_SIZE);
-        pane.setMinHeight(Region.USE_PREF_SIZE);
+        scene.getRoot().resize(pane.getPrefWidth(), pane.getHeight());
+
     }
 
     @Override

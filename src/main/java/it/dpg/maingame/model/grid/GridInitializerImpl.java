@@ -5,8 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,21 +25,16 @@ public class GridInitializerImpl implements GridInitializer {
      */
     private void setJson(GridType gridType) {
 
-        String path;
+        InputStream path;
 
         /*The json is set based on the grid type*/
         if (gridType.equals(GridType.GRID_ONE)) {
-            path = "src/main/resources/json/grid1.json";
+            path = ClassLoader.getSystemResourceAsStream("json/grid1.json");
         } else {
             path = null;
         }
-
-        try {
-            if (path != null) {
-                jsonString = Files.readString(Paths.get(path));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (path != null) {
+            jsonString =  new BufferedReader(new InputStreamReader(path)).lines().collect(Collectors.joining());
         }
     }
 
