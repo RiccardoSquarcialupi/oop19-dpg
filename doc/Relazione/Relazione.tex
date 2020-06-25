@@ -177,7 +177,7 @@
     %
     Questo da la possibilità all'utilizzatore del builder di creare un gamecycle che esegua una partita con regole diverse, in base alle esigenze.
     %
-    Il gamecycle crea un thread che esegue le operazioni in background, aggiurnando la view quando necessario.
+    Il gamecycle crea un thread che esegue le operazioni in background, aggiornando la view quando necessario.
     %
     GameState esiste per tenere traccia dei vari stati del gioco, nel GameCycle viene creata una sola istanza di GameState e sia il GameCycle sia i PlayerController possono accedervi per leggere o modificare lo stato del gioco.
     %
@@ -231,7 +231,15 @@
 
     BallMinigameModel è l'unica interfaccia di modello a cui il Gamecycle fa riferimento.
     %
-    Permette di selezionare il livello, ottenere informazioni sulla partita ad ogni frame e salvare lo stato delle direzioni scelte dall'utente.
+    Permette di selezionare il livello da giocare, settando così un certo comportamento per la pallina.
+    %
+    Permette inoltre di ottenere informazioni sulla partita ad ogni frame, in base all'input del giocatore che viene notificato al modello tramite gli appositi metodi.
+    %
+    Gestice inoltre il punteggio, che cala mano a mano col passare del tempo.
+    %
+    Il modello richiede come parametro un valore di fps attesi, ovvero il numero di volte che si aspette di essere aggiornato ogni secondo.
+    %
+    Questo valore influenza il tempo calcolato tra un frame e l'altro per il movimento della palla nel livello.
 
     \subsubsection{Ball environment factory}
     \begin{figure}[h]
@@ -242,7 +250,7 @@
 
     Sfrutta il pattern \textbf{factory method} per generare un'istanza di BallEnvironment in base al livello passato al metodo createEnvironment.
     %
-    Questo permette la creazione di diversi livelli in maniera agevole.
+    Questo permette la creazione di diversi livelli in maniera agevole, cambiando semplicemente l'implementazone di ballEnvirmenr al variare dell'enum.
     %
     In questa istanza di factory method, BallEnvironmentFactory è il creator, BallEnvironmentFactoryImpl è il concrete creator, BallEnvironment è il prouct e BallEnvironmentImpl è il concrete product.
 
