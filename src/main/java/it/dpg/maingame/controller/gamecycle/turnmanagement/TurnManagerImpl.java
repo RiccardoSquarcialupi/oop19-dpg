@@ -35,7 +35,7 @@ public class TurnManagerImpl implements TurnManager {
         }
         if (rewardDices.size() < playerSet.size()) {//if the condition is true, extend the list of dice with the lowest one
             Dice lowestDice = rewardDices.isEmpty() ? defaultDice : rewardDices.get(rewardDices.size() - 1);
-            while (rewardDices.size() < playerSet.size()) {
+            while (this.rewardDices.size() < playerSet.size()) {
                 this.rewardDices.add(lowestDice);
             }
         }
