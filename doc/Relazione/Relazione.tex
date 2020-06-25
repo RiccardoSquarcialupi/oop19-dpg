@@ -431,7 +431,7 @@
 	%
 
 	\subsection{Design dettagliato Miriana Ascenzo}
-
+    \subsubsection {modello Grid}
 	In modello, una classe GridInitializer si occupa della creazione di una Grid, ovvero un Tabellone di Gioco, partendo da un GridType.
 	%
 	GridInitializer cerca, in base al tipo di Griglia passatogli, un file json corrispondente: tale file viene letto tramite l'uso della libreria Jackson.
@@ -441,6 +441,8 @@
 	I dati vengono letti raccolti dal json Cella per Cella, tramite la classe CellParser.
 	%
 	Vengono quindi create diverse Cell, che compongono una Grid.
+    %
+    Abbiamo un Pattern Builder, per cui abbiamo un builder GridInitializer che crea i il product Grid.
 
 	\begin{figure}[h]
 		\centering{}
@@ -449,11 +451,14 @@
 		\label{img:gridmodel}
 	\end{figure}
 
+    \subsubsection {controller Grid}
 	In controller, abbiamo una classe GridGenerator: tramite il suo unico metodo generate(), vengono creati prima una Grid, e poi una GridView basata su tale Grid.
 	%
 	Una Grid viene creata a partire dagli elementi che gli vengono forniti: GridGenerator prende per costruttore una GridType (enum di possibili griglie) e tramite essa cerca nelle resources un file Json corrispondente.
 	%
 	GridGenerator riceve inoltre un GameCycle: questo verrà passato a GridView affinchè la view generi il suo GridObserver.
+    %
+    GridGenerator è colui che usa il builder GridInitializer per creare i Product View e GridView.
 
 	\begin{figure}[h]
 	\centering{}
@@ -462,6 +467,7 @@
 	\label{img:gridcontroller}
 	\end{figure}
 
+    \subsubsection {Grid View}
 	La View della Griglia estende da View, e viene in seguito implementata affinchè generi i nodi necessari.
 	%
 	La generazione di alcuni nodi ripetuti viene gestita in una classe ViewNodesFactory: essa genera le Celle in base alla posizione, le linee che collegano tali Celle, e i player.
@@ -475,6 +481,7 @@
 		\label{img:gridview}
 	\end{figure}
 
+    \subsubsection {Grid Observer}
 	Gli elementi di GridView che ricevono input dall’esterno, ad esempio i bottoni, hanno il ruolo di informare il gameCycle di quale azione è stata intrapresa da chi sta usando il software.
 	%
 	Per questo viene generato GridObserver, una classe di pattern Observer.
@@ -488,6 +495,7 @@
 	\label{img:gridobserver}
 	\end{figure}
 
+    \subsubsection {Grid Proxy}
 	I nodi di GridViewImpl vengono aggiornati in runtime ogni volta che gli elementi all’interno del software, quali players, dices, scritte da rappresentare, vengono modificati dal controller (ovvero il gameCycle).
 	%
 	Per aggiornare i nodi correttamente in runtime, esiste una classe GridViewPlat: quest'ultima implementa GridView, e riceve da GridGenerator una GridViewImpl.
@@ -553,6 +561,8 @@
 	Per la View sono stati eseguiti dei test automatici facendo uso della libreria TestFX; in particolare sono stati testati il corretto aggiornamento del Label principale nella view (dove appaiono le scritte del tipo “start game”, “dice result”),
 	%
 	il corretto aggiornamento della posizione dei player all'interno della mappa, e la possibilità di cliccare o meno il button per tirare il dado in base a se il tiro è abilitato o disabilitato.
+    %
+    Per svolgere i test sono state usate le librerie di JUnit, Mockito, TestFX.
 
 
 	\subsection{Riccardo Squarcialupi}
@@ -583,9 +593,17 @@
 
 	\subsection{Sezione Miriana Ascenzo}
 
-	Il ruolo nel gruppo è stato quello di creare strutture dati per le Celle e la Griglia del gioco, la creazione delle stesse a partire da un json, e la creazione di una View che rappresentasse la griglia creata e che si aggiornasse in tempo reale in base ai cambiamenti dettati dal controller.
+	Il ruolo nel gruppo è stato quello di creare strutture dati per le Celle e la Griglia del gioco, la creazione delle stesse a partire da un json.
+    %
+    E' stata creata una View che rappresentasse la griglia creata e che si aggiornasse in tempo reale in base ai cambiamenti dettati dal controller.
 	%
-	Un problema presentatosi durante la fase d’integrazione, è stato la dimenticanza in fase di design di un metodo “getPrevious” in Cell; il metodo serve per poter implementare la funzionalità “StepBackwards”, ovvero la possibilità di tornare indietro nella griglia.
+	Un problema presentatosi durante la fase d’integrazione, è stato la dimenticanza in fase di design di un metodo “getPrevious” in Cell;
+    %
+    il metodo serve per poter implementare la funzionalità “StepBackwards”, ovvero la possibilità di tornare indietro nella griglia.
+    %
+    Come DVCS è stato usato git, le branch sono state gestite con gitflow.
+    %
+    Abbiamo principalmente lavorato in modo ordinato su branch differenti, facendo dei merge in develop per concludere.
 
 	\subsection{Sezione Riccardo Squarcialupi}
 
@@ -626,6 +644,8 @@
 	La classe TestFX permette di eseguire test sulla GUI.
 	%
 	La classe Mockito permette, in fase di test, di creare classi Mock a partire da interfacce esistenti (simulano il comportamento di classi che implementano tali interfacce).
+    %
+    Gradle è stato utilizzato come build system.
 
 	\subsection{Riccardo Squarcialupi}
 
@@ -638,7 +658,7 @@
     %
     Il lavoro è stato svolto in maniera abbastanza lineare, realizzando in ordine le diverse fasi del progetto.
     %
-    Le classi di generazione del Tabellone di Gioco e di View sono state automatizzate al meglio delle capacità, risultando in una view facilmente sostituibile.
+    Le classi di generazione del Tabellone di Gioco e di View sono state automatizzate al meglio delle capacità, risultando in una view facilmente sostituibile. \newline
     Punti di debolezza:
     %
     Sono stati fatti errori di distrazione, il che ha richiesto dover tornare indietro nel codice più volte pe trovare tali errori e correggerli.
