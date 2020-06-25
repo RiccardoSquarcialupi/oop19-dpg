@@ -6,6 +6,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -26,7 +27,7 @@ public class GridInitializerImpl implements GridInitializer {
 
         /*The json is set based on the grid type*/
         if (gridType.equals(GridType.GRID_ONE)) {
-            path = "src/main/resources/json/grid1.json";
+            path = getClass().getResource("/json/grid1.json").toString();
         } else {
             path = null;
         }

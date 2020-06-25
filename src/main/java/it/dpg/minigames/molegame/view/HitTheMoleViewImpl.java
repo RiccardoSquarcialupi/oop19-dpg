@@ -33,8 +33,8 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
     private static final Color BG_COLOR = Color.GREEN;
     private String sep = File.separator;
 
-    private String holeWithoutMole = "images" + sep + "molegame" + sep + "holewithoutmole.png";
-    private String holeWithMole = "images" + sep + "molegame" + sep + "holewithmole.png";
+    private String holeWithoutMole = sep + "images" + sep + "molegame" + sep + "holewithoutmole.png";
+    private String holeWithMole = sep + "images" + sep + "molegame" + sep + "holewithmole.png";
 
     private volatile List<Pair<Integer, Label>> listMole = new ArrayList<>();
     private GridPane gp = new GridPane();
@@ -136,9 +136,9 @@ public class HitTheMoleViewImpl extends AbstractMinigameView implements HitTheMo
             for (var p : listMole) {
                 for (var i : moleOut) {
                     if (p.getKey().equals(i.getKey())) {
-                        p.getValue().setGraphic(new ImageView(new Image(holeWithMole)));
+                        p.getValue().setGraphic(new ImageView(new Image(getClass().getResourceAsStream(holeWithMole).toString())));
                     } else {
-                        p.getValue().setGraphic(new ImageView(new Image(holeWithoutMole)));
+                        p.getValue().setGraphic(new ImageView(new Image(getClass().getResourceAsStream(holeWithoutMole).toString())));
                     }
                 }
             }
